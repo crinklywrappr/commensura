@@ -1,0 +1,44 @@
+commensura
+Copyright (C) 2026  crinklywrappr
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version. See the LICENSE file for the full text.
+
+================================================================================
+Attribution for bundled unit data
+================================================================================
+
+The file `resources/commensura/units.edn` is generated (by the dev-only tool
+`commensura.units.convert`, in `dev/`) from Frink's `units.txt` data file, and is
+a derivative work of it.
+
+Data lineage:
+
+  * Frink and its `units.txt` data file
+    Alan Eliasen <eliasen@mindspring.com>  —  https://frinklang.org/
+    (source: dev-resources/frink/units.txt)
+
+  * GNU units
+    Adrian Mariano <adrianm@gnu.org>
+    Frink's data file is "adapted, modified, and extended from the units
+    database for use with GNU units."  GNU units is licensed under the GNU
+    General Public License; this lineage is why commensura is distributed under
+    the GPL.
+
+  * The Bell Labs UNIX `units` program (Version 7, 1979), from which the GNU
+    units program and its interface descend.
+
+Primary sources of the underlying values, as credited in the `units.txt` header,
+include (non-exhaustive):
+
+  * NIST Special Publication 811 (1995)
+  * CODATA Recommended Values of the Fundamental Physical Constants
+  * BIPM SI Brochure
+  * CRC Handbook of Chemistry and Physics (70th ed.)
+  * Oxford English Dictionary; and numerous works on historical weights and
+    measures (see the header of dev-resources/frink/units.txt for the full list).
+
+No claim of copyright is made over the underlying factual measurement data; this
+NOTICE records the provenance and the license obligations of the compiled work.

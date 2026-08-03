@@ -1,0 +1,4710 @@
+{:base-dimensions
+ #{:luminous_intensity
+   :mass
+   :time
+   :currency
+   :amount_of_substance
+   :current
+   :length
+   :information
+   :temperature},
+ :prefixes
+ {"T" 1000000000000N,
+  "d" 1/10,
+  "n" 1/1000000000,
+  "femto" 1/1000000000000000,
+  "milli" 1/1000,
+  "z" 1/1000000000000000000000,
+  "nano" 1/1000000000,
+  "tera" 1000000000000N,
+  "yocto" 1/1000000000000000000000000,
+  "µ" 1/1000000,
+  "f" 1/1000000000000000,
+  "micro" 1/1000000,
+  "Q" 1000000000000000000000000000000N,
+  "q" 1/1000000000000000000000000000000,
+  "p" 1/1000000000000,
+  "deka" 10,
+  "gibi" 1073741824,
+  "pico" 1/1000000000000,
+  "Ti" 1099511627776,
+  "G" 1000000000N,
+  "deca" 10,
+  "myria" 10000N,
+  "giga" 1000000000N,
+  "M" 1000000N,
+  "third" 1/3,
+  "yotta" 1000000000000000000000000N,
+  "Y" 1000000000000000000000000N,
+  "Z" 1000000000000000000000N,
+  "kibi" 1024,
+  "atto" 1/1000000000000000000,
+  "Gi" 1073741824,
+  "deci" 1/10,
+  "Pi" 1125899906842624,
+  "E" 1000000000000000000N,
+  "zetta" 1000000000000000000000N,
+  "R" 1000000000000000000000000000N,
+  "mebi" 1048576,
+  "half" 1/2,
+  "Ei" 1152921504606846976,
+  "da" 10,
+  "ronto" 1/1000000000000000000000000000,
+  "a" 1/1000000000000000000,
+  "exbi" 1152921504606846976,
+  "mega" 1000000N,
+  "exa" 1000000000000000000N,
+  "P" 1000000000000000N,
+  "quarter" 1/4,
+  "kilo" 1000,
+  "k" 1000,
+  "ronna" 1000000000000000000000000000N,
+  "zepto" 1/1000000000000000000000,
+  "r" 1/1000000000000000000000000000,
+  "y" 1/1000000000000000000000000,
+  "Ki" 1024,
+  "eighth" 1/8,
+  "tebi" 1099511627776,
+  "pebi" 1125899906842624,
+  "hecto" 100,
+  "quecto" 1/1000000000000000000000000000000,
+  "h" 100,
+  "centi" 1/100,
+  "survey" 500000/499999,
+  "peta" 1000000000000000N,
+  "m" 1/1000,
+  "c" 1/100,
+  "quetta" 1000000000000000000000000000000N,
+  "Mi" 1048576},
+ :prefix-aliases
+ {"T" "tera",
+  "d" "deci",
+  "n" "nano",
+  "int" "3937/1200 ft/m",
+  "z" "zepto",
+  "µ" "micro",
+  "f" "femto",
+  "Q" "quetta",
+  "british" "1200000/3937014 m/ft",
+  "q" "quecto",
+  "p" "pico",
+  "Ti" "tebi",
+  "G" "giga",
+  "M" "mega",
+  "Y" "yotta",
+  "Z" "zetta",
+  "hemi" "1/2",
+  "Gi" "gibi",
+  "Pi" "pebi",
+  "bi" "2",
+  "demi" "1/2",
+  "E" "exa",
+  "R" "ronna",
+  "Ei" "exbi",
+  "unit_" "1",
+  "da" "deka",
+  "a" "atto",
+  "P" "peta",
+  "k" "kilo",
+  "r" "ronto",
+  "y" "yocto",
+  "Ki" "kibi",
+  "h" "hecto",
+  "m" "milli",
+  "semi" "1/2",
+  "uni" "1",
+  "tri" "3",
+  "c" "centi",
+  "Mi" "mebi"},
+ :units
+ {"plate23gauge"
+  {:factor 1143/1600000, :dims {:length 1}, :doc "18 oz / ft^2"},
+  "australiatablespoon" {:factor 1/50000, :dims {:length 3}},
+  "diamond" {:factor 1757299/1250000000, :dims {:length 1}},
+  "million" {:factor 1000000N, :dims {}},
+  "Bq" {:factor 1, :dims {:time -1}},
+  "kor" {:factor 18453882447/50000000000, :dims {:length 3}},
+  "lightyear"
+  {:factor 2363563738872000N,
+   :dims {:length 1},
+   :doc "The 365.25 day year is specified in NIST publication 811"},
+  "T" {:factor 1, :dims {:mass 1, :time -2, :current -1}},
+  "plutoday" {:factor 13795488/25, :dims {:time 1}},
+  "metricfifth" {:factor 3/4000, :dims {:length 3}},
+  "percent" {:factor 1/100, :dims {}},
+  "europeanUvalue"
+  {:factor 1, :dims {:mass 1, :time -3, :temperature -1}},
+  "zinc17gauge" {:factor 127/100000, :dims {:length 1}},
+  "deuteronmass"
+  {:factor 4179479721/1250000000000000000000000000000000000,
+   :dims {:mass 1},
+   :doc "+/- 10 in last 2 digits"},
+  "noventillion" {:factor 1000000000000000000000000000000N, :dims {}},
+  "romanfeet"
+  {:factor 37/125,
+   :dims {:length 1},
+   :doc "from which all the other units are derived."},
+  "oldUSknot" {:factor 3860927/7500000, :dims {:length 1, :time -1}},
+  "atomicvelocity"
+  {:factor 37528800680344590000000/17154523277381371,
+   :dims {:length 1, :time -1}},
+  "coulombconst"
+  {:factor
+   312500000000000000000000000000000000000/34770314256307894224887761593,
+   :dims {:current -2, :time -4, :mass 1, :length 3},
+   :doc
+   "listed as \"k_e\" or sometimes \"k The repulsive electric force between two charged pointlike particles is: coulombconst q1 q2 / dist^2"},
+  "hafnium"
+  {:factor 17849/100000, :dims {:mass 1, :amount_of_substance -1}},
+  "brgallon"
+  {:factor 454609/100000000,
+   :dims {:length 3},
+   :doc "The British Imperial gallon was"},
+  "broctodecillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "wire38gauge" {:factor 100711/1000000000, :dims {:length 1}},
+  "d" {:factor 86400, :dims {:time 1}},
+  "brtbl" {:factor 3/200000, :dims {:length 3}},
+  "daniell"
+  {:factor 521/500,
+   :dims {:mass 1, :length 2, :time -3, :current -1},
+   :doc
+   "Meant to be electromotive force of a Daniell cell, but in error by .04 V"},
+  "angstrom"
+  {:factor 1/10000000000,
+   :dims {:length 1},
+   :doc "Convenient for describing molecular sizes"},
+  "aeginaobol" {:factor 6479891/6250000000, :dims {:mass 1}},
+  "kolonel" {:factor 526491/200000000, :dims {:length 1}},
+  "linenyarncount"
+  {:factor 27432000000/45359237,
+   :dims {:length 1, :mass -1},
+   :doc "Also used for hemp and ramie"},
+  "zinc8gauge" {:factor 127/312500, :dims {:length 1}},
+  "tropicalyear"
+  {:factor 9861539367087/312500,
+   :dims {:time 1},
+   :doc
+   "The mean interval between vernal equinoxes. Differs from the sidereal year by 1 part in 26000 due to precession of the earth about its rotational axis combined with precession of the perihelion of the earth's orbit."},
+  "rad"
+  {:factor 1/100,
+   :dims {:length 2, :time -2},
+   :doc "From Radiation Absorbed Dose"},
+  "toise" {:factor 27000/13853, :dims {:length 1}},
+  "plutonium"
+  {:factor 1220321/5000000,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived. 239.05"},
+  "paperM" {:factor 45359237/100000000000, :dims {:mass 1}},
+  "furlong"
+  {:factor 792000/3937, :dims {:length 1}, :doc "From \"furrow long"},
+  "clove" {:factor 317514659/100000000, :dims {:mass 1}},
+  "brfirkin"
+  {:factor 4091481/100000000,
+   :dims {:length 3},
+   :doc "Used for ale and beer"},
+  "bar"
+  {:factor 100000N,
+   :dims {:mass 1, :length -1, :time -2},
+   :doc "About 1 atm"},
+  "esu" {:factor 1/2997924580, :dims {:current 1, :time 1}},
+  "brwire28gauge" {:factor 18923/50000000, :dims {:length 1}},
+  "oldbrknot"
+  {:factor 4826/9375,
+   :dims {:length 1, :time -1},
+   :doc "switched to the international"},
+  "K"
+  {:factor 1,
+   :dims {:temperature 1},
+   :doc "The kelvin is the unit of temperature."},
+  "lbblanks" {:factor 589081/258064000, :dims {:mass 1, :length -2}},
+  "brwire00000gauge" {:factor 3429/312500, :dims {:length 1}},
+  "gravitationalconstant"
+  {:factor 66743/1000000000000000,
+   :dims {:mass -1, :length 3, :time -2}},
+  "milliard" {:factor 1000000000N, :dims {}},
+  "tantalum"
+  {:factor 1809479/10000000, :dims {:mass 1, :amount_of_substance -1}},
+  "rollwallpaper"
+  {:factor 435483/156250,
+   :dims {:length 2},
+   :doc "Area of roll of wall paper"},
+  "jpsize20ring"
+  {:factor 15184364492350667317/250000000000000000000,
+   :dims {:length 1}},
+  "balthazar" {:factor 3/250, :dims {:length 3}},
+  "cusec" {:factor 55306341/1953125000, :dims {:length 3, :time -1}},
+  "plate9gauge"
+  {:factor 127/32000, :dims {:length 1}, :doc "100 oz / ft^2"},
+  "thermalohm"
+  {:factor 1,
+   :dims {:temperature 2, :mass -1, :length -2, :time 3},
+   :doc "thermal resistance"},
+  "moongravity" {:factor 81/50, :dims {:length 1, :time -2}},
+  "electroncharge"
+  {:factor -801088317/5000000000000000000000000000,
+   :dims {:current 1, :time 1}},
+  "gaussianyear"
+  {:factor 157796208/5,
+   :dims {:time 1},
+   :doc
+   "The orbital period of a body in circular orbit at a distance of 1 au from the sun. Calculated from Kepler's third law."},
+  "cron" {:factor 157784629873392/5, :dims {:time 1}},
+  "J_mol"
+  {:factor 1/602214076000000000000000,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc
+   "Suggested by Richard Terrett You can of course write kJ_mol."},
+  "mercpound" {:factor 174957057/400000000, :dims {:mass 1}},
+  "marathon" {:factor 230164959024/15625, :dims {:length 2}},
+  "excelsior" {:factor 5271897/5000000000, :dims {:length 1}},
+  "ct" {:factor 1/5000, :dims {:mass 1}},
+  "earthradius"
+  {:factor 6371010N, :dims {:length 1}, :doc "mean +/- 0.02 km"},
+  "siderealsecond"
+  {:factor 658575464113/50000000,
+   :dims {:time 3},
+   :doc
+   "or the time required for the earth to make one rotation relative to the stars. The more usual solar day is the time required to make a rotation relative to the sun. Because the earth moves in its orbit, it has to turn a bit extra to face the sun again, hence the solar day is slightly longer."},
+  "millennium" {:factor 19723078734174/625, :dims {:time 1}},
+  "shoeiron"
+  {:factor 127/240000,
+   :dims {:length 1},
+   :doc "Used to measure leather in soles"},
+  "inHg"
+  {:factor 3386388640341/1000000000,
+   :dims {:length -1, :time -2, :mass 1},
+   :doc "Inches of mercury"},
+  "size7_5ring"
+  {:factor 69622405592530202843937/1250000000000000000000000,
+   :dims {:length 1}},
+  "pous" {:factor 31623/100000, :dims {:length 1}},
+  "yr" {:factor 9861539367087/312500, :dims {:time 1}},
+  "brwire11gauge" {:factor 3683/1250000, :dims {:length 1}},
+  "minersinchNM"
+  {:factor 55306341/97656250000, :dims {:length 3, :time -1}},
+  "Dpaper" {:factor 3016123/6250000, :dims {:length 2}},
+  "slinch"
+  {:factor 8896443230521/50800000000,
+   :dims {:mass 1},
+   :doc "Mass unit derived from inch second"},
+  "fortnight" {:factor 1209600, :dims {:time 1}},
+  "Δν_Cs" {:factor 9192631770, :dims {:time -1}},
+  "quartarius" {:factor 362563791/2500000000000, :dims {:length 3}},
+  "wire52gauge" {:factor 496697/25000000000, :dims {:length 1}},
+  "francium"
+  {:factor 2230197/10000000,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived"},
+  "rick"
+  {:factor 294967152/244140625,
+   :dims {:length 3},
+   :doc "Stack of firewood"},
+  "A2paper"
+  {:factor 6237/25000, :dims {:length 2}, :doc "one square meter."},
+  "greekkotyle"
+  {:factor 27/100000,
+   :dims {:length 3},
+   :doc "This approximate value is obtained"},
+  "iuinsulin" {:factor 4167/100000000000, :dims {:mass 1}},
+  "light" {:factor 299792458, :dims {:length 1, :time -1}},
+  "canadiangallon"
+  {:factor 454609/100000000,
+   :dims {:length 3},
+   :doc "defined in 1824 to be the volume of"},
+  "mu₀"
+  {:factor 125663706127/100000000000000000,
+   :dims {:mass 1, :length 1, :time -2, :current -2},
+   :doc "mu\" Unicode subscript 0"},
+  "lbblotting"
+  {:factor 45359237/14709648000, :dims {:mass 1, :length -2}},
+  "wire22gauge" {:factor 64389/100000000, :dims {:length 1}},
+  "statcoulomb" {:factor 1/2997924580, :dims {:current 1, :time 1}},
+  "daraf"
+  {:factor 1,
+   :dims {:current -2, :time -4, :mass 1, :length 2},
+   :doc "elastance (farad spelled backwards)"},
+  "sccs"
+  {:factor 4053/40000,
+   :dims {:mass 1, :length 2, :time -3},
+   :doc "flow at standard pressure"},
+  "berkelium"
+  {:factor 2470703/10000000,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived. 249.08"},
+  "oldchinesecatty"
+  {:factor 45359237/75000000,
+   :dims {:mass 1},
+   :doc "Before metric conversion."},
+  "bourgeois" {:factor 15815691/5000000000, :dims {:length 1}},
+  "cobalt"
+  {:factor 147333/2500000, :dims {:mass 1, :amount_of_substance -1}},
+  "boltzmann"
+  {:factor 1380649/100000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -2, :temperature -1},
+   :doc
+   "Boltzmann's constant. Defined exactly by the SI rules that go into effect May 20, 2019"},
+  "passus" {:factor 37/25, :dims {:length 1}},
+  "yearly" {:factor 312500/9861539367087, :dims {:time -1}},
+  "majorsecond" {:factor 9/8, :dims {}},
+  "gamma" {:factor 1/1000000000, :dims {:mass 1}},
+  "boron"
+  {:factor 10811/1000000, :dims {:mass 1, :amount_of_substance -1}},
+  "katal" {:factor 1, :dims {:amount_of_substance 1, :time -1}},
+  "quadrant"
+  {:factor 1570796326794896619/1000000000000000000, :dims {}},
+  "imperialscruple" {:factor 454609/384000000000, :dims {:length 3}},
+  "ionicfoot" {:factor 37/125, :dims {:length 1}},
+  "score" {:factor 20, :dims {}},
+  "st" {:factor 1, :dims {:length 3}},
+  "wire0gauge" {:factor 412623/50000000, :dims {:length 1}},
+  "sundist"
+  {:factor 7479901148035639923/50000000,
+   :dims {:length 1},
+   :doc "mean earth-sun distance"},
+  "horsepower"
+  {:factor 37284993579113511/50000000000000,
+   :dims {:length 2, :mass 1, :time -3},
+   :doc "Invented by James Watt"},
+  "facecord" {:factor 442450728/244140625, :dims {:length 3}},
+  "plate20gauge"
+  {:factor 381/400000, :dims {:length 1}, :doc "24 oz / ft^2"},
+  "kappline"
+  {:factor 3/50000,
+   :dims {:length 2, :mass 1, :time -2, :current -1},
+   :doc "Named by and for Gisbert Kapp"},
+  "poundal"
+  {:factor 17281869297/125000000000,
+   :dims {:mass 1, :length 1, :time -2},
+   :doc "same thing for a pound"},
+  "poncelet"
+  {:factor 196133/200, :dims {:mass 1, :length 2, :time -3}},
+  "gm" {:factor 1/1000, :dims {:mass 1}},
+  "venusyear" {:factor 19412352N, :dims {:time 1}},
+  "amu"
+  {:factor 41513476723/25000000000000000000000000000000000000,
+   :dims {:mass 1}},
+  "rep"
+  {:factor 419/50000,
+   :dims {:length 2, :time -2},
+   :doc
+   "Roentgen Equivalent Physical, the amount of radiation which , absorbed in the body, would liberate the same amount of energy as 1 roentgen of X rays would, or 97 ergs."},
+  "eusize11ring" {:factor 51/1000, :dims {:length 1}},
+  "degree" {:factor 523598775598298873/30000000000000000000, :dims {}},
+  "thermcalorie"
+  {:factor 523/125, :dims {:mass 1, :length 2, :time -2}},
+  "langley" {:factor 41840N, :dims {:mass 1, :time -2}},
+  "weber"
+  {:factor 1,
+   :dims {:mass 1, :length 2, :time -2, :current -1},
+   :doc "magnetic flux"},
+  "unciae"
+  {:factor 2728034111/100000000000,
+   :dims {:mass 1},
+   :doc "based on the Gold Aureus of Augustus which"},
+  "Cvalue"
+  {:factor 52752792631/9290304000,
+   :dims {:temperature -1, :time -3, :mass 1},
+   :doc "C-value U.S. insulation conductance rating"},
+  "earlyromanfoot" {:factor 2973/10000, :dims {:length 1}},
+  "quadrillion" {:factor 1000000000000000N, :dims {}},
+  "wire16gauge" {:factor 322707/250000000, :dims {:length 1}},
+  "thaitamlung" {:factor 3/50, :dims {:mass 1}},
+  "metrictenth" {:factor 3/8000, :dims {:length 3}},
+  "mechanicalohm"
+  {:factor 1/1000,
+   :dims {:mass 1, :time -1},
+   :doc "mechanical resistance"},
+  "min" {:factor 60, :dims {:time 1}},
+  "brwire33gauge" {:factor 127/500000, :dims {:length 1}},
+  "brwire00gauge" {:factor 11049/1250000, :dims {:length 1}},
+  "sthene" {:factor 1000, :dims {:mass 1, :length 1, :time -2}},
+  "cran"
+  {:factor 1363827/8000000,
+   :dims {:length 3},
+   :doc "measures herring, about 750 fish"},
+  "quintal" {:factor 100, :dims {:mass 1}},
+  "olympicpace" {:factor 30861/40000, :dims {:length 1}},
+  "thousand" {:factor 1000, :dims {}},
+  "semodii" {:factor 362563791/78125000000, :dims {:length 3}},
+  "sccm"
+  {:factor 1351/800000,
+   :dims {:mass 1, :length 2, :time -3},
+   :doc "'s' is for \"standard\" to indicate"},
+  "pt" {:factor 473176473/1000000000000, :dims {:length 3}},
+  "jpsize25ring"
+  {:factor 32986722862692828999/500000000000000000000,
+   :dims {:length 1}},
+  "sizeKring" {:factor 1/20, :dims {:length 1}},
+  "C6paper" {:factor 4617/250000, :dims {:length 2}},
+  "sievert"
+  {:factor 1,
+   :dims {:length 2, :time -2},
+   :doc "Dose equivalent: dosage that has the"},
+  "lunour"
+  {:factor 177183333/50000,
+   :dims {:time 1},
+   :doc
+   "moves around the sun, the moon has to revolve a bit farther to get into the full moon configuration."},
+  "shortream" {:factor 480, :dims {}},
+  "choinix" {:factor 27/25000, :dims {:length 3}, :doc "for one man."},
+  "deunx" {:factor 30008375221/100000000000, :dims {:mass 1}},
+  "qt" {:factor 473176473/500000000000, :dims {:length 3}},
+  "partspertrillion"
+  {:factor 1/1000000000000, :dims {}, :doc "USA trillion"},
+  "s"
+  {:factor 1,
+   :dims {:time 1},
+   :doc "The 2019 SI definition of the second is:"},
+  "wire00gauge" {:factor 7239/781250, :dims {:length 1}},
+  "sextilliard"
+  {:factor 1000000000000000000000000000000000000000N, :dims {}},
+  "tronstone" {:factor 771107029/78125000, :dims {:mass 1}},
+  "plate21gauge"
+  {:factor 1397/1600000, :dims {:length 1}, :doc "22 oz / ft^2"},
+  "TNT"
+  {:factor 209340000000000/45359237,
+   :dims {:length 2, :time -2},
+   :doc
+   "So you can write tons TNT, this is a defined, not measured, value"},
+  "calorie_IT"
+  {:factor 10467/2500, :dims {:mass 1, :length 2, :time -2}},
+  "triens" {:factor 2728034111/25000000000, :dims {:mass 1}},
+  "lorentz"
+  {:factor
+   17567726250000000000000000000000000000/376291774340032405556311055013414077,
+   :dims {:current 1, :length -1, :mass -1, :time 2},
+   :doc
+   "Used to measure the extent that the frequency of light is shifted by a magnetic field."},
+  "doricfoot" {:factor 163/500, :dims {:length 1}},
+  "jpsize8ring"
+  {:factor 12042771838760874079/250000000000000000000,
+   :dims {:length 1}},
+  "franklin" {:factor 1/2997924580, :dims {:current 1, :time 1}},
+  "periot" {:factor 6479891/960000000000000, :dims {:mass 1}},
+  "deal"
+  {:factor 202789917/3125000000,
+   :dims {:length 3},
+   :doc "The standard North American deal [OED]"},
+  "didotpoint"
+  {:factor 75213/200000000,
+   :dims {:length 1},
+   :doc "This seems to be the dominant value"},
+  "natural_gas"
+  {:factor 2128906250000000/55306341,
+   :dims {:mass 1, :length -1, :time -2},
+   :doc "Energy in natural gas"},
+  "traderotl" {:factor 58319019/156250000, :dims {:mass 1}},
+  "assyrianfoot" {:factor 3429/12500, :dims {:length 1}},
+  "silverrotl" {:factor 174957057/500000000, :dims {:mass 1}},
+  "eusize6ring" {:factor 23/500, :dims {:length 1}},
+  "silver"
+  {:factor 539341/5000000, :dims {:mass 1, :amount_of_substance -1}},
+  "BTU"
+  {:factor 52752792631/50000000, :dims {:mass 1, :length 2, :time -2}},
+  "diopter"
+  {:factor 1,
+   :dims {:length -1},
+   :doc "measures reciprocal of lens focal length"},
+  "lbboxboard"
+  {:factor 45359237/9290304000, :dims {:mass 1, :length -2}},
+  "sizePring" {:factor 9/160, :dims {:length 1}},
+  "gram" {:factor 1/1000, :dims {:mass 1}},
+  "nauticalmile"
+  {:factor 1852,
+   :dims {:length 1},
+   :doc
+   "Supposed to be one minute of latitude at the equator. That value is about 1855 m. Early estimates of the earth's circumference were a bit off. The value of 1852 m was made the international standard in 1929. The US did not accept this value until July 1, 1954. The UK switched in 1970. The value of this unit was adopted by the First International Extraordinary Hydrographic Conference, Monaco, 1929, under the name \"International nautical mile."},
+  "stadia" {:factor 185N, :dims {:length 1}},
+  "wire34gauge" {:factor 160147/1000000000, :dims {:length 1}},
+  "smallpica" {:factor 19330289/5000000000, :dims {:length 1}},
+  "minersinchCO"
+  {:factor 718982433/976562500000, :dims {:length 3, :time -1}},
+  "scandium"
+  {:factor 4495591/100000000,
+   :dims {:mass 1, :amount_of_substance -1}},
+  "wire13gauge" {:factor 228473/125000000, :dims {:length 1}},
+  "are" {:factor 100, :dims {:length 2}},
+  "lpm" {:factor 1/60000, :dims {:length 3, :time -1}},
+  "B5paper" {:factor 11/250, :dims {:length 2}},
+  "eusize2ring" {:factor 21/500, :dims {:length 1}},
+  "unitpole"
+  {:factor 1570796326794896619/12500000000000000000000000,
+   :dims {:length 2, :mass 1, :time -2, :current -1}},
+  "atticmina" {:factor 174957057/400000000, :dims {:mass 1}},
+  "six" {:factor 6, :dims {}},
+  "σₑ"
+  {:factor 66524587051/1000000000000000000000000000000000000000,
+   :dims {:length 2},
+   :doc "Unicode sigma Unicode subscript e"},
+  "cal_mean"
+  {:factor 209501/50000,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "1/100 energy to go from 0 to 100 degC"},
+  "inches" {:factor 127/5000, :dims {:length 1}, :doc "Wacky plural"},
+  "majorseventh" {:factor 15/8, :dims {}},
+  "size4ring"
+  {:factor 58450902116364898089609/1250000000000000000000000,
+   :dims {:length 1}},
+  "btu_mean"
+  {:factor 9502805510737/9000000000,
+   :dims {:mass 1, :length 2, :time -2}},
+  "jpsize27ring"
+  {:factor 6806784082777885349/100000000000000000000,
+   :dims {:length 1}},
+  "torr"
+  {:factor 20265/152,
+   :dims {:mass 1, :length -1, :time -2},
+   :doc
+   "Exactly defined. Differs from mmHg by about 1 part in 7 million."},
+  "thermie"
+  {:factor 4185800N,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc
+   "Heat required to raise the temperature of a tonne of water from 14.5 to 15.5 degC."},
+  "syntoniccomma" {:factor 81/80, :dims {}},
+  "thaichang" {:factor 6/5, :dims {:mass 1}},
+  "thaifung" {:factor 3/1600, :dims {:mass 1}},
+  "bohrmagneton"
+  {:factor 1862479784135943/200827880381184188726354713040000000000,
+   :dims {:current 1, :length 2}},
+  "Btu_mean"
+  {:factor 9502805510737/9000000000,
+   :dims {:mass 1, :length 2, :time -2}},
+  "Gy" {:factor 1, :dims {:length 2, :time -2}},
+  "decilliard"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "eushot"
+  {:factor 1/50000,
+   :dims {:length 3},
+   :doc
+   "EU standard spirits measure See http://bundesrecht.juris.de/eo_1988/anhang_c_119.html"},
+  "kanon" {:factor 676917/50000000, :dims {:length 1}},
+  "taumass"
+  {:factor 158377/50000000000000000000000000000000,
+   :dims {:mass 1},
+   :doc "+/- 21 in last 2 digits"},
+  "wire56gauge" {:factor 624713/50000000000, :dims {:length 1}},
+  "C3paper"
+  {:factor 18549/125000,
+   :dims {:length 2},
+   :doc "Intended for envelope sizes"},
+  "cfm" {:factor 18435447/39062500000, :dims {:length 3, :time -1}},
+  "plutoradius"
+  {:factor 1188300N,
+   :dims {:length 1},
+   :doc
+   "+/- 0.8 km http://pluto.jhuapl.edu/News-Center/News-Article.php?page=20150713"},
+  "wire35gauge" {:factor 142621/1000000000, :dims {:length 1}},
+  "breadflour_scooped"
+  {:factor 4049931875/6145149,
+   :dims {:mass 1, :length -3},
+   :doc "measure and then sweeping the top."},
+  "Ci"
+  {:factor 37000000000N,
+   :dims {:time -1},
+   :doc
+   "emitted by the amount of radon that is in equilibrium with 1 gram of radium."},
+  "degreerankine"
+  {:factor 5/9, :dims {:temperature 1}, :doc "is at absolute zero."},
+  "neptuneday" {:factor 331776/5, :dims {:time 1}},
+  "energy"
+  {:factor 89875517873681764,
+   :dims {:length 2, :time -2},
+   :doc "convert mass to energy"},
+  "von_Klitzing_constant"
+  {:factor 5521725125000000000000/213914163877964163,
+   :dims {:mass 1, :length 2, :time -3, :current -2}},
+  "thaicatty" {:factor 3/5, :dims {:mass 1}},
+  "germanium"
+  {:factor 7261/100000, :dims {:mass 1, :amount_of_substance -1}},
+  "Pa" {:factor 1, :dims {:mass 1, :length -1, :time -2}},
+  "calendaryear" {:factor 31536000, :dims {:time 1}},
+  "titanmass" {:factor 135000000000000000000000N, :dims {:mass 1}},
+  "tradekirat" {:factor 19439673/100000000000, :dims {:mass 1}},
+  "standard"
+  {:factor 1825109253/390625000,
+   :dims {:length 3},
+   :doc
+   "This is the St Petersburg or Pittsburg standard. Apparently the term is short for \"standard hundred which was meant to refer to 100 pieces of wood (deals). However, this particular standard is equal to 120 deals which are 12 ft by 11 in by 1.5 inches (not the standard deal)."},
+  "eusize28ring" {:factor 17/250, :dims {:length 1}},
+  "elementarycharge"
+  {:factor 801088317/5000000000000000000000000000,
+   :dims {:current 1, :time 1},
+   :doc
+   "Defined exactly by the SI rules that take effect on May 20, 2019 https://physics.nist.gov/cgi-bin/cuu/Value?e also called \"e but that's reserved for the base of the natural logarithm."},
+  "eusize10ring" {:factor 1/20, :dims {:length 1}},
+  "buck" {:factor 1, :dims {:currency 1}},
+  "minersinchOR"
+  {:factor 55306341/78125000000, :dims {:length 3, :time -1}},
+  "ninety" {:factor 90, :dims {}},
+  "earthyear" {:factor 9861921731259/312500, :dims {:time 1}},
+  "wire46gauge" {:factor 6223/156250000, :dims {:length 1}},
+  "poundindexbristolpaper"
+  {:factor 45359237/25088659500, :dims {:mass 1, :length -2}},
+  "brpint" {:factor 454609/800000000, :dims {:length 3}},
+  "barn"
+  {:factor 1/10000000000000000000000000000,
+   :dims {:length 2},
+   :doc
+   "Used to measure cross section for particle physics collision, said to have originated in the phrase \"big as a barn\"."},
+  "C9paper" {:factor 57/25000, :dims {:length 2}},
+  "fermium"
+  {:factor 2570951/10000000,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived"},
+  "roentgen"
+  {:factor 129/500000,
+   :dims {:current 1, :time 1, :mass -1},
+   :doc
+   "Ionizing radiation that produces 1 statcoulomb of charge in 1 cc of dry air at stp."},
+  "brton" {:factor 317514659/312500, :dims {:mass 1}},
+  "plate18gauge"
+  {:factor 127/100000, :dims {:length 1}, :doc "32 oz / ft^2"},
+  "plate0gauge"
+  {:factor 127/16000, :dims {:length 1}, :doc "200 oz / ft^2"},
+  "zinc7gauge" {:factor 889/2500000, :dims {:length 1}},
+  "thaibaht"
+  {:factor 3/200,
+   :dims {:mass 1},
+   :doc
+   "New name for thaitical, not to be confused with the Thai currency called \"Thailand_baht\"."},
+  "neon"
+  {:factor 201797/10000000, :dims {:mass 1, :amount_of_substance -1}},
+  "debye"
+  {:factor 1/299792458000000000000000000000,
+   :dims {:current 1, :time 1, :length 1},
+   :doc "unit of electrical dipole moment"},
+  "jupiteryear" {:factor 58488789986192997/156250000, :dims {:time 1}},
+  "minersinchNE"
+  {:factor 55306341/97656250000, :dims {:length 3, :time -1}},
+  "Ah"
+  {:factor 3600,
+   :dims {:current 1, :time 1},
+   :doc "so you can write stuff like mAh"},
+  "wire31gauge" {:factor 35433/156250000, :dims {:length 1}},
+  "C8paper" {:factor 4617/1000000, :dims {:length 2}},
+  "Z0"
+  {:factor 18836515670601495083/50000000000000000,
+   :dims {:mass 1, :length 2, :time -3, :current -2},
+   :doc "Characteristic impedance of vacuum"},
+  "wire0000gauge" {:factor 2921/250000, :dims {:length 1}},
+  "cab" {:factor 44005411989/25000000000000, :dims {:length 3}},
+  "brquintilliard"
+  {:factor 1000000000000000000000000000000000N, :dims {}},
+  "semodius" {:factor 362563791/78125000000, :dims {:length 3}},
+  "nybble"
+  {:factor 4,
+   :dims {:information 1},
+   :doc
+   "Half of a byte. Sometimes equal to different lengths such as 3 bits."},
+  "hogshead" {:factor 29810117799/125000000000, :dims {:length 3}},
+  "scoopnumber"
+  {:factor 500000000000/473176473,
+   :dims {:length -3},
+   :doc
+   "Ice cream scoops are labeled with a number specifying how many scoops fill a quart."},
+  "dozen" {:factor 12, :dims {}},
+  "actus"
+  {:factor 3552/25, :dims {:length 1}, :doc "area of the furrow"},
+  "zinc18gauge" {:factor 1397/1000000, :dims {:length 1}},
+  "sulfur"
+  {:factor 16033/500000, :dims {:mass 1, :amount_of_substance -1}},
+  "brace" {:factor 2, :dims {}},
+  "imperialminim" {:factor 454609/7680000000000, :dims {:length 3}},
+  "seah" {:factor 1541709319801/125000000000000, :dims {:length 3}},
+  "centesimalsecond"
+  {:factor 1570796326794896619/1000000000000000000000000, :dims {}},
+  "degreesRankine" {:factor 5/9, :dims {:temperature 1}},
+  "sizeWring" {:factor 13/200, :dims {:length 1}},
+  "poundglassinepaper"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "hydrogen"
+  {:factor 50397/50000000, :dims {:mass 1, :amount_of_substance -1}},
+  "skeincotton"
+  {:factor 13716/125,
+   :dims {:length 1},
+   :doc
+   "80 turns of thread on a reel with a 54 in circumference (varies for other kinds of thread)"},
+  "greekcubit"
+  {:factor 94869/200000,
+   :dims {:length 1},
+   :doc "said to be 3/5 of a 20.75 in cubit."},
+  "doubleremen"
+  {:factor 92583/125000,
+   :dims {:length 1},
+   :doc "Length of the diagonal of a square with"},
+  "eusize16ring" {:factor 7/125, :dims {:length 1}},
+  "shortening"
+  {:factor 3313580625/4096766,
+   :dims {:mass 1, :length -3},
+   :doc "vegetable shortening"},
+  "olympicdakylos" {:factor 30861/1600000, :dims {:length 1}},
+  "quadrans" {:factor 8184102333/100000000000, :dims {:mass 1}},
+  "boll" {:factor 1363827/6250000, :dims {:length 3}},
+  "olympicspithame" {:factor 1143/5000, :dims {:length 1}},
+  "leadstone" {:factor 45359237/8000000, :dims {:mass 1}},
+  "strontium"
+  {:factor 4381/50000, :dims {:mass 1, :amount_of_substance -1}},
+  "megohm"
+  {:factor 1000000N,
+   :dims {:mass 1, :length 2, :time -3, :current -2}},
+  "sunpower"
+  {:factor 386000000000000000000000000N,
+   :dims {:mass 1, :length 2, :time -3}},
+  "romancubit" {:factor 111/250, :dims {:length 1}, :doc "units."},
+  "poundtagpaper"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "quattuordecillion"
+  {:factor 1000000000000000000000000000000000000000000000N, :dims {}},
+  "lbwrapping"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "e"
+  {:factor 16989261427869032721/6250000000000000000,
+   :dims {},
+   :doc
+   "Base of natural logarithm 'e' was previously used to be the charge of the electron, but changed to this. Mathematicians and particle physicists may battle this out."},
+  "abcoulomb" {:factor 10, :dims {:current 1, :time 1}},
+  "degreeCelsius"
+  {:factor 1,
+   :dims {:temperature 1},
+   :doc "Per https://physics.nist.gov/Pubs/SP811/sec04.html#4.2.1.1"},
+  "lbf"
+  {:factor 8896443230521/2000000000000,
+   :dims {:mass 1, :length 1, :time -2}},
+  "plate0000gauge"
+  {:factor 1651/160000, :dims {:length 1}, :doc "260 oz / ft^2"},
+  "eusize3ring" {:factor 43/1000, :dims {:length 1}},
+  "number2can" {:factor 8990352987/16000000000000, :dims {:length 3}},
+  "floz" {:factor 473176473/16000000000000, :dims {:length 3}},
+  "molarvolume"
+  {:factor 378515910691426251/16887500000000000000,
+   :dims {:amount_of_substance -1, :length 3},
+   :doc
+   "Volume occupied by one mole of an ideal gas at STP. Units m^3/mol"},
+  "woollast" {:factor 12383071701/6250000, :dims {:mass 1}},
+  "cablet" {:factor 864000/3937, :dims {:length 1}},
+  "siscilius" {:factor 2728034111/400000000000, :dims {:mass 1}},
+  "callistomass" {:factor 108000000000000000000000N, :dims {:mass 1}},
+  "zinc13gauge" {:factor 127/156250, :dims {:length 1}},
+  "thermalfarad"
+  {:factor 1, :dims {:mass 1, :length 2, :time -2, :temperature -2}},
+  "blanc" {:factor 6479891/23040000000000000, :dims {:mass 1}},
+  "earthday" {:factor 17781537531051/15625, :dims {:time 3}},
+  "wooltod" {:factor 317514659/25000000, :dims {:mass 1}},
+  "radium"
+  {:factor 1130127/5000000, :dims {:mass 1, :amount_of_substance -1}},
+  "displacementton"
+  {:factor 387144387/390625000,
+   :dims {:length 3},
+   :doc
+   "Approximate volume of a longton weight of sea water used to measure ship displacement"},
+  "brwire24gauge" {:factor 1397/2500000, :dims {:length 1}},
+  "protonmagneticmoment"
+  {:factor 28212135909/2000000000000000000000000000000000000,
+   :dims {:length 2, :current 1},
+   :doc "+/- 60 in last 2 digits"},
+  "Q"
+  {:factor 1/4000,
+   :dims {:length 1},
+   :doc "Used in Japanese phototypesetting Q is for quarter"},
+  "lbweddingbristol"
+  {:factor 45359237/20685442500, :dims {:mass 1, :length -2}},
+  "brevier" {:factor 1757299/625000000, :dims {:length 1}},
+  "shortquire" {:factor 24, :dims {}},
+  "mo" {:factor 3287179789029/1250000, :dims {:time 1}},
+  "sr"
+  {:factor 1,
+   :dims {},
+   :doc "Solid angle which cuts off an area of the surface of"},
+  "gold"
+  {:factor 9848327/50000000, :dims {:mass 1, :amount_of_substance -1}},
+  "three" {:factor 3, :dims {}},
+  "finger" {:factor 889/40000, :dims {:length 1}},
+  "methanol"
+  {:factor 7913/10,
+   :dims {:mass 1, :length -3},
+   :doc "Density of methanol"},
+  "septendecillion"
+  {:factor 1000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "grade"
+  {:factor 1570796326794896619/100000000000000000000, :dims {}},
+  "minersinchBC"
+  {:factor 387144387/488281250000,
+   :dims {:length 3, :time -1},
+   :doc "British Columbia"},
+  "dwt"
+  {:factor 19439673/12500000000,
+   :dims {:mass 1},
+   :doc
+   "Frankish coin called the \"denier minted in the late 700's. There were 240 deniers to the pound."},
+  "brtrilliard" {:factor 1000000000000000000000N, :dims {}},
+  "barye"
+  {:factor 1/10,
+   :dims {:length -1, :mass 1, :time -2},
+   :doc "pressure"},
+  "brwire16gauge" {:factor 127/78125, :dims {:length 1}},
+  "billion" {:factor 1000000000N, :dims {}},
+  "nonpareille" {:factor 225639/100000000, :dims {:length 1}},
+  "eV"
+  {:factor 801088317/5000000000000000000000000000,
+   :dims {:time -2, :mass 1, :length 2},
+   :doc "Energy acquired by a particle with charge e"},
+  "ua"
+  {:factor 149597870700,
+   :dims {:length 1},
+   :doc
+   "The SI defines \"ua\" as the international symbol for the astronomical unit, but the IAU recommends that \"au\" be used. See 2012 resolution B2 here: http://www.iau.org/static/resolutions/IAU2012_English.pdf"},
+  "bit"
+  {:factor 1,
+   :dims {:information 1},
+   :doc "Basic unit of information (entropy)."},
+  "mpge"
+  {:factor 1397/105312500, :dims {:length -1, :mass -1, :time 2}},
+  "manchesteryarnnumber"
+  {:factor 45359237/23408640000000,
+   :dims {:mass 1, :length -1},
+   :doc "old system used for silk"},
+  "plate22gauge"
+  {:factor 127/160000, :dims {:length 1}, :doc "20 oz / ft^2"},
+  "woolsack" {:factor 4127690567/25000000, :dims {:mass 1}},
+  "protactinium"
+  {:factor 5775897/25000000, :dims {:mass 1, :amount_of_substance -1}},
+  "amagat"
+  {:factor 67550000000000000000000000000000000/2514161829,
+   :dims {:length -3},
+   :doc "Used to measure gas densities"},
+  "zinc12gauge" {:factor 889/1250000, :dims {:length 1}},
+  "homestead"
+  {:factor 10036224000000/15499969,
+   :dims {:length 2},
+   :doc
+   "Area of land granted by the 1862 Homestead Act of the United States Congress"},
+  "statampere" {:factor 1/2997924580, :dims {:current 1}},
+  "brwire5gauge" {:factor 6731/1250000, :dims {:length 1}},
+  "mu_N"
+  {:factor
+   35387115898582917/7006262339730308196007795634800000000000000,
+   :dims {:current 1, :length 2}},
+  "wire17gauge" {:factor 287401/250000000, :dims {:length 1}},
+  "frigorie"
+  {:factor 20929/5,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "Used in refrigeration engineering."},
+  "wk" {:factor 604800, :dims {:time 1}},
+  "electrichorsepower"
+  {:factor 746, :dims {:mass 1, :length 2, :time -3}},
+  "size3ring"
+  {:factor 55259043980317668159801/1250000000000000000000000,
+   :dims {:length 1}},
+  "frenchthumb"
+  {:factor 375/13853,
+   :dims {:length 1},
+   :doc "a law passed on 10 Dec 1799 which"},
+  "poundwaxingpaper"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "rpm"
+  {:factor 523598775598298873/5000000000000000000, :dims {:time -1}},
+  "footballfield" {:factor 2286/25, :dims {:length 1}},
+  "brwire10gauge" {:factor 254/78125, :dims {:length 1}},
+  "eusize21ring" {:factor 61/1000, :dims {:length 1}},
+  "siderealyear"
+  {:factor 9861921731259/312500,
+   :dims {:time 1},
+   :doc
+   "The time for the earth to make one revolution around the sun relative to the stars."},
+  "cerium"
+  {:factor 28023/200000, :dims {:mass 1, :amount_of_substance -1}},
+  "plate14gauge"
+  {:factor 127/64000, :dims {:length 1}, :doc "50 oz / ft^2"},
+  "quincunx" {:factor 2728034111/20000000000, :dims {:mass 1}},
+  "lightsecond" {:factor 299792458, :dims {:length 1}},
+  "molasses" {:factor 5522634375/4096766, :dims {:mass 1, :length -3}},
+  "olympicfathom" {:factor 92583/50000, :dims {:length 1}},
+  "pascal"
+  {:factor 1,
+   :dims {:mass 1, :length -1, :time -2},
+   :doc "pressure or stress"},
+  "hubbleconstant"
+  {:factor 59166661642607772649/26927616726000000000000000000000000000,
+   :dims {:time -1},
+   :doc
+   "WMAP data, +/- 0.9 km/s/megaparsec From Sky & Telescope, July 2015 p.30"},
+  "two" {:factor 2, :dims {}},
+  "arabictradepound" {:factor 58319019/156250000, :dims {:mass 1}},
+  "scriptulum" {:factor 2728034111/2400000000000, :dims {:mass 1}},
+  "lid"
+  {:factor 45359237/1600000000,
+   :dims {:mass 1},
+   :doc "Another 60's weed unit"},
+  "butter_clarified"
+  {:factor 5007188500/6145149, :dims {:mass 1, :length -3}},
+  "kilohm"
+  {:factor 1000, :dims {:mass 1, :length 2, :time -3, :current -2}},
+  "wineglass" {:factor 473176473/4000000000000, :dims {:length 3}},
+  "artaba" {:factor 8149034976091/125000000000000, :dims {:length 3}},
+  "shoeounce"
+  {:factor 127/320000,
+   :dims {:length 1},
+   :doc "Used to measure non-sole shoe leather"},
+  "marssolarday" {:factor 178137728496/25, :dims {:time 3}},
+  "trit"
+  {:factor 19812031259/12500000000,
+   :dims {:information 1},
+   :doc "log[3]/log[2]"},
+  "brquindecillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "sigma_t"
+  {:factor 66524587051/1000000000000000000000000000000000000000,
+   :dims {:length 2}},
+  "housecord"
+  {:factor 294967152/244140625,
+   :dims {:length 3},
+   :doc
+   "Used to sell firewood for residences, often confusingly called a \"cord"},
+  "eusize9ring" {:factor 49/1000, :dims {:length 1}},
+  "minersinchND"
+  {:factor 55306341/97656250000, :dims {:length 3, :time -1}},
+  "lbbible"
+  {:factor 45359237/30645100000,
+   :dims {:mass 1, :length -2},
+   :doc "strong and opaque."},
+  "fine" {:factor 1/1000, :dims {}, :doc "Measure of gold purity"},
+  "metricquart" {:factor 1/1000, :dims {:length 3}},
+  "lbpaperboard"
+  {:factor 45359237/9290304000, :dims {:mass 1, :length -2}},
+  "tor"
+  {:factor 1,
+   :dims {:mass 1, :length -1, :time -2},
+   :doc
+   "Torricelli, should not be confused. Acording to [15] the torr is actually atm/760 which is slightly different."},
+  "wire41gauge" {:factor 889/12500000, :dims {:length 1}},
+  "bushel"
+  {:factor 220244188543/6250000000000,
+   :dims {:length 3},
+   :doc "Volume of 8 inch high cylinder with 18.5"},
+  "R_H"
+  {:factor 10967760,
+   :dims {:length -1},
+   :doc
+   "can be expressed as 1/lambda = R (1/m^2 - 1/n^2). where R is a number that various slightly from element to element. For hydrogen, R_H is the value, and for heavy elements, the value approaches Rinfinity."},
+  "brseptilliard"
+  {:factor 1000000000000000000000000000000000000000000000N, :dims {}},
+  "Y0"
+  {:factor 50000000000000000/18836515670601495083,
+   :dims {:mass -1, :length -2, :time 3, :current 2},
+   :doc "Characteristic admittance of vacuum"},
+  "brwire15gauge" {:factor 1143/625000, :dims {:length 1}},
+  "datamile"
+  {:factor 9144/5,
+   :dims {:length 1},
+   :doc
+   "Defined by U.S. Department of Defense as a unit used in radar measurements."},
+  "mole"
+  {:factor 1,
+   :dims {:amount_of_substance 1},
+   :doc
+   "An \"amount of substance\". The 2019 SI definition is: The mole, symbol mol, is the SI unit of amount of substance. One mole contains exactly 6.02214076e23 elementary entities. This number is the fixed numerical value of the Avogadro constant, N_A, when expressed in the unit mol^−1 and is called the Avogadro number. The amount of substance, symbol n, of a system is a measure of the number of specified elementary entities. An elementary entity may be an atom, a molecule, an ion, an electron, any other particle or specified group of particles."},
+  "sextarii"
+  {:factor 362563791/625000000000,
+   :dims {:length 3},
+   :doc
+   "there is uncertainty. Six large Roman measures survive with volumes ranging from 34.4 in^3 to 39.55 in^3. Three of them cluster around the size given here."},
+  "brnonillion"
+  {:factor 1000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "classicalElectronRadius"
+  {:factor 5635880641/2000000000000000000000000,
+   :dims {:length 1},
+   :doc
+   "2022 CODATA value https://physics.nist.gov/cgi-bin/cuu/Value?re uncertainty is +/- 13 in the last 2 digits"},
+  "calcium"
+  {:factor 20039/500000, :dims {:mass 1, :amount_of_substance -1}},
+  "brwire21gauge" {:factor 127/156250, :dims {:length 1}},
+  "ch" {:factor 79200/3937, :dims {:length 1}},
+  "lbindex"
+  {:factor 45359237/25088659500, :dims {:mass 1, :length -2}},
+  "mmH2O"
+  {:factor 196133/20000, :dims {:length -1, :time -2, :mass 1}},
+  "meter"
+  {:factor 1,
+   :dims {:length 1},
+   :doc
+   "The metre, symbol m, is the SI unit of length. It is defined by taking the fixed numerical value of the speed of light in vacuum c to be 299_792_458 when expressed in the unit m s^−1, where the second is defined in terms of the caesium frequency Δν_Cs."},
+  "molar"
+  {:factor 1000N,
+   :dims {:amount_of_substance 1, :length -3},
+   :doc "Unit of concentration (moles/liter)"},
+  "mendelevium"
+  {:factor 2581/10000,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived"},
+  "mu_d"
+  {:factor 4330735087/1000000000000000000000000000000000000,
+   :dims {:length 2, :current 1}},
+  "brfluidounce" {:factor 454609/16000000000, :dims {:length 3}},
+  "A1paper"
+  {:factor 249777/500000,
+   :dims {:length 2},
+   :doc "is defined to have an area of"},
+  "inH2O"
+  {:factor 24908891/100000, :dims {:length -1, :time -2, :mass 1}},
+  "jpsize2ring"
+  {:factor 523598775598298873/12500000000000000000, :dims {:length 1}},
+  "skylum_o"
+  {:factor 2000,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "average, overcast sky"},
+  "cumec" {:factor 1, :dims {:length 3, :time -1}},
+  "eusize14ring" {:factor 27/500, :dims {:length 1}},
+  "sizeSring" {:factor 3/50, :dims {:length 1}},
+  "fluorine"
+  {:factor 5937001/312500000,
+   :dims {:mass 1, :amount_of_substance -1}},
+  "shortgreekcubit"
+  {:factor 284607/800000,
+   :dims {:length 1},
+   :doc "Elbow to start of fingers."},
+  "stilb"
+  {:factor 10000N,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "area of an extended luminous source."},
+  "PETN"
+  {:factor 6010000N,
+   :dims {:length 2, :time -2},
+   :doc
+   "An explosive compound, Pentaerythrite tetranitrate used in plastic explosive like Semtex"},
+  "universeage"
+  {:factor 2177270107622936208/5,
+   :dims {:time 1},
+   :doc "Error is 38 million years Source: ibid"},
+  "B1paper"
+  {:factor 707/1000,
+   :dims {:length 2},
+   :doc "of sqrt(2) square meters."},
+  "jpsize28ring"
+  {:factor 17278759594743862809/250000000000000000000,
+   :dims {:length 1}},
+  "atomicmass"
+  {:factor 91093837139/100000000000000000000000000000000000000000,
+   :dims {:mass 1}},
+  "chlorine"
+  {:factor 354527/10000000, :dims {:mass 1, :amount_of_substance -1}},
+  "sumeriancubit" {:factor 99/200, :dims {:length 1}},
+  "tsubo"
+  {:factor 81306289/25000000,
+   :dims {:length 2},
+   :doc "Used in agriculture"},
+  "fifth" {:factor 473176473/625000000000, :dims {:length 3}},
+  "hin" {:factor 38327294313/6250000000000, :dims {:length 3}},
+  "mittel" {:factor 526491/100000000, :dims {:length 1}},
+  "plate32gauge"
+  {:factor 1651/6400000, :dims {:length 1}, :doc "6.5 oz / ft^2"},
+  "ledgersize" {:factor 3016123/25000000, :dims {:length 2}},
+  "brquarter" {:factor 454609/1562500, :dims {:length 3}},
+  "mach"
+  {:factor 16573/50,
+   :dims {:length 1, :time -1},
+   :doc "speed of sound in dry air at STP"},
+  "A4paper" {:factor 6237/100000, :dims {:length 2}},
+  "wire20gauge" {:factor 101473/125000000, :dims {:length 1}},
+  "brwire000gauge" {:factor 11811/1250000, :dims {:length 1}},
+  "Wb" {:factor 1, :dims {:mass 1, :length 2, :time -2, :current -1}},
+  "ε₀"
+  {:factor 22135469547/2500000000000000000000,
+   :dims {:current 2, :time 4, :mass -1, :length -3},
+   :doc "Unicode epsilon Unicode subscript zero"},
+  "letech" {:factor 4625127959403/25000000000000, :dims {:length 3}},
+  "ε0"
+  {:factor 22135469547/2500000000000000000000,
+   :dims {:current 2, :time 4, :mass -1, :length -3},
+   :doc "Unicode epsilon plus normal zero"},
+  "degF"
+  {:factor 5/9,
+   :dims {:temperature 1},
+   :doc
+   "WARNING: These should only be used when you're indicating the *difference* between two temperatures, (say, how much energy to raise the temperature of a gram of water by 5 degrees Fahrenheit, *not* for absolute temperatures. (I wonder if they should go entirely to eliminate this confusion...) For calculating absolute temperatures, use the Fahrenheit[] or F[] functions below."},
+  "sabin"
+  {:factor 145161/1562500,
+   :dims {:length 2},
+   :doc
+   "Measure of sound absorption equal to the absorbing power of one square foot of a perfectly absorbing material. The sound absorptivity of an object is the area times a dimensionless absorptivity coefficient."},
+  "boardfeet" {:factor 18435447/7812500000, :dims {:length 3}},
+  "shake" {:factor 1/100000000, :dims {:time 1}},
+  "wire1gauge" {:factor 367411/50000000, :dims {:length 1}},
+  "cottonyarncount"
+  {:factor 10972800000/6479891, :dims {:length 1, :mass -1}},
+  "wiendisplacement"
+  {:factor 579554391/200000000000,
+   :dims {:length 1, :temperature 1},
+   :doc
+   "Wien's Displacement Law gives the frequency at which the the Planck spectrum has maximum intensity. The relation is lambda T = b where lambda is wavelength, T is temperature and b is the Wien displacement. This relation is used to determine the temperature of stars. This is the 2022 CODATA value. NIST claims this is exact, but they give an equation with a random unexplained, inexact, divisor, b = (h c / k) / 4.965114231... https://physics.nist.gov/cgi-bin/cuu/Value?bwien"},
+  "quindecillion"
+  {:factor 1000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "rood" {:factor 15681600000/15499969, :dims {:length 2}},
+  "sunlum"
+  {:factor 1600000000N,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "at zenith"},
+  "fournierpoint"
+  {:factor 13081/37500000,
+   :dims {:length 1},
+   :doc
+   "First definition of the printers point made by Pierre Fournier who defined it in 1737 as 1/12 of a cicero which was 0.1648 inches."},
+  "L"
+  {:factor 1/1000,
+   :dims {:length 3},
+   :doc
+   "This unit and its symbol l were adopted by the CIPM in 1879. The alternative symbol for the liter, L, was adopted by the CGPM in 1979 in order to avoid the risk of confusion between the letter l and the number 1. Thus, although both l and L are internationally accepted symbols for the liter, to avoid this risk the preferred symbol for use in the United States is L."},
+  "gpm" {:factor 157725491/2500000000000, :dims {:length 3, :time -1}},
+  "brwire34gauge" {:factor 2921/12500000, :dims {:length 1}},
+  "poundindexpaper"
+  {:factor 45359237/25088659500, :dims {:mass 1, :length -2}},
+  "dyne"
+  {:factor 1/100000,
+   :dims {:length 1, :mass 1, :time -2},
+   :doc "force"},
+  "acetabula" {:factor 362563791/5000000000000, :dims {:length 3}},
+  "decillion" {:factor 1000000000000000000000000000000000N, :dims {}},
+  "shorthundredweight" {:factor 45359237/1000000, :dims {:mass 1}},
+  "kelvin"
+  {:factor 1,
+   :dims {:temperature 1},
+   :doc
+   "The kelvin was redefined in 2019 as: The kelvin, symbol K, is the SI unit of thermodynamic temperature. It is defined by taking the fixed numerical value of the Boltzmann constant k to be 1.380649e−23 when expressed in the unit J K^−1, which is equal to kg m^2 s^−2 K^−1, where the kilogram, metre and second are defined in terms of h, c and Δν_Cs.\" (The defined frequency of the cesium-133 atom.)"},
+  "brhorsepower"
+  {:factor 7457/10, :dims {:mass 1, :length 2, :time -3}},
+  "jpsize16ring"
+  {:factor 14137166941154069571/250000000000000000000,
+   :dims {:length 1}},
+  "helmholtz"
+  {:factor 1/2997924580,
+   :dims {:current 1, :time 1, :length -1},
+   :doc "Dipole moment per area"},
+  "abmho"
+  {:factor 1000000000N,
+   :dims {:length -2, :mass -1, :time 3, :current 2}},
+  "copper"
+  {:factor 31773/500000, :dims {:mass 1, :amount_of_substance -1}},
+  "B9paper" {:factor 341/125000, :dims {:length 2}},
+  "faraday_chem"
+  {:factor 964957/10,
+   :dims {:current 1, :time 1},
+   :doc
+   "element. (The chemical and physical values are off slightly from what is obtained by multiplying by amu_chem or amu_phys. These values are from a 1991 NIST publication.) Note that there is a Faraday constant which is equal to N_A e and hence has units of C/mol."},
+  "octilliard"
+  {:factor 1000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "grosse_kanon" {:factor 1579473/100000000, :dims {:length 1}},
+  "oldhayload" {:factor 2857631931/3125000, :dims {:mass 1}},
+  "vegetable_oil"
+  {:factor 1840878125/2048383, :dims {:mass 1, :length -3}},
+  "RSI"
+  {:factor 1,
+   :dims {:temperature 1, :mass -1, :time 3},
+   :doc "SI insulation figure"},
+  "troypound" {:factor 58319019/156250000, :dims {:mass 1}},
+  "lambda_C" {:factor 18931629/7802641527014999332, :dims {:length 1}},
+  "partspermillion" {:factor 1/1000000, :dims {}},
+  "Bpaper" {:factor 3016123/25000000, :dims {:length 2}},
+  "admittanceofvacuum"
+  {:factor 50000000000000000/18836515670601495083,
+   :dims {:mass -1, :length -2, :time 3, :current 2}},
+  "degreeFahrenheit"
+  {:factor 5/9,
+   :dims {:temperature 1},
+   :doc "The *size* of a degree in the Fahrenheit scale."},
+  "thaisalung" {:factor 3/800, :dims {:mass 1}},
+  "carbon"
+  {:factor 12011/1000000, :dims {:mass 1, :amount_of_substance -1}},
+  "wire19gauge" {:factor 455803/500000000, :dims {:length 1}},
+  "sizeMring" {:factor 21/400, :dims {:length 1}},
+  "heredia" {:factor 3154176/625, :dims {:length 2}},
+  "poundpaperboard"
+  {:factor 45359237/9290304000, :dims {:mass 1, :length -2}},
+  "brwire31gauge" {:factor 3683/12500000, :dims {:length 1}},
+  "longprimer" {:factor 1757299/500000000, :dims {:length 1}},
+  "thaikoyan" {:factor 1200N, :dims {:mass 1}},
+  "C0paper"
+  {:factor 1189349/1000000,
+   :dims {:length 2},
+   :doc "The basic C size has an area"},
+  "squaresecond"
+  {:factor
+   274155677808037739331322691433070129/11664000000000000000000000000000000000000000000,
+   :dims {}},
+  "kus" {:factor 99/200, :dims {:length 1}},
+  "phobosdist" {:factor 9378500N, :dims {:length 1}},
+  "akaina" {:factor 31623/10000, :dims {:length 1}},
+  "water"
+  {:factor 1000N,
+   :dims {:mass 1, :length -3},
+   :doc "Standard density of water (defined)"},
+  "quintilliard"
+  {:factor 1000000000000000000000000000000000N, :dims {}},
+  "fluidounce" {:factor 473176473/16000000000000, :dims {:length 3}},
+  "fresnel"
+  {:factor 1000000000000N,
+   :dims {:time -1},
+   :doc "occasionally used in spectroscopy"},
+  "sunlum_h"
+  {:factor 6000000N,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "value at horizon"},
+  "rev" {:factor 1570796326794896619/250000000000000000, :dims {}},
+  "inchesmercury"
+  {:factor 3386388640341/1000000000,
+   :dims {:length -1, :time -2, :mass 1},
+   :doc "Irregular plural"},
+  "missal" {:factor 225639/12500000, :dims {:length 1}},
+  "imperialquart" {:factor 454609/400000000, :dims {:length 3}},
+  "cal_th"
+  {:factor 523/125,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "Thermochemical calorie, 4.184 J"},
+  "lbcover"
+  {:factor 45359237/16774160000, :dims {:mass 1, :length -2}},
+  "juliancenturies" {:factor 3155760000, :dims {:time 1}},
+  "fL"
+  {:factor 781250000000000000000000/228018365593873988110659,
+   :dims {:luminous_intensity 1, :length -2}},
+  "oldportugalcable" {:factor 1015200/3937, :dims {:length 1}},
+  "wire14gauge" {:factor 101727/62500000, :dims {:length 1}},
+  "Uvalue"
+  {:factor 52752792631/9290304000,
+   :dims {:temperature -1, :time -3, :mass 1}},
+  "Ω"
+  {:factor 1,
+   :dims {:mass 1, :length 2, :time -3, :current -2},
+   :doc "Official Unicode codepoint OHM SIGN"},
+  "poundbagpaper"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "gph"
+  {:factor 157725491/150000000000000, :dims {:length 3, :time -1}},
+  "mired"
+  {:factor 1000000N,
+   :dims {:temperature -1},
+   :doc
+   "reciprocal color temperature. The name abbreviates micro reciprocal degree."},
+  "acrefeet"
+  {:factor 75271680000000/61023377953,
+   :dims {:length 3},
+   :doc "Irregular plural"},
+  "uranusmass" {:factor 86625000000000000000000000N, :dims {:mass 1}},
+  "modius" {:factor 362563791/39062500000, :dims {:length 3}},
+  "dryquart" {:factor 220244188543/200000000000000, :dims {:length 3}},
+  "mignonette" {:factor 22844887/10000000000, :dims {:length 1}},
+  "violle"
+  {:factor 2017/100,
+   :dims {:luminous_intensity 1},
+   :doc
+   "luminous intensity of 1 cm^2 of platinum at its temperature of solidification (2045 K)"},
+  "size9_5ring"
+  {:factor 76006121864624662703553/1250000000000000000000000,
+   :dims {:length 1}},
+  "cf" {:factor 55306341/1953125000, :dims {:length 3}},
+  "mil" {:factor 127/5000000, :dims {:length 1}},
+  "sievertunit"
+  {:factor 54051/25000000,
+   :dims {:current 1, :time 1, :mass -1},
+   :doc
+   "Unit of gamma ray dose delivered in one hour at a distance of 1 cm from a point source of 1 mg of radium enclosed in platinum .5 mm thick."},
+  "barad"
+  {:factor 1/10,
+   :dims {:length -1, :mass 1, :time -2},
+   :doc "old name"},
+  "E_h"
+  {:factor
+   1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc
+   "Synonym used at https://physics.nist.gov/cgi-bin/cuu/Value?hr"},
+  "C4paper" {:factor 18549/250000, :dims {:length 2}},
+  "lm" {:factor 1, :dims {:luminous_intensity 1}},
+  "brwire22gauge" {:factor 889/1250000, :dims {:length 1}},
+  "g_n" {:factor 196133/20000, :dims {:length 1, :time -2}},
+  "yard" {:factor 1143/1250, :dims {:length 1}},
+  "heminae" {:factor 362563791/1250000000000, :dims {:length 3}},
+  "newhayload"
+  {:factor 1224699399/1250000,
+   :dims {:mass 1},
+   :doc "hay and \"old\" hay rather than a new unit"},
+  "sizeDring" {:factor 33/800, :dims {:length 1}},
+  "footlambert"
+  {:factor 781250000000000000000000/228018365593873988110659,
+   :dims {:luminous_intensity 1, :length -2}},
+  "plate2gauge"
+  {:factor 2159/320000, :dims {:length 1}, :doc "170 oz / ft^2"},
+  "B8paper" {:factor 341/62500, :dims {:length 2}},
+  "lbbook" {:factor 45359237/30645100000, :dims {:mass 1, :length -2}},
+  "Mx"
+  {:factor 1/100000000,
+   :dims {:length 2, :mass 1, :time -2, :current -1}},
+  "minersinchAZ"
+  {:factor 55306341/78125000000, :dims {:length 3, :time -1}},
+  "arsenic"
+  {:factor 7492159/100000000,
+   :dims {:mass 1, :amount_of_substance -1}},
+  "wire30gauge" {:factor 127381/500000000, :dims {:length 1}},
+  "USmilitarypace"
+  {:factor 381/500,
+   :dims {:length 1},
+   :doc "United States official military pace"},
+  "watt"
+  {:factor 1, :dims {:mass 1, :length 2, :time -3}, :doc "power"},
+  "saturnday" {:factor 37800N, :dims {:time 1}},
+  "stoke" {:factor 1/10000, :dims {:length 2, :time -1}},
+  "B3paper" {:factor 353/2000, :dims {:length 2}},
+  "plate3gauge"
+  {:factor 127/20000, :dims {:length 1}, :doc "160 oz / ft^2"},
+  "sizeUring" {:factor 1/16, :dims {:length 1}},
+  "imperialpeck" {:factor 454609/50000000, :dims {:length 3}},
+  "basispoint" {:factor 1/10000, :dims {}, :doc "Used in finance"},
+  "Btu_th"
+  {:factor 23722880951/22500000, :dims {:mass 1, :length 2, :time -2}},
+  "siemens"
+  {:factor 1,
+   :dims {:current 2, :mass -1, :length -2, :time 3},
+   :doc "electrical conductance"},
+  "Rydberg_constant"
+  {:factor
+   21382925228920171034108510884639651745827650000000000000/1948555520622123871945181988126712989695745141989,
+   :dims {:length -1}},
+  "shippington"
+  {:factor 55306341/48828125,
+   :dims {:length 3},
+   :doc "Used for ship's cargo freight or timber"},
+  "eusize17ring" {:factor 57/1000, :dims {:length 1}},
+  "milangle"
+  {:factor 1570796326794896619/1600000000000000000000,
+   :dims {},
+   :doc "Official NIST definition. Another choice is 1ee-3 radian."},
+  "gallon" {:factor 473176473/125000000000, :dims {:length 3}},
+  "brwire18gauge" {:factor 381/312500, :dims {:length 1}},
+  "atticobol" {:factor 58319019/80000000000, :dims {:mass 1}},
+  "antimony"
+  {:factor 761/6250, :dims {:mass 1, :amount_of_substance -1}},
+  "A6paper" {:factor 777/50000, :dims {:length 2}},
+  "Btu_IT"
+  {:factor 52752792631/50000000, :dims {:mass 1, :length 2, :time -2}},
+  "pennyweight"
+  {:factor 19439673/12500000000,
+   :dims {:mass 1},
+   :doc "Abbreviated \"d\" in reference to a"},
+  "micron"
+  {:factor 1/1000000,
+   :dims {:length 1},
+   :doc "One millionth of a meter"},
+  "degreaumur"
+  {:factor 5/4,
+   :dims {:temperature 1},
+   :doc
+   "The Reaumur scale was used in Europe and particularly in France. It is defined to be 0 at the freezing point of water and 80 at the boiling point. Reaumur apparently selected 80 because it is divisible by many numbers."},
+  "bucket" {:factor 454609/25000000, :dims {:length 3}},
+  "nest" {:factor 3, :dims {}},
+  "longhundredweight" {:factor 317514659/6250000, :dims {:mass 1}},
+  "tronounce" {:factor 771107029/25000000000, :dims {:mass 1}},
+  "eusize25ring" {:factor 13/200, :dims {:length 1}},
+  "farad"
+  {:factor 1,
+   :dims {:current 2, :time 4, :mass -1, :length -2},
+   :doc "capacitance"},
+  "scfm"
+  {:factor 74718866691/1562500000,
+   :dims {:mass 1, :length 2, :time -3}},
+  "cable"
+  {:factor 864000/3937,
+   :dims {:length 1},
+   :doc "NIST Handbook 44, 2003 Appendix C"},
+  "aA"
+  {:factor 10,
+   :dims {:current 1},
+   :doc "long wires that are 1 cm apart"},
+  "bps"
+  {:factor 1,
+   :dims {:information 1, :time -1},
+   :doc
+   "Sometimes the term \"baud\" is incorrectly used to refer to bits per second. Baud refers to symbols per second. Modern modems transmit several bits per symbol."},
+  "imperialfloz" {:factor 454609/16000000000, :dims {:length 3}},
+  "size10_5ring"
+  {:factor 79197980000671892633361/1250000000000000000000000,
+   :dims {:length 1}},
+  "pottle" {:factor 454609/200000000, :dims {:length 3}},
+  "medimnos" {:factor 162/3125, :dims {:length 3}},
+  "thaitical" {:factor 3/200, :dims {:mass 1}},
+  "key"
+  {:factor 1, :dims {:mass 1}, :doc "usually of marijuana, 60's"},
+  "eusize5ring" {:factor 9/200, :dims {:length 1}},
+  "landarea" {:factor 148847000000000N, :dims {:length 2}},
+  "honey" {:factor 17304254375/12290298, :dims {:mass 1, :length -3}},
+  "therm" {:factor 105480400, :dims {:mass 1, :length 2, :time -2}},
+  "Hz" {:factor 1, :dims {:time -1}},
+  "sigma"
+  {:factor
+   80501092948521088867488369932300398190977913808046719518598807407388692934430742468721301569590816283564227451/1419678613746631030208994604859444253906250000000000000000000000000000000000000000000000000000000000000000000000000000,
+   :dims {:mass 1, :time -3, :temperature -4},
+   :doc
+   "at temperature T is given by sigma T^4. Exactly defined as of 2019 but since pi is transcendental, it doesn't have a finite representation. https://physics.nist.gov/cgi-bin/cuu/Value?sigma"},
+  "eusize29ring" {:factor 69/1000, :dims {:length 1}},
+  "arabicfoot" {:factor 16891/62500, :dims {:length 1}},
+  "number3can" {:factor 473176473/500000000000, :dims {:length 3}},
+  "northernfoot" {:factor 16891/50000, :dims {:length 1}},
+  "olympiccubit"
+  {:factor 92583/200000,
+   :dims {:length 1},
+   :doc "These olympic measures were not as"},
+  "stere" {:factor 1, :dims {:length 3}},
+  "Rinfinity"
+  {:factor
+   21382925228920171034108510884639651745827650000000000000/1948555520622123871945181988126712989695745141989,
+   :dims {:length -1}},
+  "gross" {:factor 144, :dims {}},
+  "brpeck" {:factor 454609/50000000, :dims {:length 3}},
+  "sunillum_o"
+  {:factor 10000N,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "overcast sky"},
+  "gilbert" {:factor 100000000000/125663706127, :dims {:current 1}},
+  "assayton"
+  {:factor 7/240,
+   :dims {:mass 1},
+   :doc "mg / assayton = troyounce / ton"},
+  "persianroyalcubit" {:factor 8001/12500, :dims {:length 1}},
+  "dr" {:factor 45359237/25600000000, :dims {:mass 1}},
+  "poundtextpaper"
+  {:factor 45359237/30645100000, :dims {:mass 1, :length -2}},
+  "teaspoon" {:factor 157725491/32000000000000, :dims {:length 3}},
+  "bicron"
+  {:factor 1/1000000000000,
+   :dims {:length 1},
+   :doc "One brbillionth of a meter"},
+  "second"
+  {:factor 1,
+   :dims {:time 1},
+   :doc
+   "The second, symbol s, is the SI unit of time. It is defined by taking the fixed numerical value of the caesium frequency Δν_Cs, the unperturbed ground-state hyperfine transition frequency of the caesium 133 atom, to be 9_192_631_770 when expressed in the unit Hz, which is equal to s^−1."},
+  "neutronwavelength"
+  {:factor 18931629/14346589496133679328000, :dims {:length 1}},
+  "fluidscruple" {:factor 454609/384000000000, :dims {:length 3}},
+  "cesiumfrequency"
+  {:factor 9192631770,
+   :dims {:time -1},
+   :doc
+   "The cesium frequency which defines the second: The unperturbed ground-state hyperfine transition frequency of the caesium 133 atom"},
+  "methuselah" {:factor 3/500, :dims {:length 3}},
+  "brnonilliard"
+  {:factor 1000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "poiseuille"
+  {:factor 1, :dims {:mass 1, :length -1, :time -1}, :doc "viscosity"},
+  "wire53gauge" {:factor 442341/25000000000, :dims {:length 1}},
+  "earthmass" {:factor 5974200000000000000000000N, :dims {:mass 1}},
+  "brwire8gauge" {:factor 127/31250, :dims {:length 1}},
+  "tbsp" {:factor 473176473/32000000000000, :dims {:length 3}},
+  "palmlength"
+  {:factor 127/625,
+   :dims {:length 1},
+   :doc "or the length of the hand"},
+  "greekfinger" {:factor 31623/1600000, :dims {:length 1}},
+  "lead" {:factor 259/1250, :dims {:mass 1, :amount_of_substance -1}},
+  "noventilliard"
+  {:factor 1000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "equivalentlux"
+  {:factor 500000000000000000/1570796326794896619,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "luminance of a 1 lux surface"},
+  "oxygen"
+  {:factor 79997/5000000, :dims {:mass 1, :amount_of_substance -1}},
+  "G"
+  {:factor 66743/1000000000000000,
+   :dims {:mass -1, :length 3, :time -2},
+   :doc
+   "Newtonian gravity constant From 2022 CODATA figures. There is a standard uncertainty in the last two figures of +/- 15. Unchanged since 2018. Given by https://physics.nist.gov/cgi-bin/cuu/Value?bg The gravitational force between the centers of two (spherelike) bodies is: G mass1 mass2 / dist^2"},
+  "ℏ"
+  {:factor 44173801/418879020478639098400000000000000000000000,
+   :dims {:mass 1, :length 2, :time -1},
+   :doc "Official Unicode char for Planck/2 pi"},
+  "force"
+  {:factor 196133/20000,
+   :dims {:length 1, :time -2},
+   :doc "use to turn masses into forces"},
+  "congius" {:factor 1087691373/312500000000, :dims {:length 3}},
+  "bag" {:factor 454609/3125000, :dims {:length 3}},
+  "arabicmile" {:factor 270256/125, :dims {:length 1}},
+  "sizeQring" {:factor 23/400, :dims {:length 1}},
+  "alphaparticlemass"
+  {:factor 1328931469/200000000000000000000000000000000000,
+   :dims {:mass 1},
+   :doc "+/- 21 in last 2 digits"},
+  "magnum"
+  {:factor 3/2000,
+   :dims {:length 3},
+   :doc "Standardized in 1979, but given as 2 qt in some references"},
+  "tellurium"
+  {:factor 319/2500, :dims {:mass 1, :amount_of_substance -1}},
+  "brundecillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "brbushel" {:factor 454609/12500000, :dims {:length 3}},
+  "scrupula" {:factor 2728034111/2400000000000, :dims {:mass 1}},
+  "xestes"
+  {:factor 27/50000,
+   :dims {:length 3},
+   :doc "from two earthenware vessels that"},
+  "admiraltycable" {:factor 115824/625, :dims {:length 1}},
+  "grain"
+  {:factor 6479891/100000000000,
+   :dims {:mass 1},
+   :doc
+   "The grain is the same in all three weight systems. It was originally defined as the weight of a barley corn taken from the middle of the ear."},
+  "oldbrnauticalmile"
+  {:factor 231648/125,
+   :dims {:length 1},
+   :doc "Used until 1970 when the UK"},
+  "geographicalmile" {:factor 231648/125, :dims {:length 1}},
+  "eighty" {:factor 80, :dims {}},
+  "asb"
+  {:factor 500000000000000000/1570796326794896619,
+   :dims {:luminous_intensity 1, :length -2}},
+  "ccf"
+  {:factor 55306341/19531250,
+   :dims {:length 3},
+   :doc "sorta dubious, but used."},
+  "size2ring"
+  {:factor 53663114912294053194897/1250000000000000000000000,
+   :dims {:length 1}},
+  "sizeNring" {:factor 43/800, :dims {:length 1}},
+  "cycle" {:factor 1570796326794896619/250000000000000000, :dims {}},
+  "amagatvolume"
+  {:factor 378515910691426251/16887500000000000000,
+   :dims {:amount_of_substance -1, :length 3},
+   :doc "Units m^3/mol"},
+  "attictalent" {:factor 524871171/20000000, :dims {:mass 1}},
+  "shot"
+  {:factor 1419529419/32000000000000,
+   :dims {:length 3},
+   :doc "Sometimes 1 floz"},
+  "brwire4gauge" {:factor 3683/625000, :dims {:length 1}},
+  "cal_mol"
+  {:factor 10467/1505535190000000000000000000,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "kcal/mol is used as a unit of energy by physical chemists."},
+  "brnoventillion"
+  {:factor 1000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "brquart" {:factor 454609/400000000, :dims {:length 3}},
+  "eusize15ring" {:factor 11/200, :dims {:length 1}},
+  "wire39gauge" {:factor 448437/5000000000, :dims {:length 1}},
+  "USdoubletimepace"
+  {:factor 1143/1250,
+   :dims {:length 1},
+   :doc "United States official doubletime pace"},
+  "imperialbarrel" {:factor 4091481/25000000, :dims {:length 3}},
+  "magneticconstant"
+  {:factor 125663706127/100000000000000000,
+   :dims {:mass 1, :length 1, :time -2, :current -2}},
+  "seven" {:factor 7, :dims {}},
+  "m_p"
+  {:factor 33452438519/20000000000000000000000000000000000000,
+   :dims {:mass 1}},
+  "thallium"
+  {:factor 2043833/10000000, :dims {:mass 1, :amount_of_substance -1}},
+  "size11ring"
+  {:factor 16158781813739101519653/250000000000000000000000,
+   :dims {:length 1}},
+  "statmaxwell"
+  {:factor 149896229/500000,
+   :dims {:length 2, :mass 1, :time -2, :current -1}},
+  "wire000gauge" {:factor 4064/390625, :dims {:length 1}},
+  "size13ring"
+  {:factor 87177625340789967457881/1250000000000000000000000,
+   :dims {:length 1}},
+  "poundnewsprintpaper"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "brnoventilliard"
+  {:factor 1000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "strike"
+  {:factor 141/2000,
+   :dims {:length 3},
+   :doc
+   "16th century unit, sometimes defined as .5, 2, or 4 bushels depending on the location. It probably doesn't make a lot of sense to define in terms of imperial bushels. Zupko gives a value of 2 Winchester grain bushels or about 70.5 liters."},
+  "lunation"
+  {:factor 1594649997/625,
+   :dims {:time 1},
+   :doc "moon are on opposite sides of"},
+  "nibble" {:factor 4, :dims {:information 1}},
+  "phot"
+  {:factor 10000N,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "a surface)"},
+  "plate35gauge"
+  {:factor 127/640000, :dims {:length 1}, :doc "5 oz / ft^2"},
+  "J" {:factor 1, :dims {:mass 1, :length 2, :time -2}},
+  "degrankine"
+  {:factor 5/9,
+   :dims {:temperature 1},
+   :doc "Fahrenheit degree, but its zero"},
+  "σₜ"
+  {:factor 66524587051/1000000000000000000000000000000000000000,
+   :dims {:length 2},
+   :doc "Unicode sigma Unicode subscript t"},
+  "fathom"
+  {:factor 7200/3937,
+   :dims {:length 1},
+   :doc
+   "Originally defined as the distance from fingertip to fingertip with arms fully extended."},
+  "neptuneyear"
+  {:factor 812580982308601713/156250000, :dims {:time 1}},
+  "brdecillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "marssiderealday" {:factor 4346944704N, :dims {:time 3}},
+  "coulomb" {:factor 1, :dims {:current 1, :time 1}, :doc "charge"},
+  "paragon" {:factor 1757299/250000000, :dims {:length 1}},
+  "brhogshead" {:factor 28640367/100000000, :dims {:length 3}},
+  "trillion" {:factor 1000000000000N, :dims {}},
+  "mile" {:factor 201168/125, :dims {:length 1}},
+  "ounce" {:factor 45359237/1600000000, :dims {:mass 1}},
+  "poundoffsetpaper"
+  {:factor 45359237/30645100000,
+   :dims {:mass 1, :length -2},
+   :doc "For offset printing"},
+  "sizeFring" {:factor 7/160, :dims {:length 1}},
+  "circularmil"
+  {:factor 25335373954874887567851/50000000000000000000000000000000,
+   :dims {:length 2},
+   :doc "area of one-mil diameter circle"},
+  "aeginamina" {:factor 19439673/31250000, :dims {:mass 1}},
+  "brilliant" {:factor 12301093/10000000000, :dims {:length 1}},
+  "Molar"
+  {:factor 1000N,
+   :dims {:amount_of_substance 1, :length -3},
+   :doc "Sometimes capitalized"},
+  "apounce" {:factor 19439673/625000000, :dims {:mass 1}},
+  "wire12gauge" {:factor 1026287/500000000, :dims {:length 1}},
+  "faraday"
+  {:factor 120606665154137523/1250000000000,
+   :dims {:current 1, :time 1},
+   :doc "Charge that must flow to deposit or"},
+  "blondel"
+  {:factor 500000000000000000/1570796326794896619,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "Named after a French scientist."},
+  "eusize19ring" {:factor 59/1000, :dims {:length 1}},
+  "timepoint"
+  {:factor 720N, :dims {:time 1}, :doc "also given as 1/4"},
+  "sextuple" {:factor 6, :dims {}},
+  "surveychain" {:factor 79200/3937, :dims {:length 1}},
+  "fingerlength"
+  {:factor 1143/10000,
+   :dims {:length 1},
+   :doc "or length of the finger"},
+  "Hartree"
+  {:factor
+   1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -2}},
+  "plethron" {:factor 31623/1000, :dims {:length 1}},
+  "brbarrel"
+  {:factor 4091481/25000000, :dims {:length 3}, :doc "Used for beer"},
+  "tablespoon" {:factor 473176473/32000000000000, :dims {:length 3}},
+  "zinc3gauge" {:factor 381/2500000, :dims {:length 1}},
+  "siderealminute"
+  {:factor 1975726392339/2500000,
+   :dims {:time 3},
+   :doc "of a star over the meridian,"},
+  "apdram" {:factor 19439673/5000000000, :dims {:mass 1}},
+  "beerbarrel"
+  {:factor 14668470663/125000000000,
+   :dims {:length 3},
+   :doc "A full beer barrel"},
+  "oceanarea" {:factor 361900000000000N, :dims {:length 2}},
+  "metretes"
+  {:factor 243/6250,
+   :dims {:length 3},
+   :doc "The kotyle is a day's corn ration"},
+  "yarncut"
+  {:factor 27432000000/45359237,
+   :dims {:length 1, :mass -1},
+   :doc "Less common system used in Pennsylvania for wool yarn"},
+  "statohm"
+  {:factor 22468879468420441/25000,
+   :dims {:length 2, :mass 1, :time -3, :current -2}},
+  "Gal"
+  {:factor 1/100,
+   :dims {:length 1, :time -2},
+   :doc "acceleration, used in geophysics"},
+  "hekteos" {:factor 27/3125, :dims {:length 3}},
+  "number5can" {:factor 3312235311/2000000000000, :dims {:length 3}},
+  "brshippington" {:factor 1161433161/976562500, :dims {:length 3}},
+  "fldr" {:factor 473176473/128000000000000, :dims {:length 3}},
+  "silicon"
+  {:factor 56171/2000000, :dims {:mass 1, :amount_of_substance -1}},
+  "brwire29gauge" {:factor 2159/6250000, :dims {:length 1}},
+  "potassium"
+  {:factor 390983/10000000, :dims {:mass 1, :amount_of_substance -1}},
+  "metriccable"
+  {:factor 200, :dims {:length 1}, :doc "Used by France and Spain"},
+  "gray"
+  {:factor 1,
+   :dims {:length 2, :time -2},
+   :doc "Absorbed dose of radiation"},
+  "brscruple" {:factor 454609/384000000000, :dims {:length 3}},
+  "computerpica"
+  {:factor 127/30000,
+   :dims {:length 1},
+   :doc "to an even 1/72 inch by computer"},
+  "jupiterdist" {:factor 778570000000N, :dims {:length 1}},
+  "brwire1gauge" {:factor 381/50000, :dims {:length 1}},
+  "baking_powder"
+  {:factor 147200000000/157725491, :dims {:mass 1, :length -3}},
+  "EulerMascheroniConstant"
+  {:factor
+   577215664901532860606512090082402431042159335939923598805767234884867726777664670936947063291746749/1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+   :dims {}},
+  "sextarius"
+  {:factor 362563791/625000000000,
+   :dims {:length 3},
+   :doc "Basic unit of Roman volume. As always,"},
+  "eotvos"
+  {:factor 1/1000000000,
+   :dims {:time -2},
+   :doc
+   "Change in gravitational acceleration over horizontal distance"},
+  "electronmass"
+  {:factor 91093837139/100000000000000000000000000000000000000000,
+   :dims {:mass 1},
+   :doc "+/- 28 in last 2 digits"},
+  "quintillion" {:factor 1000000000000000000N, :dims {}},
+  "zinc14gauge" {:factor 1143/1250000, :dims {:length 1}},
+  "arabicsilverpound" {:factor 174957057/500000000, :dims {:mass 1}},
+  "A0paper"
+  {:factor 999949/1000000,
+   :dims {:length 2},
+   :doc "The basic size in the A series"},
+  "statvolt"
+  {:factor 149896229/500000,
+   :dims {:length 2, :mass 1, :time -3, :current -1}},
+  "footcandle"
+  {:factor 1562500/145161,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc
+   "Illuminance from a 1 candela source at a distance of one foot"},
+  "lateromanfoot" {:factor 1471/5000, :dims {:length 1}},
+  "frenchprinterspoint" {:factor 125/332472, :dims {:length 1}},
+  "breadflour_spooned"
+  {:factor 1104526875/2048383,
+   :dims {:mass 1, :length -3},
+   :doc "sifting the flour directly into a"},
+  "hand" {:factor 127/1250, :dims {:length 1}, :doc "width of hand"},
+  "liter"
+  {:factor 1/1000,
+   :dims {:length 3},
+   :doc "The liter was defined in 1901 as the"},
+  "diamant" {:factor 75213/50000000, :dims {:length 1}},
+  "venusday" {:factor 20996064N, :dims {:time 1}, :doc "retrograde"},
+  "Oe"
+  {:factor 10000000000000/125663706127,
+   :dims {:current 1, :length -1}},
+  "appound" {:factor 58319019/156250000, :dims {:mass 1}},
+  "californium"
+  {:factor 627699/2500000,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived. 252.08"},
+  "rayl"
+  {:factor 10N,
+   :dims {:length -2, :mass 1, :time -1},
+   :doc "Specific acoustical resistance"},
+  "cangallon"
+  {:factor 454609/100000000,
+   :dims {:length 3},
+   :doc
+   "water which weighed 10 pounds at 62 deg F with a pressure of 30 inHg. In 1963 it was defined to be the space occupied by 10 pounds of distilled water of density 0.998859 g/ml weighed in air of density 0.001217 g/ml against weights of density 8.136 g/ml. The value given here is given by [1] as an exact value."},
+  "squarearcmin"
+  {:factor
+   274155677808037739331322691433070129/3240000000000000000000000000000000000000000,
+   :dims {}},
+  "oldUKRNshackle"
+  {:factor 90000/3937,
+   :dims {:length 1},
+   :doc "Used by Royal Navy until 1949"},
+  "cup" {:factor 473176473/2000000000000, :dims {:length 3}},
+  "sextant" {:factor 523598775598298873/500000000000000000, :dims {}},
+  "St" {:factor 1/10000, :dims {:length 2, :time -1}},
+  "minorsixth" {:factor 8/5, :dims {}},
+  "dollar"
+  {:factor 1,
+   :dims {:currency 1},
+   :doc
+   "The US dollar is chosen arbitrarily to be the primitive unit of money. The dollar must be defined for use in the CPISource (providing historical purchasing power of the dollar) and for CurrencySource (providing exchange rate information (and things like the price of Gold)) so you can change the fundamental unit of currency, but you have to be able to turn it into a dollar if you want to use these other sources. If you want to define your own base currency, and you want currency conversions to still work, you should (for now) define the base currency as its 3-letter ISO-4217 currency code (say, \"EUR\" or \"JPY\"). This will allow the currency converter to unambiguously figure out which currency you mean. The units \"Euro\", \"euro\", the Euro symbol €, the Japanese Yen symbol ¥, the U.K. pound symbol ţ, and \"dollar\" are special cases that also work."},
+  "rhe"
+  {:factor 10N,
+   :dims {:mass -1, :length 1, :time 1},
+   :doc "reciprocal viscosity"},
+  "mph" {:factor 1397/3125, :dims {:length 1, :time -1}},
+  "becquerel"
+  {:factor 1, :dims {:time -1}, :doc "Activity of radioactive source"},
+  "kvalue"
+  {:factor 52752792631/365760000000,
+   :dims {:mass 1, :length 1, :time -3, :temperature -1},
+   :doc "k-value, insulation conductance/in thick"},
+  "jiffies"
+  {:factor 1/100,
+   :dims {:time 1},
+   :doc
+   "(http://www.jargon.org) as being the duration of a clock tick for measuring wall-clock time. Supposedly the value used to be 1/60 sec or 1/50 sec depending on the frequency of AC power, but then 1/100 sec became more common. On linux systems, this term is used and for the Intel based chips, it does have the value of .01 sec. The Jargon File also lists two other definitions: millisecond, and the time taken for light to travel one foot."},
+  "jigger"
+  {:factor 1419529419/32000000000000,
+   :dims {:length 3},
+   :doc "Can vary between 1 and 2 floz"},
+  "bloodunit"
+  {:factor 9/20000,
+   :dims {:length 3},
+   :doc
+   "For whole blood. For blood components, a blood unit is the quanity of the component found in a blood unit of whole blood. The human body contains about 12 blood units of whole blood."},
+  "bromine"
+  {:factor 2497/31250, :dims {:mass 1, :amount_of_substance -1}},
+  "bole"
+  {:factor 1/100000,
+   :dims {:mass 1, :length 1, :time -1},
+   :doc "momentum"},
+  "brwire7gauge" {:factor 1397/312500, :dims {:length 1}},
+  "atomictime"
+  {:factor
+   16249203979492071411159232599229639306801250/671764408114354571529354291176751275551806333106194926834307,
+   :dims {:time 1}},
+  "℉"
+  {:factor 5/9,
+   :dims {:temperature 1},
+   :doc "Single Unicode codepoint for DEGREE FAHRENHEIT"},
+  "marsday"
+  {:factor 178137728496/25,
+   :dims {:time 3},
+   :doc "The common \"sol\" definition."},
+  "woolbolt" {:factor 8001/125, :dims {:length 1}},
+  "dickers" {:factor 10, :dims {}},
+  "zero" {:factor 0, :dims {}},
+  "denier"
+  {:factor 1/9000000,
+   :dims {:mass 1, :length -1},
+   :doc "used for silk and rayon"},
+  "brwire13gauge" {:factor 2921/1250000, :dims {:length 1}},
+  "Sv"
+  {:factor 1,
+   :dims {:length 2, :time -2},
+   :doc "same effect on human tissues as 200"},
+  "arcminute"
+  {:factor 523598775598298873/1800000000000000000000, :dims {}},
+  "m_alpha"
+  {:factor 1328931469/200000000000000000000000000000000000,
+   :dims {:mass 1}},
+  "stade" {:factor 185N, :dims {:length 1}},
+  "dessertspoon" {:factor 1/100000, :dims {:length 3}},
+  "S" {:factor 1, :dims {:current 2, :mass -1, :length -2, :time 3}},
+  "greatgross" {:factor 1728, :dims {}},
+  "brtablespoon"
+  {:factor 3/200000,
+   :dims {:length 3},
+   :doc "Also 5/8 brfloz, approx 17.7 ml"},
+  "μ₀"
+  {:factor 125663706127/100000000000000000,
+   :dims {:mass 1, :length 1, :time -2, :current -2},
+   :doc "Unicode mu Unicode subscript 0"},
+  "wire33gauge" {:factor 22479/125000000, :dims {:length 1}},
+  "tin"
+  {:factor 11871/100000, :dims {:mass 1, :amount_of_substance -1}},
+  "quire" {:factor 25, :dims {}},
+  "droit" {:factor 6479891/48000000000000, :dims {:mass 1}},
+  "plate000000gauge"
+  {:factor 381/32000, :dims {:length 1}, :doc "300 oz / ft^2"},
+  "sizeLring" {:factor 41/800, :dims {:length 1}},
+  "asbestoscut"
+  {:factor 9144000000/45359237,
+   :dims {:length 1, :mass -1},
+   :doc "used for glass and asbestos yarn"},
+  "oldliter"
+  {:factor 250007/250000000,
+   :dims {:length 3},
+   :doc "space occupied by 1 kg of pure water at"},
+  "poundledgerpaper"
+  {:factor 4123567/1096772000, :dims {:mass 1, :length -2}},
+  "hour" {:factor 3600, :dims {:time 1}},
+  "oz" {:factor 45359237/1600000000, :dims {:mass 1}},
+  "mast" {:factor 45359237/40000000, :dims {:mass 1}},
+  "susi" {:factor 1143/250000, :dims {:length 1}},
+  "heer" {:factor 13716/25, :dims {:length 1}},
+  "hefnerunit"
+  {:factor 459/500,
+   :dims {:luminous_intensity 1},
+   :doc "in use before candela"},
+  "btu_th"
+  {:factor 23722880951/22500000, :dims {:mass 1, :length 2, :time -2}},
+  "poise"
+  {:factor 1/10,
+   :dims {:mass 1, :length -1, :time -1},
+   :doc "viscosity, honors Jean Poiseuille"},
+  "brwire44gauge" {:factor 127/1562500, :dims {:length 1}},
+  "islamicleapyear"
+  {:factor 30672000,
+   :dims {:time 1},
+   :doc
+   "began counting on July 16, AD 622 when Muhammad emigrated to Medina (the year of the Hegira). They need 11 leap days in 30 years to stay in sync with the lunar year which is a bit longer than the 29.5 days of the average month."},
+  "decade" {:factor 9861539367087/31250, :dims {:time 1}},
+  "plate8gauge"
+  {:factor 1397/320000, :dims {:length 1}, :doc "110 oz / ft^2"},
+  "gregorianyear" {:factor 31556952N, :dims {:time 1}},
+  "pedes"
+  {:factor 37/125,
+   :dims {:length 1},
+   :doc "Roman Land Surveyors\", Dilke gives 295.7 mm."},
+  "refrigeration" {:factor 1163/300, :dims {:length 2, :time -3}},
+  "arabicinch" {:factor 16891/750000, :dims {:length 1}},
+  "lambda_C_p"
+  {:factor 18931629/14326841099578413860000, :dims {:length 1}},
+  "ly" {:factor 2363563738872000N, :dims {:length 1}},
+  "cableslength" {:factor 864000/3937, :dims {:length 1}},
+  "jupitermass"
+  {:factor 1898190000000000000000000000N, :dims {:mass 1}},
+  "charonmass" {:factor 1900000000000000000000N, :dims {:mass 1}},
+  "brwire41gauge" {:factor 1397/12500000, :dims {:length 1}},
+  "neodymium"
+  {:factor 1803/12500, :dims {:mass 1, :amount_of_substance -1}},
+  "kilogram" {:factor 1, :dims {:mass 1}},
+  "lbposter"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "centuria" {:factor 12616704/25, :dims {:length 2}},
+  "stefanboltzmann"
+  {:factor
+   80501092948521088867488369932300398190977913808046719518598807407388692934430742468721301569590816283564227451/1419678613746631030208994604859444253906250000000000000000000000000000000000000000000000000000000000000000000000000000,
+   :dims {:mass 1, :time -3, :temperature -4},
+   :doc "The radiant emittance by a blackbody"},
+  "brwire47gauge" {:factor 127/2500000, :dims {:length 1}},
+  "invcm"
+  {:factor 19864458571489287/1000000000000000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "spectroscopy."},
+  "ramsdenschain" {:factor 762/25, :dims {:length 1}},
+  "earthdist"
+  {:factor 7479901148035639923/50000000, :dims {:length 1}},
+  "watch"
+  {:factor 14400,
+   :dims {:time 1},
+   :doc "time a sentry stands watch or a ship's crew is on duty."},
+  "siderealhour"
+  {:factor 5927179177017/125000,
+   :dims {:time 3},
+   :doc "between two successive transits"},
+  "tonsrefrigeration"
+  {:factor 52752792631/15000000,
+   :dims {:mass 1, :length 2, :time -3},
+   :doc "Irregular plural"},
+  "zinc16gauge" {:factor 1143/1000000, :dims {:length 1}},
+  "greatprimer" {:factor 15815691/2500000000, :dims {:length 1}},
+  "number10can" {:factor 9936705933/3200000000000, :dims {:length 3}},
+  "log" {:factor 12775764771/25000000000000, :dims {:length 3}},
+  "jpsize13ring"
+  {:factor 26703537555513242523/500000000000000000000,
+   :dims {:length 1}},
+  "H" {:factor 1, :dims {:mass 1, :length 2, :time -2, :current -2}},
+  "cental" {:factor 45359237/1000000, :dims {:mass 1}},
+  "mache" {:factor 13690N, :dims {:time -1, :length -3}},
+  "drex"
+  {:factor 1/10000000,
+   :dims {:mass 1, :length -1},
+   :doc "to be used for any kind of yarn"},
+  "sexdecillion"
+  {:factor 1000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "sizeZring" {:factor 11/160, :dims {:length 1}},
+  "pica" {:factor 5271897/1250000000, :dims {:length 1}},
+  "kph" {:factor 5/18, :dims {:length 1, :time -1}},
+  "mi" {:factor 201168/125, :dims {:length 1}},
+  "tradedirhem"
+  {:factor 19439673/6250000000,
+   :dims {:mass 1},
+   :doc
+   "units with two identically named systems used for silver and used for trade purposes"},
+  "couple" {:factor 2, :dims {}},
+  "ephah" {:factor 4625127959403/125000000000000, :dims {:length 3}},
+  "centillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "H2O" {:factor 1000N, :dims {:mass 1, :length -3}},
+  "squaredegree"
+  {:factor
+   274155677808037739331322691433070129/900000000000000000000000000000000000000,
+   :dims {}},
+  "lbbristol"
+  {:factor 45359237/20685442500, :dims {:mass 1, :length -2}},
+  "m_mu"
+  {:factor 1883531627/10000000000000000000000000000000000000,
+   :dims {:mass 1}},
+  "neutronmass"
+  {:factor 20936593757/12500000000000000000000000000000000000,
+   :dims {:mass 1},
+   :doc "+/- 85 in last 2 digits"},
+  "finestructureconstant"
+  {:factor 18764400340172295000000/2571398349572188507749959,
+   :dims {}},
+  "seprunx" {:factor 19096238777/100000000000, :dims {:mass 1}},
+  "samarium"
+  {:factor 3759/25000, :dims {:mass 1, :amount_of_substance -1}},
+  "fluiddram" {:factor 473176473/128000000000000, :dims {:length 3}},
+  "perl" {:factor 75213/40000000, :dims {:length 1}},
+  "phosphorus"
+  {:factor 15486881/500000000,
+   :dims {:mass 1, :amount_of_substance -1}},
+  "jpsize9ring"
+  {:factor 24609142453120047031/500000000000000000000,
+   :dims {:length 1}},
+  "mercuryday" {:factor 126675792/25, :dims {:time 1}},
+  "plate26gauge"
+  {:factor 381/800000, :dims {:length 1}, :doc "12 oz / ft^2"},
+  "rehoboam" {:factor 9/2000, :dims {:length 3}},
+  "cal_fifteen"
+  {:factor 20929/5000,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "Energy to go from 14.5 to 15.5 degC"},
+  "epyptiandigit" {:factor 262001/14000000, :dims {:length 1}},
+  "executivesize" {:factor 9822561/200000000, :dims {:length 2}},
+  "rem"
+  {:factor 1/100,
+   :dims {:length 2, :time -2},
+   :doc
+   "keV X-rays. Different types of radiation are weighted by the Relative Biological Effectiveness (RBE)."},
+  "millennia" {:factor 19723078734174/625, :dims {:time 1}},
+  "ray" {:factor 100000N, :dims {:length -4, :mass 1, :time -1}},
+  "hr" {:factor 3600, :dims {:time 1}},
+  "psi"
+  {:factor 8896443230521/1290320000,
+   :dims {:mass 1, :length -1, :time -2}},
+  "UStherm"
+  {:factor 105480400,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "Exact definition"},
+  "hartree"
+  {:factor
+   1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -2}},
+  "lambert"
+  {:factor 5000000000000000000000/1570796326794896619,
+   :dims {:luminous_intensity 1, :length -2}},
+  "protonwavelength"
+  {:factor 18931629/14326841099578413860000, :dims {:length 1}},
+  "wire42gauge" {:factor 158369/2500000000, :dims {:length 1}},
+  "imperialpint" {:factor 454609/800000000, :dims {:length 3}},
+  "shock" {:factor 60, :dims {}},
+  "sizeVring" {:factor 51/800, :dims {:length 1}},
+  "salmanazar" {:factor 9/1000, :dims {:length 3}},
+  "cal" {:factor 10467/2500, :dims {:mass 1, :length 2, :time -2}},
+  "ohm"
+  {:factor 1,
+   :dims {:mass 1, :length 2, :time -3, :current -2},
+   :doc "electrical resistance"},
+  "ampere" {:factor 1, :dims {:current 1}},
+  "romandigit"
+  {:factor 37/2000,
+   :dims {:length 1},
+   :doc "same names as the subdivisions of the pound,"},
+  "gee" {:factor 196133/20000, :dims {:length 1, :time -2}},
+  "nebuchadnezzar" {:factor 3/200, :dims {:length 3}},
+  "plate34gauge"
+  {:factor 1397/6400000, :dims {:length 1}, :doc "5.5 oz / ft^2"},
+  "bu"
+  {:factor 220244188543/6250000000000,
+   :dims {:length 3},
+   :doc "inch diameter (rounded)"},
+  "olympicfinger"
+  {:factor 30861/1600000,
+   :dims {:length 1},
+   :doc "They were used in agriculture."},
+  "joule"
+  {:factor 1, :dims {:mass 1, :length 2, :time -2}, :doc "energy"},
+  "weekly" {:factor 1/604800, :dims {:time -1}},
+  "m_muon"
+  {:factor 1883531627/10000000000000000000000000000000000000,
+   :dims {:mass 1}},
+  "mu0"
+  {:factor 125663706127/100000000000000000,
+   :dims {:mass 1, :length 1, :time -2, :current -2},
+   :doc
+   "permeability of vacuum 2022 CODATA. Uncertainty is +/- 20 in the last 2 digits."},
+  "wire27gauge" {:factor 9017/25000000, :dims {:length 1}},
+  "gₙ"
+  {:factor 196133/20000,
+   :dims {:length 1, :time -2},
+   :doc "g with Unicode subscript n"},
+  "lea" {:factor 6858/25, :dims {:length 1}},
+  "Gi" {:factor 100000000000/125663706127, :dims {:current 1}},
+  "steradian"
+  {:factor 1,
+   :dims {},
+   :doc
+   "the sphere equal to that of a square with sides of length equal to the radius of the sphere. A sphere thus subtends 4 pi steradians. Also a dimensionless unit (length^2/length^2) If you have radians as a fundamental unit, and want to have steradians tracked correctly, replace the first definition with sr := radian^2"},
+  "wire18gauge" {:factor 51181/50000000, :dims {:length 1}},
+  "koshersalt"
+  {:factor 12800000000/22532213,
+   :dims {:mass 1, :length -3},
+   :doc
+   "Diamond Crystal salt, from package Note that Morton kosher salt is much denser."},
+  "frenchpoint" {:factor 125/664944, :dims {:length 1}},
+  "poundboxboard"
+  {:factor 45359237/9290304000, :dims {:mass 1, :length -2}},
+  "pony" {:factor 473176473/16000000000000, :dims {:length 3}},
+  "romanfoot"
+  {:factor 37/125,
+   :dims {:length 1},
+   :doc "There is some uncertainty in this definition"},
+  "neptunium"
+  {:factor 1185241/5000000, :dims {:mass 1, :amount_of_substance -1}},
+  "acousticalohm"
+  {:factor 100000N,
+   :dims {:length -4, :mass 1, :time -1},
+   :doc
+   "ratio of the sound pressure of 1 dyn/cm^2 to a source of strength 1 cm^3/s"},
+  "molal"
+  {:factor 1,
+   :dims {:amount_of_substance 1, :mass -1},
+   :doc "Unit of concentration (moles/kg)"},
+  "atomiclength"
+  {:factor
+   9472256218811406045764637500000000/178999700479686744109011257020936821646953273,
+   :dims {:length 1}},
+  "slug" {:factor 8896443230521/609600000000, :dims {:mass 1}},
+  "selenium"
+  {:factor 987/12500, :dims {:mass 1, :amount_of_substance -1}},
+  "smoot"
+  {:factor 338709/1250000,
+   :dims {:length 2},
+   :doc
+   "Height of Oliver R. Smoot Jr. see: http://aether.lbl.gov/www/personnel/smoot/smoot-measure.html"},
+  "brbillion" {:factor 1000000000000N, :dims {}},
+  "amphorae"
+  {:factor 1087691373/39062500000,
+   :dims {:length 3},
+   :doc "Also a dry volume measure"},
+  "lbcopy" {:factor 4123567/1096772000, :dims {:mass 1, :length -2}},
+  "permittivityofvacuum"
+  {:factor 22135469547/2500000000000000000000,
+   :dims {:current 2, :time 4, :mass -1, :length -3}},
+  "britishthermalunit"
+  {:factor 52752792631/50000000, :dims {:mass 1, :length 2, :time -2}},
+  "eggyolkvolume"
+  {:factor 1104078437/64000000000000, :dims {:length 3}},
+  "gravities"
+  {:factor 196133/20000,
+   :dims {:length 1, :time -2},
+   :doc "Irregular plural"},
+  "jpsize11ring"
+  {:factor 25656340004316644777/500000000000000000000,
+   :dims {:length 1}},
+  "romanobol" {:factor 2728034111/4800000000000, :dims {:mass 1}},
+  "permeabilityofvacuum"
+  {:factor 125663706127/100000000000000000,
+   :dims {:mass 1, :length 1, :time -2, :current -2}},
+  "jpsize19ring"
+  {:factor 29845130209103035761/500000000000000000000,
+   :dims {:length 1}},
+  "statcoul" {:factor 1/2997924580, :dims {:current 1, :time 1}},
+  "galileo"
+  {:factor 1/100,
+   :dims {:length 1, :time -2},
+   :doc
+   "for earth's gravitational field (note that \"gal\" is for gallon but \"Gal\" is the standard symbol for the gal which is evidently a shortened form of \"galileo\".)"},
+  "hartley"
+  {:factor 20762050593/6250000000,
+   :dims {:information 1},
+   :doc
+   "log[10]/log[2] bits, or the entropy of a uniformly-distributed random variable over 10 symbols."},
+  "foot" {:factor 381/1250, :dims {:length 1}},
+  "plate19gauge"
+  {:factor 889/800000, :dims {:length 1}, :doc "28 oz / ft^2"},
+  "Rankine" {:factor 5/9, :dims {:temperature 1}},
+  "homericcubit"
+  {:factor 31623/80000,
+   :dims {:length 1},
+   :doc "Elbow to end of knuckles."},
+  "silverwukiyeh" {:factor 58319019/2000000000, :dims {:mass 1}},
+  "pi" {:factor 1570796326794896619/500000000000000000, :dims {}},
+  "silverkirat" {:factor 58319019/320000000000, :dims {:mass 1}},
+  "A10paper" {:factor 481/500000, :dims {:length 2}},
+  "brwire36gauge" {:factor 2413/12500000, :dims {:length 1}},
+  "bolt" {:factor 4572/125, :dims {:length 1}},
+  "astronomicalunit" {:factor 149597870700, :dims {:length 1}},
+  "brwire25gauge" {:factor 127/250000, :dims {:length 1}},
+  "section" {:factor 40144896000000/15499969, :dims {:length 2}},
+  "jpsize12ring"
+  {:factor 523598775598298873/10000000000000000000, :dims {:length 1}},
+  "moonmass" {:factor 73483000000000000000000N, :dims {:mass 1}},
+  "minorseventh" {:factor 9/5, :dims {}},
+  "jpsize15ring"
+  {:factor 27750735106709840269/500000000000000000000,
+   :dims {:length 1}},
+  "Ω"
+  {:factor 1,
+   :dims {:mass 1, :length 2, :time -3, :current -2},
+   :doc
+   "Preferred\" Unicode codepoint for ohm GREEK CAPITAL LETTER OMEGA"},
+  "troyounce" {:factor 19439673/625000000, :dims {:mass 1}},
+  "inchmercury"
+  {:factor 3386388640341/1000000000,
+   :dims {:length -1, :time -2, :mass 1}},
+  "oilbarrel" {:factor 9936705933/62500000000, :dims {:length 3}},
+  "actinium"
+  {:factor 1135139/5000000, :dims {:mass 1, :amount_of_substance -1}},
+  "A8paper" {:factor 481/125000, :dims {:length 2}},
+  "dram" {:factor 45359237/25600000000, :dims {:mass 1}},
+  "brheapedbushel" {:factor 290495151/6250000000, :dims {:length 3}},
+  "drygallon" {:factor 220244188543/50000000000000, :dims {:length 3}},
+  "btu"
+  {:factor 52752792631/50000000, :dims {:mass 1, :length 2, :time -2}},
+  "sizeRring" {:factor 47/800, :dims {:length 1}},
+  "brtredecillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "Wh" {:factor 3600, :dims {:mass 1, :length 2, :time -2}},
+  "timeatom" {:factor 15/94, :dims {:time 1}},
+  "abohm"
+  {:factor 1/1000000000,
+   :dims {:length 2, :mass 1, :time -3, :current -2}},
+  "squareactus"
+  {:factor 788544/625, :dims {:length 2}, :doc "actus quadratus"},
+  "loschmidt"
+  {:factor 67550000000000000000000000000000000/2514161829,
+   :dims {:length -3},
+   :doc
+   "Molecules per cubic meter of an ideal gas at STP. Loschmidt did work similar to Avogadro."},
+  "admiraltymile" {:factor 231648/125, :dims {:length 1}},
+  "cwt" {:factor 45359237/1000000, :dims {:mass 1}},
+  "metriccarat" {:factor 1/5000, :dims {:mass 1}},
+  "wire21gauge" {:factor 180721/250000000, :dims {:length 1}},
+  "molybdenum"
+  {:factor 4797/50000, :dims {:mass 1, :amount_of_substance -1}},
+  "pond"
+  {:factor 196133/20000000, :dims {:mass 1, :length 1, :time -2}},
+  "R"
+  {:factor 207861565453831/25000000000000,
+   :dims
+   {:amount_of_substance -1,
+    :mass 1,
+    :length 2,
+    :time -2,
+    :temperature -1}},
+  "oatbushel" {:factor 45359237/3125000, :dims {:mass 1}},
+  "brdecilliard"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "brwire48gauge" {:factor 127/3125000, :dims {:length 1}},
+  "skylum"
+  {:factor 8000,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "average, clear sky"},
+  "sb"
+  {:factor 10000N,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "(nit is from latin nitere = to shine.)"},
+  "brwire0000gauge" {:factor 127/12500, :dims {:length 1}},
+  "drop"
+  {:factor 1/20000000,
+   :dims {:length 3},
+   :doc
+   "The drop was an old \"unit\" that was replaced by the minim. But I was told by a pharmacist that in his profession, the conversion of 20 drops per ml is actually used."},
+  "unity" {:factor 1, :dims {}},
+  "planck"
+  {:factor 1,
+   :dims {:mass 1, :length 2, :time -1},
+   :doc "action of one joule over one second"},
+  "size13_5ring"
+  {:factor 17754710881762716484557/250000000000000000000000,
+   :dims {:length 1}},
+  "gravity"
+  {:factor 196133/20000,
+   :dims {:length 1, :time -2},
+   :doc
+   "std acceleration of gravity (exact) see https://physics.nist.gov/cgi-bin/cuu/Value?gn"},
+  "atticstater"
+  {:factor 174957057/20000000000,
+   :dims {:mass 1},
+   :doc "Varies 134-138 grain"},
+  "daily" {:factor 1/86400, :dims {:time -1}},
+  "wire40gauge" {:factor 79883/1000000000, :dims {:length 1}},
+  "C" {:factor 1, :dims {:current 1, :time 1}},
+  "barrel" {:factor 9936705933/62500000000, :dims {:length 3}},
+  "brminim" {:factor 454609/7680000000000, :dims {:length 3}},
+  "bale" {:factor 5000, :dims {}},
+  "tredecillion"
+  {:factor 1000000000000000000000000000000000000000000N, :dims {}},
+  "electronvolt"
+  {:factor 801088317/5000000000000000000000000000,
+   :dims {:time -2, :mass 1, :length 2},
+   :doc "when it is accelerated through 1 V"},
+  "brduodecillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "ozt" {:factor 19439673/625000000, :dims {:mass 1}},
+  "acrefoot" {:factor 75271680000000/61023377953, :dims {:length 3}},
+  "gauss" {:factor 1/10000, :dims {:mass 1, :time -2, :current -1}},
+  "kerosene"
+  {:factor 17750000000000000000/473176473,
+   :dims {:mass 1, :length -1, :time -2},
+   :doc "Energy in liquid kerosene"},
+  "INpoint"
+  {:factor 1/2500,
+   :dims {:length 1},
+   :doc
+   "This point was created by a group directed by Fermin Didot in 1881 and is associated with the imprimerie nationale. It doesn't seem to have been used much."},
+  "brquadrillion" {:factor 1000000000000000000000000N, :dims {}},
+  "liang"
+  {:factor 498951607/4800000000,
+   :dims {:mass 1},
+   :doc "Chinese weight unit"},
+  "woolstone" {:factor 317514659/50000000, :dims {:mass 1}},
+  "size12ring"
+  {:factor 83985767204742737528073/1250000000000000000000000,
+   :dims {:length 1}},
+  "wire28gauge" {:factor 10033/31250000, :dims {:length 1}},
+  "metricton" {:factor 1000, :dims {:mass 1}},
+  "barleybushel" {:factor 136077711/6250000, :dims {:mass 1}},
+  "lbindexbristol"
+  {:factor 45359237/25088659500, :dims {:mass 1, :length -2}},
+  "iugera" {:factor 1577088/625, :dims {:length 2}},
+  "abampere"
+  {:factor 10,
+   :dims {:current 1},
+   :doc "Current which produces a force of"},
+  "MPGe"
+  {:factor 1397/105312500,
+   :dims {:length -1, :mass -1, :time 2},
+   :doc "EPA definition, of miles per gallon, electric. See above."},
+  "wire26gauge" {:factor 101219/250000000, :dims {:length 1}},
+  "draconicmonth"
+  {:factor 7347299373/3125,
+   :dims {:time 1},
+   :doc "an orbit crosses the ecliptic."},
+  "geometricpace"
+  {:factor 381/250,
+   :dims {:length 1},
+   :doc "distance between points where the same foot hits the ground"},
+  "circularinch"
+  {:factor 25335373954874887567851/50000000000000000000000000,
+   :dims {:length 2},
+   :doc "area of a one-inch diameter circle"},
+  "crith"
+  {:factor 17977/200000000,
+   :dims {:mass 1},
+   :doc
+   "The crith is the mass of one liter of hydrogen at standard temperature and pressure."},
+  "karat" {:factor 1/24, :dims {}, :doc "measure of gold purity"},
+  "cd" {:factor 1, :dims {:luminous_intensity 1}},
+  "siegbahn"
+  {:factor 50101/500000000000000000,
+   :dims {:length 1},
+   :doc
+   "of X-rays. It is defined to be 1/3029.45 of the spacing of calcite planes at 18 degC. It was intended to be exactly 1e-13 m, but was later found to be off slightly."},
+  "equivalentphot"
+  {:factor 5000000000000000000000/1570796326794896619,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "luminance of a 1 phot surface"},
+  "lithium"
+  {:factor 6941/1000000, :dims {:mass 1, :amount_of_substance -1}},
+  "computerpoint"
+  {:factor 127/360000,
+   :dims {:length 1},
+   :doc "The American point was rounded"},
+  "leo" {:factor 10, :dims {:length 1, :time -2}},
+  "metre" {:factor 1, :dims {:length 1}},
+  "newhaytruss"
+  {:factor 136077711/5000000,
+   :dims {:mass 1},
+   :doc "New and old here seem to refer to \"new"},
+  "plate13gauge"
+  {:factor 381/160000, :dims {:length 1}, :doc "60 oz / ft^2"},
+  "arpent"
+  {:factor 656100000000/191905609,
+   :dims {:length 2},
+   :doc
+   "The arpent is 100 square perches, but the perche seems to vary a lot and can be 18 feet, 20 feet, or 22 feet. This measure was described as being in common use in Canada in 1934 (Websters 2nd). The value given here is the Paris standard arpent."},
+  "gunterschain" {:factor 79200/3937, :dims {:length 1}},
+  "plate00gauge"
+  {:factor 1397/160000, :dims {:length 1}, :doc "220 oz / ft^2"},
+  "jpsize30ring"
+  {:factor 8901179185171080841/125000000000000000000,
+   :dims {:length 1}},
+  "mgd" {:factor 157725491/3600000000, :dims {:length 3, :time -1}},
+  "F" {:factor 1, :dims {:current 2, :time 4, :mass -1, :length -2}},
+  "nat"
+  {:factor 2254211001389/1562500000000,
+   :dims {:information 1},
+   :doc "log[e]/log[2]"},
+  "lbbag" {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "forty" {:factor 40, :dims {}},
+  "khous"
+  {:factor 81/25000,
+   :dims {:length 3},
+   :doc "were reconstructed from fragments."},
+  "billiard" {:factor 1000000000000000N, :dims {}},
+  "surveyorschain" {:factor 79200/3937, :dims {:length 1}},
+  "jpsize4ring"
+  {:factor 10995574287564276333/250000000000000000000,
+   :dims {:length 1}},
+  "culleus" {:factor 1087691373/1953125000, :dims {:length 3}},
+  "chinesemace" {:factor 45359237/12000000000, :dims {:mass 1}},
+  "mayer"
+  {:factor 1000N,
+   :dims {:length 2, :time -2, :temperature -1},
+   :doc "specific heat capacity"},
+  "B7paper" {:factor 11/1000, :dims {:length 2}},
+  "plutomass" {:factor 13025000000000000000000N, :dims {:mass 1}},
+  "plate37gauge"
+  {:factor 2159/12800000, :dims {:length 1}, :doc "4.25 oz / ft^2"},
+  "brwire14gauge" {:factor 127/62500, :dims {:length 1}},
+  "actuslength"
+  {:factor 888/25, :dims {:length 1}, :doc "length of a Roman furrow"},
+  "plate16gauge"
+  {:factor 127/80000, :dims {:length 1}, :doc "40 oz / ft^2"},
+  "ph" {:factor 10000N, :dims {:luminous_intensity 1, :length -2}},
+  "yd" {:factor 1143/1250, :dims {:length 1}},
+  "chromium"
+  {:factor 519961/10000000, :dims {:mass 1, :amount_of_substance -1}},
+  "frenchfeet"
+  {:factor 4500/13853,
+   :dims {:length 1},
+   :doc "instituted by Charlemagne."},
+  "eusize26ring" {:factor 33/500, :dims {:length 1}},
+  "marsmass" {:factor 641910000000000000000000N, :dims {:mass 1}},
+  "xunit"
+  {:factor 50101/500000000000000000,
+   :dims {:length 1},
+   :doc "Used for measuring wavelengths"},
+  "monthly" {:factor 1250000/3287179789029, :dims {:time -1}},
+  "brwire43gauge" {:factor 1143/12500000, :dims {:length 1}},
+  "arcsecond"
+  {:factor 523598775598298873/108000000000000000000000, :dims {}},
+  "marineleague" {:factor 5556, :dims {:length 1}},
+  "hbar"
+  {:factor 44173801/418879020478639098400000000000000000000000,
+   :dims {:mass 1, :length 2, :time -1}},
+  "nuclearmagneton"
+  {:factor
+   35387115898582917/7006262339730308196007795634800000000000000,
+   :dims {:current 1, :length 2}},
+  "congii" {:factor 1087691373/312500000000, :dims {:length 3}},
+  "sizeAring" {:factor 3/80, :dims {:length 1}},
+  "wire5gauge" {:factor 231013/50000000, :dims {:length 1}},
+  "stickbutter" {:factor 45359237/400000000, :dims {:mass 1}},
+  "homer"
+  {:factor 4625127959403/12500000000000,
+   :dims {:length 3},
+   :doc "Alternate spelling, used in many translations"},
+  "plate000gauge"
+  {:factor 381/40000, :dims {:length 1}, :doc "240 oz / ft^2"},
+  "iupenicillin" {:factor 3/5000000000, :dims {:mass 1}},
+  "da" {:factor 86400, :dims {:time 1}},
+  "brmilliard" {:factor 1000000000N, :dims {}},
+  "statfarad"
+  {:factor 25000/22468879468420441,
+   :dims {:current 2, :time 4, :length -2, :mass -1}},
+  "proof"
+  {:factor 1/200,
+   :dims {},
+   :doc
+   "Alcohol content measured by volume at 60 degrees Fahrenheit. This is a USA measure. In Europe proof=percent."},
+  "stone" {:factor 317514659/50000000, :dims {:mass 1}},
+  "size5_5ring"
+  {:factor 63238689320435742984321/1250000000000000000000000,
+   :dims {:length 1}},
+  "imperialgill" {:factor 454609/3200000000, :dims {:length 3}},
+  "H₂O"
+  {:factor 1000N,
+   :dims {:mass 1, :length -3},
+   :doc "H Unicode subscript 2 O"},
+  "m_u"
+  {:factor 41513476723/25000000000000000000000000000000000000,
+   :dims {:mass 1}},
+  "americium"
+  {:factor 1215307/5000000,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived. 241.06"},
+  "hefnercandle" {:factor 459/500, :dims {:luminous_intensity 1}},
+  "cordfeet" {:factor 110612682/244140625, :dims {:length 3}},
+  "majorthird" {:factor 5/4, :dims {}},
+  "minersinchMT"
+  {:factor 55306341/78125000000, :dims {:length 3, :time -1}},
+  "brewster"
+  {:factor 1/1000000000000,
+   :dims {:length 1, :mass -1, :time 2},
+   :doc "measures stress-optical coef"},
+  "juliancentury" {:factor 3155760000, :dims {:time 1}},
+  "Z₀"
+  {:factor 18836515670601495083/50000000000000000,
+   :dims {:mass 1, :length 2, :time -3, :current -2},
+   :doc "Z Unicode subscript zero"},
+  "printerspoint" {:factor 1757299/5000000000, :dims {:length 1}},
+  "heredium"
+  {:factor 3154176/625, :dims {:length 2}, :doc "heritable plot"},
+  "lbwriting"
+  {:factor 4123567/1096772000,
+   :dims {:mass 1, :length -2},
+   :doc "ink penetration."},
+  "lbtext" {:factor 45359237/30645100000, :dims {:mass 1, :length -2}},
+  "parsec"
+  {:factor 16156570035600000000000000000000000/523598775598298873,
+   :dims {:length 1},
+   :doc "Unit of length equal to distance"},
+  "niobium"
+  {:factor 4645319/50000000, :dims {:mass 1, :amount_of_substance -1}},
+  "zinc"
+  {:factor 6539/100000, :dims {:mass 1, :amount_of_substance -1}},
+  "Calorie"
+  {:factor 20934/5,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "the food Calorie"},
+  "wire50gauge" {:factor 1252601/50000000000, :dims {:length 1}},
+  "minersinchKS"
+  {:factor 55306341/97656250000, :dims {:length 3, :time -1}},
+  "ppb" {:factor 1/1000000000, :dims {}},
+  "undecillion"
+  {:factor 1000000000000000000000000000000000000N, :dims {}},
+  "beryllium"
+  {:factor 4506091/500000000,
+   :dims {:mass 1, :amount_of_substance -1}},
+  "wire2gauge" {:factor 20447/3125000, :dims {:length 1}},
+  "jpsize5ring"
+  {:factor 22514747350726851539/500000000000000000000,
+   :dims {:length 1}},
+  "technicalatmosphere"
+  {:factor 196133/2, :dims {:mass 1, :length -1, :time -2}},
+  "ricebushel" {:factor 408233133/20000000, :dims {:mass 1}},
+  "sigmaₜ"
+  {:factor 66524587051/1000000000000000000000000000000000000000,
+   :dims {:length 2},
+   :doc "sigma\" Unicode subscript t"},
+  "ramsdenslink" {:factor 381/1250, :dims {:length 1}},
+  "hertz" {:factor 1, :dims {:time -1}, :doc "frequency"},
+  "r_e"
+  {:factor 5635880641/2000000000000000000000000, :dims {:length 1}},
+  "marsyear" {:factor 59352480N, :dims {:time 1}},
+  "case"
+  {:factor 4258588257/500000000000,
+   :dims {:length 3},
+   :doc "Why not?"},
+  "preece"
+  {:factor 10000000000000N,
+   :dims {:mass 1, :length 3, :time -3, :current -2},
+   :doc "resistivity"},
+  "degfahrenheit"
+  {:factor 5/9,
+   :dims {:temperature 1},
+   :doc "The *size* of a degree in the Fahrenheit scale."},
+  "perfectream" {:factor 516, :dims {}},
+  "Gs" {:factor 1/10000, :dims {:mass 1, :time -2, :current -1}},
+  "novemdecillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "acnua" {:factor 788544/625, :dims {:length 2}},
+  "intvolt"
+  {:factor 100033/100000,
+   :dims {:mass 1, :length 2, :time -3, :current -1}},
+  "ganymedemass" {:factor 148000000000000000000000N, :dims {:mass 1}},
+  "B0paper"
+  {:factor 707/500,
+   :dims {:length 2},
+   :doc "The basic B size has an area"},
+  "zinc21gauge" {:factor 127/62500, :dims {:length 1}},
+  "tronpound" {:factor 771107029/1250000000, :dims {:mass 1}},
+  "text" {:factor 676917/100000000, :dims {:length 1}},
+  "eman"
+  {:factor 3700N,
+   :dims {:time -1, :length -3},
+   :doc "radioactive concentration"},
+  "palladium"
+  {:factor 5321/50000, :dims {:mass 1, :amount_of_substance -1}},
+  "five" {:factor 5, :dims {}},
+  "plate38gauge"
+  {:factor 127/800000, :dims {:length 1}, :doc "4 oz / ft^2"},
+  "brwire49gauge" {:factor 381/12500000, :dims {:length 1}},
+  "stadium" {:factor 185N, :dims {:length 1}},
+  "ECtherm"
+  {:factor 105506000,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "Exact definition, close to 1e5 Btu"},
+  "split" {:factor 1/5000, :dims {:length 3}},
+  "brvigintillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "wire54gauge" {:factor 787781/50000000000, :dims {:length 1}},
+  "thullium"
+  {:factor 16893421/100000000,
+   :dims {:mass 1, :amount_of_substance -1}},
+  "ppt" {:factor 1/1000000000000, :dims {}},
+  "islamicyear"
+  {:factor 30585600,
+   :dims {:time 1},
+   :doc "A year of 12 lunar months. They"},
+  "wire55gauge" {:factor 175387/12500000000, :dims {:length 1}},
+  "olympicspan" {:factor 1143/5000, :dims {:length 1}},
+  "thirty" {:factor 30, :dims {}},
+  "size5ring"
+  {:factor 61642760252412128019417/1250000000000000000000000,
+   :dims {:length 1}},
+  "wc"
+  {:factor 1000N, :dims {:mass 1, :length -3}, :doc "water column"},
+  "gammil" {:factor 1/1000, :dims {:mass 1, :length -3}},
+  "dalton"
+  {:factor 41513476723/25000000000000000000000000000000000000,
+   :dims {:mass 1},
+   :doc "Maybe this should be amu_chem?"},
+  "nickel"
+  {:factor 293467/5000000, :dims {:mass 1, :amount_of_substance -1}},
+  "olympicplethron" {:factor 30861/1000, :dims {:length 1}},
+  "wire24gauge" {:factor 25527/50000000, :dims {:length 1}},
+  "seamile" {:factor 9144/5, :dims {:length 1}},
+  "plate31gauge"
+  {:factor 889/3200000, :dims {:length 1}, :doc "7 oz / ft^2"},
+  "eusize20ring" {:factor 3/50, :dims {:length 1}},
+  "Btu"
+  {:factor 52752792631/50000000,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "international table BTU"},
+  "pace"
+  {:factor 381/500,
+   :dims {:length 1},
+   :doc
+   "distance between points where alternate feet touch the ground"},
+  "reyn"
+  {:factor 8896443230521/1290320000,
+   :dims {:mass 1, :length -1, :time -1}},
+  "Torr"
+  {:factor 20265/152,
+   :dims {:mass 1, :length -1, :time -2},
+   :doc
+   "Accepted symbol is Torr These units, both named after Evangelista"},
+  "waterhorsepower"
+  {:factor 746043/1000, :dims {:mass 1, :length 2, :time -3}},
+  "bundle" {:factor 1000, :dims {}},
+  "vac" {:factor 100N, :dims {:mass 1, :length -1, :time -2}},
+  "titanium"
+  {:factor 47867/1000000, :dims {:mass 1, :amount_of_substance -1}},
+  "peck" {:factor 220244188543/25000000000000, :dims {:length 3}},
+  "einsteinium"
+  {:factor 252083/1000000,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived"},
+  "jpsize29ring"
+  {:factor 35081117965086024491/500000000000000000000,
+   :dims {:length 1}},
+  "brwire0000000gauge" {:factor 127/10000, :dims {:length 1}},
+  "plate15gauge"
+  {:factor 1143/640000, :dims {:length 1}, :doc "45 oz / ft^2"},
+  "week" {:factor 604800, :dims {:time 1}},
+  "aluminum"
+  {:factor 26981539/1000000000,
+   :dims {:mass 1, :amount_of_substance -1}},
+  "sizeBring" {:factor 31/800, :dims {:length 1}},
+  "wire43gauge" {:factor 282067/5000000000, :dims {:length 1}},
+  "jansky"
+  {:factor 1/100000000000000000000000000,
+   :dims {:mass 1, :time -2},
+   :doc "K. G. Jansky identified radio waves coming"},
+  "intohm"
+  {:factor 200099/200000,
+   :dims {:mass 1, :length 2, :time -3, :current -2},
+   :doc
+   "Defined as the resistance of a uniform column of mercury containing 14.4521 gram in a column 1.063 m long and maintained at 0 degC."},
+  "ha" {:factor 10000, :dims {:length 2}},
+  "size9ring"
+  {:factor 74410192796601047738649/1250000000000000000000000,
+   :dims {:length 1}},
+  "metrichorsepower"
+  {:factor 588399/800, :dims {:mass 1, :length 2, :time -3}},
+  "lawrencium"
+  {:factor 26211/100000,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived"},
+  "synodicmonth"
+  {:factor 1594649997/625,
+   :dims {:time 1},
+   :doc "moon occur when the sun and"},
+  "mercury"
+  {:factor 20059/100000, :dims {:mass 1, :amount_of_substance -1}},
+  "aluminium"
+  {:factor 26981539/1000000000,
+   :dims {:mass 1, :amount_of_substance -1}},
+  "township" {:factor 1445216256000000/15499969, :dims {:length 2}},
+  "breadflour_sifted"
+  {:factor 6258985625/12290298,
+   :dims {:mass 1, :length -3},
+   :doc "and then sweep the top. Sifted means"},
+  "keg"
+  {:factor 14668470663/250000000000,
+   :dims {:length 3},
+   :doc "The standard \"keg\" is a half barrel"},
+  "fingerbreadth"
+  {:factor 889/40000,
+   :dims {:length 1},
+   :doc "The finger is defined as either the width"},
+  "hyl"
+  {:factor 196133/20000,
+   :dims {:mass 1},
+   :doc "Also gram-force s^2/m according to [15]"},
+  "brwire42gauge" {:factor 127/1250000, :dims {:length 1}},
+  "century" {:factor 9861539367087/3125, :dims {:time 1}},
+  "wire7gauge" {:factor 183261/50000000, :dims {:length 1}},
+  "degC"
+  {:factor 1,
+   :dims {:temperature 1},
+   :doc
+   "The *size* of a degree in the Celsius scale. This is identical to the size of a Kelvin. WARNING: This should only be used when you're indicating the *difference* between two temperatures, (say, how much energy to raise the temperature of a gram of water by 5 degrees Celsius, *not* for absolute temperatures. (I wonder if they should go entirely to eliminate this confusion...) For calculating absolute temperatures, use the Celsius[] or C[] functions below."},
+  "size8ring"
+  {:factor 71218334660553817808841/1250000000000000000000000,
+   :dims {:length 1}},
+  "earthradius_polar" {:factor 31783761571/5000, :dims {:length 1}},
+  "legalsize" {:factor 1919351/25000000, :dims {:length 2}},
+  "jpsize3ring"
+  {:factor 21467549799530253793/500000000000000000000,
+   :dims {:length 1}},
+  "wire3gauge" {:factor 145669/25000000, :dims {:length 1}},
+  "frenchinch"
+  {:factor 375/13853,
+   :dims {:length 1},
+   :doc "This exact definition comes from"},
+  "wire9gauge" {:factor 18161/6250000, :dims {:length 1}},
+  "geepound" {:factor 8896443230521/609600000000, :dims {:mass 1}},
+  "hp"
+  {:factor 37284993579113511/50000000000000,
+   :dims {:length 2, :mass 1, :time -3}},
+  "amp" {:factor 1, :dims {:current 1}},
+  "timeostent" {:factor 60N, :dims {:time 1}},
+  "astatine"
+  {:factor 2099871/10000000,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived"},
+  "iron"
+  {:factor 11169/200000, :dims {:mass 1, :amount_of_substance -1}},
+  "bell"
+  {:factor 1800N,
+   :dims {:time 1},
+   :doc "Bell would be sounded every 30 minutes."},
+  "lumberg" {:factor 1, :dims {:luminous_intensity 1, :time 1}},
+  "darcy"
+  {:factor 1/1013250000000,
+   :dims {:length 2},
+   :doc
+   "Measures permeability to fluid flow. One darcy is the permeability of a medium that allows a flow of cc/s of a liquid of centipoise viscosity under a pressure gradient of atm/cm."},
+  "broctilliard"
+  {:factor 1000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "draconiticmonth"
+  {:factor 7347299373/3125,
+   :dims {:time 1},
+   :doc
+   "This is the time required to travel from the ascending node to the next ascending node."},
+  "centrad"
+  {:factor 1/100,
+   :dims {},
+   :doc "Used for angular deviation of light through a prism."},
+  "kip"
+  {:factor 8896443230521/2000000000,
+   :dims {:mass 1, :length 1, :time -2},
+   :doc "from kilopound"},
+  "sizeYring" {:factor 27/400, :dims {:length 1}},
+  "iudiptheria"
+  {:factor 157/2500000000,
+   :dims {:mass 1},
+   :doc "IU is for international unit"},
+  "schoenus" {:factor 5920N, :dims {:length 1}},
+  "brfloz"
+  {:factor 454609/16000000000,
+   :dims {:length 3},
+   :doc "Note difference in definition"},
+  "musicalfourth" {:factor 4/3, :dims {}},
+  "romaninch"
+  {:factor 37/1500,
+   :dims {:length 1},
+   :doc "The subdivisions of the Roman foot have the"},
+  "nitrogen"
+  {:factor 700337/50000000, :dims {:mass 1, :amount_of_substance -1}},
+  "noggin" {:factor 454609/3200000000, :dims {:length 3}},
+  "slph" {:factor 1351/48000, :dims {:mass 1, :length 2, :time -3}},
+  "statamp" {:factor 1/2997924580, :dims {:current 1}},
+  "stokes"
+  {:factor 1/10000,
+   :dims {:length 2, :time -1},
+   :doc "kinematic viscosity"},
+  "degreesrankine"
+  {:factor 5/9,
+   :dims {:temperature 1},
+   :doc "The Rankine scale has the"},
+  "brbilliard" {:factor 1000000000000000N, :dims {}},
+  "rps"
+  {:factor 1570796326794896619/250000000000000000, :dims {:time -1}},
+  "plutoyear" {:factor 122253503533777539/15625000, :dims {:time 1}},
+  "plate30gauge"
+  {:factor 127/400000, :dims {:length 1}, :doc "8 oz / ft^2"},
+  "cablelength" {:factor 864000/3937, :dims {:length 1}},
+  "xenon"
+  {:factor 13129/100000, :dims {:mass 1, :amount_of_substance -1}},
+  "kat"
+  {:factor 1,
+   :dims {:amount_of_substance 1, :time -1},
+   :doc "SI symbol for katal"},
+  "K_J"
+  {:factor 21362355120000000000000/44173801,
+   :dims {:current 1, :time 2, :mass -1, :length -2},
+   :doc
+   "Josephson Constant Direct measurement of the volt is difficult. Until recently, laboratories kept Weston cadmium cells as a reference, but they could drift. In 1987 the CGPM officially recommended the use of the Josephson effect as a laboratory representation of the volt. The Josephson effect occurs when two superconductors are separated by a thin insulating layer. A \"supercurrent\" flows across the insulator with a frequency that depends on the potential applied across the superconductors. This frequency can be very accurately measured. The Josephson constant K_J, which is equal to 2 elementarycharge/h, relates the measured frequency to the potential. From 1990 to 2019, the value of the Josephson constant was specified as as exactly 4.835979ee+14 Hz/V . The new 2019 SI redefinition caused it to be changed to a slightly different (but exact rational number value) See: https://physics.nist.gov/cgi-bin/cuu/Value?kjos"},
+  "plate27gauge"
+  {:factor 1397/3200000, :dims {:length 1}, :doc "11 oz / ft^2"},
+  "cottonbolt"
+  {:factor 4572/125, :dims {:length 1}, :doc "cloth measurement"},
+  "pythagoreanthird" {:factor 81/64, :dims {}},
+  "zinc6gauge" {:factor 381/1250000, :dims {:length 1}},
+  "atticdrachmae" {:factor 174957057/40000000000, :dims {:mass 1}},
+  "lbpostcard"
+  {:factor 45359237/20685442500, :dims {:mass 1, :length -2}},
+  "chinesetael" {:factor 45359237/1200000000, :dims {:mass 1}},
+  "kayser"
+  {:factor 100N,
+   :dims {:length -1},
+   :doc "Proposed as a unit for wavenumber"},
+  "lbm" {:factor 45359237/100000000, :dims {:mass 1}},
+  "partsperbillion"
+  {:factor 1/1000000000, :dims {}, :doc "USA billion"},
+  "arcsec"
+  {:factor 523598775598298873/108000000000000000000000, :dims {}},
+  "gsm" {:factor 1/1000, :dims {:mass 1, :length -2}},
+  "P" {:factor 1/10, :dims {:mass 1, :length -1, :time -1}},
+  "kₑ"
+  {:factor
+   312500000000000000000000000000000000000/34770314256307894224887761593,
+   :dims {:current -2, :time -4, :mass 1, :length 3},
+   :doc "k Unicode subscript e"},
+  "abhenry"
+  {:factor 1/1000000000,
+   :dims {:length 2, :mass 1, :time -2, :current -2}},
+  "wire45gauge" {:factor 223647/5000000000, :dims {:length 1}},
+  "intfarad"
+  {:factor 199901/200000,
+   :dims {:current 2, :time 4, :mass -1, :length -2}},
+  "metercandle"
+  {:factor 1,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc
+   "Illuminance from a 1 candela source at a distance of one meter"},
+  "octave" {:factor 2, :dims {}},
+  "iodine"
+  {:factor 12690447/100000000,
+   :dims {:mass 1, :amount_of_substance -1}},
+  "size12_5ring"
+  {:factor 85581696272766352492977/1250000000000000000000000,
+   :dims {:length 1}},
+  "rd" {:factor 19800/3937, :dims {:length 1}},
+  "krypton"
+  {:factor 419/5000, :dims {:mass 1, :amount_of_substance -1}},
+  "wire44gauge" {:factor 125603/2500000000, :dims {:length 1}},
+  "fourier"
+  {:factor 1, :dims {:temperature 2, :mass -1, :length -2, :time 3}},
+  "ponykeg" {:factor 14668470663/500000000000, :dims {:length 3}},
+  "k_e"
+  {:factor
+   312500000000000000000000000000000000000/34770314256307894224887761593,
+   :dims {:current -2, :time -4, :mass 1, :length 3}},
+  "kine" {:factor 1/100, :dims {:length 1, :time -1}, :doc "velocity"},
+  "seventy" {:factor 70, :dims {}},
+  "aeginadrachmae" {:factor 19439673/3125000000, :dims {:mass 1}},
+  "sizeOring" {:factor 11/200, :dims {:length 1}},
+  "plate33gauge"
+  {:factor 381/1600000, :dims {:length 1}, :doc "6 oz / ft^2"},
+  "jar"
+  {:factor 25000000/22468879468420441,
+   :dims {:current 2, :time 4, :length -2, :mass -1},
+   :doc "approx capacitance of Leyden jar"},
+  "poundpostcardpaper"
+  {:factor 45359237/20685442500, :dims {:mass 1, :length -2}},
+  "poundweddingbristol"
+  {:factor 45359237/20685442500, :dims {:mass 1, :length -2}},
+  "centurium" {:factor 12616704/25, :dims {:length 2}},
+  "pair" {:factor 2, :dims {}},
+  "sulphur"
+  {:factor 16033/500000, :dims {:mass 1, :amount_of_substance -1}},
+  "plate36gauge"
+  {:factor 1143/6400000, :dims {:length 1}, :doc "4.5 oz / ft^2"},
+  "lustrum"
+  {:factor 9861539367087/62500,
+   :dims {:time 1},
+   :doc
+   "The Lustrum was a Roman purification ceremony that took place every five years. Classically educated Englishmen used this term."},
+  "parasang"
+  {:factor 704088/125,
+   :dims {:length 1},
+   :doc
+   "Persian unit of length usually thought to be between 3 and 3.5 miles"},
+  "wire36gauge" {:factor 127/1000000, :dims {:length 1}},
+  "fotmal" {:factor 317514659/10000000, :dims {:mass 1}},
+  "feet" {:factor 381/1250, :dims {:length 1}},
+  "number1can" {:factor 473176473/1600000000000, :dims {:length 3}},
+  "eusize12ring" {:factor 13/250, :dims {:length 1}},
+  "woolclove" {:factor 317514659/100000000, :dims {:mass 1}},
+  "longton" {:factor 317514659/312500, :dims {:mass 1}},
+  "t" {:factor 1000, :dims {:mass 1}},
+  "imperialgallon" {:factor 454609/100000000, :dims {:length 3}},
+  "cochlearia" {:factor 120854597/10000000000000, :dims {:length 3}},
+  "pinlength"
+  {:factor 127/80000,
+   :dims {:length 1},
+   :doc "A//17 pin is 17/16 in long in the USA."},
+  "sundist_near"
+  {:factor 147100000000N,
+   :dims {:length 1},
+   :doc "earth-sun distance at perihelion"},
+  "line"
+  {:factor 127/60000,
+   :dims {:length 1},
+   :doc "Also defined as '.1 in' or as '1e-8 Wb'"},
+  "arabicfeet" {:factor 16891/62500, :dims {:length 1}},
+  "stathenry"
+  {:factor 22468879468420441/25000,
+   :dims {:length 2, :mass 1, :time -2, :current -2}},
+  "tbl" {:factor 473176473/32000000000000, :dims {:length 3}},
+  "size10ring"
+  {:factor 77602050932648277668457/1250000000000000000000000,
+   :dims {:length 1}},
+  "eusize23ring" {:factor 63/1000, :dims {:length 1}},
+  "brgill" {:factor 454609/3200000000, :dims {:length 3}},
+  "commonyear" {:factor 31536000, :dims {:time 1}},
+  "salt" {:factor 192000000000/157725491, :dims {:mass 1, :length -3}},
+  "towerpennyweight" {:factor 58319019/40000000000, :dims {:mass 1}},
+  "technetium"
+  {:factor 7649/78125,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived. 98.906"},
+  "phobosmass" {:factor 10800000000000000N, :dims {:mass 1}},
+  "zirconium"
+  {:factor 11403/125000, :dims {:mass 1, :amount_of_substance -1}},
+  "zinc11gauge" {:factor 381/625000, :dims {:length 1}},
+  "brad"
+  {:factor 1570796326794896619/64000000000000000000,
+   :dims {},
+   :doc
+   "Binary radian--used to fit angular measurements into a byte. Questionable but what the hell."},
+  "romanperch" {:factor 74/25, :dims {:length 1}},
+  "ruby"
+  {:factor 19330289/10000000000, :dims {:length 1}, :doc "British"},
+  "C5paper" {:factor 18549/500000, :dims {:length 2}},
+  "V" {:factor 1, :dims {:mass 1, :length 2, :time -3, :current -1}},
+  "svedberg"
+  {:factor 1/10000000000000,
+   :dims {:time 1},
+   :doc
+   "Used for measuring the sedimentation coefficient for centrifuging."},
+  "cicero" {:factor 225639/50000000, :dims {:length 1}},
+  "brwire0gauge" {:factor 10287/1250000, :dims {:length 1}},
+  "neptunemass"
+  {:factor 102780000000000000000000000N, :dims {:mass 1}},
+  "brwire30gauge" {:factor 3937/12500000, :dims {:length 1}},
+  "amphora" {:factor 1087691373/39062500000, :dims {:length 3}},
+  "rhodium"
+  {:factor 205811/2000000, :dims {:mass 1, :amount_of_substance -1}},
+  "agate" {:factor 19330289/10000000000, :dims {:length 1}},
+  "ethanol"
+  {:factor 7893/10,
+   :dims {:mass 1, :length -3},
+   :doc "Density of ethanol"},
+  "B6paper" {:factor 11/500, :dims {:length 2}},
+  "sizeJring" {:factor 39/800, :dims {:length 1}},
+  "mmHg"
+  {:factor 26664477483/200000000,
+   :dims {:length -1, :time -2, :mass 1}},
+  "ruthenium"
+  {:factor 10107/100000, :dims {:mass 1, :amount_of_substance -1}},
+  "holmium"
+  {:factor 2061629/12500000, :dims {:mass 1, :amount_of_substance -1}},
+  "jupiterday" {:factor 4466232/125, :dims {:time 1}},
+  "kleine_sabon" {:factor 676917/25000000, :dims {:length 1}},
+  "tonf"
+  {:factor 8896443230521/1000000000,
+   :dims {:mass 1, :length 1, :time -2}},
+  "cyathi" {:factor 120854597/2500000000000, :dims {:length 3}},
+  "eight" {:factor 8, :dims {}},
+  "mercurydensity" {:factor 135951/10, :dims {:mass 1, :length -3}},
+  "saturnmass" {:factor 568500000000000000000000000N, :dims {:mass 1}},
+  "brwire46gauge" {:factor 381/6250000, :dims {:length 1}},
+  "wire47gauge" {:factor 177419/5000000000, :dims {:length 1}},
+  "oldrussiancable" {:factor 720000/3937, :dims {:length 1}},
+  "jpsize22ring"
+  {:factor 1570796326794896619/25000000000000000000,
+   :dims {:length 1}},
+  "winebottle"
+  {:factor 3/4000,
+   :dims {:length 3},
+   :doc "US industry standard, 1979"},
+  "osmium"
+  {:factor 19023/100000, :dims {:mass 1, :amount_of_substance -1}},
+  "thaipicul" {:factor 60N, :dims {:mass 1}},
+  "hebrewcubit" {:factor 111633/250000, :dims {:length 1}},
+  "iomass" {:factor 89300000000000000000000N, :dims {:mass 1}},
+  "curium"
+  {:factor 2470703/10000000, :dims {:mass 1, :amount_of_substance -1}},
+  "lettersize" {:factor 3016123/50000000, :dims {:length 2}},
+  "minersinchID"
+  {:factor 55306341/97656250000, :dims {:length 3, :time -1}},
+  "sescuncia" {:factor 8184102333/200000000000, :dims {:mass 1}},
+  "brwire45gauge" {:factor 889/12500000, :dims {:length 1}},
+  "protoncharge"
+  {:factor 801088317/5000000000000000000000000000,
+   :dims {:current 1, :time 1}},
+  "registerton"
+  {:factor 55306341/19531250,
+   :dims {:length 3},
+   :doc "Used for internal capacity of ships"},
+  "last" {:factor 454609/312500, :dims {:length 3}},
+  "Bi" {:factor 10, :dims {:current 1}},
+  "jpsize24ring"
+  {:factor 16231562043547265063/250000000000000000000,
+   :dims {:length 1}},
+  "corpus" {:factor 75213/20000000, :dims {:length 1}},
+  "cakeflour_sifted"
+  {:factor 2577229375/6145149,
+   :dims {:mass 1, :length -3},
+   :doc "The density of flour depends on the"},
+  "hashimicubit"
+  {:factor 81153/125000,
+   :dims {:length 1},
+   :doc
+   "Standard of linear measure used in Persian dominions of the Arabic empire 7-8th cent. Is equal to two French feet."},
+  "impedanceofvacuum"
+  {:factor 18836515670601495083/50000000000000000,
+   :dims {:mass 1, :length 2, :time -3, :current -2}},
+  "brwire17gauge" {:factor 889/625000, :dims {:length 1}},
+  "thermalampere"
+  {:factor 1,
+   :dims {:mass 1, :length 2, :time -3, :temperature -1},
+   :doc "entropy flow"},
+  "chinesepicul" {:factor 50N, :dims {:mass 1}, :doc "Chinese usage"},
+  "quadrantal" {:factor 1087691373/39062500000, :dims {:length 3}},
+  "austbl" {:factor 1/50000, :dims {:length 3}},
+  "poundwrappingpaper"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "lbledger" {:factor 4123567/1096772000, :dims {:mass 1, :length -2}},
+  "link" {:factor 792/3937, :dims {:length 1}},
+  "helium"
+  {:factor 2001301/500000000,
+   :dims {:mass 1, :amount_of_substance -1}},
+  "olympiccord" {:factor 92583/5000, :dims {:length 1}},
+  "poundcoverpaper"
+  {:factor 45359237/16774160000, :dims {:mass 1, :length -2}},
+  "brsextillion"
+  {:factor 1000000000000000000000000000000000000N, :dims {}},
+  "year" {:factor 9861539367087/312500, :dims {:time 1}},
+  "eusize8ring" {:factor 6/125, :dims {:length 1}},
+  "imperialbushel" {:factor 454609/12500000, :dims {:length 3}},
+  "quadruple" {:factor 4, :dims {}},
+  "candela"
+  {:factor 1,
+   :dims {:luminous_intensity 1},
+   :doc
+   "unit of luminous intensity. The official 2019 SI definition: The candela, symbol cd, is the SI unit of luminous intensity in a given direction. It is defined by taking the fixed numerical value of the luminous efficacy of monochromatic radiation of frequency 540e12 Hz, K_cd, to be 683 when expressed in the unit lm W^−1, which is equal to cd sr W^−1 , or cd sr kg^−1 m^−2 s^3, where the kilogram, metre and second are defined in terms of h, c and Δν_Cs."},
+  "nonplusultra" {:factor 75213/100000000, :dims {:length 1}},
+  "bath" {:factor 23185647177/625000000000, :dims {:length 3}},
+  "lb"
+  {:factor 45359237/100000000,
+   :dims {:mass 1},
+   :doc "From the latin libra"},
+  "sphericalrightangle"
+  {:factor 1570796326794896619/1000000000000000000, :dims {}},
+  "thou" {:factor 127/5000000, :dims {:length 1}},
+  "dioptre" {:factor 1, :dims {:length -1}},
+  "freightton"
+  {:factor 55306341/48828125,
+   :dims {:length 3},
+   :doc
+   "Both register ton and shipping ton derive from the \"tun cask\" of wine."},
+  "k"
+  {:factor 1380649/100000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -2, :temperature -1}},
+  "nonpareil" {:factor 5271897/2500000000, :dims {:length 1}},
+  "tonne" {:factor 1000, :dims {:mass 1}},
+  "eusize18ring" {:factor 29/500, :dims {:length 1}},
+  "gasconstant"
+  {:factor 207861565453831/25000000000000,
+   :dims
+   {:amount_of_substance -1,
+    :mass 1,
+    :length 2,
+    :time -2,
+    :temperature -1},
+   :doc
+   "molar gas constant, Now exactly defined in terms of Avogadro's constant and Boltzmann's constant. https://physics.nist.gov/cgi-bin/cuu/Value?r"},
+  "gill" {:factor 473176473/4000000000000, :dims {:length 3}},
+  "gal" {:factor 473176473/125000000000, :dims {:length 3}},
+  "postscriptpoint"
+  {:factor 127/360000,
+   :dims {:length 1},
+   :doc "people at some point."},
+  "Hg"
+  {:factor 135951/10,
+   :dims {:mass 1, :length -3},
+   :doc "Density of mercury (defined)"},
+  "flour_spooned"
+  {:factor 6258985625/12290298,
+   :dims {:mass 1, :length -3},
+   :doc "the excess off the top. \"Spooned"},
+  "fpm" {:factor 127/25000, :dims {:length 1, :time -1}},
+  "glug"
+  {:factor 196133/200000,
+   :dims {:mass 1},
+   :doc "Mass which is accelerated at 1 cm/s^2 by 1 gram force"},
+  "brwire000000gauge" {:factor 3683/312500, :dims {:length 1}},
+  "pouce"
+  {:factor 375/13853,
+   :dims {:length 1},
+   :doc "fixed the meter at 3 frenchfeet + 11.296 lignes."},
+  "quadrilliard" {:factor 1000000000000000000000000000N, :dims {}},
+  "B10paper" {:factor 341/250000, :dims {:length 2}},
+  "semuncia" {:factor 2728034111/200000000000, :dims {:mass 1}},
+  "poundwritingpaper"
+  {:factor 4123567/1096772000,
+   :dims {:mass 1, :length -2},
+   :doc "filing, and it resists"},
+  "finsenunit"
+  {:factor 100000N,
+   :dims {:mass 1, :time -3},
+   :doc
+   "Measures intensity of ultraviolet light with wavelength 296.7 nm."},
+  "uranusday" {:factor 38807694/625, :dims {:time 1}},
+  "bismuth"
+  {:factor 20898037/100000000,
+   :dims {:mass 1, :amount_of_substance -1}},
+  "annual" {:factor 312500/9861539367087, :dims {:time -1}},
+  "Jy"
+  {:factor 1/100000000000000000000000000,
+   :dims {:mass 1, :time -2},
+   :doc "from outer space in 1931."},
+  "wire32gauge" {:factor 20193/100000000, :dims {:length 1}},
+  "pin" {:factor 4091481/200000000, :dims {:length 3}},
+  "romanpalm"
+  {:factor 37/500,
+   :dims {:length 1},
+   :doc "but we can't have the names for different"},
+  "quintant"
+  {:factor 1570796326794896619/1250000000000000000, :dims {}},
+  "wire49gauge" {:factor 35179/1250000000, :dims {:length 1}},
+  "lunaryear" {:factor 19135799964/625, :dims {:time 1}},
+  "tonrefrigeration"
+  {:factor 52752792631/15000000,
+   :dims {:mass 1, :length 2, :time -3},
+   :doc
+   "One ton refrigeration is the rate of heat extraction required turn one ton of water to ice in a day. Ice is defined to have a latent heat of 144 Btu/lb."},
+  "borgis" {:factor 676917/200000000, :dims {:length 1}},
+  "curie"
+  {:factor 37000000000N,
+   :dims {:time -1},
+   :doc "Defined in 1910 as the radioactivity"},
+  "one" {:factor 1, :dims {}},
+  "erg"
+  {:factor 1/10000000,
+   :dims {:length 2, :mass 1, :time -2},
+   :doc "energy"},
+  "Comptonwavelength"
+  {:factor 18931629/7802641527014999332, :dims {:length 1}},
+  "size8_5ring"
+  {:factor 14562852745715486554749/250000000000000000000000,
+   :dims {:length 1}},
+  "coomb" {:factor 454609/3125000, :dims {:length 3}},
+  "kleine_kanon" {:factor 75213/6250000, :dims {:length 1}},
+  "rₑ"
+  {:factor 5635880641/2000000000000000000000000,
+   :dims {:length 1},
+   :doc "r Unicode subscript e"},
+  "eusize22ring" {:factor 31/500, :dims {:length 1}},
+  "metricyarncount" {:factor 1000N, :dims {:length 1, :mass -1}},
+  "jpsize6ring"
+  {:factor 5759586531581287603/125000000000000000000,
+   :dims {:length 1}},
+  "sverdrup"
+  {:factor 1000000N,
+   :dims {:length 3, :time -1},
+   :doc "http://en.wikipedia.org/wiki/Sverdrup"},
+  "newton"
+  {:factor 1, :dims {:mass 1, :length 1, :time -2}, :doc "force"},
+  "stick" {:factor 127/2500, :dims {:length 1}},
+  "lentor"
+  {:factor 1/10000, :dims {:length 2, :time -1}, :doc "old name"},
+  "intampere"
+  {:factor 199967/200000,
+   :dims {:current 1},
+   :doc "Defined as the current which in one"},
+  "quart" {:factor 473176473/500000000000, :dims {:length 3}},
+  "Y₀"
+  {:factor 50000000000000000/18836515670601495083,
+   :dims {:mass -1, :length -2, :time 3, :current 2},
+   :doc "Y Unicode subscript zero"},
+  "funal" {:factor 1000, :dims {:mass 1, :length 1, :time -2}},
+  "jpsize7ring"
+  {:factor 4712388980384689857/100000000000000000000,
+   :dims {:length 1}},
+  "brwire9gauge" {:factor 1143/312500, :dims {:length 1}},
+  "C10paper" {:factor 7/6250, :dims {:length 2}},
+  "gr" {:factor 6479891/100000000000, :dims {:mass 1}},
+  "minersinchSD"
+  {:factor 55306341/97656250000, :dims {:length 3, :time -1}},
+  "biblicalcubit" {:factor 13843/25000, :dims {:length 1}},
+  "solarmass"
+  {:factor 1989100000000000000000000000000N,
+   :dims {:mass 1},
+   :doc "Common unit name"},
+  "splitdeal"
+  {:factor 202789917/12500000000,
+   :dims {:length 3},
+   :doc "And half again as thick is a split deal."},
+  "centesimalminute"
+  {:factor 1570796326794896619/10000000000000000000000, :dims {}},
+  "oceanvolume"
+  {:factor 1335000000000000000N,
+   :dims {:length 3},
+   :doc
+   "All Earth's oceans ETOPO1 data, https://www.ngdc.noaa.gov/mgg/global/etopo1_ocean_volumes.html"},
+  "jpsize17ring"
+  {:factor 5759586531581287603/100000000000000000000,
+   :dims {:length 1}},
+  "pearl" {:factor 1757299/1000000000, :dims {:length 1}},
+  "π"
+  {:factor 1570796326794896619/500000000000000000,
+   :dims {},
+   :doc
+   "Unicode character for pi as a mathematical constant GREEK SMALL LETTER PI"},
+  "Cpaper" {:factor 3016123/12500000, :dims {:length 2}},
+  "worstedyarncount"
+  {:factor 7315200000/6479891, :dims {:length 1, :mass -1}},
+  "manganese"
+  {:factor 1098761/20000000, :dims {:mass 1, :amount_of_substance -1}},
+  "seam" {:factor 454609/1562500, :dims {:length 3}},
+  "double" {:factor 2, :dims {}},
+  "kg"
+  {:factor 1,
+   :dims {:mass 1},
+   :doc
+   "The standard unit of mass. The 2019 SI definition of the kilogram is: The kilogram, symbol kg, is the SI unit of mass. It is defined by taking the fixed numerical value of the Planck constant h to be 6.62607015e−34 when expressed in the unit J s, which is equal to kg m^2 s^−1, where the metre and the second are defined in terms of c and Δν_Cs. (The defined frequency of the cesium-133 atom.)"},
+  "brwire39gauge" {:factor 1651/12500000, :dims {:length 1}},
+  "dsp" {:factor 1/100000, :dims {:length 3}},
+  "brwire6gauge" {:factor 381/78125, :dims {:length 1}},
+  "moonlum" {:factor 2500, :dims {:luminous_intensity 1, :length -2}},
+  "iugerum" {:factor 1577088/625, :dims {:length 2}},
+  "romanaspound"
+  {:factor 2728034111/10000000000,
+   :dims {:mass 1},
+   :doc
+   "Old pound based on bronze coinage, the earliest money of Rome BC 338 to BC 268."},
+  "tatamimat" {:factor 81306289/50000000, :dims {:length 2}},
+  "zinc15gauge" {:factor 127/125000, :dims {:length 1}},
+  "barrelbulk" {:factor 55306341/390625000, :dims {:length 3}},
+  "Josephson_constant"
+  {:factor 21362355120000000000000/44173801,
+   :dims {:current 1, :time 2, :mass -1, :length -2}},
+  "semis" {:factor 8184102333/50000000000, :dims {:mass 1}},
+  "henry"
+  {:factor 1,
+   :dims {:mass 1, :length 2, :time -2, :current -2},
+   :doc "inductance"},
+  "wire25gauge" {:factor 22733/50000000, :dims {:length 1}},
+  "arcdegree"
+  {:factor 523598775598298873/30000000000000000000, :dims {}},
+  "g" {:factor 1/1000, :dims {:mass 1}},
+  "firkin" {:factor 4258588257/125000000000, :dims {:length 3}},
+  "argon"
+  {:factor 9987/250000, :dims {:mass 1, :amount_of_substance -1}},
+  "poundposterpaper"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "m_n"
+  {:factor 20936593757/12500000000000000000000000000000000000,
+   :dims {:mass 1}},
+  "shortton" {:factor 45359237/50000, :dims {:mass 1}},
+  "arcdeg" {:factor 523598775598298873/30000000000000000000, :dims {}},
+  "barium"
+  {:factor 137327/1000000, :dims {:mass 1, :amount_of_substance -1}},
+  "brwire26gauge" {:factor 1143/2500000, :dims {:length 1}},
+  "dodrans" {:factor 24552306999/100000000000, :dims {:mass 1}},
+  "grosse_sabon" {:factor 1579473/50000000, :dims {:length 1}},
+  "m_d"
+  {:factor 4179479721/1250000000000000000000000000000000000,
+   :dims {:mass 1}},
+  "brwire19gauge" {:factor 127/125000, :dims {:length 1}},
+  "pied"
+  {:factor 4500/13853,
+   :dims {:length 1},
+   :doc "Half of the hashimicubit,"},
+  "bes" {:factor 2728034111/12500000000, :dims {:mass 1}},
+  "canada_oatbushel" {:factor 771107029/50000000, :dims {:mass 1}},
+  "leapyear" {:factor 31622400, :dims {:time 1}},
+  "ce" {:factor 864N, :dims {:time 1}},
+  "atomicmassunit"
+  {:factor 41513476723/25000000000000000000000000000000000000,
+   :dims {:mass 1},
+   :doc
+   "atomic mass unit error is +/- 52 in last 2 digits (defined to be 1/12 of the mass of carbon 12)"},
+  "eusize30ring" {:factor 7/100, :dims {:length 1}},
+  "Tsp" {:factor 473176473/32000000000000, :dims {:length 3}},
+  "naturalgas"
+  {:factor 2128906250000000/55306341,
+   :dims {:mass 1, :length -1, :time -2}},
+  "Apaper" {:factor 3016123/50000000, :dims {:length 2}},
+  "brtsp" {:factor 1/200000, :dims {:length 3}},
+  "siderealmonth"
+  {:factor 1475369694/625,
+   :dims {:time 1},
+   :doc "Time required for the moon to orbit the earth"},
+  "lac" {:factor 100000, :dims {}},
+  "cordfoot"
+  {:factor 110612682/244140625,
+   :dims {:length 3},
+   :doc "One foot long section of a cord"},
+  "A9paper" {:factor 481/250000, :dims {:length 2}},
+  "hundredweight"
+  {:factor 45359237/1000000,
+   :dims {:mass 1},
+   :doc "This is the USA hundredweight"},
+  "abvolt"
+  {:factor 1/100000000,
+   :dims {:length 2, :mass 1, :time -3, :current -1}},
+  "siemensunit"
+  {:factor 4767/5000,
+   :dims {:mass 1, :length 2, :time -3, :current -2},
+   :doc
+   "Resistance of a meter long column of mercury with a 1 mm cross section."},
+  "m_tau"
+  {:factor 158377/50000000000000000000000000000000, :dims {:mass 1}},
+  "wire29gauge" {:factor 71501/250000000, :dims {:length 1}},
+  "texscaledpoint"
+  {:factor 1757299/327680000000000,
+   :dims {:length 1},
+   :doc "The TeX typesetting system uses"},
+  "radon"
+  {:factor 138761/625000,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived"},
+  "buttonline"
+  {:factor 127/200000,
+   :dims {:length 1},
+   :doc
+   "The line was used in 19th century USA to measure width of buttons."},
+  "wire10gauge" {:factor 129413/50000000, :dims {:length 1}},
+  "brwire12gauge" {:factor 1651/625000, :dims {:length 1}},
+  "l"
+  {:factor 1/1000,
+   :dims {:length 3},
+   :doc
+   "the temperature of its maximum density under a pressure of 1 atm. This was supposed to be 1000 cubic cm, but it was discovered that the original measurement was off. In 1964, the liter was redefined to be exactly 1000 cubic centimeters."},
+  "septuple" {:factor 7, :dims {}},
+  "eusize4ring" {:factor 11/250, :dims {:length 1}},
+  "alpha"
+  {:factor 18764400340172295000000/2571398349572188507749959,
+   :dims {}},
+  "islamicmonth"
+  {:factor 2548800N,
+   :dims {:time 1},
+   :doc "They have 29 day and 30 day months."},
+  "muonmass"
+  {:factor 1883531627/10000000000000000000000000000000000000,
+   :dims {:mass 1},
+   :doc "+/- 42 in last 2 digits"},
+  "atomicenergy"
+  {:factor
+   1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -2}},
+  "podes" {:factor 31623/100000, :dims {:length 1}},
+  "vigintillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "minute" {:factor 60, :dims {:time 1}},
+  "duty"
+  {:factor 3389544870828501/2500000000000000,
+   :dims {:length 2, :mass 1, :time -2}},
+  "tradewukiyeh" {:factor 19439673/625000000, :dims {:mass 1}},
+  "lux"
+  {:factor 1,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "Illuminance or exitance (luminous"},
+  "N" {:factor 1, :dims {:mass 1, :length 1, :time -2}},
+  "anomalisticyear"
+  {:factor 788960736/25,
+   :dims {:time 1},
+   :doc
+   "The time between successive perihelion passages of the earth."},
+  "jugera" {:factor 1577088/625, :dims {:length 2}},
+  "minim" {:factor 157725491/2560000000000000, :dims {:length 3}},
+  "plate4gauge"
+  {:factor 381/64000, :dims {:length 1}, :doc "150 oz / ft^2"},
+  "mercurymass" {:factor 330220000000000000000000N, :dims {:mass 1}},
+  "blink"
+  {:factor 108/125,
+   :dims {:time 1},
+   :doc "Actual human blink takes 1/3 second"},
+  "texsp"
+  {:factor 1757299/327680000000000,
+   :dims {:length 1},
+   :doc "this for all computations."},
+  "mercuryyear" {:factor 7513344N, :dims {:time 1}},
+  "neutroncharge" {:factor 0N, :dims {:current 1, :time 1}},
+  "plate24gauge"
+  {:factor 127/200000, :dims {:length 1}, :doc "16 oz / ft^2"},
+  "plate12gauge"
+  {:factor 889/320000, :dims {:length 1}, :doc "70 oz / ft^2"},
+  "thaihap" {:factor 60N, :dims {:mass 1}},
+  "brseptillion"
+  {:factor 1000000000000000000000000000000000000000000N, :dims {}},
+  "cadmium"
+  {:factor 112411/1000000, :dims {:mass 1, :amount_of_substance -1}},
+  "u"
+  {:factor 41513476723/25000000000000000000000000000000000000,
+   :dims {:mass 1},
+   :doc "1/12 of the mass of carbon 12)"},
+  "wavenumber"
+  {:factor 19864458571489287/1000000000000000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -2}},
+  "waterton" {:factor 3182263/3125000, :dims {:length 3}},
+  "electricconstant"
+  {:factor 22135469547/2500000000000000000000,
+   :dims {:current 2, :time 4, :mass -1, :length -3}},
+  "lx"
+  {:factor 1,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "flux incident on or coming from"},
+  "A5paper" {:factor 777/25000, :dims {:length 2}},
+  "pdl"
+  {:factor 17281869297/125000000000,
+   :dims {:mass 1, :length 1, :time -2}},
+  "sunmass"
+  {:factor 1989100000000000000000000000000N, :dims {:mass 1}},
+  "atomicaction"
+  {:factor 44173801/418879020478639098400000000000000000000000,
+   :dims {:mass 1, :length 2, :time -1}},
+  "cent" {:factor 1/100, :dims {:currency 1}},
+  "woolyarnrun"
+  {:factor 146304000000/45359237,
+   :dims {:length 1, :mass -1},
+   :doc "1600 yds of \"number 1 yarn\" weighs a pound."},
+  "bakersdozen" {:factor 13, :dims {}},
+  "fps" {:factor 381/1250, :dims {:length 1, :time -1}},
+  "jugerum" {:factor 1577088/625, :dims {:length 2}},
+  "basebox"
+  {:factor 1580642/78125,
+   :dims {:length 2},
+   :doc "Used in metal plating"},
+  "surveyorspole" {:factor 19800/3937, :dims {:length 1}},
+  "pointangle"
+  {:factor 1570796326794896619/8000000000000000000, :dims {}},
+  "oil" {:factor 41868000N, :dims {:length 2, :time -2}},
+  "indium"
+  {:factor 57409/500000, :dims {:mass 1, :amount_of_substance -1}},
+  "olympicamma" {:factor 92583/5000, :dims {:length 1}},
+  "olympicpalestra" {:factor 30861/400000, :dims {:length 1}},
+  "mᵤ"
+  {:factor 41513476723/25000000000000000000000000000000000000,
+   :dims {:mass 1},
+   :doc "m Unicode subscript u"},
+  "sphere" {:factor 1570796326794896619/125000000000000000, :dims {}},
+  "m_e"
+  {:factor 91093837139/100000000000000000000000000000000000000000,
+   :dims {:mass 1}},
+  "zinc27gauge" {:factor 127/10000, :dims {:length 1}},
+  "plate25gauge"
+  {:factor 889/1600000, :dims {:length 1}, :doc "14 oz / ft^2"},
+  "brwire38gauge" {:factor 381/2500000, :dims {:length 1}},
+  "Epaper" {:factor 3016123/3125000, :dims {:length 2}},
+  "hawserlaidcable" {:factor 936000/3937, :dims {:length 1}},
+  "A" {:factor 1, :dims {:current 1}},
+  "oldhaytruss"
+  {:factor 317514659/12500000,
+   :dims {:mass 1},
+   :doc "and an old unit."},
+  "lambda_C_n"
+  {:factor 18931629/14346589496133679328000, :dims {:length 1}},
+  "yttrium"
+  {:factor 1778117/20000000, :dims {:mass 1, :amount_of_substance -1}},
+  "greekfeet"
+  {:factor 31623/100000,
+   :dims {:length 1},
+   :doc "Egyptian Royal cubit in [11]. It is"},
+  "wire37gauge" {:factor 565531/5000000000, :dims {:length 1}},
+  "platinum"
+  {:factor 4877/25000, :dims {:mass 1, :amount_of_substance -1}},
+  "sizeHring" {:factor 37/800, :dims {:length 1}},
+  "minion" {:factor 12301093/5000000000, :dims {:length 1}},
+  "vanadium"
+  {:factor 101883/2000000, :dims {:mass 1, :amount_of_substance -1}},
+  "fin" {:factor 5, :dims {:currency 1}},
+  "jewelerspoint" {:factor 1/500000, :dims {:mass 1}},
+  "egyptianroyalcubit"
+  {:factor 262001/500000,
+   :dims {:length 1},
+   :doc "plus or minus .2 in"},
+  "A3paper" {:factor 6237/50000, :dims {:length 2}},
+  "fbm"
+  {:factor 18435447/7812500000,
+   :dims {:length 3},
+   :doc "feet board measure"},
+  "zinc2gauge" {:factor 127/1250000, :dims {:length 1}},
+  "treble" {:factor 3, :dims {}},
+  "plate6gauge"
+  {:factor 1651/320000, :dims {:length 1}, :doc "130 oz / ft^2"},
+  "cal_twenty"
+  {:factor 41819/10000,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "Energy to go from 19.5 to 20.5 degC"},
+  "timberfoot"
+  {:factor 55306341/1953125000,
+   :dims {:length 3},
+   :doc "Used for measuring solid blocks of wood"},
+  "zinc20gauge" {:factor 889/500000, :dims {:length 1}},
+  "ouncedal"
+  {:factor 17281869297/2000000000000,
+   :dims {:mass 1, :length 1, :time -2},
+   :doc "force which accelerates an ounce at 1 ft/s^2"},
+  "abfarad"
+  {:factor 1000000000N,
+   :dims {:current 2, :time 4, :length -2, :mass -1}},
+  "deg" {:factor 523598775598298873/30000000000000000000, :dims {}},
+  "wire6gauge" {:factor 10287/2500000, :dims {:length 1}},
+  "frenchfoot"
+  {:factor 4500/13853,
+   :dims {:length 1},
+   :doc "pied de roi, the standard of Paris."},
+  "caratgold" {:factor 1/24, :dims {}},
+  "clausius"
+  {:factor 20934/5,
+   :dims {:mass 1, :length 2, :time -2, :temperature -1},
+   :doc "A unit of physical entropy"},
+  "sizeTring" {:factor 49/800, :dims {:length 1}},
+  "wheatbushel" {:factor 136077711/5000000, :dims {:mass 1}},
+  "centner" {:factor 45359237/1000000, :dims {:mass 1}},
+  "plate11gauge"
+  {:factor 127/40000, :dims {:length 1}, :doc "80 oz / ft^2"},
+  "brsexdecillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "apostilb"
+  {:factor 500000000000000000/1570796326794896619,
+   :dims {:luminous_intensity 1, :length -2}},
+  "siderealday" {:factor 17781537531051/15625, :dims {:time 3}},
+  "calorie_th" {:factor 523/125, :dims {:mass 1, :length 2, :time -2}},
+  "mercounce" {:factor 58319019/2000000000, :dims {:mass 1}},
+  "pint" {:factor 473176473/1000000000000, :dims {:length 3}},
+  "octant" {:factor 1570796326794896619/1000000000000000000, :dims {}},
+  "btu_IT"
+  {:factor 52752792631/50000000, :dims {:mass 1, :length 2, :time -2}},
+  "cminv"
+  {:factor 19864458571489287/1000000000000000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "Unit of energy used in infrared"},
+  "ryebushel" {:factor 317514659/12500000, :dims {:mass 1}},
+  "arcmin"
+  {:factor 523598775598298873/1800000000000000000000, :dims {}},
+  "duodecillion"
+  {:factor 1000000000000000000000000000000000000000N, :dims {}},
+  "H_0"
+  {:factor 59166661642607772649/26927616726000000000000000000000000000,
+   :dims {:time -1}},
+  "jeroboam" {:factor 3/1000, :dims {:length 3}},
+  "plate00000gauge"
+  {:factor 889/80000, :dims {:length 1}, :doc "280 oz / ft^2"},
+  "jpsize21ring"
+  {:factor 30892327760299633507/500000000000000000000,
+   :dims {:length 1}},
+  "brwire20gauge" {:factor 1143/1250000, :dims {:length 1}},
+  "frenchline"
+  {:factor 125/55412,
+   :dims {:length 1},
+   :doc "This is supposed to be the size"},
+  "jpsize18ring"
+  {:factor 3665191429188092111/62500000000000000000,
+   :dims {:length 1}},
+  "plate5gauge"
+  {:factor 889/160000, :dims {:length 1}, :doc "140 oz / ft^2"},
+  "pli" {:factor 45359237/2540000, :dims {:mass 1, :length -1}},
+  "zinc19gauge" {:factor 381/250000, :dims {:length 1}},
+  "twenty" {:factor 20, :dims {}},
+  "Gb" {:factor 100000000000/125663706127, :dims {:current 1}},
+  "romanleague" {:factor 2220N, :dims {:length 1}},
+  "pesdrusianus"
+  {:factor 333/1000,
+   :dims {:length 1},
+   :doc "or 33.35 cm, used in Gaul & Germany in 1st c BC"},
+  "orguia" {:factor 94869/50000, :dims {:length 1}},
+  "hemina" {:factor 362563791/1250000000000, :dims {:length 3}},
+  "brnovemdecillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "minorthird" {:factor 6/5, :dims {}},
+  "iridium"
+  {:factor 192217/1000000, :dims {:mass 1, :amount_of_substance -1}},
+  "rhenium"
+  {:factor 186207/1000000, :dims {:mass 1, :amount_of_substance -1}},
+  "brwire3gauge" {:factor 8001/1250000, :dims {:length 1}},
+  "nine" {:factor 9, :dims {}},
+  "zinc4gauge" {:factor 127/625000, :dims {:length 1}},
+  "lightspeed"
+  {:factor 299792458,
+   :dims {:length 1, :time -1},
+   :doc "sure, why not."},
+  "engineerschain" {:factor 762/25, :dims {:length 1}},
+  "aeginastater"
+  {:factor 19439673/1562500000,
+   :dims {:mass 1},
+   :doc "Varies up to 199 grain"},
+  "surveyorslink" {:factor 792/3937, :dims {:length 1}},
+  "semisextula" {:factor 2728034111/1200000000000, :dims {:mass 1}},
+  "leadwey" {:factor 317514659/4000000, :dims {:mass 1}},
+  "jiffy"
+  {:factor 1/100,
+   :dims {:time 1},
+   :doc "This is defined in the Jargon File"},
+  "oldbrcable"
+  {:factor 115824/625, :dims {:length 1}, :doc "nautical mile."},
+  "nodicalmonth"
+  {:factor 7347299373/3125,
+   :dims {:time 1},
+   :doc "The nodes are the points where"},
+  "bohrradius"
+  {:factor
+   9472256218811406045764637500000000/178999700479686744109011257020936821646953273,
+   :dims {:length 1},
+   :doc
+   "Bohr radius This can also be calculated as alpha / (4 pi Rinfinity) 2022 CODATA value, 5.29177210544e-11 m There is some discrepancy between calculating this in terms of other constants and the CODATA value. uncertainty is +/- 82 in last 2 digits. https://physics.nist.gov/cgi-bin/cuu/Value?bohrrada0"},
+  "towerounce" {:factor 58319019/2000000000, :dims {:mass 1}},
+  "sizeXring" {:factor 53/800, :dims {:length 1}},
+  "tertia" {:factor 75213/12500000, :dims {:length 1}},
+  "englishcarat"
+  {:factor 20495895233/100000000000000,
+   :dims {:mass 1},
+   :doc
+   "Originally intended to be 4 grain but this value ended up being used in the London diamond market"},
+  "month"
+  {:factor 3287179789029/1250000,
+   :dims {:time 1},
+   :doc
+   "This is obviously an average for the limiting case... so is accurate in the long term but useless for adding an offset to a specific date."},
+  "imperialfluidounce" {:factor 454609/16000000000, :dims {:length 3}},
+  "avogadro"
+  {:factor 602214076000000000000000N,
+   :dims {:amount_of_substance -1},
+   :doc
+   "Number of items in a mole Defined exactly by the SI rules that go into effect May 20, 2019 https://physics.nist.gov/cgi-bin/cuu/Value?na"},
+  "triple" {:factor 3, :dims {}},
+  "brchaldron" {:factor 4091481/3125000, :dims {:length 3}},
+  "uncia"
+  {:factor 2728034111/100000000000,
+   :dims {:mass 1},
+   :doc "of particular coins. The one given here is"},
+  "ten" {:factor 10, :dims {}},
+  "beerkeg" {:factor 14668470663/250000000000, :dims {:length 3}},
+  "octodecillion"
+  {:factor 1000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "eggyolk" {:factor 93/5000, :dims {:mass 1}},
+  "nobelium"
+  {:factor 2591009/10000000,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived"},
+  "europium"
+  {:factor 30393/200000, :dims {:mass 1, :amount_of_substance -1}},
+  "cmil"
+  {:factor 25335373954874887567851/50000000000000000000000000000000,
+   :dims {:length 2}},
+  "europamass" {:factor 48000000000000000000000N, :dims {:mass 1}},
+  "brquadrilliard" {:factor 1000000000000000000000000000N, :dims {}},
+  "sizeIring" {:factor 19/400, :dims {:length 1}},
+  "gramme" {:factor 1/1000, :dims {:mass 1}},
+  "zinc9gauge" {:factor 1143/2500000, :dims {:length 1}},
+  "poundbondpaper"
+  {:factor 4123567/1096772000,
+   :dims {:mass 1, :length -2},
+   :doc "Bond paper is stiff and"},
+  "fothers" {:factor 952543977/1000000, :dims {:mass 1}},
+  "olympicfoot"
+  {:factor 30861/100000,
+   :dims {:length 1},
+   :doc "common as the other greek measures."},
+  "pound"
+  {:factor 45359237/100000000,
+   :dims {:mass 1},
+   :doc "Defined exactly, 0.45359237 kg"},
+  "sextans" {:factor 2728034111/50000000000, :dims {:mass 1}},
+  "tondal"
+  {:factor 17281869297/62500000,
+   :dims {:mass 1, :length 1, :time -2},
+   :doc "and for a ton"},
+  "metricpoint"
+  {:factor 3/8000,
+   :dims {:length 1},
+   :doc "Proposed in 1977 by Eurograf"},
+  "japancup" {:factor 1/5000, :dims {:length 3}},
+  "°"
+  {:factor 523598775598298873/30000000000000000000,
+   :dims {},
+   :doc "Unicode degree (angle) symbol"},
+  "thermalcoulomb"
+  {:factor 1,
+   :dims {:mass 1, :length 2, :time -2, :temperature -1},
+   :doc "entropy"},
+  "polonium"
+  {:factor 65307/312500,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived. 209.98"},
+  "stadion" {:factor 94869/500, :dims {:length 1}},
+  "erbium"
+  {:factor 8363/50000, :dims {:mass 1, :amount_of_substance -1}},
+  "sigma_e"
+  {:factor 66524587051/1000000000000000000000000000000000000000,
+   :dims {:length 2}},
+  "size6_5ring"
+  {:factor 66430547456482972914129/1250000000000000000000000,
+   :dims {:length 1}},
+  "thermalvolt"
+  {:factor 1,
+   :dims {:temperature 1},
+   :doc "thermal potential difference"},
+  "wire15gauge" {:factor 724789/500000000, :dims {:length 1}},
+  "ThomsonCrossSection"
+  {:factor 66524587051/1000000000000000000000000000000000000000,
+   :dims {:length 2},
+   :doc
+   "2022 CODATA value https://physics.nist.gov/cgi-bin/cuu/Value?sigmae The \"classical\" cross-section of an electron when illuminated by radiation. Uncertainty is +/- 62 in the last 2 digits."},
+  "brcup" {:factor 454609/1600000000, :dims {:length 3}},
+  "lakh" {:factor 100000, :dims {}},
+  "Å"
+  {:factor 1/10000000000,
+   :dims {:length 1},
+   :doc
+   "Official Unicode codepoint for Angstrom symbol: ANGSTROM SIGN"},
+  "plate17gauge"
+  {:factor 1143/800000, :dims {:length 1}, :doc "36 oz / ft^2"},
+  "garamond" {:factor 75213/20000000, :dims {:length 1}},
+  "thorium"
+  {:factor 2320381/10000000, :dims {:mass 1, :amount_of_substance -1}},
+  "brwire23gauge" {:factor 381/625000, :dims {:length 1}},
+  "zinc5gauge" {:factor 127/500000, :dims {:length 1}},
+  "boardfoot"
+  {:factor 18435447/7812500000,
+   :dims {:length 3},
+   :doc "Usually 1 inch thick wood"},
+  "sizeCring" {:factor 1/25, :dims {:length 1}},
+  "abamp"
+  {:factor 10,
+   :dims {:current 1},
+   :doc "2 dyne/cm between two infinitely"},
+  "electronwavelength"
+  {:factor 18931629/7802641527014999332, :dims {:length 1}},
+  "C1paper"
+  {:factor 74277/125000,
+   :dims {:length 2},
+   :doc "of sqrt(sqrt(2)) square meters."},
+  "kgf" {:factor 196133/20000, :dims {:mass 1, :length 1, :time -2}},
+  "uF"
+  {:factor 1/1000000,
+   :dims {:current 2, :time 4, :mass -1, :length -2},
+   :doc
+   "Concession to electrical engineers without adding the questionable \"u as a general prefix."},
+  "degcelsius" {:factor 1, :dims {:temperature 1}},
+  "oldhollandcable" {:factor 885600/3937, :dims {:length 1}},
+  "poundblankspaper"
+  {:factor 589081/258064000, :dims {:mass 1, :length -2}},
+  "cal_IT"
+  {:factor 10467/2500,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "International Table calorie, 4.1868 J"},
+  "calorie" {:factor 10467/2500, :dims {:mass 1, :length 2, :time -2}},
+  "lbbond"
+  {:factor 4123567/1096772000,
+   :dims {:mass 1, :length -2},
+   :doc "durable for repeated"},
+  "volt"
+  {:factor 1,
+   :dims {:mass 1, :length 2, :time -3, :current -1},
+   :doc "potential difference"},
+  "ppm" {:factor 1/1000000, :dims {}},
+  "h"
+  {:factor 132521403/200000000000000000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -1},
+   :doc
+   "Planck's constant, exactly defined by the SI rules that take effect on May 20, 2019. https://physics.nist.gov/cgi-bin/cuu/Value?h"},
+  "woolwey" {:factor 4127690567/50000000, :dims {:mass 1}},
+  "ream" {:factor 500, :dims {}},
+  "ligne"
+  {:factor 125/55412,
+   :dims {:length 1},
+   :doc "of the average barleycorn"},
+  "radian"
+  {:factor 1,
+   :dims {},
+   :doc
+   "The angle subtended at the center of a circle by an arc equal in length to the radius of the circle. A circle thus subtends an angle of 2 pi radians."},
+  "mounce" {:factor 1/40, :dims {:mass 1}},
+  "cmcapacitance"
+  {:factor 25000/22468879468420441,
+   :dims {:current 2, :time 4, :length -2, :mass -1}},
+  "standardtemp"
+  {:factor 5463/20,
+   :dims {:temperature 1},
+   :doc "standard temperature, exactly defined"},
+  "cfs" {:factor 55306341/1953125000, :dims {:length 3, :time -1}},
+  "brdram" {:factor 454609/128000000000, :dims {:length 3}},
+  "modii" {:factor 362563791/39062500000, :dims {:length 3}},
+  "silverdirhem"
+  {:factor 58319019/20000000000,
+   :dims {:mass 1},
+   :doc "The weights were derived from these two"},
+  "brteaspoon"
+  {:factor 1/200000, :dims {:length 3}, :doc "Also 1/4 brtablespoon"},
+  "petit" {:factor 75213/25000000, :dims {:length 1}},
+  "brassayton" {:factor 49/1500, :dims {:mass 1}},
+  "imperialdram" {:factor 454609/128000000000, :dims {:length 3}},
+  "slinchf"
+  {:factor 1744886100131775293/1016000000000000,
+   :dims {:mass 1, :length 1, :time -2},
+   :doc
+   "pound-force system. Used in space applications where in/sec^2 was a natural acceleration measure."},
+  "cornsyrup"
+  {:factor 8468039375/6145149, :dims {:mass 1, :length -3}},
+  "lbtag" {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "knot" {:factor 463/900, :dims {:length 1, :time -1}},
+  "wire48gauge" {:factor 39497/1250000000, :dims {:length 1}},
+  "lunarmonth"
+  {:factor 1594649997/625,
+   :dims {:time 1},
+   :doc "Time between full moons. Full"},
+  "drypint" {:factor 220244188543/400000000000000, :dims {:length 3}},
+  "minersinchCA"
+  {:factor 55306341/78125000000, :dims {:length 3, :time -1}},
+  "day" {:factor 86400, :dims {:time 1}},
+  "faraday_phys"
+  {:factor 965219/10,
+   :dims {:current 1, :time 1},
+   :doc "liberate one gram equivalent of any"},
+  "perch" {:factor 19800/3937, :dims {:length 1}},
+  "uranium"
+  {:factor 2380289/10000000, :dims {:mass 1, :amount_of_substance -1}},
+  "pythagoreancomma" {:factor 531441/524288, :dims {}},
+  "B4paper" {:factor 353/4000, :dims {:length 2}},
+  "poundbiblepaper"
+  {:factor 45359237/30645100000,
+   :dims {:mass 1, :length -2},
+   :doc "Designed to be lightweight, thin,"},
+  "bertholdpoint"
+  {:factor 1/2660,
+   :dims {:length 1},
+   :doc
+   "H. Berthold tried to create a metric version of the didot point in 1878."},
+  "eusize13ring" {:factor 53/1000, :dims {:length 1}},
+  "mu_p"
+  {:factor 28212135909/2000000000000000000000000000000000000,
+   :dims {:length 2, :current 1}},
+  "quintuple" {:factor 5, :dims {}},
+  "northerncubit"
+  {:factor 16891/25000, :dims {:length 1}, :doc "plus/minus .2 in"},
+  "librae"
+  {:factor 8184102333/25000000000,
+   :dims {:mass 1},
+   :doc "from 4210 grains to 5232 grains. Most of"},
+  "assyriancubit" {:factor 3429/6250, :dims {:length 1}},
+  "woolsarpler" {:factor 4127690567/12500000, :dims {:mass 1}},
+  "flock" {:factor 40, :dims {}},
+  "brwire40gauge" {:factor 381/3125000, :dims {:length 1}},
+  "brquartermass" {:factor 317514659/25000000, :dims {:mass 1}},
+  "blackcubit" {:factor 16891/31250, :dims {:length 1}},
+  "candle"
+  {:factor 51/50,
+   :dims {:luminous_intensity 1},
+   :doc "Standard unit for luminous intensity"},
+  "coal" {:factor 18200000N, :dims {:length 2, :time -2}},
+  "mu_B"
+  {:factor 1862479784135943/200827880381184188726354713040000000000,
+   :dims {:current 1, :length 2}},
+  "squareminute"
+  {:factor
+   274155677808037739331322691433070129/3240000000000000000000000000000000000000000,
+   :dims {}},
+  "venusmass" {:factor 4869000000000000000000000N, :dims {:mass 1}},
+  "tungsten"
+  {:factor 1149/6250, :dims {:mass 1, :amount_of_substance -1}},
+  "soybeanbushel" {:factor 136077711/5000000, :dims {:mass 1}},
+  "rontgen"
+  {:factor 129/500000,
+   :dims {:current 1, :time 1, :mass -1},
+   :doc "Sometimes it appears spelled this way"},
+  "eusize24ring" {:factor 8/125, :dims {:length 1}},
+  "hundred" {:factor 100, :dims {}},
+  "mite" {:factor 6479891/2000000000000, :dims {:mass 1}},
+  "sawbuck" {:factor 10, :dims {:currency 1}},
+  "sunillum"
+  {:factor 100000N,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "clear sky"},
+  "wire51gauge" {:factor 1115441/50000000000, :dims {:length 1}},
+  "stdtemp" {:factor 5463/20, :dims {:temperature 1}},
+  "septilliard"
+  {:factor 1000000000000000000000000000000000000000000000N, :dims {}},
+  "musicalfifth" {:factor 3/2, :dims {}},
+  "gallium"
+  {:factor 69723/1000000, :dims {:mass 1, :amount_of_substance -1}},
+  "boltzmannsconstant"
+  {:factor 1380649/100000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -2, :temperature -1},
+   :doc "Boltzmann's constant"},
+  "nonilliard"
+  {:factor 1000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "eusize27ring" {:factor 67/1000, :dims {:length 1}},
+  "nit"
+  {:factor 1,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "Luminance: the intensity per projected"},
+  "oersted"
+  {:factor 10000000000000/125663706127,
+   :dims {:current 1, :length -1}},
+  "clo"
+  {:factor 31/200,
+   :dims {:temperature 1, :mass -1, :time 3},
+   :doc
+   "Supposed to be the insulance required to keep a resting person comfortable indoors. The value given is from NIST and the CRC, but [5] gives a slightly different value of 0.875 ft^2 degF hr / Btu. Misc other measures"},
+  "meridian" {:factor 19330289/1250000000, :dims {:length 1}},
+  "magnesium"
+  {:factor 4861/200000, :dims {:mass 1, :amount_of_substance -1}},
+  "brquattuordecillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "zinc1gauge" {:factor 127/2500000, :dims {:length 1}},
+  "sodium"
+  {:factor 2873721/125000000,
+   :dims {:mass 1, :amount_of_substance -1}},
+  "rightangle"
+  {:factor 1570796326794896619/1000000000000000000, :dims {}},
+  "slugf"
+  {:factor 1744886100131775293/12192000000000000,
+   :dims {:mass 1, :length 1, :time -2}},
+  "R_K"
+  {:factor 5521725125000000000000/213914163877964163,
+   :dims {:mass 1, :length 2, :time -3, :current -2}},
+  "rutherford" {:factor 1000000N, :dims {:time -1}},
+  "Tbsp" {:factor 473176473/32000000000000, :dims {:length 3}},
+  "four" {:factor 4, :dims {}},
+  "lumen"
+  {:factor 1, :dims {:luminous_intensity 1}, :doc "Luminous flux"},
+  "sec" {:factor 1, :dims {:time 1}},
+  "eusize1ring" {:factor 41/1000, :dims {:length 1}},
+  "squarearcsec"
+  {:factor
+   274155677808037739331322691433070129/11664000000000000000000000000000000000000000000,
+   :dims {}},
+  "praseodymium"
+  {:factor 2818153/20000000, :dims {:mass 1, :amount_of_substance -1}},
+  "tsp" {:factor 157725491/32000000000000, :dims {:length 3}},
+  "circle" {:factor 1570796326794896619/250000000000000000, :dims {}},
+  "sumerianfoot" {:factor 33/100, :dims {:length 1}},
+  "plate1gauge"
+  {:factor 1143/160000, :dims {:length 1}, :doc "180 oz / ft^2"},
+  "lbnewsprint"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "zinc24gauge" {:factor 127/40000, :dims {:length 1}},
+  "slpm" {:factor 1351/800, :dims {:mass 1, :length 2, :time -3}},
+  "thaisadtahng"
+  {:factor 3/20000, :dims {:mass 1}, :doc "Alternate transliteration"},
+  "thermalhenry"
+  {:factor 1,
+   :dims {:mass -1, :length -2, :time 4, :temperature 2},
+   :doc "thermal inductance"},
+  "lambda" {:factor 1/1000000000, :dims {:length 3}},
+  "henries"
+  {:factor 1,
+   :dims {:mass 1, :length 2, :time -2, :current -2},
+   :doc "Irregular plural"},
+  "cut"
+  {:factor 6858/25,
+   :dims {:length 1},
+   :doc "used for wet-spun linen yarn"},
+  "bbl" {:factor 9936705933/62500000000, :dims {:length 3}},
+  "metriccup" {:factor 1/4000, :dims {:length 3}},
+  "trilliard" {:factor 1000000000000000000000N, :dims {}},
+  "admiraltyknot" {:factor 4826/9375, :dims {:length 1, :time -1}},
+  "turn" {:factor 1570796326794896619/250000000000000000, :dims {}},
+  "microhm"
+  {:factor 1/1000000,
+   :dims {:mass 1, :length 2, :time -3, :current -2}},
+  "oldUSnauticalmile"
+  {:factor 11582781/6250,
+   :dims {:length 1},
+   :doc "Used in U.S. before July 1, 1954"},
+  "firlot" {:factor 1363827/25000000, :dims {:length 3}},
+  "talbot"
+  {:factor 1,
+   :dims {:luminous_intensity 1, :time 1},
+   :doc "Luminous energy"},
+  "romanpound"
+  {:factor 8184102333/25000000000,
+   :dims {:mass 1},
+   :doc "the standards were obtained from the weight"},
+  "donkeypower" {:factor 250, :dims {:mass 1, :length 2, :time -3}},
+  "googol"
+  {:factor
+   10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "poundblottingpaper"
+  {:factor 45359237/14709648000, :dims {:mass 1, :length -2}},
+  "winesplit" {:factor 3/16000, :dims {:length 3}},
+  "lusec"
+  {:factor 26664477483/200000000000000,
+   :dims {:length 2, :mass 1, :time -3},
+   :doc "Used in vacuum science"},
+  "centuries"
+  {:factor 9861539367087/3125,
+   :dims {:time 1},
+   :doc "Irregular plural"},
+  "wire23gauge" {:factor 286639/500000000, :dims {:length 1}},
+  "boilerhorsepower"
+  {:factor 19619/2, :dims {:mass 1, :length 2, :time -3}},
+  "mcm"
+  {:factor 25335373954874887567851/50000000000000000000000000000,
+   :dims {:length 2}},
+  "standardgauge"
+  {:factor 822579/3125000,
+   :dims {:length 2},
+   :doc "Standard width between railroad track"},
+  "mas"
+  {:factor 523598775598298873/108000000000000000000000000, :dims {}},
+  "m"
+  {:factor 1,
+   :dims {:length 1},
+   :doc "The 2019 SI definition of the meter is:"},
+  "olddidotpoint"
+  {:factor 125/332472,
+   :dims {:length 1},
+   :doc
+   "François Ambroise Didot, one of a family of printers, changed Fournier's definition around 1770 to fit to the French units then in use."},
+  "pc"
+  {:factor 16156570035600000000000000000000000/523598775598298873,
+   :dims {:length 1},
+   :doc
+   "from the sun to a point having heliocentric parallax of 1 arcsec (derived from parallax second). IAU Resolution B2, 2015 (link below) cites two textbooks as saying that \"the parsec is defined as exactly (648000 / pi) au which is equivalent to the previous definition included here: au radian / arcsec but it does not quote any standards body. (648000 is 3600 * 180, the number of arcseconds in a semicircle. This is thus not a correct trigonometric scale, but a small-angle approximation. The rigorous trigonometric measure would be given by d = r/tan[theta] or specifically au / tan[arcsec]) Note that the parsec is defined not as the angle when the Earth is on opposite sides of the Sun, but half that angle."},
+  "puncheon" {:factor 4091481/12500000, :dims {:length 3}},
+  "sizeEring" {:factor 17/400, :dims {:length 1}},
+  "cornbushel" {:factor 317514659/12500000, :dims {:mass 1}},
+  "ton" {:factor 45359237/50000, :dims {:mass 1}},
+  "trondrop" {:factor 771107029/400000000000, :dims {:mass 1}},
+  "quartaria" {:factor 362563791/2500000000000, :dims {:length 3}},
+  "thaisatang" {:factor 3/20000, :dims {:mass 1}},
+  "gasoline"
+  {:factor 5055000000000000000/157725491,
+   :dims {:mass 1, :length -1, :time -2},
+   :doc
+   "So you can convert energy to gallons gasoline. This now matches the EPA definition for MPGe. This definition was changed in the Frink data from 1.4e8 J/gallon (which is about 38.88 kWh/gallon) on 2022-11-03. The previous definition may have been more accurate for very efficient combustion of gasoline, but this makes it match with EPA definitions."},
+  "olympicbema" {:factor 30861/40000, :dims {:length 1}},
+  "sixty" {:factor 60, :dims {}},
+  "W" {:factor 1, :dims {:mass 1, :length 2, :time -3}},
+  "mcg"
+  {:factor 1/1000000000,
+   :dims {:mass 1},
+   :doc "Frequently used for vitamins"},
+  "silversmithpoint" {:factor 127/20000000, :dims {:length 1}},
+  "jo"
+  {:factor 81306289/50000000,
+   :dims {:length 2},
+   :doc "The area of a standard tatami mat."},
+  "zinc22gauge" {:factor 1143/500000, :dims {:length 1}},
+  "saturnyear" {:factor 145250613337824423/156250000, :dims {:time 1}},
+  "pspoint" {:factor 127/360000, :dims {:length 1}},
+  "poundtissuepaper"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "nox"
+  {:factor 1/1000,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "These two units were proposed for"},
+  "mbh"
+  {:factor 52752792631/180000000,
+   :dims {:mass 1, :length 2, :time -3}},
+  "uranusyear" {:factor 207121911326928261/78125000, :dims {:time 1}},
+  "mancus" {:factor 45359237/800000000, :dims {:mass 1}},
+  "pes"
+  {:factor 37/125,
+   :dims {:length 1},
+   :doc "This value appears in numerous sources. In \"The"},
+  "brwire32gauge" {:factor 3429/12500000, :dims {:length 1}},
+  "germandidotpoint"
+  {:factor 75213/200000000,
+   :dims {:length 1},
+   :doc
+   "Exact definition appears in DIN 16507, a German standards document of 1954. Adopted more broadly in 1966 by ???"},
+  "palmwidth"
+  {:factor 127/1250,
+   :dims {:length 1},
+   :doc "The palm is a unit defined as either the width"},
+  "jpsize1ring"
+  {:factor 20420352248333656047/500000000000000000000,
+   :dims {:length 1}},
+  "lbglassine"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "chinesecatty" {:factor 1/2, :dims {:mass 1}},
+  "fermi"
+  {:factor 1/1000000000000000,
+   :dims {:length 1},
+   :doc
+   "Convenient for describing nuclear sizes Nuclear radius is from 1 to 10 fermis"},
+  "quad"
+  {:factor 1055055852620000000N, :dims {:mass 1, :length 2, :time -2}},
+  "brtrillion" {:factor 1000000000000000000N, :dims {}},
+  "crocodile"
+  {:factor 1000000N,
+   :dims {:mass 1, :length 2, :time -3, :current -1},
+   :doc "used informally in UK physics labs"},
+  "timeounce" {:factor 15/2, :dims {:time 1}},
+  "lightminute" {:factor 17987547480, :dims {:length 1}},
+  "dextans" {:factor 2728034111/10000000000, :dims {:mass 1}},
+  "olympicfeet" {:factor 30861/100000, :dims {:length 1}},
+  "scfh"
+  {:factor 24906288897/31250000000,
+   :dims {:mass 1, :length 2, :time -3}},
+  "engineerslink" {:factor 381/1250, :dims {:length 1}},
+  "crore" {:factor 10000000N, :dims {}},
+  "wire8gauge" {:factor 32639/10000000, :dims {:length 1}},
+  "cesium"
+  {:factor 13290543/100000000,
+   :dims {:mass 1, :amount_of_substance -1}},
+  "spat"
+  {:factor 1000000000000N,
+   :dims {:length 1},
+   :doc "Rarely used for astronomical measurements"},
+  "metricounce" {:factor 1/40, :dims {:mass 1}},
+  "size3_5ring"
+  {:factor 11370994609668256624941/250000000000000000000000,
+   :dims {:length 1}},
+  "brwire2gauge" {:factor 8763/1250000, :dims {:length 1}},
+  "Å"
+  {:factor 1/10000000000,
+   :dims {:length 1},
+   :doc
+   "Preferred\" Unicode codepoint for Angstrom symbol: LATIN CAPITAL LETTER A WITH RING ABOVE"},
+  "plate29gauge"
+  {:factor 1143/3200000, :dims {:length 1}, :doc "9 oz / ft^2"},
+  "brsextilliard"
+  {:factor 1000000000000000000000000000000000000000N, :dims {}},
+  "sign"
+  {:factor 523598775598298873/1000000000000000000,
+   :dims {},
+   :doc "Angular extent of one sign of the zodiac"},
+  "liquidbarrel" {:factor 29810117799/250000000000, :dims {:length 3}},
+  "rydberg"
+  {:factor
+   1282975513735210262046510653078379104749659/588555337748438588244981955679282000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -2},
+   :doc "Rydberg energy"},
+  "gon"
+  {:factor 1570796326794896619/100000000000000000000,
+   :dims {},
+   :doc "measure of grade"},
+  "zinc10gauge" {:factor 127/250000, :dims {:length 1}},
+  "mobileohm"
+  {:factor 1000N,
+   :dims {:mass -1, :time 1},
+   :doc "mobile ohm, measure of mechanical"},
+  "drybarrel" {:factor 903336903/7812500000, :dims {:length 3}},
+  "wire4gauge" {:factor 259461/50000000, :dims {:length 1}},
+  "inch" {:factor 127/5000, :dims {:length 1}, :doc "Exactly 2.54 cm"},
+  "tonref"
+  {:factor 52752792631/15000000, :dims {:mass 1, :length 2, :time -3}},
+  "olympicpalm" {:factor 30861/400000, :dims {:length 1}},
+  "hourly" {:factor 1/3600, :dims {:time -1}},
+  "size6ring"
+  {:factor 2593384735538374317969/50000000000000000000000,
+   :dims {:length 1}},
+  "zinc23gauge" {:factor 127/50000, :dims {:length 1}},
+  "poundbookpaper"
+  {:factor 45359237/30645100000, :dims {:mass 1, :length -2}},
+  "sextula" {:factor 2728034111/600000000000, :dims {:mass 1}},
+  "maxwell"
+  {:factor 1/100000000,
+   :dims {:length 2, :mass 1, :time -2, :current -1},
+   :doc "Also called the \"line"},
+  "pieze" {:factor 1000, :dims {:mass 1, :length -1, :time -2}},
+  "abcoul" {:factor 10, :dims {:current 1, :time 1}},
+  "greekfathom" {:factor 94869/50000, :dims {:length 1}},
+  "olympicstadion" {:factor 92583/500, :dims {:length 1}},
+  "plate7gauge"
+  {:factor 381/80000, :dims {:length 1}, :doc "120 oz / ft^2"},
+  "mol" {:factor 1, :dims {:amount_of_substance 1}},
+  "septillion" {:factor 1000000000000000000000000N, :dims {}},
+  "tesla"
+  {:factor 1,
+   :dims {:mass 1, :time -2, :current -1},
+   :doc "magnetic flux density"},
+  "Rvalue"
+  {:factor 9290304000/52752792631,
+   :dims {:temperature 1, :time 3, :mass -1},
+   :doc "r-value, U.S. insulation figure"},
+  "english" {:factor 12301093/2500000000, :dims {:length 1}},
+  "libra"
+  {:factor 8184102333/25000000000,
+   :dims {:mass 1},
+   :doc "The Roman pound varied significantly"},
+  "remendigit"
+  {:factor 92583/5000000,
+   :dims {:length 1},
+   :doc
+   "side length of 1 royal egyptian cubit. This is divided into 40 digits which are not the same size as the digits based on the royal cubit."},
+  "brhundredweight" {:factor 317514659/6250000, :dims {:mass 1}},
+  "minersinchNV"
+  {:factor 55306341/78125000000, :dims {:length 3, :time -1}},
+  "protonmass"
+  {:factor 33452438519/20000000000000000000000000000000000000,
+   :dims {:mass 1},
+   :doc "+/- 52 in last 2 digits"},
+  "romanounce"
+  {:factor 2728034111/100000000000,
+   :dims {:mass 1},
+   :doc "was in use from BC 27 to AD 296."},
+  "oldchinesepicul" {:factor 45359237/750000, :dims {:mass 1}},
+  "dysprosium"
+  {:factor 13/80, :dims {:mass 1, :amount_of_substance -1}},
+  "intacre"
+  {:factor 316160658/78125,
+   :dims {:length 2},
+   :doc "Acre based on international ft"},
+  "mercpennyweight" {:factor 58319019/40000000000, :dims {:mass 1}},
+  "brwire27gauge" {:factor 5207/12500000, :dims {:length 1}},
+  "propane"
+  {:factor 4012500000000000000/157725491,
+   :dims {:mass 1, :length -1, :time -2},
+   :doc "Energy in liquid propane"},
+  "columbian" {:factor 1757299/312500000, :dims {:length 1}},
+  "petroleumbarrel"
+  {:factor 9936705933/62500000000,
+   :dims {:length 3},
+   :doc "Originated in Pennsylvania oil fields, from the winetierce"},
+  "korpus" {:factor 75213/20000000, :dims {:length 1}},
+  "balmer"
+  {:factor 100N,
+   :dims {:length -1},
+   :doc "Even less common name than \"kayser"},
+  "litre" {:factor 1/1000, :dims {:length 3}},
+  "cfh" {:factor 6145149/781250000000, :dims {:length 3, :time -1}},
+  "tsi"
+  {:factor 8896443230521/645160,
+   :dims {:mass 1, :length -1, :time -2}},
+  "zinc26gauge" {:factor 381/40000, :dims {:length 1}},
+  "lutetium"
+  {:factor 174967/1000000, :dims {:mass 1, :amount_of_substance -1}},
+  "cheonix" {:factor 1087691373/1250000000000, :dims {:length 3}},
+  "ℎ"
+  {:factor 132521403/200000000000000000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -1},
+   :doc "Official Unicode char for Planck's const."},
+  "typp" {:factor 91440000000/45359237, :dims {:length 1, :mass -1}},
+  "epsilon0"
+  {:factor 22135469547/2500000000000000000000,
+   :dims {:current 2, :time 4, :mass -1, :length -3},
+   :doc
+   "permittivity of vacuum This is the 2022 CODATA value. Uncertainty is +/- 14 in the last 2 digits. https://physics.nist.gov/cgi-bin/cuu/Value?ep0"},
+  "degR" {:factor 5/9, :dims {:temperature 1}},
+  "greekfoot"
+  {:factor 31623/100000,
+   :dims {:length 1},
+   :doc "Listed as being derived from the"},
+  "canon" {:factor 5271897/312500000, :dims {:length 1}},
+  "flag"
+  {:factor 145161/312500,
+   :dims {:length 2},
+   :doc "Construction term referring to sidewalk."},
+  "shortquarter" {:factor 45359237/200000, :dims {:mass 1}},
+  "australiapoint"
+  {:factor 127/500000,
+   :dims {:length 1},
+   :doc "The \"point\" is used to measure rainfall in Australia"},
+  "jerk" {:factor 381/1250, :dims {:length 1, :time -3}},
+  "brwire35gauge" {:factor 2667/12500000, :dims {:length 1}},
+  "fillpower"
+  {:factor 16387064/28349523125,
+   :dims {:length 3, :mass -1},
+   :doc
+   "Density of down at standard pressure. The best down has 750-800 fillpower."},
+  "at" {:factor 196133/2, :dims {:mass 1, :length -1, :time -2}},
+  "brwire37gauge" {:factor 2159/12500000, :dims {:length 1}},
+  "atomiccharge"
+  {:factor 801088317/5000000000000000000000000000,
+   :dims {:current 1, :time 1}},
+  "point"
+  {:factor 1757299/5000000000,
+   :dims {:length 1},
+   :doc "exact, NIST Handbook 44, Appendix 3"},
+  "mcs"
+  {:factor 1,
+   :dims {:luminous_intensity 1, :length -2, :time 1},
+   :doc
+   "luminous energy per area, used to measure photographic exposure"},
+  "navycablelength" {:factor 864000/3937, :dims {:length 1}},
+  "statmho"
+  {:factor 25000/22468879468420441,
+   :dims {:length -2, :mass -1, :time 3, :current 2}},
+  "solaryear" {:factor 9861539367087/312500, :dims {:time 1}},
+  "zerocelsius"
+  {:factor 5463/20,
+   :dims {:temperature 1},
+   :doc
+   "In 2019, defined exactly. The triple point of water is now experimentally measured. The BIPM brochure states that \"The previous definition of the kelvin set the temperature of the triple point of water, T_TPW, to be exactly 273.16 K. Due to the fact that the present definition of the kelvin fixes the numerical value of k instead of T_TPW , the latter must now be determined experimentally. At the time of adopting the present definition T_TPW was equal to 273.16 K with a relative standard uncertainty of 3.7 × 10 −7 based on measurements of k made prior to the redefinition. https://www.bipm.org/en/publications/si-brochure/"},
+  "olympicorguia" {:factor 92583/50000, :dims {:length 1}},
+  "chain" {:factor 79200/3937, :dims {:length 1}},
+  "timeminute" {:factor 360N, :dims {:time 1}},
+  "tex"
+  {:factor 1/1000000,
+   :dims {:mass 1, :length -1},
+   :doc "rational metric yarn measure, meant"},
+  "c"
+  {:factor 299792458,
+   :dims {:length 1, :time -1},
+   :doc
+   "speed of light in vacuum (exact) The speed of light is the same to all observers in all local frames. The relation between the meter and the second is thus fixed by this definition. This is good."},
+  "plancksconstant"
+  {:factor 132521403/200000000000000000000000000000000000000000,
+   :dims {:mass 1, :length 2, :time -1}},
+  "li"
+  {:factor 402336/695,
+   :dims {:length 1},
+   :doc "Chinese unit of length 100 li is considered a day's march"},
+  "promethium"
+  {:factor 1449127/10000000,
+   :dims {:mass 1, :amount_of_substance -1},
+   :doc "Longest lived. 146.92"},
+  "lboffset"
+  {:factor 45359237/30645100000, :dims {:mass 1, :length -2}},
+  "byte"
+  {:factor 8,
+   :dims {:information 1},
+   :doc
+   "Not all machines had 8 bit bytes, but these days most of them do. But beware: for transmission over modems, a few extra bits are used so there are actually 10 bits per byte."},
+  "au"
+  {:factor 149597870700,
+   :dims {:length 1},
+   :doc
+   "astronomical unit, approximately the average radius of earth's orbit around the sun."},
+  "assyriansusi" {:factor 1143/250000, :dims {:length 1}},
+  "solarday"
+  {:factor 86400,
+   :dims {:time 1},
+   :doc
+   "The time for the earth to rotate on its axis relative to the sun."},
+  "brillant" {:factor 225639/200000000, :dims {:length 1}},
+  "lbwaxing"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "psia"
+  {:factor 8896443230521/1290320000,
+   :dims {:mass 1, :length -1, :time -2},
+   :doc "absolute pressure"},
+  "europeanpoint"
+  {:factor 75213/200000000,
+   :dims {:length 1},
+   :doc "for the point used in Europe"},
+  "cc" {:factor 1/1000000, :dims {:length 3}},
+  "intamp"
+  {:factor 199967/200000,
+   :dims {:current 1},
+   :doc
+   "second deposits .001118 gram of silver from an aqueous solution of silver nitrate."},
+  "rod" {:factor 19800/3937, :dims {:length 1}},
+  "plate28gauge"
+  {:factor 127/320000, :dims {:length 1}, :doc "10 oz / ft^2"},
+  "B2paper" {:factor 707/2000, :dims {:length 2}},
+  "biot"
+  {:factor 10, :dims {:current 1}, :doc "alternative name for abamp"},
+  "rubidium"
+  {:factor 427339/5000000, :dims {:mass 1, :amount_of_substance -1}},
+  "wire11gauge" {:factor 576199/250000000, :dims {:length 1}},
+  "assyrianpalm" {:factor 1143/12500, :dims {:length 1}},
+  "amu_chem"
+  {:factor 83013/50000000000000000000000000000000,
+   :dims {:mass 1},
+   :doc
+   "1/16 of the weighted average mass of the 3 naturally occurring neutral isotopes of oxygen"},
+  "towerpound" {:factor 174957057/500000000, :dims {:mass 1}},
+  "deuteronmagneticmoment"
+  {:factor 4330735087/1000000000000000000000000000000000000,
+   :dims {:length 2, :current 1},
+   :doc "+/- 11 in last 2 digits"},
+  "caliber"
+  {:factor 127/500000,
+   :dims {:length 1},
+   :doc "for measuring bullets"},
+  "A7paper" {:factor 777/100000, :dims {:length 2}},
+  "N_A"
+  {:factor 602214076000000000000000N, :dims {:amount_of_substance -1}},
+  "pk" {:factor 220244188543/25000000000000, :dims {:length 3}},
+  "alcohol"
+  {:factor 7893/10,
+   :dims {:mass 1, :length -3},
+   :doc "For now, density of ethanol"},
+  "acre"
+  {:factor 62726400000/15499969,
+   :dims {:length 2},
+   :doc
+   "NIST Handbook 44 has a typographical error (forgetting to underline feet in one place on middle of page C-16 in 2003 edition) with respect to this, but it's clear from corroborating different figures in that document and NIST Special Publication 811, Sec. B.6, that the survey foot is the proper definition. Have filed errata with NIST and requested confirmation. 2003-08-27 Received confirmation (years later) that all of my reported errors were indeed errors and would be fixed. Note that it was apparently not fixed until the 2007 edition. 2010 edition of NIST Handbook 44 is apparently correct. (see section C-2.) http://ts.nist.gov/WeightsAndMeasures/pubs.cfm"},
+  "egyptianpalm" {:factor 262001/3500000, :dims {:length 1}},
+  "atmosphere" {:factor 101325, :dims {:mass 1, :length -1, :time -2}},
+  "brseptdecillion"
+  {:factor
+   1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "deimosmass" {:factor 1800000000000000N, :dims {:mass 1}},
+  "skot"
+  {:factor 500000000000000/1570796326794896619,
+   :dims {:luminous_intensity 1, :length -2},
+   :doc "measurements relating to dark adapted eyes."},
+  "chomer" {:factor 4625127959403/12500000000000, :dims {:length 3}},
+  "poundbristolpaper"
+  {:factor 45359237/20685442500, :dims {:mass 1, :length -2}},
+  "nonillion" {:factor 1000000000000000000000000000000N, :dims {}},
+  "plate10gauge"
+  {:factor 1143/320000, :dims {:length 1}, :doc "90 oz / ft^2"},
+  "scruple" {:factor 6479891/5000000000, :dims {:mass 1}},
+  "celo" {:factor 381/1250, :dims {:length 1, :time -2}},
+  "anomalisticmonth"
+  {:factor 74397284379/31250,
+   :dims {:time 1},
+   :doc "Time from perigee to perigee"},
+  "romanmile" {:factor 1480N, :dims {:length 1}, :doc "1000 paces"},
+  "pulsatance" {:factor 1, :dims {:time -1}},
+  "mho"
+  {:factor 1,
+   :dims {:current 2, :mass -1, :length -2, :time 3},
+   :doc "Inverse of ohm, hence ohm spelled backward"},
+  "octillion" {:factor 1000000000000000000000000000N, :dims {}},
+  "annually" {:factor 312500/9861539367087, :dims {:time -1}},
+  "revolution"
+  {:factor 1570796326794896619/250000000000000000, :dims {}},
+  "hectare" {:factor 10000, :dims {:length 2}},
+  "size4_5ring"
+  {:factor 60046831184388513054513/1250000000000000000000000,
+   :dims {:length 1}},
+  "aeginatalent" {:factor 58319019/1562500, :dims {:mass 1}},
+  "C7paper" {:factor 4617/500000, :dims {:length 2}},
+  "egyptianshortcubit" {:factor 786003/1750000, :dims {:length 1}},
+  "majorsixth" {:factor 5/3, :dims {}},
+  "gadolinium"
+  {:factor 629/4000, :dims {:mass 1, :amount_of_substance -1}},
+  "timer" {:factor 40, :dims {}},
+  "lune"
+  {:factor 531549999/6250,
+   :dims {:time 1},
+   :doc "the earth. Since the earth"},
+  "jpsize26ring"
+  {:factor 523598775598298873/7812500000000000000, :dims {:length 1}},
+  "dyn" {:factor 1/100000, :dims {:length 1, :mass 1, :time -2}},
+  "wholedeal"
+  {:factor 202789917/6250000000,
+   :dims {:length 3},
+   :doc
+   "If it's half as thick as the standard deal it's called a \"whole deal\"!"},
+  "amu_phys"
+  {:factor 165981/100000000000000000000000000000000,
+   :dims {:mass 1},
+   :doc "1/16 of the mass of a neutral oxygen 16 atom"},
+  "jpsize10ring"
+  {:factor 1570796326794896619/31250000000000000000,
+   :dims {:length 1}},
+  "brteacup" {:factor 454609/2400000000, :dims {:length 3}},
+  "in" {:factor 127/5000, :dims {:length 1}},
+  "broctillion"
+  {:factor 1000000000000000000000000000000000000000000000000N,
+   :dims {}},
+  "sigmaₑ"
+  {:factor 66524587051/1000000000000000000000000000000000000000,
+   :dims {:length 2},
+   :doc "sigma\" Unicode subscript e"},
+  "lanthanum"
+  {:factor 277811/2000000, :dims {:mass 1, :amount_of_substance -1}},
+  "size7ring"
+  {:factor 68026476524506587879033/1250000000000000000000000,
+   :dims {:length 1}},
+  "terbium"
+  {:factor 7946267/50000000, :dims {:mass 1, :amount_of_substance -1}},
+  "sturgeon"
+  {:factor 1,
+   :dims {:mass -1, :length -2, :time 2, :current 2},
+   :doc "magnetic reluctance"},
+  "mpg" {:factor 48000000000/112903, :dims {:length -2}},
+  "beercase" {:factor 4258588257/500000000000, :dims {:length 3}},
+  "romanpace"
+  {:factor 37/25,
+   :dims {:length 1},
+   :doc "Roman double pace (basic military unit)"},
+  "cord"
+  {:factor 884901456/244140625,
+   :dims {:length 3},
+   :doc "4 ft by 4 ft by 8 ft bundle of wood"},
+  "jpsize14ring"
+  {:factor 6806784082777885349/125000000000000000000,
+   :dims {:length 1}},
+  "atm"
+  {:factor 101325,
+   :dims {:mass 1, :length -1, :time -2},
+   :doc
+   "Standard atmospheric pressure (exact) See https://physics.nist.gov/cgi-bin/cuu/Value?stdatm"},
+  "number2_5can" {:factor 3312235311/4000000000000, :dims {:length 3}},
+  "lbtissue"
+  {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
+  "metricgrain" {:factor 1/20000, :dims {:mass 1}},
+  "sizeGring" {:factor 9/200, :dims {:length 1}},
+  "galvat"
+  {:factor 1, :dims {:current 1}, :doc "Named after Luigi Galvani"},
+  "cakeflour_scooped"
+  {:factor 1104526875/2048383,
+   :dims {:mass 1, :length -3},
+   :doc "dip and sweep\" refers to dipping a"},
+  "carat" {:factor 1/5000, :dims {:mass 1}},
+  "size11_5ring"
+  {:factor 82389838136719122563169/1250000000000000000000000,
+   :dims {:length 1}},
+  "zinc25gauge" {:factor 127/20000, :dims {:length 1}},
+  "minersinchUT"
+  {:factor 55306341/97656250000, :dims {:length 3, :time -1}},
+  "ft" {:factor 381/1250, :dims {:length 1}},
+  "shed"
+  {:factor 1/10000000000000000000000000000000000000000000000000000,
+   :dims {:length 2},
+   :doc
+   "Defined to be a smaller companion to the barn, but it's too small to be of much use."},
+  "sundist_far"
+  {:factor 152100000000N,
+   :dims {:length 1},
+   :doc "earth-sun distance at aphelion"},
+  "ytterbium"
+  {:factor 2163/12500, :dims {:mass 1, :amount_of_substance -1}},
+  "fifty" {:factor 50, :dims {}},
+  "shackle"
+  {:factor 108000/3937,
+   :dims {:length 1},
+   :doc "Adopted 1949 by British navy"},
+  "emerald"
+  {:factor 22844887/10000000000, :dims {:length 1}, :doc "British"},
+  "sextillion" {:factor 1000000000000000000000N, :dims {}},
+  "poundcopypaper"
+  {:factor 4123567/1096772000, :dims {:mass 1, :length -2}},
+  "brwire50gauge" {:factor 127/5000000, :dims {:length 1}},
+  "julianyear" {:factor 31557600N, :dims {:time 1}},
+  "C2paper" {:factor 18549/62500, :dims {:length 2}},
+  "jpsize23ring"
+  {:factor 31939525311496231253/500000000000000000000,
+   :dims {:length 1}},
+  "zinc28gauge" {:factor 127/5000, :dims {:length 1}},
+  "gomer" {:factor 660732565629/250000000000000, :dims {:length 3}},
+  "brquintillion" {:factor 1000000000000000000000000000000N, :dims {}},
+  "sennight" {:factor 604800, :dims {:time 1}},
+  "fluxunit"
+  {:factor 1/100000000000000000000000000,
+   :dims {:mass 1, :time -2},
+   :doc
+   "Used in radio astronomy to measure the energy incident on the receiving body across a specified frequency bandwidth. [12]"},
+  "eusize7ring" {:factor 47/1000, :dims {:length 1}}},
+ :dimension-names
+ {{:current 2, :time 4, :mass -1, :length -3} "permittivity",
+  {:length 1, :time -2} "acceleration",
+  {:mass 1, :length -2} "area_density",
+  {:mass 1, :length 2, :time -2, :amount_of_substance -1}
+  "molar_energy",
+  {:length 1, :mass 1, :time -2} "force",
+  {:amount_of_substance 1, :mass -1} "concentration_by_mass",
+  {:length 2, :mass 1, :time -3} "power",
+  {:length 2, :mass 1, :time -2} "energy",
+  {:temperature 1, :mass -1, :time 3} "thermal_insulance",
+  {:length 1, :mass -1} "reciprocal_linear_mass_density",
+  {:length 2, :time -2} "specific_energy",
+  {:mass 1, :length 1, :time -3, :current -1}
+  "electric_field_strength",
+  {:mass -1, :length 3, :time -2} "gravitational_constant",
+  {:length -2, :luminous_intensity 1} "illuminance",
+  {:length 2, :mass 1, :time -1} "angular_momentum",
+  {:length 2, :time -2, :temperature -1} "specific_heat_capacity",
+  {:mass -1, :length -2, :time 2, :current 2} "magnetic_reluctance",
+  {:current 2, :time 4, :mass -1, :length -2} "capacitance",
+  {:mass 1, :time -3} "heat_flux_density",
+  {:current 1, :time 1, :length -3} "electric_charge_density",
+  {} "dimensionless",
+  {:mass 1,
+   :length 2,
+   :time -2,
+   :amount_of_substance -1,
+   :temperature -1}
+  "molar_heat_capacity",
+  {:length -3, :mass 1} "mass_density",
+  {:length 2, :current 1} "magnetic_moment",
+  {:mass 1, :length 1, :time -3, :temperature -1}
+  "thermal_conductivity",
+  {:length 3, :mass -1} "specific_volume",
+  {:current 1, :length -2} "electric_current_density",
+  {:mass 1, :time -2, :current -1} "magnetic_flux_density",
+  {:time -1} "frequency",
+  {:mass 1, :time -2} "surface_tension",
+  {:length 2} "area",
+  {:current 2, :mass -1, :length -2, :time 3} "electric_conductance",
+  {:mass 1, :time -3, :temperature -1} "thermal_conductance",
+  {:length -1, :mass 1, :time -2} "pressure",
+  {:mass 1, :amount_of_substance -1} "molar_mass",
+  {:current 1, :time 1} "charge",
+  {:mass 1, :length 2, :time -2, :temperature -1} "heat_capacity",
+  {:length 3, :time -1} "flow",
+  {:mass 1, :length -1} "linear_mass_density",
+  {:luminous_intensity 1, :time 1} "luminous_energy",
+  {:mass 1, :length 1, :time -2, :current -2} "permeability",
+  {:current -2, :time -4, :mass 1, :length 3}
+  "electric_force_constant",
+  {:length 1, :mass 1, :time -1} "momentum",
+  {:length 1, :time -1} "velocity",
+  {:currency 1, :mass -1} "price_per_mass",
+  {:mass 1, :length 2, :time -2, :current -2} "inductance",
+  {:mass 1, :length 2, :time -3, :current -1} "electric_potential",
+  {:mass 1, :length 2, :time -3, :current -2} "electric_resistance",
+  {:current 1, :length -1} "magnetic_field_strength",
+  {:length 3} "volume",
+  {:length 2, :mass 1} "moment_of_inertia",
+  {:length 3, :amount_of_substance -1} "molar_volume",
+  {:time -3, :mass 1, :temperature -4} "radiative_power_constant",
+  {:mass 1, :length 3, :time -3, :current -2} "electric_resistivity",
+  {:current 1, :time 1, :length -2} "surface_charge_density",
+  {:temperature 1, :mass -1, :length -2, :time 3} "thermal_resistance",
+  {:current 2, :mass -1, :length -3, :time 3} "electric_conductivity",
+  {:length -2, :time 2, :mass -1, :current 1} "josephson_constant",
+  {:length -1, :temperature 1, :mass -1, :time 3}
+  "thermal_resistivity",
+  {:mass 1, :length 2, :time -2, :current -1} "magnetic_flux"},
+ :nonlinear
+ {"Fahrenheit"
+  {:scale 5/9,
+   :offset 45967/180,
+   :type :affine,
+   :dims {:temperature 1}},
+  "F"
+  {:scale 5/9,
+   :offset 45967/180,
+   :type :affine,
+   :dims {:temperature 1}},
+  "Celsius"
+  {:scale 1, :offset 5463/20, :type :affine, :dims {:temperature 1}},
+  "C"
+  {:scale 1, :offset 5463/20, :type :affine, :dims {:temperature 1}},
+  "Reaumur"
+  {:scale 5/4, :offset 5463/20, :type :affine, :dims {:temperature 1}}}}
