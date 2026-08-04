@@ -72,6 +72,9 @@
   [dims nm]
   (registry/register-dimension! dims nm))
 
+;; TODO: docstring: remove reference to add-unit!
+;; TODO: docstring: less, prose, more bullet-point details about the arities
+;; TODO: docstring: more examples
 (defmacro defunit
   "Define a callable `Unit` var — the modern add-unit!. The bound value is one of
   the new unit, displays under its own name, and works as a `to` target. The body

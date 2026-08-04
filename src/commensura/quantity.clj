@@ -36,12 +36,18 @@
     "Exact magnitude in base SI units. Plain numbers are `rationalize`d (3.2 ->
     16/5) so decimal inputs stay exact, matching Frink."))
 
-;; ---- dimension-map helpers ----
-(defn- clean [d] (into {} (remove (comp zero? val)) d))
-(defn- scale-dims [d n] (clean (into {} (map (fn [[k v]] [k (* v n)])) d)))
-(defn- merge-dims [a b] (clean (merge-with + a b)))
+(defprotocol Formulaic
+  (formula [x] "A vector of UnitTerms that describe the components of a measurement."))
 
-(declare scale as-formula format-quantity)
+;; ---- dimension-map helpers ----
+(def ^:private clean-xf (remove (comp zero? second)))
+
+(defn- scale-dims [d n]
+  (let [mult (fn [[k v]] [k (* v n)])
+        xf (comp (map mult) clean-xf)]
+    (into {} xf d)))
+
+(declare scale format-quantity)
 
 ;; one term of a display formula, e.g. foot^3 — a Unit raised to a power
 (defrecord UnitTerm [unit-name exp factor base-dims]
@@ -50,42 +56,73 @@
 
 ;; a named registered unit: name + base magnitude + stored dimensions
 (defrecord Unit [name mag dims]
-  Dimensionable (dims [_] dims)
-  Measured      (magnitude [_] mag)
+  Dimensionable
+  (dims [_] dims)
+
+  Measured
+  (magnitude [_] mag)
+
+  Formulaic
+  (formula [_] [(->UnitTerm name 1 mag dims)])
+
   clojure.lang.IFn
   (invoke [this n] (scale this n))
   (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
-  Object (toString [this] (format-quantity this)))
+
+  Object
+  (toString [this] (format-quantity this)))
 
 ;; an anonymous computed value: magnitude + ordered display formula (dims derived)
 (defrecord Quantity [mag formula]
-  Dimensionable (dims [_] (reduce merge-dims {} (map dims formula)))
-  Measured      (magnitude [_] mag)
+  Dimensionable
+  (dims [_]
+    (transduce
+     (map dims)
+     (completing
+      (partial merge-with +)
+      (partial into {} clean-xf))
+     {} formula))
+
+  Measured
+  (magnitude [_] mag)
+
+  Formulaic
+  (formula [_] formula)
+
   clojure.lang.IFn
   (invoke [this n] (scale this n))
   (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
-  Object (toString [this] (format-quantity this)))
+
+  Object
+  (toString [this] (format-quantity this)))
 
 (extend-protocol Dimensionable
   Number (dims [_] {})
   nil    (dims [_] {}))
+
 (extend-protocol Measured
   Number (magnitude [x] (rationalize x)))
 
-(defn unit?     [x] (instance? Unit x))
-(defn quantity? [x] (or (instance? Unit x) (instance? Quantity x)))
+(extend-protocol Formulaic
+  Number (formula [_] []))
+
+(defn unit? [x] (instance? Unit x))
+
+(defn quantity? [x] (instance? Quantity x))
 
 ;; ---- constructors ----
 (defn unit
   "Mint a named registered `Unit` from a name, base magnitude, and dimensions —
   what `defunit` and the generated builtins call."
   [name mag dims]
-  (->Unit name mag (clean dims)))
+  (->Unit name mag (into {} clean-xf dims)))
 
 (defn scalar
   "Wrap a plain number as a dimensionless Quantity (idempotent on Units/Quantities)."
   [n]
-  (if (quantity? n) n (->Quantity (rationalize n) [])))
+  (if (or (unit? n) (quantity? n))
+    n
+    (->Quantity (rationalize n) [])))
 
 ;; ---- accessors ----
 (defn dimensionless? [x] (empty? (dims x)))
@@ -95,17 +132,9 @@
   "Scale a Unit/Quantity's magnitude by a plain number — what `(u/feet 10)` does.
   Always yields an anonymous Quantity (the result is no longer *the* unit itself)."
   [q n]
-  (->Quantity (* (magnitude q) (rationalize n)) (as-formula q)))
+  (->Quantity (* (magnitude q) (rationalize n)) (formula q)))
 
 ;; ---- display-formula algebra ----
-(defn- as-formula
-  "The display formula for any operand: a Quantity's own formula, a Unit promoted
-  to a single term, or [] for plain numbers."
-  [x]
-  (cond
-    (instance? Quantity x) (:formula x)
-    (instance? Unit x)     [(->UnitTerm (:name x) 1 (:mag x) (:dims x))]
-    :else                  []))
 
 (defn- combine-terms
   "Merge UnitTerms sharing a unit-name (adding exponents), drop terms that cancel
@@ -117,16 +146,20 @@
         by-name (group-by :unit-name terms)
         merged  (keep (fn [nm]
                         (let [ts (by-name nm)
-                              e  (reduce + (map :exp ts))]
+                              e  (transduce (map :exp) + ts)]
                           (when-not (zero? e)
                             (assoc (first ts) :exp e))))
                       order)]
     (into (filterv (comp pos? :exp) merged)
           (filterv (comp neg? :exp) merged))))
 
-(defn- formula-neg [formula] (mapv #(update % :exp -) formula))
+(defn- formula-neg [formula]
+  (mapv #(update % :exp -) formula))
+
 (defn- formula-pow [formula n]
-  (if (zero? n) [] (mapv #(update % :exp * n) formula)))
+  (if (zero? n)
+    []
+    (mapv #(update % :exp * n) formula)))
 
 ;; ---- exact integer power (keeps the exact tower) ----
 (defn- expt [base n]
@@ -138,14 +171,14 @@
 ;; ---- arithmetic (always yields an anonymous Quantity) ----
 (defn qmul [x y]
   (->Quantity (* (magnitude x) (magnitude y))
-              (combine-terms (concat (as-formula x) (as-formula y)))))
+              (combine-terms (concat (formula x) (formula y)))))
 
 (defn qdiv [x y]
   (->Quantity (/ (magnitude x) (magnitude y))
-              (combine-terms (concat (as-formula x) (formula-neg (as-formula y))))))
+              (combine-terms (concat (formula x) (formula-neg (formula y))))))
 
 (defn qpow [x n]
-  (->Quantity (expt (magnitude x) n) (formula-pow (as-formula x) n)))
+  (->Quantity (expt (magnitude x) n) (formula-pow (formula x) n)))
 
 (defn- assert-conforms [op x y]
   (when-not (conforms? x y)
@@ -154,11 +187,11 @@
 
 (defn qadd [x y]
   (assert-conforms "plus" x y)
-  (->Quantity (+ (magnitude x) (magnitude y)) (as-formula x)))    ; keeps left's formula
+  (->Quantity (+ (magnitude x) (magnitude y)) (formula x)))    ; keeps left's formula
 
 (defn qsub [x y]
   (assert-conforms "minus" x y)
-  (->Quantity (- (magnitude x) (magnitude y)) (as-formula x)))
+  (->Quantity (- (magnitude x) (magnitude y)) (formula x)))
 
 (defn to
   "Re-express q over the target unit basis (dimension-preserving). The physical
@@ -166,7 +199,7 @@
   printed value equals magnitude(q)/factor(target)."
   [q target]
   (assert-conforms "to" q target)
-  (->Quantity (magnitude q) (as-formula target)))
+  (->Quantity (magnitude q) (formula target)))
 
 (defn ratio
   "Bare dimensionless count: how many of target fit in q."
@@ -187,10 +220,10 @@
   plain number is itself."
   [q]
   (cond
-    (instance? Quantity q) (let [f (formula-factor (:formula q))]
-                             (if (zero? f) (:mag q) (/ (:mag q) f)))
-    (instance? Unit q)     1
-    :else                  q))
+    (quantity? q) (let [f (formula-factor (:formula q))]
+                    (if (zero? f) (:mag q) (/ (:mag q) f)))
+    (unit? q)     1
+    :else         q))
 
 (defn- base-dim-name
   "A *single* base dimension rendered unambiguously — {:length 4} -> \"length^4\",
@@ -231,9 +264,9 @@
 
 (defn- unit-string [q]
   (cond
-    (instance? Quantity q) (format-formula (:formula q))
-    (instance? Unit q)     (:name q)
-    :else                  ""))
+    (quantity? q) (format-formula (:formula q))
+    (unit? q)     (:name q)
+    :else         ""))
 
 (defn format-quantity
   "Human-readable form: `<exact> <unit> ≈ <approx> [dimension]`. Used by

@@ -1,7 +1,9 @@
 (ns build
   (:refer-clojure :exclude [test])
   (:require [clojure.tools.build.api :as b]
-            [deps-deploy.deps-deploy :as dd]))
+            [deps-deploy.deps-deploy :as dd]
+            [commensura.units.convert :as c-convert]
+            [commensura.units.gen :as c-gen]))
 
 (def lib 'com.github.crinklywrappr/commensura)
 (def version "0.1.0-SNAPSHOT")
@@ -13,16 +15,14 @@
   "Regenerate resources/commensura/units.edn from dev-resources/frink/units.txt.
   Run with: clojure -T:build convert"
   [opts]
-  (require 'commensura.units.convert)
-  ((resolve 'commensura.units.convert/convert!))
+  (c-convert/convert!)
   opts)
 
 (defn gen-units
   "Regenerate src/commensura/units.clj from resources/commensura/units.edn.
   Run with: clojure -T:build gen-units"
   [opts]
-  (require 'commensura.units.gen)
-  ((resolve 'commensura.units.gen/generate!))
+  (c-gen/generate!)
   opts)
 
 (defn test "Run all the tests." [opts]

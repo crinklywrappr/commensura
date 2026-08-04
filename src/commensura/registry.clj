@@ -7,6 +7,13 @@
 ;;;; any later version.  Distributed WITHOUT ANY WARRANTY; see the GNU General
 ;;;; Public License <https://www.gnu.org/licenses/> for details.
 
+;; TODO: [PLAN] bring the dimension registry feature-set to parity with the unit registry
+;;       this requires warning messages for overwriting and similar function names
+;;       e.g. register-unit!, lookup-unit, all-units, clear-units! &
+;;            regist-dimension!, lookup-dimension, all-dimensions, clear-dimensions!
+;;       OR just expose the two registry atoms publicly, with register-xxx! functions
+;;       for appropriate logging.
+
 (ns commensura.registry
   "Global tables, in the spirit of Frink's single global namespace:
 
@@ -34,6 +41,7 @@
   (when-let [prev (@units nm)]
     (when (not= prev qty)
       (binding [*out* *err*]
+        ;; TODO: perform *all* logging with trove!
         (println (str "WARNING: commensura unit \"" nm "\" redefined")))))
   (swap! units assoc nm qty)
   qty)

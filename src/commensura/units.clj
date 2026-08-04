@@ -17,7 +17,7 @@
             [commensura.core :refer [defunit]]))
 
 (defn- mk-prefix [value]
-  (fn prefixer [x] (qty/scale (if (qty/quantity? x) x (qty/scalar x)) value)))
+  (fn prefixer [x] (qty/scale (if (or (qty/unit? x) (qty/quantity? x)) x (qty/scalar x)) value)))
 
 ;; ---- base units ----
 (defunit A 1 {:current 1})

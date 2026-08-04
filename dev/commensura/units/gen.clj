@@ -53,7 +53,7 @@
 
 (def ^:private helpers
   "(defn- mk-prefix [value]
-  (fn prefixer [x] (qty/scale (if (qty/quantity? x) x (qty/scalar x)) value)))")
+  (fn prefixer [x] (qty/scale (if (or (qty/unit? x) (qty/quantity? x)) x (qty/scalar x)) value)))")
 
 (defn generate!
   ([] (generate! "resources/commensura/units.edn" "src/commensura/units.clj"))
