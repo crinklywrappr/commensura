@@ -15,13 +15,13 @@
   (testing "a unit var is a Quantity of one; calling it scales"
     (is (= 1 (dv u/foot)))
     (is (= 10 (dv (u/foot 10))))
-    (is (= {:length 1} (q/dimensions (u/foot 10))))))
+    (is (= {:length 1} (q/dims (u/foot 10))))))
 
 (deftest by-and-per
   (testing "by multiplies dims, per divides; numbers are dimensionless scalars"
-    (is (= {:length 2} (q/dimensions (by u/foot u/foot))))
-    (is (= {} (q/dimensions (per u/foot u/foot))))
-    (is (= {:length 1 :time -1} (q/dimensions (per u/mile u/hour))))
+    (is (= {:length 2} (q/dims (by u/foot u/foot))))
+    (is (= {} (q/dims (per u/foot u/foot))))
+    (is (= {:length 1 :time -1} (q/dims (per u/mile u/hour))))
     (is (= 60 (dv (by 5 (u/foot 12)))))))          ; 5 × 12 ft = 60 ft
 
 (deftest plus-minus-conform
@@ -34,14 +34,14 @@
   (testing "to keeps the dimension (unlike Frink's dimensionless ->)"
     (let [r (to (u/mile 1) u/foot)]
       (is (= 5280 (dv r)))
-      (is (= {:length 1} (q/dimensions r))))          ; still a length
+      (is (= {:length 1} (q/dims r))))          ; still a length
     (is (thrown? clojure.lang.ExceptionInfo (to u/foot u/second)))))
 
 (deftest ratio-is-a-count
   (testing "ratio gives the bare dimensionless count"
     (let [r (ratio (u/mile 1) u/foot)]
       (is (= 5280 (dv r)))
-      (is (= {} (q/dimensions r))))))
+      (is (= {} (q/dims r))))))
 
 (deftest exactness-preserved
   (testing "arithmetic on exact inputs never produces a double"

@@ -49,9 +49,9 @@
 
 (deftest dimensioned-intervals
   (let [r (iv/interval (u/meter 1) (u/meter 3))]
-    (is (= {:length 1} (q/dimensions (iv/lo r))))
+    (is (= {:length 1} (q/dims (iv/lo r))))
     (is (= 2 (dv (iv/midpoint r))))                    ; 2 m
-    (is (= {:length 1} (q/dimensions (iv/midpoint r))))
+    (is (= {:length 1} (q/dims (iv/midpoint r))))
     (testing "non-conforming endpoints rejected"
       (is (thrown? clojure.lang.ExceptionInfo
                    (iv/interval (u/meter 1) (u/second 1)))))))

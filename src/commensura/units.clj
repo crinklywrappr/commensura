@@ -20,3232 +20,3232 @@
   (fn prefixer [x] (qty/scale (if (qty/quantity? x) x (qty/scalar x)) value)))
 
 ;; ---- base units ----
-(defunit A (qty/quantity 1 {:current 1}))
+(defunit A 1 {:current 1})
 (defunit A0paper
   "The basic size in the A series"
-  (qty/quantity 999949/1000000 {:length 2}))
-(defunit A10paper (qty/quantity 481/500000 {:length 2}))
+  999949/1000000 {:length 2})
+(defunit A10paper 481/500000 {:length 2})
 (defunit A1paper
   "is defined to have an area of"
-  (qty/quantity 249777/500000 {:length 2}))
+  249777/500000 {:length 2})
 (defunit A2paper
   "one square meter."
-  (qty/quantity 6237/25000 {:length 2}))
-(defunit A3paper (qty/quantity 6237/50000 {:length 2}))
-(defunit A4paper (qty/quantity 6237/100000 {:length 2}))
-(defunit A5paper (qty/quantity 777/25000 {:length 2}))
-(defunit A6paper (qty/quantity 777/50000 {:length 2}))
-(defunit A7paper (qty/quantity 777/100000 {:length 2}))
-(defunit A8paper (qty/quantity 481/125000 {:length 2}))
-(defunit A9paper (qty/quantity 481/250000 {:length 2}))
+  6237/25000 {:length 2})
+(defunit A3paper 6237/50000 {:length 2})
+(defunit A4paper 6237/100000 {:length 2})
+(defunit A5paper 777/25000 {:length 2})
+(defunit A6paper 777/50000 {:length 2})
+(defunit A7paper 777/100000 {:length 2})
+(defunit A8paper 481/125000 {:length 2})
+(defunit A9paper 481/250000 {:length 2})
 (defunit Ah
   "so you can write stuff like mAh"
-  (qty/quantity 3600 {:current 1, :time 1}))
-(defunit Apaper (qty/quantity 3016123/50000000 {:length 2}))
+  3600 {:current 1, :time 1})
+(defunit Apaper 3016123/50000000 {:length 2})
 (defunit B0paper
   "The basic B size has an area"
-  (qty/quantity 707/500 {:length 2}))
-(defunit B10paper (qty/quantity 341/250000 {:length 2}))
+  707/500 {:length 2})
+(defunit B10paper 341/250000 {:length 2})
 (defunit B1paper
   "of sqrt(2) square meters."
-  (qty/quantity 707/1000 {:length 2}))
-(defunit B2paper (qty/quantity 707/2000 {:length 2}))
-(defunit B3paper (qty/quantity 353/2000 {:length 2}))
-(defunit B4paper (qty/quantity 353/4000 {:length 2}))
-(defunit B5paper (qty/quantity 11/250 {:length 2}))
-(defunit B6paper (qty/quantity 11/500 {:length 2}))
-(defunit B7paper (qty/quantity 11/1000 {:length 2}))
-(defunit B8paper (qty/quantity 341/62500 {:length 2}))
-(defunit B9paper (qty/quantity 341/125000 {:length 2}))
-(defunit BTU (qty/quantity 52752792631/50000000 {:mass 1, :length 2, :time -2}))
-(defunit Bi (qty/quantity 10 {:current 1}))
-(defunit Bpaper (qty/quantity 3016123/25000000 {:length 2}))
-(defunit Bq (qty/quantity 1 {:time -1}))
+  707/1000 {:length 2})
+(defunit B2paper 707/2000 {:length 2})
+(defunit B3paper 353/2000 {:length 2})
+(defunit B4paper 353/4000 {:length 2})
+(defunit B5paper 11/250 {:length 2})
+(defunit B6paper 11/500 {:length 2})
+(defunit B7paper 11/1000 {:length 2})
+(defunit B8paper 341/62500 {:length 2})
+(defunit B9paper 341/125000 {:length 2})
+(defunit BTU 52752792631/50000000 {:mass 1, :length 2, :time -2})
+(defunit Bi 10 {:current 1})
+(defunit Bpaper 3016123/25000000 {:length 2})
+(defunit Bq 1 {:time -1})
 (defunit Btu
   "international table BTU"
-  (qty/quantity 52752792631/50000000 {:mass 1, :length 2, :time -2}))
-(defunit Btu_IT (qty/quantity 52752792631/50000000 {:mass 1, :length 2, :time -2}))
-(defunit Btu_mean (qty/quantity 9502805510737/9000000000 {:mass 1, :length 2, :time -2}))
-(defunit Btu_th (qty/quantity 23722880951/22500000 {:mass 1, :length 2, :time -2}))
-(defunit C (qty/quantity 1 {:current 1, :time 1}))
+  52752792631/50000000 {:mass 1, :length 2, :time -2})
+(defunit Btu_IT 52752792631/50000000 {:mass 1, :length 2, :time -2})
+(defunit Btu_mean 9502805510737/9000000000 {:mass 1, :length 2, :time -2})
+(defunit Btu_th 23722880951/22500000 {:mass 1, :length 2, :time -2})
+(defunit C 1 {:current 1, :time 1})
 (defunit C0paper
   "The basic C size has an area"
-  (qty/quantity 1189349/1000000 {:length 2}))
-(defunit C10paper (qty/quantity 7/6250 {:length 2}))
+  1189349/1000000 {:length 2})
+(defunit C10paper 7/6250 {:length 2})
 (defunit C1paper
   "of sqrt(sqrt(2)) square meters."
-  (qty/quantity 74277/125000 {:length 2}))
-(defunit C2paper (qty/quantity 18549/62500 {:length 2}))
+  74277/125000 {:length 2})
+(defunit C2paper 18549/62500 {:length 2})
 (defunit C3paper
   "Intended for envelope sizes"
-  (qty/quantity 18549/125000 {:length 2}))
-(defunit C4paper (qty/quantity 18549/250000 {:length 2}))
-(defunit C5paper (qty/quantity 18549/500000 {:length 2}))
-(defunit C6paper (qty/quantity 4617/250000 {:length 2}))
-(defunit C7paper (qty/quantity 4617/500000 {:length 2}))
-(defunit C8paper (qty/quantity 4617/1000000 {:length 2}))
-(defunit C9paper (qty/quantity 57/25000 {:length 2}))
+  18549/125000 {:length 2})
+(defunit C4paper 18549/250000 {:length 2})
+(defunit C5paper 18549/500000 {:length 2})
+(defunit C6paper 4617/250000 {:length 2})
+(defunit C7paper 4617/500000 {:length 2})
+(defunit C8paper 4617/1000000 {:length 2})
+(defunit C9paper 57/25000 {:length 2})
 (defunit Calorie
   "the food Calorie"
-  (qty/quantity 20934/5 {:mass 1, :length 2, :time -2}))
+  20934/5 {:mass 1, :length 2, :time -2})
 (defunit Ci
   "emitted by the amount of radon that is in equilibrium with 1 gram of radium."
-  (qty/quantity 37000000000N {:time -1}))
-(defunit Comptonwavelength (qty/quantity 18931629/7802641527014999332 {:length 1}))
-(defunit Cpaper (qty/quantity 3016123/12500000 {:length 2}))
+  37000000000N {:time -1})
+(defunit Comptonwavelength 18931629/7802641527014999332 {:length 1})
+(defunit Cpaper 3016123/12500000 {:length 2})
 (defunit Cvalue
   "C-value U.S. insulation conductance rating"
-  (qty/quantity 52752792631/9290304000 {:temperature -1, :time -3, :mass 1}))
-(defunit Dpaper (qty/quantity 3016123/6250000 {:length 2}))
+  52752792631/9290304000 {:temperature -1, :time -3, :mass 1})
+(defunit Dpaper 3016123/6250000 {:length 2})
 (defunit ECtherm
   "Exact definition, close to 1e5 Btu"
-  (qty/quantity 105506000 {:mass 1, :length 2, :time -2}))
+  105506000 {:mass 1, :length 2, :time -2})
 (defunit E_h
   "Synonym used at https://physics.nist.gov/cgi-bin/cuu/Value?hr"
-  (qty/quantity 1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000 {:mass 1, :length 2, :time -2}))
-(defunit Epaper (qty/quantity 3016123/3125000 {:length 2}))
-(defunit EulerMascheroniConstant (qty/quantity 577215664901532860606512090082402431042159335939923598805767234884867726777664670936947063291746749/1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 {}))
-(defunit F (qty/quantity 1 {:current 2, :time 4, :mass -1, :length -2}))
+  1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000 {:mass 1, :length 2, :time -2})
+(defunit Epaper 3016123/3125000 {:length 2})
+(defunit EulerMascheroniConstant 577215664901532860606512090082402431042159335939923598805767234884867726777664670936947063291746749/1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 {})
+(defunit F 1 {:current 2, :time 4, :mass -1, :length -2})
 (defunit G
   "Newtonian gravity constant From 2022 CODATA figures. There is a standard uncertainty in the last two figures of +/- 15. Unchanged since 2018. Given by https://physics.nist.gov/cgi-bin/cuu/Value?bg The gravitational force between the centers of two (spherelike) bodies is: G mass1 mass2 / dist^2"
-  (qty/quantity 66743/1000000000000000 {:mass -1, :length 3, :time -2}))
+  66743/1000000000000000 {:mass -1, :length 3, :time -2})
 (defunit Gal
   "acceleration, used in geophysics"
-  (qty/quantity 1/100 {:length 1, :time -2}))
-(defunit Gb (qty/quantity 100000000000/125663706127 {:current 1}))
-(defunit Gi (qty/quantity 100000000000/125663706127 {:current 1}))
-(defunit Gs (qty/quantity 1/10000 {:mass 1, :time -2, :current -1}))
-(defunit Gy (qty/quantity 1 {:length 2, :time -2}))
-(defunit H (qty/quantity 1 {:mass 1, :length 2, :time -2, :current -2}))
-(defunit H2O (qty/quantity 1000N {:mass 1, :length -3}))
-(defunit H_0 (qty/quantity 59166661642607772649/26927616726000000000000000000000000000 {:time -1}))
-(defunit Hartree (qty/quantity 1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000 {:mass 1, :length 2, :time -2}))
+  1/100 {:length 1, :time -2})
+(defunit Gb 100000000000/125663706127 {:current 1})
+(defunit Gi 100000000000/125663706127 {:current 1})
+(defunit Gs 1/10000 {:mass 1, :time -2, :current -1})
+(defunit Gy 1 {:length 2, :time -2})
+(defunit H 1 {:mass 1, :length 2, :time -2, :current -2})
+(defunit H2O 1000N {:mass 1, :length -3})
+(defunit H_0 59166661642607772649/26927616726000000000000000000000000000 {:time -1})
+(defunit Hartree 1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000 {:mass 1, :length 2, :time -2})
 (defunit Hg
   "Density of mercury (defined)"
-  (qty/quantity 135951/10 {:mass 1, :length -3}))
-(defunit Hz (qty/quantity 1 {:time -1}))
+  135951/10 {:mass 1, :length -3})
+(defunit Hz 1 {:time -1})
 (defunit INpoint
   "This point was created by a group directed by Fermin Didot in 1881 and is associated with the imprimerie nationale. It doesn't seem to have been used much."
-  (qty/quantity 1/2500 {:length 1}))
-(defunit J (qty/quantity 1 {:mass 1, :length 2, :time -2}))
+  1/2500 {:length 1})
+(defunit J 1 {:mass 1, :length 2, :time -2})
 (defunit J_mol
   "Suggested by Richard Terrett You can of course write kJ_mol."
-  (qty/quantity 1/602214076000000000000000 {:mass 1, :length 2, :time -2}))
-(defunit Josephson_constant (qty/quantity 21362355120000000000000/44173801 {:current 1, :time 2, :mass -1, :length -2}))
+  1/602214076000000000000000 {:mass 1, :length 2, :time -2})
+(defunit Josephson_constant 21362355120000000000000/44173801 {:current 1, :time 2, :mass -1, :length -2})
 (defunit Jy
   "from outer space in 1931."
-  (qty/quantity 1/100000000000000000000000000 {:mass 1, :time -2}))
+  1/100000000000000000000000000 {:mass 1, :time -2})
 (defunit K
   "The kelvin is the unit of temperature."
-  (qty/quantity 1 {:temperature 1}))
+  1 {:temperature 1})
 (defunit K_J
   "Josephson Constant Direct measurement of the volt is difficult. Until recently, laboratories kept Weston cadmium cells as a reference, but they could drift. In 1987 the CGPM officially recommended the use of the Josephson effect as a laboratory representation of the volt. The Josephson effect occurs when two superconductors are separated by a thin insulating layer. A \"supercurrent\" flows across the insulator with a frequency that depends on the potential applied across the superconductors. This frequency can be very accurately measured. The Josephson constant K_J, which is equal to 2 elementarycharge/h, relates the measured frequency to the potential. From 1990 to 2019, the value of the Josephson constant was specified as as exactly 4.835979ee+14 Hz/V . The new 2019 SI redefinition caused it to be changed to a slightly different (but exact rational number value) See: https://physics.nist.gov/cgi-bin/cuu/Value?kjos"
-  (qty/quantity 21362355120000000000000/44173801 {:current 1, :time 2, :mass -1, :length -2}))
+  21362355120000000000000/44173801 {:current 1, :time 2, :mass -1, :length -2})
 (defunit L
   "This unit and its symbol l were adopted by the CIPM in 1879. The alternative symbol for the liter, L, was adopted by the CGPM in 1979 in order to avoid the risk of confusion between the letter l and the number 1. Thus, although both l and L are internationally accepted symbols for the liter, to avoid this risk the preferred symbol for use in the United States is L."
-  (qty/quantity 1/1000 {:length 3}))
+  1/1000 {:length 3})
 (defunit MPGe
   "EPA definition, of miles per gallon, electric. See above."
-  (qty/quantity 1397/105312500 {:length -1, :mass -1, :time 2}))
+  1397/105312500 {:length -1, :mass -1, :time 2})
 (defunit Molar
   "Sometimes capitalized"
-  (qty/quantity 1000N {:amount_of_substance 1, :length -3}))
-(defunit Mx (qty/quantity 1/100000000 {:length 2, :mass 1, :time -2, :current -1}))
-(defunit N (qty/quantity 1 {:mass 1, :length 1, :time -2}))
-(defunit N_A (qty/quantity 602214076000000000000000N {:amount_of_substance -1}))
-(defunit Oe (qty/quantity 10000000000000/125663706127 {:current 1, :length -1}))
-(defunit P (qty/quantity 1/10 {:mass 1, :length -1, :time -1}))
+  1000N {:amount_of_substance 1, :length -3})
+(defunit Mx 1/100000000 {:length 2, :mass 1, :time -2, :current -1})
+(defunit N 1 {:mass 1, :length 1, :time -2})
+(defunit N_A 602214076000000000000000N {:amount_of_substance -1})
+(defunit Oe 10000000000000/125663706127 {:current 1, :length -1})
+(defunit P 1/10 {:mass 1, :length -1, :time -1})
 (defunit PETN
   "An explosive compound, Pentaerythrite tetranitrate used in plastic explosive like Semtex"
-  (qty/quantity 6010000N {:length 2, :time -2}))
-(defunit Pa (qty/quantity 1 {:mass 1, :length -1, :time -2}))
+  6010000N {:length 2, :time -2})
+(defunit Pa 1 {:mass 1, :length -1, :time -2})
 (defunit Q
   "Used in Japanese phototypesetting Q is for quarter"
-  (qty/quantity 1/4000 {:length 1}))
-(defunit R (qty/quantity 207861565453831/25000000000000 {:amount_of_substance -1, :mass 1, :length 2, :time -2, :temperature -1}))
+  1/4000 {:length 1})
+(defunit R 207861565453831/25000000000000 {:amount_of_substance -1, :mass 1, :length 2, :time -2, :temperature -1})
 (defunit RSI
   "SI insulation figure"
-  (qty/quantity 1 {:temperature 1, :mass -1, :time 3}))
+  1 {:temperature 1, :mass -1, :time 3})
 (defunit R_H
   "can be expressed as 1/lambda = R (1/m^2 - 1/n^2). where R is a number that various slightly from element to element. For hydrogen, R_H is the value, and for heavy elements, the value approaches Rinfinity."
-  (qty/quantity 10967760 {:length -1}))
-(defunit R_K (qty/quantity 5521725125000000000000/213914163877964163 {:mass 1, :length 2, :time -3, :current -2}))
-(defunit Rankine (qty/quantity 5/9 {:temperature 1}))
-(defunit Rinfinity (qty/quantity 21382925228920171034108510884639651745827650000000000000/1948555520622123871945181988126712989695745141989 {:length -1}))
+  10967760 {:length -1})
+(defunit R_K 5521725125000000000000/213914163877964163 {:mass 1, :length 2, :time -3, :current -2})
+(defunit Rankine 5/9 {:temperature 1})
+(defunit Rinfinity 21382925228920171034108510884639651745827650000000000000/1948555520622123871945181988126712989695745141989 {:length -1})
 (defunit Rvalue
   "r-value, U.S. insulation figure"
-  (qty/quantity 9290304000/52752792631 {:temperature 1, :time 3, :mass -1}))
-(defunit Rydberg_constant (qty/quantity 21382925228920171034108510884639651745827650000000000000/1948555520622123871945181988126712989695745141989 {:length -1}))
-(defunit S (qty/quantity 1 {:current 2, :mass -1, :length -2, :time 3}))
-(defunit St (qty/quantity 1/10000 {:length 2, :time -1}))
+  9290304000/52752792631 {:temperature 1, :time 3, :mass -1})
+(defunit Rydberg_constant 21382925228920171034108510884639651745827650000000000000/1948555520622123871945181988126712989695745141989 {:length -1})
+(defunit S 1 {:current 2, :mass -1, :length -2, :time 3})
+(defunit St 1/10000 {:length 2, :time -1})
 (defunit Sv
   "same effect on human tissues as 200"
-  (qty/quantity 1 {:length 2, :time -2}))
-(defunit T (qty/quantity 1 {:mass 1, :time -2, :current -1}))
+  1 {:length 2, :time -2})
+(defunit T 1 {:mass 1, :time -2, :current -1})
 (defunit TNT
   "So you can write tons TNT, this is a defined, not measured, value"
-  (qty/quantity 209340000000000/45359237 {:length 2, :time -2}))
-(defunit Tbsp (qty/quantity 473176473/32000000000000 {:length 3}))
+  209340000000000/45359237 {:length 2, :time -2})
+(defunit Tbsp 473176473/32000000000000 {:length 3})
 (defunit ThomsonCrossSection
   "2022 CODATA value https://physics.nist.gov/cgi-bin/cuu/Value?sigmae The \"classical\" cross-section of an electron when illuminated by radiation. Uncertainty is +/- 62 in the last 2 digits."
-  (qty/quantity 66524587051/1000000000000000000000000000000000000000 {:length 2}))
+  66524587051/1000000000000000000000000000000000000000 {:length 2})
 (defunit Torr
   "Accepted symbol is Torr These units, both named after Evangelista"
-  (qty/quantity 20265/152 {:mass 1, :length -1, :time -2}))
-(defunit Tsp (qty/quantity 473176473/32000000000000 {:length 3}))
+  20265/152 {:mass 1, :length -1, :time -2})
+(defunit Tsp 473176473/32000000000000 {:length 3})
 (defunit USdoubletimepace
   "United States official doubletime pace"
-  (qty/quantity 1143/1250 {:length 1}))
+  1143/1250 {:length 1})
 (defunit USmilitarypace
   "United States official military pace"
-  (qty/quantity 381/500 {:length 1}))
+  381/500 {:length 1})
 (defunit UStherm
   "Exact definition"
-  (qty/quantity 105480400 {:mass 1, :length 2, :time -2}))
-(defunit Uvalue (qty/quantity 52752792631/9290304000 {:temperature -1, :time -3, :mass 1}))
-(defunit V (qty/quantity 1 {:mass 1, :length 2, :time -3, :current -1}))
-(defunit W (qty/quantity 1 {:mass 1, :length 2, :time -3}))
-(defunit Wb (qty/quantity 1 {:mass 1, :length 2, :time -2, :current -1}))
-(defunit Wh (qty/quantity 3600 {:mass 1, :length 2, :time -2}))
+  105480400 {:mass 1, :length 2, :time -2})
+(defunit Uvalue 52752792631/9290304000 {:temperature -1, :time -3, :mass 1})
+(defunit V 1 {:mass 1, :length 2, :time -3, :current -1})
+(defunit W 1 {:mass 1, :length 2, :time -3})
+(defunit Wb 1 {:mass 1, :length 2, :time -2, :current -1})
+(defunit Wh 3600 {:mass 1, :length 2, :time -2})
 (defunit Y0
   "Characteristic admittance of vacuum"
-  (qty/quantity 50000000000000000/18836515670601495083 {:mass -1, :length -2, :time 3, :current 2}))
+  50000000000000000/18836515670601495083 {:mass -1, :length -2, :time 3, :current 2})
 (defunit Z0
   "Characteristic impedance of vacuum"
-  (qty/quantity 18836515670601495083/50000000000000000 {:mass 1, :length 2, :time -3, :current -2}))
+  18836515670601495083/50000000000000000 {:mass 1, :length 2, :time -3, :current -2})
 (defunit aA
   "long wires that are 1 cm apart"
-  (qty/quantity 10 {:current 1}))
+  10 {:current 1})
 (defunit abamp
   "2 dyne/cm between two infinitely"
-  (qty/quantity 10 {:current 1}))
+  10 {:current 1})
 (defunit abampere
   "Current which produces a force of"
-  (qty/quantity 10 {:current 1}))
-(defunit abcoul (qty/quantity 10 {:current 1, :time 1}))
-(defunit abcoulomb (qty/quantity 10 {:current 1, :time 1}))
-(defunit abfarad (qty/quantity 1000000000N {:current 2, :time 4, :length -2, :mass -1}))
-(defunit abhenry (qty/quantity 1/1000000000 {:length 2, :mass 1, :time -2, :current -2}))
-(defunit abmho (qty/quantity 1000000000N {:length -2, :mass -1, :time 3, :current 2}))
-(defunit abohm (qty/quantity 1/1000000000 {:length 2, :mass 1, :time -3, :current -2}))
-(defunit abvolt (qty/quantity 1/100000000 {:length 2, :mass 1, :time -3, :current -1}))
-(defunit acetabula (qty/quantity 362563791/5000000000000 {:length 3}))
-(defunit acnua (qty/quantity 788544/625 {:length 2}))
+  10 {:current 1})
+(defunit abcoul 10 {:current 1, :time 1})
+(defunit abcoulomb 10 {:current 1, :time 1})
+(defunit abfarad 1000000000N {:current 2, :time 4, :length -2, :mass -1})
+(defunit abhenry 1/1000000000 {:length 2, :mass 1, :time -2, :current -2})
+(defunit abmho 1000000000N {:length -2, :mass -1, :time 3, :current 2})
+(defunit abohm 1/1000000000 {:length 2, :mass 1, :time -3, :current -2})
+(defunit abvolt 1/100000000 {:length 2, :mass 1, :time -3, :current -1})
+(defunit acetabula 362563791/5000000000000 {:length 3})
+(defunit acnua 788544/625 {:length 2})
 (defunit acousticalohm
   "ratio of the sound pressure of 1 dyn/cm^2 to a source of strength 1 cm^3/s"
-  (qty/quantity 100000N {:length -4, :mass 1, :time -1}))
+  100000N {:length -4, :mass 1, :time -1})
 (defunit acre
   "NIST Handbook 44 has a typographical error (forgetting to underline feet in one place on middle of page C-16 in 2003 edition) with respect to this, but it's clear from corroborating different figures in that document and NIST Special Publication 811, Sec. B.6, that the survey foot is the proper definition. Have filed errata with NIST and requested confirmation. 2003-08-27 Received confirmation (years later) that all of my reported errors were indeed errors and would be fixed. Note that it was apparently not fixed until the 2007 edition. 2010 edition of NIST Handbook 44 is apparently correct. (see section C-2.) http://ts.nist.gov/WeightsAndMeasures/pubs.cfm"
-  (qty/quantity 62726400000/15499969 {:length 2}))
+  62726400000/15499969 {:length 2})
 (defunit acrefeet
   "Irregular plural"
-  (qty/quantity 75271680000000/61023377953 {:length 3}))
-(defunit acrefoot (qty/quantity 75271680000000/61023377953 {:length 3}))
-(defunit actinium (qty/quantity 1135139/5000000 {:mass 1, :amount_of_substance -1}))
+  75271680000000/61023377953 {:length 3})
+(defunit acrefoot 75271680000000/61023377953 {:length 3})
+(defunit actinium 1135139/5000000 {:mass 1, :amount_of_substance -1})
 (defunit actus
   "area of the furrow"
-  (qty/quantity 3552/25 {:length 1}))
+  3552/25 {:length 1})
 (defunit actuslength
   "length of a Roman furrow"
-  (qty/quantity 888/25 {:length 1}))
-(defunit admiraltycable (qty/quantity 115824/625 {:length 1}))
-(defunit admiraltyknot (qty/quantity 4826/9375 {:length 1, :time -1}))
-(defunit admiraltymile (qty/quantity 231648/125 {:length 1}))
-(defunit admittanceofvacuum (qty/quantity 50000000000000000/18836515670601495083 {:mass -1, :length -2, :time 3, :current 2}))
-(defunit aeginadrachmae (qty/quantity 19439673/3125000000 {:mass 1}))
-(defunit aeginamina (qty/quantity 19439673/31250000 {:mass 1}))
-(defunit aeginaobol (qty/quantity 6479891/6250000000 {:mass 1}))
+  888/25 {:length 1})
+(defunit admiraltycable 115824/625 {:length 1})
+(defunit admiraltyknot 4826/9375 {:length 1, :time -1})
+(defunit admiraltymile 231648/125 {:length 1})
+(defunit admittanceofvacuum 50000000000000000/18836515670601495083 {:mass -1, :length -2, :time 3, :current 2})
+(defunit aeginadrachmae 19439673/3125000000 {:mass 1})
+(defunit aeginamina 19439673/31250000 {:mass 1})
+(defunit aeginaobol 6479891/6250000000 {:mass 1})
 (defunit aeginastater
   "Varies up to 199 grain"
-  (qty/quantity 19439673/1562500000 {:mass 1}))
-(defunit aeginatalent (qty/quantity 58319019/1562500 {:mass 1}))
-(defunit agate (qty/quantity 19330289/10000000000 {:length 1}))
-(defunit akaina (qty/quantity 31623/10000 {:length 1}))
+  19439673/1562500000 {:mass 1})
+(defunit aeginatalent 58319019/1562500 {:mass 1})
+(defunit agate 19330289/10000000000 {:length 1})
+(defunit akaina 31623/10000 {:length 1})
 (defunit alcohol
   "For now, density of ethanol"
-  (qty/quantity 7893/10 {:mass 1, :length -3}))
-(defunit alpha (qty/quantity 18764400340172295000000/2571398349572188507749959 {}))
+  7893/10 {:mass 1, :length -3})
+(defunit alpha 18764400340172295000000/2571398349572188507749959 {})
 (defunit alphaparticlemass
   "+/- 21 in last 2 digits"
-  (qty/quantity 1328931469/200000000000000000000000000000000000 {:mass 1}))
-(defunit aluminium (qty/quantity 26981539/1000000000 {:mass 1, :amount_of_substance -1}))
-(defunit aluminum (qty/quantity 26981539/1000000000 {:mass 1, :amount_of_substance -1}))
+  1328931469/200000000000000000000000000000000000 {:mass 1})
+(defunit aluminium 26981539/1000000000 {:mass 1, :amount_of_substance -1})
+(defunit aluminum 26981539/1000000000 {:mass 1, :amount_of_substance -1})
 (defunit amagat
   "Used to measure gas densities"
-  (qty/quantity 67550000000000000000000000000000000/2514161829 {:length -3}))
+  67550000000000000000000000000000000/2514161829 {:length -3})
 (defunit amagatvolume
   "Units m^3/mol"
-  (qty/quantity 378515910691426251/16887500000000000000 {:amount_of_substance -1, :length 3}))
+  378515910691426251/16887500000000000000 {:amount_of_substance -1, :length 3})
 (defunit americium
   "Longest lived. 241.06"
-  (qty/quantity 1215307/5000000 {:mass 1, :amount_of_substance -1}))
-(defunit amp (qty/quantity 1 {:current 1}))
-(defunit ampere (qty/quantity 1 {:current 1}))
-(defunit amphora (qty/quantity 1087691373/39062500000 {:length 3}))
+  1215307/5000000 {:mass 1, :amount_of_substance -1})
+(defunit amp 1 {:current 1})
+(defunit ampere 1 {:current 1})
+(defunit amphora 1087691373/39062500000 {:length 3})
 (defunit amphorae
   "Also a dry volume measure"
-  (qty/quantity 1087691373/39062500000 {:length 3}))
-(defunit amu (qty/quantity 41513476723/25000000000000000000000000000000000000 {:mass 1}))
+  1087691373/39062500000 {:length 3})
+(defunit amu 41513476723/25000000000000000000000000000000000000 {:mass 1})
 (defunit amu_chem
   "1/16 of the weighted average mass of the 3 naturally occurring neutral isotopes of oxygen"
-  (qty/quantity 83013/50000000000000000000000000000000 {:mass 1}))
+  83013/50000000000000000000000000000000 {:mass 1})
 (defunit amu_phys
   "1/16 of the mass of a neutral oxygen 16 atom"
-  (qty/quantity 165981/100000000000000000000000000000000 {:mass 1}))
+  165981/100000000000000000000000000000000 {:mass 1})
 (defunit angstrom
   "Convenient for describing molecular sizes"
-  (qty/quantity 1/10000000000 {:length 1}))
-(defunit annual (qty/quantity 312500/9861539367087 {:time -1}))
-(defunit annually (qty/quantity 312500/9861539367087 {:time -1}))
+  1/10000000000 {:length 1})
+(defunit annual 312500/9861539367087 {:time -1})
+(defunit annually 312500/9861539367087 {:time -1})
 (defunit anomalisticmonth
   "Time from perigee to perigee"
-  (qty/quantity 74397284379/31250 {:time 1}))
+  74397284379/31250 {:time 1})
 (defunit anomalisticyear
   "The time between successive perihelion passages of the earth."
-  (qty/quantity 788960736/25 {:time 1}))
-(defunit antimony (qty/quantity 761/6250 {:mass 1, :amount_of_substance -1}))
-(defunit apdram (qty/quantity 19439673/5000000000 {:mass 1}))
-(defunit apostilb (qty/quantity 500000000000000000/1570796326794896619 {:luminous_intensity 1, :length -2}))
-(defunit apounce (qty/quantity 19439673/625000000 {:mass 1}))
-(defunit appound (qty/quantity 58319019/156250000 {:mass 1}))
-(defunit arabicfeet (qty/quantity 16891/62500 {:length 1}))
-(defunit arabicfoot (qty/quantity 16891/62500 {:length 1}))
-(defunit arabicinch (qty/quantity 16891/750000 {:length 1}))
-(defunit arabicmile (qty/quantity 270256/125 {:length 1}))
-(defunit arabicsilverpound (qty/quantity 174957057/500000000 {:mass 1}))
-(defunit arabictradepound (qty/quantity 58319019/156250000 {:mass 1}))
-(defunit arcdeg (qty/quantity 523598775598298873/30000000000000000000 {}))
-(defunit arcdegree (qty/quantity 523598775598298873/30000000000000000000 {}))
-(defunit arcmin (qty/quantity 523598775598298873/1800000000000000000000 {}))
-(defunit arcminute (qty/quantity 523598775598298873/1800000000000000000000 {}))
-(defunit arcsec (qty/quantity 523598775598298873/108000000000000000000000 {}))
-(defunit arcsecond (qty/quantity 523598775598298873/108000000000000000000000 {}))
-(defunit are (qty/quantity 100 {:length 2}))
-(defunit argon (qty/quantity 9987/250000 {:mass 1, :amount_of_substance -1}))
+  788960736/25 {:time 1})
+(defunit antimony 761/6250 {:mass 1, :amount_of_substance -1})
+(defunit apdram 19439673/5000000000 {:mass 1})
+(defunit apostilb 500000000000000000/1570796326794896619 {:luminous_intensity 1, :length -2})
+(defunit apounce 19439673/625000000 {:mass 1})
+(defunit appound 58319019/156250000 {:mass 1})
+(defunit arabicfeet 16891/62500 {:length 1})
+(defunit arabicfoot 16891/62500 {:length 1})
+(defunit arabicinch 16891/750000 {:length 1})
+(defunit arabicmile 270256/125 {:length 1})
+(defunit arabicsilverpound 174957057/500000000 {:mass 1})
+(defunit arabictradepound 58319019/156250000 {:mass 1})
+(defunit arcdeg 523598775598298873/30000000000000000000 {})
+(defunit arcdegree 523598775598298873/30000000000000000000 {})
+(defunit arcmin 523598775598298873/1800000000000000000000 {})
+(defunit arcminute 523598775598298873/1800000000000000000000 {})
+(defunit arcsec 523598775598298873/108000000000000000000000 {})
+(defunit arcsecond 523598775598298873/108000000000000000000000 {})
+(defunit are 100 {:length 2})
+(defunit argon 9987/250000 {:mass 1, :amount_of_substance -1})
 (defunit arpent
   "The arpent is 100 square perches, but the perche seems to vary a lot and can be 18 feet, 20 feet, or 22 feet. This measure was described as being in common use in Canada in 1934 (Websters 2nd). The value given here is the Paris standard arpent."
-  (qty/quantity 656100000000/191905609 {:length 2}))
-(defunit arsenic (qty/quantity 7492159/100000000 {:mass 1, :amount_of_substance -1}))
-(defunit artaba (qty/quantity 8149034976091/125000000000000 {:length 3}))
-(defunit asb (qty/quantity 500000000000000000/1570796326794896619 {:luminous_intensity 1, :length -2}))
+  656100000000/191905609 {:length 2})
+(defunit arsenic 7492159/100000000 {:mass 1, :amount_of_substance -1})
+(defunit artaba 8149034976091/125000000000000 {:length 3})
+(defunit asb 500000000000000000/1570796326794896619 {:luminous_intensity 1, :length -2})
 (defunit asbestoscut
   "used for glass and asbestos yarn"
-  (qty/quantity 9144000000/45359237 {:length 1, :mass -1}))
+  9144000000/45359237 {:length 1, :mass -1})
 (defunit assayton
   "mg / assayton = troyounce / ton"
-  (qty/quantity 7/240 {:mass 1}))
-(defunit assyriancubit (qty/quantity 3429/6250 {:length 1}))
-(defunit assyrianfoot (qty/quantity 3429/12500 {:length 1}))
-(defunit assyrianpalm (qty/quantity 1143/12500 {:length 1}))
-(defunit assyriansusi (qty/quantity 1143/250000 {:length 1}))
+  7/240 {:mass 1})
+(defunit assyriancubit 3429/6250 {:length 1})
+(defunit assyrianfoot 3429/12500 {:length 1})
+(defunit assyrianpalm 1143/12500 {:length 1})
+(defunit assyriansusi 1143/250000 {:length 1})
 (defunit astatine
   "Longest lived"
-  (qty/quantity 2099871/10000000 {:mass 1, :amount_of_substance -1}))
-(defunit astronomicalunit (qty/quantity 149597870700 {:length 1}))
-(defunit at (qty/quantity 196133/2 {:mass 1, :length -1, :time -2}))
+  2099871/10000000 {:mass 1, :amount_of_substance -1})
+(defunit astronomicalunit 149597870700 {:length 1})
+(defunit at 196133/2 {:mass 1, :length -1, :time -2})
 (defunit atm
   "Standard atmospheric pressure (exact) See https://physics.nist.gov/cgi-bin/cuu/Value?stdatm"
-  (qty/quantity 101325 {:mass 1, :length -1, :time -2}))
-(defunit atmosphere (qty/quantity 101325 {:mass 1, :length -1, :time -2}))
-(defunit atomicaction (qty/quantity 44173801/418879020478639098400000000000000000000000 {:mass 1, :length 2, :time -1}))
-(defunit atomiccharge (qty/quantity 801088317/5000000000000000000000000000 {:current 1, :time 1}))
-(defunit atomicenergy (qty/quantity 1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000 {:mass 1, :length 2, :time -2}))
-(defunit atomiclength (qty/quantity 9472256218811406045764637500000000/178999700479686744109011257020936821646953273 {:length 1}))
-(defunit atomicmass (qty/quantity 91093837139/100000000000000000000000000000000000000000 {:mass 1}))
+  101325 {:mass 1, :length -1, :time -2})
+(defunit atmosphere 101325 {:mass 1, :length -1, :time -2})
+(defunit atomicaction 44173801/418879020478639098400000000000000000000000 {:mass 1, :length 2, :time -1})
+(defunit atomiccharge 801088317/5000000000000000000000000000 {:current 1, :time 1})
+(defunit atomicenergy 1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000 {:mass 1, :length 2, :time -2})
+(defunit atomiclength 9472256218811406045764637500000000/178999700479686744109011257020936821646953273 {:length 1})
+(defunit atomicmass 91093837139/100000000000000000000000000000000000000000 {:mass 1})
 (defunit atomicmassunit
   "atomic mass unit error is +/- 52 in last 2 digits (defined to be 1/12 of the mass of carbon 12)"
-  (qty/quantity 41513476723/25000000000000000000000000000000000000 {:mass 1}))
-(defunit atomictime (qty/quantity 16249203979492071411159232599229639306801250/671764408114354571529354291176751275551806333106194926834307 {:time 1}))
-(defunit atomicvelocity (qty/quantity 37528800680344590000000/17154523277381371 {:length 1, :time -1}))
-(defunit atticdrachmae (qty/quantity 174957057/40000000000 {:mass 1}))
-(defunit atticmina (qty/quantity 174957057/400000000 {:mass 1}))
-(defunit atticobol (qty/quantity 58319019/80000000000 {:mass 1}))
+  41513476723/25000000000000000000000000000000000000 {:mass 1})
+(defunit atomictime 16249203979492071411159232599229639306801250/671764408114354571529354291176751275551806333106194926834307 {:time 1})
+(defunit atomicvelocity 37528800680344590000000/17154523277381371 {:length 1, :time -1})
+(defunit atticdrachmae 174957057/40000000000 {:mass 1})
+(defunit atticmina 174957057/400000000 {:mass 1})
+(defunit atticobol 58319019/80000000000 {:mass 1})
 (defunit atticstater
   "Varies 134-138 grain"
-  (qty/quantity 174957057/20000000000 {:mass 1}))
-(defunit attictalent (qty/quantity 524871171/20000000 {:mass 1}))
+  174957057/20000000000 {:mass 1})
+(defunit attictalent 524871171/20000000 {:mass 1})
 (defunit au
   "astronomical unit, approximately the average radius of earth's orbit around the sun."
-  (qty/quantity 149597870700 {:length 1}))
-(defunit austbl (qty/quantity 1/50000 {:length 3}))
+  149597870700 {:length 1})
+(defunit austbl 1/50000 {:length 3})
 (defunit australiapoint
   "The \"point\" is used to measure rainfall in Australia"
-  (qty/quantity 127/500000 {:length 1}))
-(defunit australiatablespoon (qty/quantity 1/50000 {:length 3}))
+  127/500000 {:length 1})
+(defunit australiatablespoon 1/50000 {:length 3})
 (defunit avogadro
   "Number of items in a mole Defined exactly by the SI rules that go into effect May 20, 2019 https://physics.nist.gov/cgi-bin/cuu/Value?na"
-  (qty/quantity 602214076000000000000000N {:amount_of_substance -1}))
-(defunit bag (qty/quantity 454609/3125000 {:length 3}))
-(defunit bakersdozen (qty/quantity 13 {}))
-(defunit baking_powder (qty/quantity 147200000000/157725491 {:mass 1, :length -3}))
-(defunit bale (qty/quantity 5000 {}))
+  602214076000000000000000N {:amount_of_substance -1})
+(defunit bag 454609/3125000 {:length 3})
+(defunit bakersdozen 13 {})
+(defunit baking_powder 147200000000/157725491 {:mass 1, :length -3})
+(defunit bale 5000 {})
 (defunit balmer
   "Even less common name than \"kayser"
-  (qty/quantity 100N {:length -1}))
-(defunit balthazar (qty/quantity 3/250 {:length 3}))
+  100N {:length -1})
+(defunit balthazar 3/250 {:length 3})
 (defunit bar
   "About 1 atm"
-  (qty/quantity 100000N {:mass 1, :length -1, :time -2}))
+  100000N {:mass 1, :length -1, :time -2})
 (defunit barad
   "old name"
-  (qty/quantity 1/10 {:length -1, :mass 1, :time -2}))
-(defunit barium (qty/quantity 137327/1000000 {:mass 1, :amount_of_substance -1}))
-(defunit barleybushel (qty/quantity 136077711/6250000 {:mass 1}))
+  1/10 {:length -1, :mass 1, :time -2})
+(defunit barium 137327/1000000 {:mass 1, :amount_of_substance -1})
+(defunit barleybushel 136077711/6250000 {:mass 1})
 (defunit barn
   "Used to measure cross section for particle physics collision, said to have originated in the phrase \"big as a barn\"."
-  (qty/quantity 1/10000000000000000000000000000 {:length 2}))
-(defunit barrel (qty/quantity 9936705933/62500000000 {:length 3}))
-(defunit barrelbulk (qty/quantity 55306341/390625000 {:length 3}))
+  1/10000000000000000000000000000 {:length 2})
+(defunit barrel 9936705933/62500000000 {:length 3})
+(defunit barrelbulk 55306341/390625000 {:length 3})
 (defunit barye
   "pressure"
-  (qty/quantity 1/10 {:length -1, :mass 1, :time -2}))
+  1/10 {:length -1, :mass 1, :time -2})
 (defunit basebox
   "Used in metal plating"
-  (qty/quantity 1580642/78125 {:length 2}))
+  1580642/78125 {:length 2})
 (defunit basispoint
   "Used in finance"
-  (qty/quantity 1/10000 {}))
-(defunit bath (qty/quantity 23185647177/625000000000 {:length 3}))
-(defunit bbl (qty/quantity 9936705933/62500000000 {:length 3}))
+  1/10000 {})
+(defunit bath 23185647177/625000000000 {:length 3})
+(defunit bbl 9936705933/62500000000 {:length 3})
 (defunit becquerel
   "Activity of radioactive source"
-  (qty/quantity 1 {:time -1}))
+  1 {:time -1})
 (defunit beerbarrel
   "A full beer barrel"
-  (qty/quantity 14668470663/125000000000 {:length 3}))
-(defunit beercase (qty/quantity 4258588257/500000000000 {:length 3}))
-(defunit beerkeg (qty/quantity 14668470663/250000000000 {:length 3}))
+  14668470663/125000000000 {:length 3})
+(defunit beercase 4258588257/500000000000 {:length 3})
+(defunit beerkeg 14668470663/250000000000 {:length 3})
 (defunit bell
   "Bell would be sounded every 30 minutes."
-  (qty/quantity 1800N {:time 1}))
+  1800N {:time 1})
 (defunit berkelium
   "Longest lived. 249.08"
-  (qty/quantity 2470703/10000000 {:mass 1, :amount_of_substance -1}))
+  2470703/10000000 {:mass 1, :amount_of_substance -1})
 (defunit bertholdpoint
   "H. Berthold tried to create a metric version of the didot point in 1878."
-  (qty/quantity 1/2660 {:length 1}))
-(defunit beryllium (qty/quantity 4506091/500000000 {:mass 1, :amount_of_substance -1}))
-(defunit bes (qty/quantity 2728034111/12500000000 {:mass 1}))
-(defunit biblicalcubit (qty/quantity 13843/25000 {:length 1}))
+  1/2660 {:length 1})
+(defunit beryllium 4506091/500000000 {:mass 1, :amount_of_substance -1})
+(defunit bes 2728034111/12500000000 {:mass 1})
+(defunit biblicalcubit 13843/25000 {:length 1})
 (defunit bicron
   "One brbillionth of a meter"
-  (qty/quantity 1/1000000000000 {:length 1}))
-(defunit billiard (qty/quantity 1000000000000000N {}))
-(defunit billion (qty/quantity 1000000000N {}))
+  1/1000000000000 {:length 1})
+(defunit billiard 1000000000000000N {})
+(defunit billion 1000000000N {})
 (defunit biot
   "alternative name for abamp"
-  (qty/quantity 10 {:current 1}))
-(defunit bismuth (qty/quantity 20898037/100000000 {:mass 1, :amount_of_substance -1}))
+  10 {:current 1})
+(defunit bismuth 20898037/100000000 {:mass 1, :amount_of_substance -1})
 (defunit bit
   "Basic unit of information (entropy)."
-  (qty/quantity 1 {:information 1}))
-(defunit blackcubit (qty/quantity 16891/31250 {:length 1}))
-(defunit blanc (qty/quantity 6479891/23040000000000000 {:mass 1}))
+  1 {:information 1})
+(defunit blackcubit 16891/31250 {:length 1})
+(defunit blanc 6479891/23040000000000000 {:mass 1})
 (defunit blink
   "Actual human blink takes 1/3 second"
-  (qty/quantity 108/125 {:time 1}))
+  108/125 {:time 1})
 (defunit blondel
   "Named after a French scientist."
-  (qty/quantity 500000000000000000/1570796326794896619 {:luminous_intensity 1, :length -2}))
+  500000000000000000/1570796326794896619 {:luminous_intensity 1, :length -2})
 (defunit bloodunit
   "For whole blood. For blood components, a blood unit is the quanity of the component found in a blood unit of whole blood. The human body contains about 12 blood units of whole blood."
-  (qty/quantity 9/20000 {:length 3}))
-(defunit boardfeet (qty/quantity 18435447/7812500000 {:length 3}))
+  9/20000 {:length 3})
+(defunit boardfeet 18435447/7812500000 {:length 3})
 (defunit boardfoot
   "Usually 1 inch thick wood"
-  (qty/quantity 18435447/7812500000 {:length 3}))
-(defunit bohrmagneton (qty/quantity 1862479784135943/200827880381184188726354713040000000000 {:current 1, :length 2}))
+  18435447/7812500000 {:length 3})
+(defunit bohrmagneton 1862479784135943/200827880381184188726354713040000000000 {:current 1, :length 2})
 (defunit bohrradius
   "Bohr radius This can also be calculated as alpha / (4 pi Rinfinity) 2022 CODATA value, 5.29177210544e-11 m There is some discrepancy between calculating this in terms of other constants and the CODATA value. uncertainty is +/- 82 in last 2 digits. https://physics.nist.gov/cgi-bin/cuu/Value?bohrrada0"
-  (qty/quantity 9472256218811406045764637500000000/178999700479686744109011257020936821646953273 {:length 1}))
-(defunit boilerhorsepower (qty/quantity 19619/2 {:mass 1, :length 2, :time -3}))
+  9472256218811406045764637500000000/178999700479686744109011257020936821646953273 {:length 1})
+(defunit boilerhorsepower 19619/2 {:mass 1, :length 2, :time -3})
 (defunit bole
   "momentum"
-  (qty/quantity 1/100000 {:mass 1, :length 1, :time -1}))
-(defunit boll (qty/quantity 1363827/6250000 {:length 3}))
-(defunit bolt (qty/quantity 4572/125 {:length 1}))
+  1/100000 {:mass 1, :length 1, :time -1})
+(defunit boll 1363827/6250000 {:length 3})
+(defunit bolt 4572/125 {:length 1})
 (defunit boltzmann
   "Boltzmann's constant. Defined exactly by the SI rules that go into effect May 20, 2019"
-  (qty/quantity 1380649/100000000000000000000000000000 {:mass 1, :length 2, :time -2, :temperature -1}))
+  1380649/100000000000000000000000000000 {:mass 1, :length 2, :time -2, :temperature -1})
 (defunit boltzmannsconstant
   "Boltzmann's constant"
-  (qty/quantity 1380649/100000000000000000000000000000 {:mass 1, :length 2, :time -2, :temperature -1}))
-(defunit borgis (qty/quantity 676917/200000000 {:length 1}))
-(defunit boron (qty/quantity 10811/1000000 {:mass 1, :amount_of_substance -1}))
-(defunit bourgeois (qty/quantity 15815691/5000000000 {:length 1}))
+  1380649/100000000000000000000000000000 {:mass 1, :length 2, :time -2, :temperature -1})
+(defunit borgis 676917/200000000 {:length 1})
+(defunit boron 10811/1000000 {:mass 1, :amount_of_substance -1})
+(defunit bourgeois 15815691/5000000000 {:length 1})
 (defunit bps
   "Sometimes the term \"baud\" is incorrectly used to refer to bits per second. Baud refers to symbols per second. Modern modems transmit several bits per symbol."
-  (qty/quantity 1 {:information 1, :time -1}))
-(defunit brace (qty/quantity 2 {}))
+  1 {:information 1, :time -1})
+(defunit brace 2 {})
 (defunit brad
   "Binary radian--used to fit angular measurements into a byte. Questionable but what the hell."
-  (qty/quantity 1570796326794896619/64000000000000000000 {}))
-(defunit brassayton (qty/quantity 49/1500 {:mass 1}))
+  1570796326794896619/64000000000000000000 {})
+(defunit brassayton 49/1500 {:mass 1})
 (defunit brbarrel
   "Used for beer"
-  (qty/quantity 4091481/25000000 {:length 3}))
-(defunit brbilliard (qty/quantity 1000000000000000N {}))
-(defunit brbillion (qty/quantity 1000000000000N {}))
-(defunit brbushel (qty/quantity 454609/12500000 {:length 3}))
-(defunit brchaldron (qty/quantity 4091481/3125000 {:length 3}))
-(defunit brcup (qty/quantity 454609/1600000000 {:length 3}))
-(defunit brdecilliard (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit brdecillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit brdram (qty/quantity 454609/128000000000 {:length 3}))
-(defunit brduodecillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000000000000N {}))
+  4091481/25000000 {:length 3})
+(defunit brbilliard 1000000000000000N {})
+(defunit brbillion 1000000000000N {})
+(defunit brbushel 454609/12500000 {:length 3})
+(defunit brchaldron 4091481/3125000 {:length 3})
+(defunit brcup 454609/1600000000 {:length 3})
+(defunit brdecilliard 1000000000000000000000000000000000000000000000000000000000000000N {})
+(defunit brdecillion 1000000000000000000000000000000000000000000000000000000000000N {})
+(defunit brdram 454609/128000000000 {:length 3})
+(defunit brduodecillion 1000000000000000000000000000000000000000000000000000000000000000000000000N {})
 (defunit breadflour_scooped
   "measure and then sweeping the top."
-  (qty/quantity 4049931875/6145149 {:mass 1, :length -3}))
+  4049931875/6145149 {:mass 1, :length -3})
 (defunit breadflour_sifted
   "and then sweep the top. Sifted means"
-  (qty/quantity 6258985625/12290298 {:mass 1, :length -3}))
+  6258985625/12290298 {:mass 1, :length -3})
 (defunit breadflour_spooned
   "sifting the flour directly into a"
-  (qty/quantity 1104526875/2048383 {:mass 1, :length -3}))
-(defunit brevier (qty/quantity 1757299/625000000 {:length 1}))
+  1104526875/2048383 {:mass 1, :length -3})
+(defunit brevier 1757299/625000000 {:length 1})
 (defunit brewster
   "measures stress-optical coef"
-  (qty/quantity 1/1000000000000 {:length 1, :mass -1, :time 2}))
+  1/1000000000000 {:length 1, :mass -1, :time 2})
 (defunit brfirkin
   "Used for ale and beer"
-  (qty/quantity 4091481/100000000 {:length 3}))
+  4091481/100000000 {:length 3})
 (defunit brfloz
   "Note difference in definition"
-  (qty/quantity 454609/16000000000 {:length 3}))
-(defunit brfluidounce (qty/quantity 454609/16000000000 {:length 3}))
+  454609/16000000000 {:length 3})
+(defunit brfluidounce 454609/16000000000 {:length 3})
 (defunit brgallon
   "The British Imperial gallon was"
-  (qty/quantity 454609/100000000 {:length 3}))
-(defunit brgill (qty/quantity 454609/3200000000 {:length 3}))
-(defunit brheapedbushel (qty/quantity 290495151/6250000000 {:length 3}))
-(defunit brhogshead (qty/quantity 28640367/100000000 {:length 3}))
-(defunit brhorsepower (qty/quantity 7457/10 {:mass 1, :length 2, :time -3}))
-(defunit brhundredweight (qty/quantity 317514659/6250000 {:mass 1}))
-(defunit brillant (qty/quantity 225639/200000000 {:length 1}))
-(defunit brilliant (qty/quantity 12301093/10000000000 {:length 1}))
-(defunit britishthermalunit (qty/quantity 52752792631/50000000 {:mass 1, :length 2, :time -2}))
-(defunit brmilliard (qty/quantity 1000000000N {}))
-(defunit brminim (qty/quantity 454609/7680000000000 {:length 3}))
-(defunit brnonilliard (qty/quantity 1000000000000000000000000000000000000000000000000000000000N {}))
-(defunit brnonillion (qty/quantity 1000000000000000000000000000000000000000000000000000000N {}))
-(defunit brnovemdecillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit brnoventilliard (qty/quantity 1000000000000000000000000000000000000000000000000000000000N {}))
-(defunit brnoventillion (qty/quantity 1000000000000000000000000000000000000000000000000000000N {}))
-(defunit broctilliard (qty/quantity 1000000000000000000000000000000000000000000000000000N {}))
-(defunit broctillion (qty/quantity 1000000000000000000000000000000000000000000000000N {}))
-(defunit broctodecillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit bromine (qty/quantity 2497/31250 {:mass 1, :amount_of_substance -1}))
-(defunit brpeck (qty/quantity 454609/50000000 {:length 3}))
-(defunit brpint (qty/quantity 454609/800000000 {:length 3}))
-(defunit brquadrilliard (qty/quantity 1000000000000000000000000000N {}))
-(defunit brquadrillion (qty/quantity 1000000000000000000000000N {}))
-(defunit brquart (qty/quantity 454609/400000000 {:length 3}))
-(defunit brquarter (qty/quantity 454609/1562500 {:length 3}))
-(defunit brquartermass (qty/quantity 317514659/25000000 {:mass 1}))
-(defunit brquattuordecillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit brquindecillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit brquintilliard (qty/quantity 1000000000000000000000000000000000N {}))
-(defunit brquintillion (qty/quantity 1000000000000000000000000000000N {}))
-(defunit brscruple (qty/quantity 454609/384000000000 {:length 3}))
-(defunit brseptdecillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit brseptilliard (qty/quantity 1000000000000000000000000000000000000000000000N {}))
-(defunit brseptillion (qty/quantity 1000000000000000000000000000000000000000000N {}))
-(defunit brsexdecillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit brsextilliard (qty/quantity 1000000000000000000000000000000000000000N {}))
-(defunit brsextillion (qty/quantity 1000000000000000000000000000000000000N {}))
-(defunit brshippington (qty/quantity 1161433161/976562500 {:length 3}))
+  454609/100000000 {:length 3})
+(defunit brgill 454609/3200000000 {:length 3})
+(defunit brheapedbushel 290495151/6250000000 {:length 3})
+(defunit brhogshead 28640367/100000000 {:length 3})
+(defunit brhorsepower 7457/10 {:mass 1, :length 2, :time -3})
+(defunit brhundredweight 317514659/6250000 {:mass 1})
+(defunit brillant 225639/200000000 {:length 1})
+(defunit brilliant 12301093/10000000000 {:length 1})
+(defunit britishthermalunit 52752792631/50000000 {:mass 1, :length 2, :time -2})
+(defunit brmilliard 1000000000N {})
+(defunit brminim 454609/7680000000000 {:length 3})
+(defunit brnonilliard 1000000000000000000000000000000000000000000000000000000000N {})
+(defunit brnonillion 1000000000000000000000000000000000000000000000000000000N {})
+(defunit brnovemdecillion 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {})
+(defunit brnoventilliard 1000000000000000000000000000000000000000000000000000000000N {})
+(defunit brnoventillion 1000000000000000000000000000000000000000000000000000000N {})
+(defunit broctilliard 1000000000000000000000000000000000000000000000000000N {})
+(defunit broctillion 1000000000000000000000000000000000000000000000000N {})
+(defunit broctodecillion 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {})
+(defunit bromine 2497/31250 {:mass 1, :amount_of_substance -1})
+(defunit brpeck 454609/50000000 {:length 3})
+(defunit brpint 454609/800000000 {:length 3})
+(defunit brquadrilliard 1000000000000000000000000000N {})
+(defunit brquadrillion 1000000000000000000000000N {})
+(defunit brquart 454609/400000000 {:length 3})
+(defunit brquarter 454609/1562500 {:length 3})
+(defunit brquartermass 317514659/25000000 {:mass 1})
+(defunit brquattuordecillion 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {})
+(defunit brquindecillion 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {})
+(defunit brquintilliard 1000000000000000000000000000000000N {})
+(defunit brquintillion 1000000000000000000000000000000N {})
+(defunit brscruple 454609/384000000000 {:length 3})
+(defunit brseptdecillion 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {})
+(defunit brseptilliard 1000000000000000000000000000000000000000000000N {})
+(defunit brseptillion 1000000000000000000000000000000000000000000N {})
+(defunit brsexdecillion 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {})
+(defunit brsextilliard 1000000000000000000000000000000000000000N {})
+(defunit brsextillion 1000000000000000000000000000000000000N {})
+(defunit brshippington 1161433161/976562500 {:length 3})
 (defunit brtablespoon
   "Also 5/8 brfloz, approx 17.7 ml"
-  (qty/quantity 3/200000 {:length 3}))
-(defunit brtbl (qty/quantity 3/200000 {:length 3}))
-(defunit brteacup (qty/quantity 454609/2400000000 {:length 3}))
+  3/200000 {:length 3})
+(defunit brtbl 3/200000 {:length 3})
+(defunit brteacup 454609/2400000000 {:length 3})
 (defunit brteaspoon
   "Also 1/4 brtablespoon"
-  (qty/quantity 1/200000 {:length 3}))
-(defunit brton (qty/quantity 317514659/312500 {:mass 1}))
-(defunit brtredecillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit brtrilliard (qty/quantity 1000000000000000000000N {}))
-(defunit brtrillion (qty/quantity 1000000000000000000N {}))
-(defunit brtsp (qty/quantity 1/200000 {:length 3}))
-(defunit brundecillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit brvigintillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit brwire0000000gauge (qty/quantity 127/10000 {:length 1}))
-(defunit brwire000000gauge (qty/quantity 3683/312500 {:length 1}))
-(defunit brwire00000gauge (qty/quantity 3429/312500 {:length 1}))
-(defunit brwire0000gauge (qty/quantity 127/12500 {:length 1}))
-(defunit brwire000gauge (qty/quantity 11811/1250000 {:length 1}))
-(defunit brwire00gauge (qty/quantity 11049/1250000 {:length 1}))
-(defunit brwire0gauge (qty/quantity 10287/1250000 {:length 1}))
-(defunit brwire10gauge (qty/quantity 254/78125 {:length 1}))
-(defunit brwire11gauge (qty/quantity 3683/1250000 {:length 1}))
-(defunit brwire12gauge (qty/quantity 1651/625000 {:length 1}))
-(defunit brwire13gauge (qty/quantity 2921/1250000 {:length 1}))
-(defunit brwire14gauge (qty/quantity 127/62500 {:length 1}))
-(defunit brwire15gauge (qty/quantity 1143/625000 {:length 1}))
-(defunit brwire16gauge (qty/quantity 127/78125 {:length 1}))
-(defunit brwire17gauge (qty/quantity 889/625000 {:length 1}))
-(defunit brwire18gauge (qty/quantity 381/312500 {:length 1}))
-(defunit brwire19gauge (qty/quantity 127/125000 {:length 1}))
-(defunit brwire1gauge (qty/quantity 381/50000 {:length 1}))
-(defunit brwire20gauge (qty/quantity 1143/1250000 {:length 1}))
-(defunit brwire21gauge (qty/quantity 127/156250 {:length 1}))
-(defunit brwire22gauge (qty/quantity 889/1250000 {:length 1}))
-(defunit brwire23gauge (qty/quantity 381/625000 {:length 1}))
-(defunit brwire24gauge (qty/quantity 1397/2500000 {:length 1}))
-(defunit brwire25gauge (qty/quantity 127/250000 {:length 1}))
-(defunit brwire26gauge (qty/quantity 1143/2500000 {:length 1}))
-(defunit brwire27gauge (qty/quantity 5207/12500000 {:length 1}))
-(defunit brwire28gauge (qty/quantity 18923/50000000 {:length 1}))
-(defunit brwire29gauge (qty/quantity 2159/6250000 {:length 1}))
-(defunit brwire2gauge (qty/quantity 8763/1250000 {:length 1}))
-(defunit brwire30gauge (qty/quantity 3937/12500000 {:length 1}))
-(defunit brwire31gauge (qty/quantity 3683/12500000 {:length 1}))
-(defunit brwire32gauge (qty/quantity 3429/12500000 {:length 1}))
-(defunit brwire33gauge (qty/quantity 127/500000 {:length 1}))
-(defunit brwire34gauge (qty/quantity 2921/12500000 {:length 1}))
-(defunit brwire35gauge (qty/quantity 2667/12500000 {:length 1}))
-(defunit brwire36gauge (qty/quantity 2413/12500000 {:length 1}))
-(defunit brwire37gauge (qty/quantity 2159/12500000 {:length 1}))
-(defunit brwire38gauge (qty/quantity 381/2500000 {:length 1}))
-(defunit brwire39gauge (qty/quantity 1651/12500000 {:length 1}))
-(defunit brwire3gauge (qty/quantity 8001/1250000 {:length 1}))
-(defunit brwire40gauge (qty/quantity 381/3125000 {:length 1}))
-(defunit brwire41gauge (qty/quantity 1397/12500000 {:length 1}))
-(defunit brwire42gauge (qty/quantity 127/1250000 {:length 1}))
-(defunit brwire43gauge (qty/quantity 1143/12500000 {:length 1}))
-(defunit brwire44gauge (qty/quantity 127/1562500 {:length 1}))
-(defunit brwire45gauge (qty/quantity 889/12500000 {:length 1}))
-(defunit brwire46gauge (qty/quantity 381/6250000 {:length 1}))
-(defunit brwire47gauge (qty/quantity 127/2500000 {:length 1}))
-(defunit brwire48gauge (qty/quantity 127/3125000 {:length 1}))
-(defunit brwire49gauge (qty/quantity 381/12500000 {:length 1}))
-(defunit brwire4gauge (qty/quantity 3683/625000 {:length 1}))
-(defunit brwire50gauge (qty/quantity 127/5000000 {:length 1}))
-(defunit brwire5gauge (qty/quantity 6731/1250000 {:length 1}))
-(defunit brwire6gauge (qty/quantity 381/78125 {:length 1}))
-(defunit brwire7gauge (qty/quantity 1397/312500 {:length 1}))
-(defunit brwire8gauge (qty/quantity 127/31250 {:length 1}))
-(defunit brwire9gauge (qty/quantity 1143/312500 {:length 1}))
-(defunit btu (qty/quantity 52752792631/50000000 {:mass 1, :length 2, :time -2}))
-(defunit btu_IT (qty/quantity 52752792631/50000000 {:mass 1, :length 2, :time -2}))
-(defunit btu_mean (qty/quantity 9502805510737/9000000000 {:mass 1, :length 2, :time -2}))
-(defunit btu_th (qty/quantity 23722880951/22500000 {:mass 1, :length 2, :time -2}))
+  1/200000 {:length 3})
+(defunit brton 317514659/312500 {:mass 1})
+(defunit brtredecillion 1000000000000000000000000000000000000000000000000000000000000000000000000000000N {})
+(defunit brtrilliard 1000000000000000000000N {})
+(defunit brtrillion 1000000000000000000N {})
+(defunit brtsp 1/200000 {:length 3})
+(defunit brundecillion 1000000000000000000000000000000000000000000000000000000000000000000N {})
+(defunit brvigintillion 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {})
+(defunit brwire0000000gauge 127/10000 {:length 1})
+(defunit brwire000000gauge 3683/312500 {:length 1})
+(defunit brwire00000gauge 3429/312500 {:length 1})
+(defunit brwire0000gauge 127/12500 {:length 1})
+(defunit brwire000gauge 11811/1250000 {:length 1})
+(defunit brwire00gauge 11049/1250000 {:length 1})
+(defunit brwire0gauge 10287/1250000 {:length 1})
+(defunit brwire10gauge 254/78125 {:length 1})
+(defunit brwire11gauge 3683/1250000 {:length 1})
+(defunit brwire12gauge 1651/625000 {:length 1})
+(defunit brwire13gauge 2921/1250000 {:length 1})
+(defunit brwire14gauge 127/62500 {:length 1})
+(defunit brwire15gauge 1143/625000 {:length 1})
+(defunit brwire16gauge 127/78125 {:length 1})
+(defunit brwire17gauge 889/625000 {:length 1})
+(defunit brwire18gauge 381/312500 {:length 1})
+(defunit brwire19gauge 127/125000 {:length 1})
+(defunit brwire1gauge 381/50000 {:length 1})
+(defunit brwire20gauge 1143/1250000 {:length 1})
+(defunit brwire21gauge 127/156250 {:length 1})
+(defunit brwire22gauge 889/1250000 {:length 1})
+(defunit brwire23gauge 381/625000 {:length 1})
+(defunit brwire24gauge 1397/2500000 {:length 1})
+(defunit brwire25gauge 127/250000 {:length 1})
+(defunit brwire26gauge 1143/2500000 {:length 1})
+(defunit brwire27gauge 5207/12500000 {:length 1})
+(defunit brwire28gauge 18923/50000000 {:length 1})
+(defunit brwire29gauge 2159/6250000 {:length 1})
+(defunit brwire2gauge 8763/1250000 {:length 1})
+(defunit brwire30gauge 3937/12500000 {:length 1})
+(defunit brwire31gauge 3683/12500000 {:length 1})
+(defunit brwire32gauge 3429/12500000 {:length 1})
+(defunit brwire33gauge 127/500000 {:length 1})
+(defunit brwire34gauge 2921/12500000 {:length 1})
+(defunit brwire35gauge 2667/12500000 {:length 1})
+(defunit brwire36gauge 2413/12500000 {:length 1})
+(defunit brwire37gauge 2159/12500000 {:length 1})
+(defunit brwire38gauge 381/2500000 {:length 1})
+(defunit brwire39gauge 1651/12500000 {:length 1})
+(defunit brwire3gauge 8001/1250000 {:length 1})
+(defunit brwire40gauge 381/3125000 {:length 1})
+(defunit brwire41gauge 1397/12500000 {:length 1})
+(defunit brwire42gauge 127/1250000 {:length 1})
+(defunit brwire43gauge 1143/12500000 {:length 1})
+(defunit brwire44gauge 127/1562500 {:length 1})
+(defunit brwire45gauge 889/12500000 {:length 1})
+(defunit brwire46gauge 381/6250000 {:length 1})
+(defunit brwire47gauge 127/2500000 {:length 1})
+(defunit brwire48gauge 127/3125000 {:length 1})
+(defunit brwire49gauge 381/12500000 {:length 1})
+(defunit brwire4gauge 3683/625000 {:length 1})
+(defunit brwire50gauge 127/5000000 {:length 1})
+(defunit brwire5gauge 6731/1250000 {:length 1})
+(defunit brwire6gauge 381/78125 {:length 1})
+(defunit brwire7gauge 1397/312500 {:length 1})
+(defunit brwire8gauge 127/31250 {:length 1})
+(defunit brwire9gauge 1143/312500 {:length 1})
+(defunit btu 52752792631/50000000 {:mass 1, :length 2, :time -2})
+(defunit btu_IT 52752792631/50000000 {:mass 1, :length 2, :time -2})
+(defunit btu_mean 9502805510737/9000000000 {:mass 1, :length 2, :time -2})
+(defunit btu_th 23722880951/22500000 {:mass 1, :length 2, :time -2})
 (defunit bu
   "inch diameter (rounded)"
-  (qty/quantity 220244188543/6250000000000 {:length 3}))
-(defunit buck (qty/quantity 1 {:currency 1}))
-(defunit bucket (qty/quantity 454609/25000000 {:length 3}))
-(defunit bundle (qty/quantity 1000 {}))
+  220244188543/6250000000000 {:length 3})
+(defunit buck 1 {:currency 1})
+(defunit bucket 454609/25000000 {:length 3})
+(defunit bundle 1000 {})
 (defunit bushel
   "Volume of 8 inch high cylinder with 18.5"
-  (qty/quantity 220244188543/6250000000000 {:length 3}))
-(defunit butter_clarified (qty/quantity 5007188500/6145149 {:mass 1, :length -3}))
+  220244188543/6250000000000 {:length 3})
+(defunit butter_clarified 5007188500/6145149 {:mass 1, :length -3})
 (defunit buttonline
   "The line was used in 19th century USA to measure width of buttons."
-  (qty/quantity 127/200000 {:length 1}))
+  127/200000 {:length 1})
 (defunit byte
   "Not all machines had 8 bit bytes, but these days most of them do. But beware: for transmission over modems, a few extra bits are used so there are actually 10 bits per byte."
-  (qty/quantity 8 {:information 1}))
+  8 {:information 1})
 (defunit c
   "speed of light in vacuum (exact) The speed of light is the same to all observers in all local frames. The relation between the meter and the second is thus fixed by this definition. This is good."
-  (qty/quantity 299792458 {:length 1, :time -1}))
-(defunit cab (qty/quantity 44005411989/25000000000000 {:length 3}))
+  299792458 {:length 1, :time -1})
+(defunit cab 44005411989/25000000000000 {:length 3})
 (defunit cable
   "NIST Handbook 44, 2003 Appendix C"
-  (qty/quantity 864000/3937 {:length 1}))
-(defunit cablelength (qty/quantity 864000/3937 {:length 1}))
-(defunit cableslength (qty/quantity 864000/3937 {:length 1}))
-(defunit cablet (qty/quantity 864000/3937 {:length 1}))
-(defunit cadmium (qty/quantity 112411/1000000 {:mass 1, :amount_of_substance -1}))
+  864000/3937 {:length 1})
+(defunit cablelength 864000/3937 {:length 1})
+(defunit cableslength 864000/3937 {:length 1})
+(defunit cablet 864000/3937 {:length 1})
+(defunit cadmium 112411/1000000 {:mass 1, :amount_of_substance -1})
 (defunit cakeflour_scooped
   "dip and sweep\" refers to dipping a"
-  (qty/quantity 1104526875/2048383 {:mass 1, :length -3}))
+  1104526875/2048383 {:mass 1, :length -3})
 (defunit cakeflour_sifted
   "The density of flour depends on the"
-  (qty/quantity 2577229375/6145149 {:mass 1, :length -3}))
-(defunit cal (qty/quantity 10467/2500 {:mass 1, :length 2, :time -2}))
+  2577229375/6145149 {:mass 1, :length -3})
+(defunit cal 10467/2500 {:mass 1, :length 2, :time -2})
 (defunit cal_IT
   "International Table calorie, 4.1868 J"
-  (qty/quantity 10467/2500 {:mass 1, :length 2, :time -2}))
+  10467/2500 {:mass 1, :length 2, :time -2})
 (defunit cal_fifteen
   "Energy to go from 14.5 to 15.5 degC"
-  (qty/quantity 20929/5000 {:mass 1, :length 2, :time -2}))
+  20929/5000 {:mass 1, :length 2, :time -2})
 (defunit cal_mean
   "1/100 energy to go from 0 to 100 degC"
-  (qty/quantity 209501/50000 {:mass 1, :length 2, :time -2}))
+  209501/50000 {:mass 1, :length 2, :time -2})
 (defunit cal_mol
   "kcal/mol is used as a unit of energy by physical chemists."
-  (qty/quantity 10467/1505535190000000000000000000 {:mass 1, :length 2, :time -2}))
+  10467/1505535190000000000000000000 {:mass 1, :length 2, :time -2})
 (defunit cal_th
   "Thermochemical calorie, 4.184 J"
-  (qty/quantity 523/125 {:mass 1, :length 2, :time -2}))
+  523/125 {:mass 1, :length 2, :time -2})
 (defunit cal_twenty
   "Energy to go from 19.5 to 20.5 degC"
-  (qty/quantity 41819/10000 {:mass 1, :length 2, :time -2}))
-(defunit calcium (qty/quantity 20039/500000 {:mass 1, :amount_of_substance -1}))
-(defunit calendaryear (qty/quantity 31536000 {:time 1}))
+  41819/10000 {:mass 1, :length 2, :time -2})
+(defunit calcium 20039/500000 {:mass 1, :amount_of_substance -1})
+(defunit calendaryear 31536000 {:time 1})
 (defunit caliber
   "for measuring bullets"
-  (qty/quantity 127/500000 {:length 1}))
+  127/500000 {:length 1})
 (defunit californium
   "Longest lived. 252.08"
-  (qty/quantity 627699/2500000 {:mass 1, :amount_of_substance -1}))
-(defunit callistomass (qty/quantity 108000000000000000000000N {:mass 1}))
-(defunit calorie (qty/quantity 10467/2500 {:mass 1, :length 2, :time -2}))
-(defunit calorie_IT (qty/quantity 10467/2500 {:mass 1, :length 2, :time -2}))
-(defunit calorie_th (qty/quantity 523/125 {:mass 1, :length 2, :time -2}))
-(defunit canada_oatbushel (qty/quantity 771107029/50000000 {:mass 1}))
+  627699/2500000 {:mass 1, :amount_of_substance -1})
+(defunit callistomass 108000000000000000000000N {:mass 1})
+(defunit calorie 10467/2500 {:mass 1, :length 2, :time -2})
+(defunit calorie_IT 10467/2500 {:mass 1, :length 2, :time -2})
+(defunit calorie_th 523/125 {:mass 1, :length 2, :time -2})
+(defunit canada_oatbushel 771107029/50000000 {:mass 1})
 (defunit canadiangallon
   "defined in 1824 to be the volume of"
-  (qty/quantity 454609/100000000 {:length 3}))
+  454609/100000000 {:length 3})
 (defunit candela
   "unit of luminous intensity. The official 2019 SI definition: The candela, symbol cd, is the SI unit of luminous intensity in a given direction. It is defined by taking the fixed numerical value of the luminous efficacy of monochromatic radiation of frequency 540e12 Hz, K_cd, to be 683 when expressed in the unit lm W^−1, which is equal to cd sr W^−1 , or cd sr kg^−1 m^−2 s^3, where the kilogram, metre and second are defined in terms of h, c and Δν_Cs."
-  (qty/quantity 1 {:luminous_intensity 1}))
+  1 {:luminous_intensity 1})
 (defunit candle
   "Standard unit for luminous intensity"
-  (qty/quantity 51/50 {:luminous_intensity 1}))
+  51/50 {:luminous_intensity 1})
 (defunit cangallon
   "water which weighed 10 pounds at 62 deg F with a pressure of 30 inHg. In 1963 it was defined to be the space occupied by 10 pounds of distilled water of density 0.998859 g/ml weighed in air of density 0.001217 g/ml against weights of density 8.136 g/ml. The value given here is given by [1] as an exact value."
-  (qty/quantity 454609/100000000 {:length 3}))
-(defunit canon (qty/quantity 5271897/312500000 {:length 1}))
-(defunit carat (qty/quantity 1/5000 {:mass 1}))
-(defunit caratgold (qty/quantity 1/24 {}))
-(defunit carbon (qty/quantity 12011/1000000 {:mass 1, :amount_of_substance -1}))
+  454609/100000000 {:length 3})
+(defunit canon 5271897/312500000 {:length 1})
+(defunit carat 1/5000 {:mass 1})
+(defunit caratgold 1/24 {})
+(defunit carbon 12011/1000000 {:mass 1, :amount_of_substance -1})
 (defunit case
   "Why not?"
-  (qty/quantity 4258588257/500000000000 {:length 3}))
-(defunit cc (qty/quantity 1/1000000 {:length 3}))
+  4258588257/500000000000 {:length 3})
+(defunit cc 1/1000000 {:length 3})
 (defunit ccf
   "sorta dubious, but used."
-  (qty/quantity 55306341/19531250 {:length 3}))
-(defunit cd (qty/quantity 1 {:luminous_intensity 1}))
-(defunit ce (qty/quantity 864N {:time 1}))
-(defunit celo (qty/quantity 381/1250 {:length 1, :time -2}))
-(defunit cent (qty/quantity 1/100 {:currency 1}))
-(defunit cental (qty/quantity 45359237/1000000 {:mass 1}))
-(defunit centesimalminute (qty/quantity 1570796326794896619/10000000000000000000000 {}))
-(defunit centesimalsecond (qty/quantity 1570796326794896619/1000000000000000000000000 {}))
-(defunit centillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit centner (qty/quantity 45359237/1000000 {:mass 1}))
+  55306341/19531250 {:length 3})
+(defunit cd 1 {:luminous_intensity 1})
+(defunit ce 864N {:time 1})
+(defunit celo 381/1250 {:length 1, :time -2})
+(defunit cent 1/100 {:currency 1})
+(defunit cental 45359237/1000000 {:mass 1})
+(defunit centesimalminute 1570796326794896619/10000000000000000000000 {})
+(defunit centesimalsecond 1570796326794896619/1000000000000000000000000 {})
+(defunit centillion 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {})
+(defunit centner 45359237/1000000 {:mass 1})
 (defunit centrad
   "Used for angular deviation of light through a prism."
-  (qty/quantity 1/100 {}))
-(defunit centuria (qty/quantity 12616704/25 {:length 2}))
+  1/100 {})
+(defunit centuria 12616704/25 {:length 2})
 (defunit centuries
   "Irregular plural"
-  (qty/quantity 9861539367087/3125 {:time 1}))
-(defunit centurium (qty/quantity 12616704/25 {:length 2}))
-(defunit century (qty/quantity 9861539367087/3125 {:time 1}))
-(defunit cerium (qty/quantity 28023/200000 {:mass 1, :amount_of_substance -1}))
-(defunit cesium (qty/quantity 13290543/100000000 {:mass 1, :amount_of_substance -1}))
+  9861539367087/3125 {:time 1})
+(defunit centurium 12616704/25 {:length 2})
+(defunit century 9861539367087/3125 {:time 1})
+(defunit cerium 28023/200000 {:mass 1, :amount_of_substance -1})
+(defunit cesium 13290543/100000000 {:mass 1, :amount_of_substance -1})
 (defunit cesiumfrequency
   "The cesium frequency which defines the second: The unperturbed ground-state hyperfine transition frequency of the caesium 133 atom"
-  (qty/quantity 9192631770 {:time -1}))
-(defunit cf (qty/quantity 55306341/1953125000 {:length 3}))
-(defunit cfh (qty/quantity 6145149/781250000000 {:length 3, :time -1}))
-(defunit cfm (qty/quantity 18435447/39062500000 {:length 3, :time -1}))
-(defunit cfs (qty/quantity 55306341/1953125000 {:length 3, :time -1}))
-(defunit ch (qty/quantity 79200/3937 {:length 1}))
-(defunit chain (qty/quantity 79200/3937 {:length 1}))
-(defunit charonmass (qty/quantity 1900000000000000000000N {:mass 1}))
-(defunit cheonix (qty/quantity 1087691373/1250000000000 {:length 3}))
-(defunit chinesecatty (qty/quantity 1/2 {:mass 1}))
-(defunit chinesemace (qty/quantity 45359237/12000000000 {:mass 1}))
+  9192631770 {:time -1})
+(defunit cf 55306341/1953125000 {:length 3})
+(defunit cfh 6145149/781250000000 {:length 3, :time -1})
+(defunit cfm 18435447/39062500000 {:length 3, :time -1})
+(defunit cfs 55306341/1953125000 {:length 3, :time -1})
+(defunit ch 79200/3937 {:length 1})
+(defunit chain 79200/3937 {:length 1})
+(defunit charonmass 1900000000000000000000N {:mass 1})
+(defunit cheonix 1087691373/1250000000000 {:length 3})
+(defunit chinesecatty 1/2 {:mass 1})
+(defunit chinesemace 45359237/12000000000 {:mass 1})
 (defunit chinesepicul
   "Chinese usage"
-  (qty/quantity 50N {:mass 1}))
-(defunit chinesetael (qty/quantity 45359237/1200000000 {:mass 1}))
-(defunit chlorine (qty/quantity 354527/10000000 {:mass 1, :amount_of_substance -1}))
+  50N {:mass 1})
+(defunit chinesetael 45359237/1200000000 {:mass 1})
+(defunit chlorine 354527/10000000 {:mass 1, :amount_of_substance -1})
 (defunit choinix
   "for one man."
-  (qty/quantity 27/25000 {:length 3}))
-(defunit chomer (qty/quantity 4625127959403/12500000000000 {:length 3}))
-(defunit chromium (qty/quantity 519961/10000000 {:mass 1, :amount_of_substance -1}))
-(defunit cicero (qty/quantity 225639/50000000 {:length 1}))
-(defunit circle (qty/quantity 1570796326794896619/250000000000000000 {}))
+  27/25000 {:length 3})
+(defunit chomer 4625127959403/12500000000000 {:length 3})
+(defunit chromium 519961/10000000 {:mass 1, :amount_of_substance -1})
+(defunit cicero 225639/50000000 {:length 1})
+(defunit circle 1570796326794896619/250000000000000000 {})
 (defunit circularinch
   "area of a one-inch diameter circle"
-  (qty/quantity 25335373954874887567851/50000000000000000000000000 {:length 2}))
+  25335373954874887567851/50000000000000000000000000 {:length 2})
 (defunit circularmil
   "area of one-mil diameter circle"
-  (qty/quantity 25335373954874887567851/50000000000000000000000000000000 {:length 2}))
+  25335373954874887567851/50000000000000000000000000000000 {:length 2})
 (defunit classicalElectronRadius
   "2022 CODATA value https://physics.nist.gov/cgi-bin/cuu/Value?re uncertainty is +/- 13 in the last 2 digits"
-  (qty/quantity 5635880641/2000000000000000000000000 {:length 1}))
+  5635880641/2000000000000000000000000 {:length 1})
 (defunit clausius
   "A unit of physical entropy"
-  (qty/quantity 20934/5 {:mass 1, :length 2, :time -2, :temperature -1}))
+  20934/5 {:mass 1, :length 2, :time -2, :temperature -1})
 (defunit clo
   "Supposed to be the insulance required to keep a resting person comfortable indoors. The value given is from NIST and the CRC, but [5] gives a slightly different value of 0.875 ft^2 degF hr / Btu. Misc other measures"
-  (qty/quantity 31/200 {:temperature 1, :mass -1, :time 3}))
-(defunit clove (qty/quantity 317514659/100000000 {:mass 1}))
-(defunit cmcapacitance (qty/quantity 25000/22468879468420441 {:current 2, :time 4, :length -2, :mass -1}))
-(defunit cmil (qty/quantity 25335373954874887567851/50000000000000000000000000000000 {:length 2}))
+  31/200 {:temperature 1, :mass -1, :time 3})
+(defunit clove 317514659/100000000 {:mass 1})
+(defunit cmcapacitance 25000/22468879468420441 {:current 2, :time 4, :length -2, :mass -1})
+(defunit cmil 25335373954874887567851/50000000000000000000000000000000 {:length 2})
 (defunit cminv
   "Unit of energy used in infrared"
-  (qty/quantity 19864458571489287/1000000000000000000000000000000000000000 {:mass 1, :length 2, :time -2}))
-(defunit coal (qty/quantity 18200000N {:length 2, :time -2}))
-(defunit cobalt (qty/quantity 147333/2500000 {:mass 1, :amount_of_substance -1}))
-(defunit cochlearia (qty/quantity 120854597/10000000000000 {:length 3}))
-(defunit columbian (qty/quantity 1757299/312500000 {:length 1}))
-(defunit commonyear (qty/quantity 31536000 {:time 1}))
+  19864458571489287/1000000000000000000000000000000000000000 {:mass 1, :length 2, :time -2})
+(defunit coal 18200000N {:length 2, :time -2})
+(defunit cobalt 147333/2500000 {:mass 1, :amount_of_substance -1})
+(defunit cochlearia 120854597/10000000000000 {:length 3})
+(defunit columbian 1757299/312500000 {:length 1})
+(defunit commonyear 31536000 {:time 1})
 (defunit computerpica
   "to an even 1/72 inch by computer"
-  (qty/quantity 127/30000 {:length 1}))
+  127/30000 {:length 1})
 (defunit computerpoint
   "The American point was rounded"
-  (qty/quantity 127/360000 {:length 1}))
-(defunit congii (qty/quantity 1087691373/312500000000 {:length 3}))
-(defunit congius (qty/quantity 1087691373/312500000000 {:length 3}))
-(defunit coomb (qty/quantity 454609/3125000 {:length 3}))
-(defunit copper (qty/quantity 31773/500000 {:mass 1, :amount_of_substance -1}))
+  127/360000 {:length 1})
+(defunit congii 1087691373/312500000000 {:length 3})
+(defunit congius 1087691373/312500000000 {:length 3})
+(defunit coomb 454609/3125000 {:length 3})
+(defunit copper 31773/500000 {:mass 1, :amount_of_substance -1})
 (defunit cord
   "4 ft by 4 ft by 8 ft bundle of wood"
-  (qty/quantity 884901456/244140625 {:length 3}))
-(defunit cordfeet (qty/quantity 110612682/244140625 {:length 3}))
+  884901456/244140625 {:length 3})
+(defunit cordfeet 110612682/244140625 {:length 3})
 (defunit cordfoot
   "One foot long section of a cord"
-  (qty/quantity 110612682/244140625 {:length 3}))
-(defunit cornbushel (qty/quantity 317514659/12500000 {:mass 1}))
-(defunit cornsyrup (qty/quantity 8468039375/6145149 {:mass 1, :length -3}))
-(defunit corpus (qty/quantity 75213/20000000 {:length 1}))
+  110612682/244140625 {:length 3})
+(defunit cornbushel 317514659/12500000 {:mass 1})
+(defunit cornsyrup 8468039375/6145149 {:mass 1, :length -3})
+(defunit corpus 75213/20000000 {:length 1})
 (defunit cottonbolt
   "cloth measurement"
-  (qty/quantity 4572/125 {:length 1}))
-(defunit cottonyarncount (qty/quantity 10972800000/6479891 {:length 1, :mass -1}))
+  4572/125 {:length 1})
+(defunit cottonyarncount 10972800000/6479891 {:length 1, :mass -1})
 (defunit coulomb
   "charge"
-  (qty/quantity 1 {:current 1, :time 1}))
+  1 {:current 1, :time 1})
 (defunit coulombconst
   "listed as \"k_e\" or sometimes \"k The repulsive electric force between two charged pointlike particles is: coulombconst q1 q2 / dist^2"
-  (qty/quantity 312500000000000000000000000000000000000/34770314256307894224887761593 {:current -2, :time -4, :mass 1, :length 3}))
-(defunit couple (qty/quantity 2 {}))
+  312500000000000000000000000000000000000/34770314256307894224887761593 {:current -2, :time -4, :mass 1, :length 3})
+(defunit couple 2 {})
 (defunit cran
   "measures herring, about 750 fish"
-  (qty/quantity 1363827/8000000 {:length 3}))
+  1363827/8000000 {:length 3})
 (defunit crith
   "The crith is the mass of one liter of hydrogen at standard temperature and pressure."
-  (qty/quantity 17977/200000000 {:mass 1}))
+  17977/200000000 {:mass 1})
 (defunit crocodile
   "used informally in UK physics labs"
-  (qty/quantity 1000000N {:mass 1, :length 2, :time -3, :current -1}))
-(defunit cron (qty/quantity 157784629873392/5 {:time 1}))
-(defunit crore (qty/quantity 10000000N {}))
-(defunit ct (qty/quantity 1/5000 {:mass 1}))
-(defunit culleus (qty/quantity 1087691373/1953125000 {:length 3}))
-(defunit cumec (qty/quantity 1 {:length 3, :time -1}))
-(defunit cup (qty/quantity 473176473/2000000000000 {:length 3}))
+  1000000N {:mass 1, :length 2, :time -3, :current -1})
+(defunit cron 157784629873392/5 {:time 1})
+(defunit crore 10000000N {})
+(defunit ct 1/5000 {:mass 1})
+(defunit culleus 1087691373/1953125000 {:length 3})
+(defunit cumec 1 {:length 3, :time -1})
+(defunit cup 473176473/2000000000000 {:length 3})
 (defunit curie
   "Defined in 1910 as the radioactivity"
-  (qty/quantity 37000000000N {:time -1}))
-(defunit curium (qty/quantity 2470703/10000000 {:mass 1, :amount_of_substance -1}))
-(defunit cusec (qty/quantity 55306341/1953125000 {:length 3, :time -1}))
+  37000000000N {:time -1})
+(defunit curium 2470703/10000000 {:mass 1, :amount_of_substance -1})
+(defunit cusec 55306341/1953125000 {:length 3, :time -1})
 (defunit cut
   "used for wet-spun linen yarn"
-  (qty/quantity 6858/25 {:length 1}))
-(defunit cwt (qty/quantity 45359237/1000000 {:mass 1}))
-(defunit cyathi (qty/quantity 120854597/2500000000000 {:length 3}))
-(defunit cycle (qty/quantity 1570796326794896619/250000000000000000 {}))
-(defunit d (qty/quantity 86400 {:time 1}))
-(defunit da (qty/quantity 86400 {:time 1}))
-(defunit daily (qty/quantity 1/86400 {:time -1}))
+  6858/25 {:length 1})
+(defunit cwt 45359237/1000000 {:mass 1})
+(defunit cyathi 120854597/2500000000000 {:length 3})
+(defunit cycle 1570796326794896619/250000000000000000 {})
+(defunit d 86400 {:time 1})
+(defunit da 86400 {:time 1})
+(defunit daily 1/86400 {:time -1})
 (defunit dalton
   "Maybe this should be amu_chem?"
-  (qty/quantity 41513476723/25000000000000000000000000000000000000 {:mass 1}))
+  41513476723/25000000000000000000000000000000000000 {:mass 1})
 (defunit daniell
   "Meant to be electromotive force of a Daniell cell, but in error by .04 V"
-  (qty/quantity 521/500 {:mass 1, :length 2, :time -3, :current -1}))
+  521/500 {:mass 1, :length 2, :time -3, :current -1})
 (defunit daraf
   "elastance (farad spelled backwards)"
-  (qty/quantity 1 {:current -2, :time -4, :mass 1, :length 2}))
+  1 {:current -2, :time -4, :mass 1, :length 2})
 (defunit darcy
   "Measures permeability to fluid flow. One darcy is the permeability of a medium that allows a flow of cc/s of a liquid of centipoise viscosity under a pressure gradient of atm/cm."
-  (qty/quantity 1/1013250000000 {:length 2}))
+  1/1013250000000 {:length 2})
 (defunit datamile
   "Defined by U.S. Department of Defense as a unit used in radar measurements."
-  (qty/quantity 9144/5 {:length 1}))
-(defunit day (qty/quantity 86400 {:time 1}))
+  9144/5 {:length 1})
+(defunit day 86400 {:time 1})
 (defunit deal
   "The standard North American deal [OED]"
-  (qty/quantity 202789917/3125000000 {:length 3}))
+  202789917/3125000000 {:length 3})
 (defunit debye
   "unit of electrical dipole moment"
-  (qty/quantity 1/299792458000000000000000000000 {:current 1, :time 1, :length 1}))
-(defunit decade (qty/quantity 9861539367087/31250 {:time 1}))
-(defunit decilliard (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit decillion (qty/quantity 1000000000000000000000000000000000N {}))
-(defunit deg (qty/quantity 523598775598298873/30000000000000000000 {}))
+  1/299792458000000000000000000000 {:current 1, :time 1, :length 1})
+(defunit decade 9861539367087/31250 {:time 1})
+(defunit decilliard 1000000000000000000000000000000000000000000000000000000000000000N {})
+(defunit decillion 1000000000000000000000000000000000N {})
+(defunit deg 523598775598298873/30000000000000000000 {})
 (defunit degC
   "The *size* of a degree in the Celsius scale. This is identical to the size of a Kelvin. WARNING: This should only be used when you're indicating the *difference* between two temperatures, (say, how much energy to raise the temperature of a gram of water by 5 degrees Celsius, *not* for absolute temperatures. (I wonder if they should go entirely to eliminate this confusion...) For calculating absolute temperatures, use the Celsius[] or C[] functions below."
-  (qty/quantity 1 {:temperature 1}))
+  1 {:temperature 1})
 (defunit degF
   "WARNING: These should only be used when you're indicating the *difference* between two temperatures, (say, how much energy to raise the temperature of a gram of water by 5 degrees Fahrenheit, *not* for absolute temperatures. (I wonder if they should go entirely to eliminate this confusion...) For calculating absolute temperatures, use the Fahrenheit[] or F[] functions below."
-  (qty/quantity 5/9 {:temperature 1}))
-(defunit degR (qty/quantity 5/9 {:temperature 1}))
-(defunit degcelsius (qty/quantity 1 {:temperature 1}))
+  5/9 {:temperature 1})
+(defunit degR 5/9 {:temperature 1})
+(defunit degcelsius 1 {:temperature 1})
 (defunit degfahrenheit
   "The *size* of a degree in the Fahrenheit scale."
-  (qty/quantity 5/9 {:temperature 1}))
+  5/9 {:temperature 1})
 (defunit degrankine
   "Fahrenheit degree, but its zero"
-  (qty/quantity 5/9 {:temperature 1}))
+  5/9 {:temperature 1})
 (defunit degreaumur
   "The Reaumur scale was used in Europe and particularly in France. It is defined to be 0 at the freezing point of water and 80 at the boiling point. Reaumur apparently selected 80 because it is divisible by many numbers."
-  (qty/quantity 5/4 {:temperature 1}))
-(defunit degree (qty/quantity 523598775598298873/30000000000000000000 {}))
+  5/4 {:temperature 1})
+(defunit degree 523598775598298873/30000000000000000000 {})
 (defunit degreeCelsius
   "Per https://physics.nist.gov/Pubs/SP811/sec04.html#4.2.1.1"
-  (qty/quantity 1 {:temperature 1}))
+  1 {:temperature 1})
 (defunit degreeFahrenheit
   "The *size* of a degree in the Fahrenheit scale."
-  (qty/quantity 5/9 {:temperature 1}))
+  5/9 {:temperature 1})
 (defunit degreerankine
   "is at absolute zero."
-  (qty/quantity 5/9 {:temperature 1}))
-(defunit degreesRankine (qty/quantity 5/9 {:temperature 1}))
+  5/9 {:temperature 1})
+(defunit degreesRankine 5/9 {:temperature 1})
 (defunit degreesrankine
   "The Rankine scale has the"
-  (qty/quantity 5/9 {:temperature 1}))
-(defunit deimosmass (qty/quantity 1800000000000000N {:mass 1}))
+  5/9 {:temperature 1})
+(defunit deimosmass 1800000000000000N {:mass 1})
 (defunit denier
   "used for silk and rayon"
-  (qty/quantity 1/9000000 {:mass 1, :length -1}))
-(defunit dessertspoon (qty/quantity 1/100000 {:length 3}))
-(defunit deunx (qty/quantity 30008375221/100000000000 {:mass 1}))
+  1/9000000 {:mass 1, :length -1})
+(defunit dessertspoon 1/100000 {:length 3})
+(defunit deunx 30008375221/100000000000 {:mass 1})
 (defunit deuteronmagneticmoment
   "+/- 11 in last 2 digits"
-  (qty/quantity 4330735087/1000000000000000000000000000000000000 {:length 2, :current 1}))
+  4330735087/1000000000000000000000000000000000000 {:length 2, :current 1})
 (defunit deuteronmass
   "+/- 10 in last 2 digits"
-  (qty/quantity 4179479721/1250000000000000000000000000000000000 {:mass 1}))
-(defunit dextans (qty/quantity 2728034111/10000000000 {:mass 1}))
-(defunit diamant (qty/quantity 75213/50000000 {:length 1}))
-(defunit diamond (qty/quantity 1757299/1250000000 {:length 1}))
-(defunit dickers (qty/quantity 10 {}))
+  4179479721/1250000000000000000000000000000000000 {:mass 1})
+(defunit dextans 2728034111/10000000000 {:mass 1})
+(defunit diamant 75213/50000000 {:length 1})
+(defunit diamond 1757299/1250000000 {:length 1})
+(defunit dickers 10 {})
 (defunit didotpoint
   "This seems to be the dominant value"
-  (qty/quantity 75213/200000000 {:length 1}))
+  75213/200000000 {:length 1})
 (defunit diopter
   "measures reciprocal of lens focal length"
-  (qty/quantity 1 {:length -1}))
-(defunit dioptre (qty/quantity 1 {:length -1}))
+  1 {:length -1})
+(defunit dioptre 1 {:length -1})
 (defunit displacementton
   "Approximate volume of a longton weight of sea water used to measure ship displacement"
-  (qty/quantity 387144387/390625000 {:length 3}))
-(defunit dodrans (qty/quantity 24552306999/100000000000 {:mass 1}))
+  387144387/390625000 {:length 3})
+(defunit dodrans 24552306999/100000000000 {:mass 1})
 (defunit dollar
   "The US dollar is chosen arbitrarily to be the primitive unit of money. The dollar must be defined for use in the CPISource (providing historical purchasing power of the dollar) and for CurrencySource (providing exchange rate information (and things like the price of Gold)) so you can change the fundamental unit of currency, but you have to be able to turn it into a dollar if you want to use these other sources. If you want to define your own base currency, and you want currency conversions to still work, you should (for now) define the base currency as its 3-letter ISO-4217 currency code (say, \"EUR\" or \"JPY\"). This will allow the currency converter to unambiguously figure out which currency you mean. The units \"Euro\", \"euro\", the Euro symbol €, the Japanese Yen symbol ¥, the U.K. pound symbol ţ, and \"dollar\" are special cases that also work."
-  (qty/quantity 1 {:currency 1}))
-(defunit donkeypower (qty/quantity 250 {:mass 1, :length 2, :time -3}))
-(defunit doricfoot (qty/quantity 163/500 {:length 1}))
-(defunit double (qty/quantity 2 {}))
+  1 {:currency 1})
+(defunit donkeypower 250 {:mass 1, :length 2, :time -3})
+(defunit doricfoot 163/500 {:length 1})
+(defunit double 2 {})
 (defunit doubleremen
   "Length of the diagonal of a square with"
-  (qty/quantity 92583/125000 {:length 1}))
-(defunit dozen (qty/quantity 12 {}))
-(defunit dr (qty/quantity 45359237/25600000000 {:mass 1}))
+  92583/125000 {:length 1})
+(defunit dozen 12 {})
+(defunit dr 45359237/25600000000 {:mass 1})
 (defunit draconicmonth
   "an orbit crosses the ecliptic."
-  (qty/quantity 7347299373/3125 {:time 1}))
+  7347299373/3125 {:time 1})
 (defunit draconiticmonth
   "This is the time required to travel from the ascending node to the next ascending node."
-  (qty/quantity 7347299373/3125 {:time 1}))
-(defunit dram (qty/quantity 45359237/25600000000 {:mass 1}))
+  7347299373/3125 {:time 1})
+(defunit dram 45359237/25600000000 {:mass 1})
 (defunit drex
   "to be used for any kind of yarn"
-  (qty/quantity 1/10000000 {:mass 1, :length -1}))
-(defunit droit (qty/quantity 6479891/48000000000000 {:mass 1}))
+  1/10000000 {:mass 1, :length -1})
+(defunit droit 6479891/48000000000000 {:mass 1})
 (defunit drop
   "The drop was an old \"unit\" that was replaced by the minim. But I was told by a pharmacist that in his profession, the conversion of 20 drops per ml is actually used."
-  (qty/quantity 1/20000000 {:length 3}))
-(defunit drybarrel (qty/quantity 903336903/7812500000 {:length 3}))
-(defunit drygallon (qty/quantity 220244188543/50000000000000 {:length 3}))
-(defunit drypint (qty/quantity 220244188543/400000000000000 {:length 3}))
-(defunit dryquart (qty/quantity 220244188543/200000000000000 {:length 3}))
-(defunit dsp (qty/quantity 1/100000 {:length 3}))
-(defunit duodecillion (qty/quantity 1000000000000000000000000000000000000000N {}))
-(defunit duty (qty/quantity 3389544870828501/2500000000000000 {:length 2, :mass 1, :time -2}))
+  1/20000000 {:length 3})
+(defunit drybarrel 903336903/7812500000 {:length 3})
+(defunit drygallon 220244188543/50000000000000 {:length 3})
+(defunit drypint 220244188543/400000000000000 {:length 3})
+(defunit dryquart 220244188543/200000000000000 {:length 3})
+(defunit dsp 1/100000 {:length 3})
+(defunit duodecillion 1000000000000000000000000000000000000000N {})
+(defunit duty 3389544870828501/2500000000000000 {:length 2, :mass 1, :time -2})
 (defunit dwt
   "Frankish coin called the \"denier minted in the late 700's. There were 240 deniers to the pound."
-  (qty/quantity 19439673/12500000000 {:mass 1}))
-(defunit dyn (qty/quantity 1/100000 {:length 1, :mass 1, :time -2}))
+  19439673/12500000000 {:mass 1})
+(defunit dyn 1/100000 {:length 1, :mass 1, :time -2})
 (defunit dyne
   "force"
-  (qty/quantity 1/100000 {:length 1, :mass 1, :time -2}))
-(defunit dysprosium (qty/quantity 13/80 {:mass 1, :amount_of_substance -1}))
+  1/100000 {:length 1, :mass 1, :time -2})
+(defunit dysprosium 13/80 {:mass 1, :amount_of_substance -1})
 (defunit e
   "Base of natural logarithm 'e' was previously used to be the charge of the electron, but changed to this. Mathematicians and particle physicists may battle this out."
-  (qty/quantity 16989261427869032721/6250000000000000000 {}))
+  16989261427869032721/6250000000000000000 {})
 (defunit eV
   "Energy acquired by a particle with charge e"
-  (qty/quantity 801088317/5000000000000000000000000000 {:time -2, :mass 1, :length 2}))
-(defunit earlyromanfoot (qty/quantity 2973/10000 {:length 1}))
-(defunit earthday (qty/quantity 17781537531051/15625 {:time 3}))
-(defunit earthdist (qty/quantity 7479901148035639923/50000000 {:length 1}))
-(defunit earthmass (qty/quantity 5974200000000000000000000N {:mass 1}))
+  801088317/5000000000000000000000000000 {:time -2, :mass 1, :length 2})
+(defunit earlyromanfoot 2973/10000 {:length 1})
+(defunit earthday 17781537531051/15625 {:time 3})
+(defunit earthdist 7479901148035639923/50000000 {:length 1})
+(defunit earthmass 5974200000000000000000000N {:mass 1})
 (defunit earthradius
   "mean +/- 0.02 km"
-  (qty/quantity 6371010N {:length 1}))
-(defunit earthradius_polar (qty/quantity 31783761571/5000 {:length 1}))
-(defunit earthyear (qty/quantity 9861921731259/312500 {:time 1}))
-(defunit eggyolk (qty/quantity 93/5000 {:mass 1}))
-(defunit eggyolkvolume (qty/quantity 1104078437/64000000000000 {:length 3}))
-(defunit egyptianpalm (qty/quantity 262001/3500000 {:length 1}))
+  6371010N {:length 1})
+(defunit earthradius_polar 31783761571/5000 {:length 1})
+(defunit earthyear 9861921731259/312500 {:time 1})
+(defunit eggyolk 93/5000 {:mass 1})
+(defunit eggyolkvolume 1104078437/64000000000000 {:length 3})
+(defunit egyptianpalm 262001/3500000 {:length 1})
 (defunit egyptianroyalcubit
   "plus or minus .2 in"
-  (qty/quantity 262001/500000 {:length 1}))
-(defunit egyptianshortcubit (qty/quantity 786003/1750000 {:length 1}))
-(defunit eight (qty/quantity 8 {}))
-(defunit eighty (qty/quantity 80 {}))
+  262001/500000 {:length 1})
+(defunit egyptianshortcubit 786003/1750000 {:length 1})
+(defunit eight 8 {})
+(defunit eighty 80 {})
 (defunit einsteinium
   "Longest lived"
-  (qty/quantity 252083/1000000 {:mass 1, :amount_of_substance -1}))
-(defunit electricconstant (qty/quantity 22135469547/2500000000000000000000 {:current 2, :time 4, :mass -1, :length -3}))
-(defunit electrichorsepower (qty/quantity 746 {:mass 1, :length 2, :time -3}))
-(defunit electroncharge (qty/quantity -801088317/5000000000000000000000000000 {:current 1, :time 1}))
+  252083/1000000 {:mass 1, :amount_of_substance -1})
+(defunit electricconstant 22135469547/2500000000000000000000 {:current 2, :time 4, :mass -1, :length -3})
+(defunit electrichorsepower 746 {:mass 1, :length 2, :time -3})
+(defunit electroncharge -801088317/5000000000000000000000000000 {:current 1, :time 1})
 (defunit electronmass
   "+/- 28 in last 2 digits"
-  (qty/quantity 91093837139/100000000000000000000000000000000000000000 {:mass 1}))
+  91093837139/100000000000000000000000000000000000000000 {:mass 1})
 (defunit electronvolt
   "when it is accelerated through 1 V"
-  (qty/quantity 801088317/5000000000000000000000000000 {:time -2, :mass 1, :length 2}))
-(defunit electronwavelength (qty/quantity 18931629/7802641527014999332 {:length 1}))
+  801088317/5000000000000000000000000000 {:time -2, :mass 1, :length 2})
+(defunit electronwavelength 18931629/7802641527014999332 {:length 1})
 (defunit elementarycharge
   "Defined exactly by the SI rules that take effect on May 20, 2019 https://physics.nist.gov/cgi-bin/cuu/Value?e also called \"e but that's reserved for the base of the natural logarithm."
-  (qty/quantity 801088317/5000000000000000000000000000 {:current 1, :time 1}))
+  801088317/5000000000000000000000000000 {:current 1, :time 1})
 (defunit eman
   "radioactive concentration"
-  (qty/quantity 3700N {:time -1, :length -3}))
+  3700N {:time -1, :length -3})
 (defunit emerald
   "British"
-  (qty/quantity 22844887/10000000000 {:length 1}))
+  22844887/10000000000 {:length 1})
 (defunit energy
   "convert mass to energy"
-  (qty/quantity 89875517873681764 {:length 2, :time -2}))
-(defunit engineerschain (qty/quantity 762/25 {:length 1}))
-(defunit engineerslink (qty/quantity 381/1250 {:length 1}))
-(defunit english (qty/quantity 12301093/2500000000 {:length 1}))
+  89875517873681764 {:length 2, :time -2})
+(defunit engineerschain 762/25 {:length 1})
+(defunit engineerslink 381/1250 {:length 1})
+(defunit english 12301093/2500000000 {:length 1})
 (defunit englishcarat
   "Originally intended to be 4 grain but this value ended up being used in the London diamond market"
-  (qty/quantity 20495895233/100000000000000 {:mass 1}))
+  20495895233/100000000000000 {:mass 1})
 (defunit eotvos
   "Change in gravitational acceleration over horizontal distance"
-  (qty/quantity 1/1000000000 {:time -2}))
-(defunit ephah (qty/quantity 4625127959403/125000000000000 {:length 3}))
+  1/1000000000 {:time -2})
+(defunit ephah 4625127959403/125000000000000 {:length 3})
 (defunit epsilon0
   "permittivity of vacuum This is the 2022 CODATA value. Uncertainty is +/- 14 in the last 2 digits. https://physics.nist.gov/cgi-bin/cuu/Value?ep0"
-  (qty/quantity 22135469547/2500000000000000000000 {:current 2, :time 4, :mass -1, :length -3}))
-(defunit epyptiandigit (qty/quantity 262001/14000000 {:length 1}))
+  22135469547/2500000000000000000000 {:current 2, :time 4, :mass -1, :length -3})
+(defunit epyptiandigit 262001/14000000 {:length 1})
 (defunit equivalentlux
   "luminance of a 1 lux surface"
-  (qty/quantity 500000000000000000/1570796326794896619 {:luminous_intensity 1, :length -2}))
+  500000000000000000/1570796326794896619 {:luminous_intensity 1, :length -2})
 (defunit equivalentphot
   "luminance of a 1 phot surface"
-  (qty/quantity 5000000000000000000000/1570796326794896619 {:luminous_intensity 1, :length -2}))
-(defunit erbium (qty/quantity 8363/50000 {:mass 1, :amount_of_substance -1}))
+  5000000000000000000000/1570796326794896619 {:luminous_intensity 1, :length -2})
+(defunit erbium 8363/50000 {:mass 1, :amount_of_substance -1})
 (defunit erg
   "energy"
-  (qty/quantity 1/10000000 {:length 2, :mass 1, :time -2}))
-(defunit esu (qty/quantity 1/2997924580 {:current 1, :time 1}))
+  1/10000000 {:length 2, :mass 1, :time -2})
+(defunit esu 1/2997924580 {:current 1, :time 1})
 (defunit ethanol
   "Density of ethanol"
-  (qty/quantity 7893/10 {:mass 1, :length -3}))
-(defunit europamass (qty/quantity 48000000000000000000000N {:mass 1}))
-(defunit europeanUvalue (qty/quantity 1 {:mass 1, :time -3, :temperature -1}))
+  7893/10 {:mass 1, :length -3})
+(defunit europamass 48000000000000000000000N {:mass 1})
+(defunit europeanUvalue 1 {:mass 1, :time -3, :temperature -1})
 (defunit europeanpoint
   "for the point used in Europe"
-  (qty/quantity 75213/200000000 {:length 1}))
-(defunit europium (qty/quantity 30393/200000 {:mass 1, :amount_of_substance -1}))
+  75213/200000000 {:length 1})
+(defunit europium 30393/200000 {:mass 1, :amount_of_substance -1})
 (defunit eushot
   "EU standard spirits measure See http://bundesrecht.juris.de/eo_1988/anhang_c_119.html"
-  (qty/quantity 1/50000 {:length 3}))
-(defunit eusize10ring (qty/quantity 1/20 {:length 1}))
-(defunit eusize11ring (qty/quantity 51/1000 {:length 1}))
-(defunit eusize12ring (qty/quantity 13/250 {:length 1}))
-(defunit eusize13ring (qty/quantity 53/1000 {:length 1}))
-(defunit eusize14ring (qty/quantity 27/500 {:length 1}))
-(defunit eusize15ring (qty/quantity 11/200 {:length 1}))
-(defunit eusize16ring (qty/quantity 7/125 {:length 1}))
-(defunit eusize17ring (qty/quantity 57/1000 {:length 1}))
-(defunit eusize18ring (qty/quantity 29/500 {:length 1}))
-(defunit eusize19ring (qty/quantity 59/1000 {:length 1}))
-(defunit eusize1ring (qty/quantity 41/1000 {:length 1}))
-(defunit eusize20ring (qty/quantity 3/50 {:length 1}))
-(defunit eusize21ring (qty/quantity 61/1000 {:length 1}))
-(defunit eusize22ring (qty/quantity 31/500 {:length 1}))
-(defunit eusize23ring (qty/quantity 63/1000 {:length 1}))
-(defunit eusize24ring (qty/quantity 8/125 {:length 1}))
-(defunit eusize25ring (qty/quantity 13/200 {:length 1}))
-(defunit eusize26ring (qty/quantity 33/500 {:length 1}))
-(defunit eusize27ring (qty/quantity 67/1000 {:length 1}))
-(defunit eusize28ring (qty/quantity 17/250 {:length 1}))
-(defunit eusize29ring (qty/quantity 69/1000 {:length 1}))
-(defunit eusize2ring (qty/quantity 21/500 {:length 1}))
-(defunit eusize30ring (qty/quantity 7/100 {:length 1}))
-(defunit eusize3ring (qty/quantity 43/1000 {:length 1}))
-(defunit eusize4ring (qty/quantity 11/250 {:length 1}))
-(defunit eusize5ring (qty/quantity 9/200 {:length 1}))
-(defunit eusize6ring (qty/quantity 23/500 {:length 1}))
-(defunit eusize7ring (qty/quantity 47/1000 {:length 1}))
-(defunit eusize8ring (qty/quantity 6/125 {:length 1}))
-(defunit eusize9ring (qty/quantity 49/1000 {:length 1}))
-(defunit excelsior (qty/quantity 5271897/5000000000 {:length 1}))
-(defunit executivesize (qty/quantity 9822561/200000000 {:length 2}))
-(defunit fL (qty/quantity 781250000000000000000000/228018365593873988110659 {:luminous_intensity 1, :length -2}))
-(defunit facecord (qty/quantity 442450728/244140625 {:length 3}))
+  1/50000 {:length 3})
+(defunit eusize10ring 1/20 {:length 1})
+(defunit eusize11ring 51/1000 {:length 1})
+(defunit eusize12ring 13/250 {:length 1})
+(defunit eusize13ring 53/1000 {:length 1})
+(defunit eusize14ring 27/500 {:length 1})
+(defunit eusize15ring 11/200 {:length 1})
+(defunit eusize16ring 7/125 {:length 1})
+(defunit eusize17ring 57/1000 {:length 1})
+(defunit eusize18ring 29/500 {:length 1})
+(defunit eusize19ring 59/1000 {:length 1})
+(defunit eusize1ring 41/1000 {:length 1})
+(defunit eusize20ring 3/50 {:length 1})
+(defunit eusize21ring 61/1000 {:length 1})
+(defunit eusize22ring 31/500 {:length 1})
+(defunit eusize23ring 63/1000 {:length 1})
+(defunit eusize24ring 8/125 {:length 1})
+(defunit eusize25ring 13/200 {:length 1})
+(defunit eusize26ring 33/500 {:length 1})
+(defunit eusize27ring 67/1000 {:length 1})
+(defunit eusize28ring 17/250 {:length 1})
+(defunit eusize29ring 69/1000 {:length 1})
+(defunit eusize2ring 21/500 {:length 1})
+(defunit eusize30ring 7/100 {:length 1})
+(defunit eusize3ring 43/1000 {:length 1})
+(defunit eusize4ring 11/250 {:length 1})
+(defunit eusize5ring 9/200 {:length 1})
+(defunit eusize6ring 23/500 {:length 1})
+(defunit eusize7ring 47/1000 {:length 1})
+(defunit eusize8ring 6/125 {:length 1})
+(defunit eusize9ring 49/1000 {:length 1})
+(defunit excelsior 5271897/5000000000 {:length 1})
+(defunit executivesize 9822561/200000000 {:length 2})
+(defunit fL 781250000000000000000000/228018365593873988110659 {:luminous_intensity 1, :length -2})
+(defunit facecord 442450728/244140625 {:length 3})
 (defunit farad
   "capacitance"
-  (qty/quantity 1 {:current 2, :time 4, :mass -1, :length -2}))
+  1 {:current 2, :time 4, :mass -1, :length -2})
 (defunit faraday
   "Charge that must flow to deposit or"
-  (qty/quantity 120606665154137523/1250000000000 {:current 1, :time 1}))
+  120606665154137523/1250000000000 {:current 1, :time 1})
 (defunit faraday_chem
   "element. (The chemical and physical values are off slightly from what is obtained by multiplying by amu_chem or amu_phys. These values are from a 1991 NIST publication.) Note that there is a Faraday constant which is equal to N_A e and hence has units of C/mol."
-  (qty/quantity 964957/10 {:current 1, :time 1}))
+  964957/10 {:current 1, :time 1})
 (defunit faraday_phys
   "liberate one gram equivalent of any"
-  (qty/quantity 965219/10 {:current 1, :time 1}))
+  965219/10 {:current 1, :time 1})
 (defunit fathom
   "Originally defined as the distance from fingertip to fingertip with arms fully extended."
-  (qty/quantity 7200/3937 {:length 1}))
+  7200/3937 {:length 1})
 (defunit fbm
   "feet board measure"
-  (qty/quantity 18435447/7812500000 {:length 3}))
-(defunit feet (qty/quantity 381/1250 {:length 1}))
+  18435447/7812500000 {:length 3})
+(defunit feet 381/1250 {:length 1})
 (defunit fermi
   "Convenient for describing nuclear sizes Nuclear radius is from 1 to 10 fermis"
-  (qty/quantity 1/1000000000000000 {:length 1}))
+  1/1000000000000000 {:length 1})
 (defunit fermium
   "Longest lived"
-  (qty/quantity 2570951/10000000 {:mass 1, :amount_of_substance -1}))
-(defunit fifth (qty/quantity 473176473/625000000000 {:length 3}))
-(defunit fifty (qty/quantity 50 {}))
+  2570951/10000000 {:mass 1, :amount_of_substance -1})
+(defunit fifth 473176473/625000000000 {:length 3})
+(defunit fifty 50 {})
 (defunit fillpower
   "Density of down at standard pressure. The best down has 750-800 fillpower."
-  (qty/quantity 16387064/28349523125 {:length 3, :mass -1}))
-(defunit fin (qty/quantity 5 {:currency 1}))
+  16387064/28349523125 {:length 3, :mass -1})
+(defunit fin 5 {:currency 1})
 (defunit fine
   "Measure of gold purity"
-  (qty/quantity 1/1000 {}))
-(defunit finestructureconstant (qty/quantity 18764400340172295000000/2571398349572188507749959 {}))
-(defunit finger (qty/quantity 889/40000 {:length 1}))
+  1/1000 {})
+(defunit finestructureconstant 18764400340172295000000/2571398349572188507749959 {})
+(defunit finger 889/40000 {:length 1})
 (defunit fingerbreadth
   "The finger is defined as either the width"
-  (qty/quantity 889/40000 {:length 1}))
+  889/40000 {:length 1})
 (defunit fingerlength
   "or length of the finger"
-  (qty/quantity 1143/10000 {:length 1}))
+  1143/10000 {:length 1})
 (defunit finsenunit
   "Measures intensity of ultraviolet light with wavelength 296.7 nm."
-  (qty/quantity 100000N {:mass 1, :time -3}))
-(defunit firkin (qty/quantity 4258588257/125000000000 {:length 3}))
-(defunit firlot (qty/quantity 1363827/25000000 {:length 3}))
-(defunit five (qty/quantity 5 {}))
+  100000N {:mass 1, :time -3})
+(defunit firkin 4258588257/125000000000 {:length 3})
+(defunit firlot 1363827/25000000 {:length 3})
+(defunit five 5 {})
 (defunit flag
   "Construction term referring to sidewalk."
-  (qty/quantity 145161/312500 {:length 2}))
-(defunit fldr (qty/quantity 473176473/128000000000000 {:length 3}))
-(defunit flock (qty/quantity 40 {}))
+  145161/312500 {:length 2})
+(defunit fldr 473176473/128000000000000 {:length 3})
+(defunit flock 40 {})
 (defunit flour_spooned
   "the excess off the top. \"Spooned"
-  (qty/quantity 6258985625/12290298 {:mass 1, :length -3}))
-(defunit floz (qty/quantity 473176473/16000000000000 {:length 3}))
-(defunit fluiddram (qty/quantity 473176473/128000000000000 {:length 3}))
-(defunit fluidounce (qty/quantity 473176473/16000000000000 {:length 3}))
-(defunit fluidscruple (qty/quantity 454609/384000000000 {:length 3}))
-(defunit fluorine (qty/quantity 5937001/312500000 {:mass 1, :amount_of_substance -1}))
+  6258985625/12290298 {:mass 1, :length -3})
+(defunit floz 473176473/16000000000000 {:length 3})
+(defunit fluiddram 473176473/128000000000000 {:length 3})
+(defunit fluidounce 473176473/16000000000000 {:length 3})
+(defunit fluidscruple 454609/384000000000 {:length 3})
+(defunit fluorine 5937001/312500000 {:mass 1, :amount_of_substance -1})
 (defunit fluxunit
   "Used in radio astronomy to measure the energy incident on the receiving body across a specified frequency bandwidth. [12]"
-  (qty/quantity 1/100000000000000000000000000 {:mass 1, :time -2}))
-(defunit foot (qty/quantity 381/1250 {:length 1}))
-(defunit footballfield (qty/quantity 2286/25 {:length 1}))
+  1/100000000000000000000000000 {:mass 1, :time -2})
+(defunit foot 381/1250 {:length 1})
+(defunit footballfield 2286/25 {:length 1})
 (defunit footcandle
   "Illuminance from a 1 candela source at a distance of one foot"
-  (qty/quantity 1562500/145161 {:luminous_intensity 1, :length -2}))
-(defunit footlambert (qty/quantity 781250000000000000000000/228018365593873988110659 {:luminous_intensity 1, :length -2}))
+  1562500/145161 {:luminous_intensity 1, :length -2})
+(defunit footlambert 781250000000000000000000/228018365593873988110659 {:luminous_intensity 1, :length -2})
 (defunit force
   "use to turn masses into forces"
-  (qty/quantity 196133/20000 {:length 1, :time -2}))
-(defunit fortnight (qty/quantity 1209600 {:time 1}))
-(defunit forty (qty/quantity 40 {}))
-(defunit fothers (qty/quantity 952543977/1000000 {:mass 1}))
-(defunit fotmal (qty/quantity 317514659/10000000 {:mass 1}))
-(defunit four (qty/quantity 4 {}))
-(defunit fourier (qty/quantity 1 {:temperature 2, :mass -1, :length -2, :time 3}))
+  196133/20000 {:length 1, :time -2})
+(defunit fortnight 1209600 {:time 1})
+(defunit forty 40 {})
+(defunit fothers 952543977/1000000 {:mass 1})
+(defunit fotmal 317514659/10000000 {:mass 1})
+(defunit four 4 {})
+(defunit fourier 1 {:temperature 2, :mass -1, :length -2, :time 3})
 (defunit fournierpoint
   "First definition of the printers point made by Pierre Fournier who defined it in 1737 as 1/12 of a cicero which was 0.1648 inches."
-  (qty/quantity 13081/37500000 {:length 1}))
-(defunit fpm (qty/quantity 127/25000 {:length 1, :time -1}))
-(defunit fps (qty/quantity 381/1250 {:length 1, :time -1}))
+  13081/37500000 {:length 1})
+(defunit fpm 127/25000 {:length 1, :time -1})
+(defunit fps 381/1250 {:length 1, :time -1})
 (defunit francium
   "Longest lived"
-  (qty/quantity 2230197/10000000 {:mass 1, :amount_of_substance -1}))
-(defunit franklin (qty/quantity 1/2997924580 {:current 1, :time 1}))
+  2230197/10000000 {:mass 1, :amount_of_substance -1})
+(defunit franklin 1/2997924580 {:current 1, :time 1})
 (defunit freightton
   "Both register ton and shipping ton derive from the \"tun cask\" of wine."
-  (qty/quantity 55306341/48828125 {:length 3}))
+  55306341/48828125 {:length 3})
 (defunit frenchfeet
   "instituted by Charlemagne."
-  (qty/quantity 4500/13853 {:length 1}))
+  4500/13853 {:length 1})
 (defunit frenchfoot
   "pied de roi, the standard of Paris."
-  (qty/quantity 4500/13853 {:length 1}))
+  4500/13853 {:length 1})
 (defunit frenchinch
   "This exact definition comes from"
-  (qty/quantity 375/13853 {:length 1}))
+  375/13853 {:length 1})
 (defunit frenchline
   "This is supposed to be the size"
-  (qty/quantity 125/55412 {:length 1}))
-(defunit frenchpoint (qty/quantity 125/664944 {:length 1}))
-(defunit frenchprinterspoint (qty/quantity 125/332472 {:length 1}))
+  125/55412 {:length 1})
+(defunit frenchpoint 125/664944 {:length 1})
+(defunit frenchprinterspoint 125/332472 {:length 1})
 (defunit frenchthumb
   "a law passed on 10 Dec 1799 which"
-  (qty/quantity 375/13853 {:length 1}))
+  375/13853 {:length 1})
 (defunit fresnel
   "occasionally used in spectroscopy"
-  (qty/quantity 1000000000000N {:time -1}))
+  1000000000000N {:time -1})
 (defunit frigorie
   "Used in refrigeration engineering."
-  (qty/quantity 20929/5 {:mass 1, :length 2, :time -2}))
-(defunit ft (qty/quantity 381/1250 {:length 1}))
-(defunit funal (qty/quantity 1000 {:mass 1, :length 1, :time -2}))
+  20929/5 {:mass 1, :length 2, :time -2})
+(defunit ft 381/1250 {:length 1})
+(defunit funal 1000 {:mass 1, :length 1, :time -2})
 (defunit furlong
   "From \"furrow long"
-  (qty/quantity 792000/3937 {:length 1}))
-(defunit g (qty/quantity 1/1000 {:mass 1}))
-(defunit g_n (qty/quantity 196133/20000 {:length 1, :time -2}))
-(defunit gadolinium (qty/quantity 629/4000 {:mass 1, :amount_of_substance -1}))
-(defunit gal (qty/quantity 473176473/125000000000 {:length 3}))
+  792000/3937 {:length 1})
+(defunit g 1/1000 {:mass 1})
+(defunit g_n 196133/20000 {:length 1, :time -2})
+(defunit gadolinium 629/4000 {:mass 1, :amount_of_substance -1})
+(defunit gal 473176473/125000000000 {:length 3})
 (defunit galileo
   "for earth's gravitational field (note that \"gal\" is for gallon but \"Gal\" is the standard symbol for the gal which is evidently a shortened form of \"galileo\".)"
-  (qty/quantity 1/100 {:length 1, :time -2}))
-(defunit gallium (qty/quantity 69723/1000000 {:mass 1, :amount_of_substance -1}))
-(defunit gallon (qty/quantity 473176473/125000000000 {:length 3}))
+  1/100 {:length 1, :time -2})
+(defunit gallium 69723/1000000 {:mass 1, :amount_of_substance -1})
+(defunit gallon 473176473/125000000000 {:length 3})
 (defunit galvat
   "Named after Luigi Galvani"
-  (qty/quantity 1 {:current 1}))
-(defunit gamma (qty/quantity 1/1000000000 {:mass 1}))
-(defunit gammil (qty/quantity 1/1000 {:mass 1, :length -3}))
-(defunit ganymedemass (qty/quantity 148000000000000000000000N {:mass 1}))
-(defunit garamond (qty/quantity 75213/20000000 {:length 1}))
+  1 {:current 1})
+(defunit gamma 1/1000000000 {:mass 1})
+(defunit gammil 1/1000 {:mass 1, :length -3})
+(defunit ganymedemass 148000000000000000000000N {:mass 1})
+(defunit garamond 75213/20000000 {:length 1})
 (defunit gasconstant
   "molar gas constant, Now exactly defined in terms of Avogadro's constant and Boltzmann's constant. https://physics.nist.gov/cgi-bin/cuu/Value?r"
-  (qty/quantity 207861565453831/25000000000000 {:amount_of_substance -1, :mass 1, :length 2, :time -2, :temperature -1}))
+  207861565453831/25000000000000 {:amount_of_substance -1, :mass 1, :length 2, :time -2, :temperature -1})
 (defunit gasoline
   "So you can convert energy to gallons gasoline. This now matches the EPA definition for MPGe. This definition was changed in the Frink data from 1.4e8 J/gallon (which is about 38.88 kWh/gallon) on 2022-11-03. The previous definition may have been more accurate for very efficient combustion of gasoline, but this makes it match with EPA definitions."
-  (qty/quantity 5055000000000000000/157725491 {:mass 1, :length -1, :time -2}))
-(defunit gauss (qty/quantity 1/10000 {:mass 1, :time -2, :current -1}))
+  5055000000000000000/157725491 {:mass 1, :length -1, :time -2})
+(defunit gauss 1/10000 {:mass 1, :time -2, :current -1})
 (defunit gaussianyear
   "The orbital period of a body in circular orbit at a distance of 1 au from the sun. Calculated from Kepler's third law."
-  (qty/quantity 157796208/5 {:time 1}))
-(defunit gee (qty/quantity 196133/20000 {:length 1, :time -2}))
-(defunit geepound (qty/quantity 8896443230521/609600000000 {:mass 1}))
-(defunit geographicalmile (qty/quantity 231648/125 {:length 1}))
+  157796208/5 {:time 1})
+(defunit gee 196133/20000 {:length 1, :time -2})
+(defunit geepound 8896443230521/609600000000 {:mass 1})
+(defunit geographicalmile 231648/125 {:length 1})
 (defunit geometricpace
   "distance between points where the same foot hits the ground"
-  (qty/quantity 381/250 {:length 1}))
+  381/250 {:length 1})
 (defunit germandidotpoint
   "Exact definition appears in DIN 16507, a German standards document of 1954. Adopted more broadly in 1966 by ???"
-  (qty/quantity 75213/200000000 {:length 1}))
-(defunit germanium (qty/quantity 7261/100000 {:mass 1, :amount_of_substance -1}))
-(defunit gilbert (qty/quantity 100000000000/125663706127 {:current 1}))
-(defunit gill (qty/quantity 473176473/4000000000000 {:length 3}))
+  75213/200000000 {:length 1})
+(defunit germanium 7261/100000 {:mass 1, :amount_of_substance -1})
+(defunit gilbert 100000000000/125663706127 {:current 1})
+(defunit gill 473176473/4000000000000 {:length 3})
 (defunit glug
   "Mass which is accelerated at 1 cm/s^2 by 1 gram force"
-  (qty/quantity 196133/200000 {:mass 1}))
-(defunit gm (qty/quantity 1/1000 {:mass 1}))
-(defunit gold (qty/quantity 9848327/50000000 {:mass 1, :amount_of_substance -1}))
-(defunit gomer (qty/quantity 660732565629/250000000000000 {:length 3}))
+  196133/200000 {:mass 1})
+(defunit gm 1/1000 {:mass 1})
+(defunit gold 9848327/50000000 {:mass 1, :amount_of_substance -1})
+(defunit gomer 660732565629/250000000000000 {:length 3})
 (defunit gon
   "measure of grade"
-  (qty/quantity 1570796326794896619/100000000000000000000 {}))
-(defunit googol (qty/quantity 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit gph (qty/quantity 157725491/150000000000000 {:length 3, :time -1}))
-(defunit gpm (qty/quantity 157725491/2500000000000 {:length 3, :time -1}))
-(defunit gr (qty/quantity 6479891/100000000000 {:mass 1}))
-(defunit grade (qty/quantity 1570796326794896619/100000000000000000000 {}))
+  1570796326794896619/100000000000000000000 {})
+(defunit googol 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {})
+(defunit gph 157725491/150000000000000 {:length 3, :time -1})
+(defunit gpm 157725491/2500000000000 {:length 3, :time -1})
+(defunit gr 6479891/100000000000 {:mass 1})
+(defunit grade 1570796326794896619/100000000000000000000 {})
 (defunit grain
   "The grain is the same in all three weight systems. It was originally defined as the weight of a barley corn taken from the middle of the ear."
-  (qty/quantity 6479891/100000000000 {:mass 1}))
-(defunit gram (qty/quantity 1/1000 {:mass 1}))
-(defunit gramme (qty/quantity 1/1000 {:mass 1}))
-(defunit gravitationalconstant (qty/quantity 66743/1000000000000000 {:mass -1, :length 3, :time -2}))
+  6479891/100000000000 {:mass 1})
+(defunit gram 1/1000 {:mass 1})
+(defunit gramme 1/1000 {:mass 1})
+(defunit gravitationalconstant 66743/1000000000000000 {:mass -1, :length 3, :time -2})
 (defunit gravities
   "Irregular plural"
-  (qty/quantity 196133/20000 {:length 1, :time -2}))
+  196133/20000 {:length 1, :time -2})
 (defunit gravity
   "std acceleration of gravity (exact) see https://physics.nist.gov/cgi-bin/cuu/Value?gn"
-  (qty/quantity 196133/20000 {:length 1, :time -2}))
+  196133/20000 {:length 1, :time -2})
 (defunit gray
   "Absorbed dose of radiation"
-  (qty/quantity 1 {:length 2, :time -2}))
-(defunit greatgross (qty/quantity 1728 {}))
-(defunit greatprimer (qty/quantity 15815691/2500000000 {:length 1}))
+  1 {:length 2, :time -2})
+(defunit greatgross 1728 {})
+(defunit greatprimer 15815691/2500000000 {:length 1})
 (defunit greekcubit
   "said to be 3/5 of a 20.75 in cubit."
-  (qty/quantity 94869/200000 {:length 1}))
-(defunit greekfathom (qty/quantity 94869/50000 {:length 1}))
+  94869/200000 {:length 1})
+(defunit greekfathom 94869/50000 {:length 1})
 (defunit greekfeet
   "Egyptian Royal cubit in [11]. It is"
-  (qty/quantity 31623/100000 {:length 1}))
-(defunit greekfinger (qty/quantity 31623/1600000 {:length 1}))
+  31623/100000 {:length 1})
+(defunit greekfinger 31623/1600000 {:length 1})
 (defunit greekfoot
   "Listed as being derived from the"
-  (qty/quantity 31623/100000 {:length 1}))
+  31623/100000 {:length 1})
 (defunit greekkotyle
   "This approximate value is obtained"
-  (qty/quantity 27/100000 {:length 3}))
-(defunit gregorianyear (qty/quantity 31556952N {:time 1}))
-(defunit gross (qty/quantity 144 {}))
-(defunit grosse_kanon (qty/quantity 1579473/100000000 {:length 1}))
-(defunit grosse_sabon (qty/quantity 1579473/50000000 {:length 1}))
-(defunit gsm (qty/quantity 1/1000 {:mass 1, :length -2}))
-(defunit gunterschain (qty/quantity 79200/3937 {:length 1}))
+  27/100000 {:length 3})
+(defunit gregorianyear 31556952N {:time 1})
+(defunit gross 144 {})
+(defunit grosse_kanon 1579473/100000000 {:length 1})
+(defunit grosse_sabon 1579473/50000000 {:length 1})
+(defunit gsm 1/1000 {:mass 1, :length -2})
+(defunit gunterschain 79200/3937 {:length 1})
 (defunit h
   "Planck's constant, exactly defined by the SI rules that take effect on May 20, 2019. https://physics.nist.gov/cgi-bin/cuu/Value?h"
-  (qty/quantity 132521403/200000000000000000000000000000000000000000 {:mass 1, :length 2, :time -1}))
-(defunit ha (qty/quantity 10000 {:length 2}))
-(defunit hafnium (qty/quantity 17849/100000 {:mass 1, :amount_of_substance -1}))
+  132521403/200000000000000000000000000000000000000000 {:mass 1, :length 2, :time -1})
+(defunit ha 10000 {:length 2})
+(defunit hafnium 17849/100000 {:mass 1, :amount_of_substance -1})
 (defunit hand
   "width of hand"
-  (qty/quantity 127/1250 {:length 1}))
+  127/1250 {:length 1})
 (defunit hartley
   "log[10]/log[2] bits, or the entropy of a uniformly-distributed random variable over 10 symbols."
-  (qty/quantity 20762050593/6250000000 {:information 1}))
-(defunit hartree (qty/quantity 1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000 {:mass 1, :length 2, :time -2}))
+  20762050593/6250000000 {:information 1})
+(defunit hartree 1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000 {:mass 1, :length 2, :time -2})
 (defunit hashimicubit
   "Standard of linear measure used in Persian dominions of the Arabic empire 7-8th cent. Is equal to two French feet."
-  (qty/quantity 81153/125000 {:length 1}))
-(defunit hawserlaidcable (qty/quantity 936000/3937 {:length 1}))
-(defunit hbar (qty/quantity 44173801/418879020478639098400000000000000000000000 {:mass 1, :length 2, :time -1}))
-(defunit hebrewcubit (qty/quantity 111633/250000 {:length 1}))
-(defunit hectare (qty/quantity 10000 {:length 2}))
-(defunit heer (qty/quantity 13716/25 {:length 1}))
-(defunit hefnercandle (qty/quantity 459/500 {:luminous_intensity 1}))
+  81153/125000 {:length 1})
+(defunit hawserlaidcable 936000/3937 {:length 1})
+(defunit hbar 44173801/418879020478639098400000000000000000000000 {:mass 1, :length 2, :time -1})
+(defunit hebrewcubit 111633/250000 {:length 1})
+(defunit hectare 10000 {:length 2})
+(defunit heer 13716/25 {:length 1})
+(defunit hefnercandle 459/500 {:luminous_intensity 1})
 (defunit hefnerunit
   "in use before candela"
-  (qty/quantity 459/500 {:luminous_intensity 1}))
-(defunit hekteos (qty/quantity 27/3125 {:length 3}))
-(defunit helium (qty/quantity 2001301/500000000 {:mass 1, :amount_of_substance -1}))
+  459/500 {:luminous_intensity 1})
+(defunit hekteos 27/3125 {:length 3})
+(defunit helium 2001301/500000000 {:mass 1, :amount_of_substance -1})
 (defunit helmholtz
   "Dipole moment per area"
-  (qty/quantity 1/2997924580 {:current 1, :time 1, :length -1}))
-(defunit hemina (qty/quantity 362563791/1250000000000 {:length 3}))
-(defunit heminae (qty/quantity 362563791/1250000000000 {:length 3}))
+  1/2997924580 {:current 1, :time 1, :length -1})
+(defunit hemina 362563791/1250000000000 {:length 3})
+(defunit heminae 362563791/1250000000000 {:length 3})
 (defunit henries
   "Irregular plural"
-  (qty/quantity 1 {:mass 1, :length 2, :time -2, :current -2}))
+  1 {:mass 1, :length 2, :time -2, :current -2})
 (defunit henry
   "inductance"
-  (qty/quantity 1 {:mass 1, :length 2, :time -2, :current -2}))
-(defunit heredia (qty/quantity 3154176/625 {:length 2}))
+  1 {:mass 1, :length 2, :time -2, :current -2})
+(defunit heredia 3154176/625 {:length 2})
 (defunit heredium
   "heritable plot"
-  (qty/quantity 3154176/625 {:length 2}))
+  3154176/625 {:length 2})
 (defunit hertz
   "frequency"
-  (qty/quantity 1 {:time -1}))
-(defunit hin (qty/quantity 38327294313/6250000000000 {:length 3}))
-(defunit hogshead (qty/quantity 29810117799/125000000000 {:length 3}))
-(defunit holmium (qty/quantity 2061629/12500000 {:mass 1, :amount_of_substance -1}))
+  1 {:time -1})
+(defunit hin 38327294313/6250000000000 {:length 3})
+(defunit hogshead 29810117799/125000000000 {:length 3})
+(defunit holmium 2061629/12500000 {:mass 1, :amount_of_substance -1})
 (defunit homer
   "Alternate spelling, used in many translations"
-  (qty/quantity 4625127959403/12500000000000 {:length 3}))
+  4625127959403/12500000000000 {:length 3})
 (defunit homericcubit
   "Elbow to end of knuckles."
-  (qty/quantity 31623/80000 {:length 1}))
+  31623/80000 {:length 1})
 (defunit homestead
   "Area of land granted by the 1862 Homestead Act of the United States Congress"
-  (qty/quantity 10036224000000/15499969 {:length 2}))
-(defunit honey (qty/quantity 17304254375/12290298 {:mass 1, :length -3}))
+  10036224000000/15499969 {:length 2})
+(defunit honey 17304254375/12290298 {:mass 1, :length -3})
 (defunit horsepower
   "Invented by James Watt"
-  (qty/quantity 37284993579113511/50000000000000 {:length 2, :mass 1, :time -3}))
-(defunit hour (qty/quantity 3600 {:time 1}))
-(defunit hourly (qty/quantity 1/3600 {:time -1}))
+  37284993579113511/50000000000000 {:length 2, :mass 1, :time -3})
+(defunit hour 3600 {:time 1})
+(defunit hourly 1/3600 {:time -1})
 (defunit housecord
   "Used to sell firewood for residences, often confusingly called a \"cord"
-  (qty/quantity 294967152/244140625 {:length 3}))
-(defunit hp (qty/quantity 37284993579113511/50000000000000 {:length 2, :mass 1, :time -3}))
-(defunit hr (qty/quantity 3600 {:time 1}))
+  294967152/244140625 {:length 3})
+(defunit hp 37284993579113511/50000000000000 {:length 2, :mass 1, :time -3})
+(defunit hr 3600 {:time 1})
 (defunit hubbleconstant
   "WMAP data, +/- 0.9 km/s/megaparsec From Sky & Telescope, July 2015 p.30"
-  (qty/quantity 59166661642607772649/26927616726000000000000000000000000000 {:time -1}))
-(defunit hundred (qty/quantity 100 {}))
+  59166661642607772649/26927616726000000000000000000000000000 {:time -1})
+(defunit hundred 100 {})
 (defunit hundredweight
   "This is the USA hundredweight"
-  (qty/quantity 45359237/1000000 {:mass 1}))
-(defunit hydrogen (qty/quantity 50397/50000000 {:mass 1, :amount_of_substance -1}))
+  45359237/1000000 {:mass 1})
+(defunit hydrogen 50397/50000000 {:mass 1, :amount_of_substance -1})
 (defunit hyl
   "Also gram-force s^2/m according to [15]"
-  (qty/quantity 196133/20000 {:mass 1}))
-(defunit impedanceofvacuum (qty/quantity 18836515670601495083/50000000000000000 {:mass 1, :length 2, :time -3, :current -2}))
-(defunit imperialbarrel (qty/quantity 4091481/25000000 {:length 3}))
-(defunit imperialbushel (qty/quantity 454609/12500000 {:length 3}))
-(defunit imperialdram (qty/quantity 454609/128000000000 {:length 3}))
-(defunit imperialfloz (qty/quantity 454609/16000000000 {:length 3}))
-(defunit imperialfluidounce (qty/quantity 454609/16000000000 {:length 3}))
-(defunit imperialgallon (qty/quantity 454609/100000000 {:length 3}))
-(defunit imperialgill (qty/quantity 454609/3200000000 {:length 3}))
-(defunit imperialminim (qty/quantity 454609/7680000000000 {:length 3}))
-(defunit imperialpeck (qty/quantity 454609/50000000 {:length 3}))
-(defunit imperialpint (qty/quantity 454609/800000000 {:length 3}))
-(defunit imperialquart (qty/quantity 454609/400000000 {:length 3}))
-(defunit imperialscruple (qty/quantity 454609/384000000000 {:length 3}))
-(defunit in (qty/quantity 127/5000 {:length 1}))
-(defunit inH2O (qty/quantity 24908891/100000 {:length -1, :time -2, :mass 1}))
+  196133/20000 {:mass 1})
+(defunit impedanceofvacuum 18836515670601495083/50000000000000000 {:mass 1, :length 2, :time -3, :current -2})
+(defunit imperialbarrel 4091481/25000000 {:length 3})
+(defunit imperialbushel 454609/12500000 {:length 3})
+(defunit imperialdram 454609/128000000000 {:length 3})
+(defunit imperialfloz 454609/16000000000 {:length 3})
+(defunit imperialfluidounce 454609/16000000000 {:length 3})
+(defunit imperialgallon 454609/100000000 {:length 3})
+(defunit imperialgill 454609/3200000000 {:length 3})
+(defunit imperialminim 454609/7680000000000 {:length 3})
+(defunit imperialpeck 454609/50000000 {:length 3})
+(defunit imperialpint 454609/800000000 {:length 3})
+(defunit imperialquart 454609/400000000 {:length 3})
+(defunit imperialscruple 454609/384000000000 {:length 3})
+(defunit in 127/5000 {:length 1})
+(defunit inH2O 24908891/100000 {:length -1, :time -2, :mass 1})
 (defunit inHg
   "Inches of mercury"
-  (qty/quantity 3386388640341/1000000000 {:length -1, :time -2, :mass 1}))
+  3386388640341/1000000000 {:length -1, :time -2, :mass 1})
 (defunit inch
   "Exactly 2.54 cm"
-  (qty/quantity 127/5000 {:length 1}))
+  127/5000 {:length 1})
 (defunit inches
   "Wacky plural"
-  (qty/quantity 127/5000 {:length 1}))
+  127/5000 {:length 1})
 (defunit inchesmercury
   "Irregular plural"
-  (qty/quantity 3386388640341/1000000000 {:length -1, :time -2, :mass 1}))
-(defunit inchmercury (qty/quantity 3386388640341/1000000000 {:length -1, :time -2, :mass 1}))
-(defunit indium (qty/quantity 57409/500000 {:mass 1, :amount_of_substance -1}))
+  3386388640341/1000000000 {:length -1, :time -2, :mass 1})
+(defunit inchmercury 3386388640341/1000000000 {:length -1, :time -2, :mass 1})
+(defunit indium 57409/500000 {:mass 1, :amount_of_substance -1})
 (defunit intacre
   "Acre based on international ft"
-  (qty/quantity 316160658/78125 {:length 2}))
+  316160658/78125 {:length 2})
 (defunit intamp
   "second deposits .001118 gram of silver from an aqueous solution of silver nitrate."
-  (qty/quantity 199967/200000 {:current 1}))
+  199967/200000 {:current 1})
 (defunit intampere
   "Defined as the current which in one"
-  (qty/quantity 199967/200000 {:current 1}))
-(defunit intfarad (qty/quantity 199901/200000 {:current 2, :time 4, :mass -1, :length -2}))
+  199967/200000 {:current 1})
+(defunit intfarad 199901/200000 {:current 2, :time 4, :mass -1, :length -2})
 (defunit intohm
   "Defined as the resistance of a uniform column of mercury containing 14.4521 gram in a column 1.063 m long and maintained at 0 degC."
-  (qty/quantity 200099/200000 {:mass 1, :length 2, :time -3, :current -2}))
-(defunit intvolt (qty/quantity 100033/100000 {:mass 1, :length 2, :time -3, :current -1}))
+  200099/200000 {:mass 1, :length 2, :time -3, :current -2})
+(defunit intvolt 100033/100000 {:mass 1, :length 2, :time -3, :current -1})
 (defunit invcm
   "spectroscopy."
-  (qty/quantity 19864458571489287/1000000000000000000000000000000000000000 {:mass 1, :length 2, :time -2}))
-(defunit iodine (qty/quantity 12690447/100000000 {:mass 1, :amount_of_substance -1}))
-(defunit iomass (qty/quantity 89300000000000000000000N {:mass 1}))
-(defunit ionicfoot (qty/quantity 37/125 {:length 1}))
-(defunit iridium (qty/quantity 192217/1000000 {:mass 1, :amount_of_substance -1}))
-(defunit iron (qty/quantity 11169/200000 {:mass 1, :amount_of_substance -1}))
+  19864458571489287/1000000000000000000000000000000000000000 {:mass 1, :length 2, :time -2})
+(defunit iodine 12690447/100000000 {:mass 1, :amount_of_substance -1})
+(defunit iomass 89300000000000000000000N {:mass 1})
+(defunit ionicfoot 37/125 {:length 1})
+(defunit iridium 192217/1000000 {:mass 1, :amount_of_substance -1})
+(defunit iron 11169/200000 {:mass 1, :amount_of_substance -1})
 (defunit islamicleapyear
   "began counting on July 16, AD 622 when Muhammad emigrated to Medina (the year of the Hegira). They need 11 leap days in 30 years to stay in sync with the lunar year which is a bit longer than the 29.5 days of the average month."
-  (qty/quantity 30672000 {:time 1}))
+  30672000 {:time 1})
 (defunit islamicmonth
   "They have 29 day and 30 day months."
-  (qty/quantity 2548800N {:time 1}))
+  2548800N {:time 1})
 (defunit islamicyear
   "A year of 12 lunar months. They"
-  (qty/quantity 30585600 {:time 1}))
+  30585600 {:time 1})
 (defunit iudiptheria
   "IU is for international unit"
-  (qty/quantity 157/2500000000 {:mass 1}))
-(defunit iugera (qty/quantity 1577088/625 {:length 2}))
-(defunit iugerum (qty/quantity 1577088/625 {:length 2}))
-(defunit iuinsulin (qty/quantity 4167/100000000000 {:mass 1}))
-(defunit iupenicillin (qty/quantity 3/5000000000 {:mass 1}))
+  157/2500000000 {:mass 1})
+(defunit iugera 1577088/625 {:length 2})
+(defunit iugerum 1577088/625 {:length 2})
+(defunit iuinsulin 4167/100000000000 {:mass 1})
+(defunit iupenicillin 3/5000000000 {:mass 1})
 (defunit jansky
   "K. G. Jansky identified radio waves coming"
-  (qty/quantity 1/100000000000000000000000000 {:mass 1, :time -2}))
-(defunit japancup (qty/quantity 1/5000 {:length 3}))
+  1/100000000000000000000000000 {:mass 1, :time -2})
+(defunit japancup 1/5000 {:length 3})
 (defunit jar
   "approx capacitance of Leyden jar"
-  (qty/quantity 25000000/22468879468420441 {:current 2, :time 4, :length -2, :mass -1}))
-(defunit jerk (qty/quantity 381/1250 {:length 1, :time -3}))
-(defunit jeroboam (qty/quantity 3/1000 {:length 3}))
-(defunit jewelerspoint (qty/quantity 1/500000 {:mass 1}))
+  25000000/22468879468420441 {:current 2, :time 4, :length -2, :mass -1})
+(defunit jerk 381/1250 {:length 1, :time -3})
+(defunit jeroboam 3/1000 {:length 3})
+(defunit jewelerspoint 1/500000 {:mass 1})
 (defunit jiffies
   "(http://www.jargon.org) as being the duration of a clock tick for measuring wall-clock time. Supposedly the value used to be 1/60 sec or 1/50 sec depending on the frequency of AC power, but then 1/100 sec became more common. On linux systems, this term is used and for the Intel based chips, it does have the value of .01 sec. The Jargon File also lists two other definitions: millisecond, and the time taken for light to travel one foot."
-  (qty/quantity 1/100 {:time 1}))
+  1/100 {:time 1})
 (defunit jiffy
   "This is defined in the Jargon File"
-  (qty/quantity 1/100 {:time 1}))
+  1/100 {:time 1})
 (defunit jigger
   "Can vary between 1 and 2 floz"
-  (qty/quantity 1419529419/32000000000000 {:length 3}))
+  1419529419/32000000000000 {:length 3})
 (defunit jo
   "The area of a standard tatami mat."
-  (qty/quantity 81306289/50000000 {:length 2}))
+  81306289/50000000 {:length 2})
 (defunit joule
   "energy"
-  (qty/quantity 1 {:mass 1, :length 2, :time -2}))
-(defunit jpsize10ring (qty/quantity 1570796326794896619/31250000000000000000 {:length 1}))
-(defunit jpsize11ring (qty/quantity 25656340004316644777/500000000000000000000 {:length 1}))
-(defunit jpsize12ring (qty/quantity 523598775598298873/10000000000000000000 {:length 1}))
-(defunit jpsize13ring (qty/quantity 26703537555513242523/500000000000000000000 {:length 1}))
-(defunit jpsize14ring (qty/quantity 6806784082777885349/125000000000000000000 {:length 1}))
-(defunit jpsize15ring (qty/quantity 27750735106709840269/500000000000000000000 {:length 1}))
-(defunit jpsize16ring (qty/quantity 14137166941154069571/250000000000000000000 {:length 1}))
-(defunit jpsize17ring (qty/quantity 5759586531581287603/100000000000000000000 {:length 1}))
-(defunit jpsize18ring (qty/quantity 3665191429188092111/62500000000000000000 {:length 1}))
-(defunit jpsize19ring (qty/quantity 29845130209103035761/500000000000000000000 {:length 1}))
-(defunit jpsize1ring (qty/quantity 20420352248333656047/500000000000000000000 {:length 1}))
-(defunit jpsize20ring (qty/quantity 15184364492350667317/250000000000000000000 {:length 1}))
-(defunit jpsize21ring (qty/quantity 30892327760299633507/500000000000000000000 {:length 1}))
-(defunit jpsize22ring (qty/quantity 1570796326794896619/25000000000000000000 {:length 1}))
-(defunit jpsize23ring (qty/quantity 31939525311496231253/500000000000000000000 {:length 1}))
-(defunit jpsize24ring (qty/quantity 16231562043547265063/250000000000000000000 {:length 1}))
-(defunit jpsize25ring (qty/quantity 32986722862692828999/500000000000000000000 {:length 1}))
-(defunit jpsize26ring (qty/quantity 523598775598298873/7812500000000000000 {:length 1}))
-(defunit jpsize27ring (qty/quantity 6806784082777885349/100000000000000000000 {:length 1}))
-(defunit jpsize28ring (qty/quantity 17278759594743862809/250000000000000000000 {:length 1}))
-(defunit jpsize29ring (qty/quantity 35081117965086024491/500000000000000000000 {:length 1}))
-(defunit jpsize2ring (qty/quantity 523598775598298873/12500000000000000000 {:length 1}))
-(defunit jpsize30ring (qty/quantity 8901179185171080841/125000000000000000000 {:length 1}))
-(defunit jpsize3ring (qty/quantity 21467549799530253793/500000000000000000000 {:length 1}))
-(defunit jpsize4ring (qty/quantity 10995574287564276333/250000000000000000000 {:length 1}))
-(defunit jpsize5ring (qty/quantity 22514747350726851539/500000000000000000000 {:length 1}))
-(defunit jpsize6ring (qty/quantity 5759586531581287603/125000000000000000000 {:length 1}))
-(defunit jpsize7ring (qty/quantity 4712388980384689857/100000000000000000000 {:length 1}))
-(defunit jpsize8ring (qty/quantity 12042771838760874079/250000000000000000000 {:length 1}))
-(defunit jpsize9ring (qty/quantity 24609142453120047031/500000000000000000000 {:length 1}))
-(defunit jugera (qty/quantity 1577088/625 {:length 2}))
-(defunit jugerum (qty/quantity 1577088/625 {:length 2}))
-(defunit juliancenturies (qty/quantity 3155760000 {:time 1}))
-(defunit juliancentury (qty/quantity 3155760000 {:time 1}))
-(defunit julianyear (qty/quantity 31557600N {:time 1}))
-(defunit jupiterday (qty/quantity 4466232/125 {:time 1}))
-(defunit jupiterdist (qty/quantity 778570000000N {:length 1}))
-(defunit jupitermass (qty/quantity 1898190000000000000000000000N {:mass 1}))
-(defunit jupiteryear (qty/quantity 58488789986192997/156250000 {:time 1}))
-(defunit k (qty/quantity 1380649/100000000000000000000000000000 {:mass 1, :length 2, :time -2, :temperature -1}))
-(defunit k_e (qty/quantity 312500000000000000000000000000000000000/34770314256307894224887761593 {:current -2, :time -4, :mass 1, :length 3}))
-(defunit kanon (qty/quantity 676917/50000000 {:length 1}))
+  1 {:mass 1, :length 2, :time -2})
+(defunit jpsize10ring 1570796326794896619/31250000000000000000 {:length 1})
+(defunit jpsize11ring 25656340004316644777/500000000000000000000 {:length 1})
+(defunit jpsize12ring 523598775598298873/10000000000000000000 {:length 1})
+(defunit jpsize13ring 26703537555513242523/500000000000000000000 {:length 1})
+(defunit jpsize14ring 6806784082777885349/125000000000000000000 {:length 1})
+(defunit jpsize15ring 27750735106709840269/500000000000000000000 {:length 1})
+(defunit jpsize16ring 14137166941154069571/250000000000000000000 {:length 1})
+(defunit jpsize17ring 5759586531581287603/100000000000000000000 {:length 1})
+(defunit jpsize18ring 3665191429188092111/62500000000000000000 {:length 1})
+(defunit jpsize19ring 29845130209103035761/500000000000000000000 {:length 1})
+(defunit jpsize1ring 20420352248333656047/500000000000000000000 {:length 1})
+(defunit jpsize20ring 15184364492350667317/250000000000000000000 {:length 1})
+(defunit jpsize21ring 30892327760299633507/500000000000000000000 {:length 1})
+(defunit jpsize22ring 1570796326794896619/25000000000000000000 {:length 1})
+(defunit jpsize23ring 31939525311496231253/500000000000000000000 {:length 1})
+(defunit jpsize24ring 16231562043547265063/250000000000000000000 {:length 1})
+(defunit jpsize25ring 32986722862692828999/500000000000000000000 {:length 1})
+(defunit jpsize26ring 523598775598298873/7812500000000000000 {:length 1})
+(defunit jpsize27ring 6806784082777885349/100000000000000000000 {:length 1})
+(defunit jpsize28ring 17278759594743862809/250000000000000000000 {:length 1})
+(defunit jpsize29ring 35081117965086024491/500000000000000000000 {:length 1})
+(defunit jpsize2ring 523598775598298873/12500000000000000000 {:length 1})
+(defunit jpsize30ring 8901179185171080841/125000000000000000000 {:length 1})
+(defunit jpsize3ring 21467549799530253793/500000000000000000000 {:length 1})
+(defunit jpsize4ring 10995574287564276333/250000000000000000000 {:length 1})
+(defunit jpsize5ring 22514747350726851539/500000000000000000000 {:length 1})
+(defunit jpsize6ring 5759586531581287603/125000000000000000000 {:length 1})
+(defunit jpsize7ring 4712388980384689857/100000000000000000000 {:length 1})
+(defunit jpsize8ring 12042771838760874079/250000000000000000000 {:length 1})
+(defunit jpsize9ring 24609142453120047031/500000000000000000000 {:length 1})
+(defunit jugera 1577088/625 {:length 2})
+(defunit jugerum 1577088/625 {:length 2})
+(defunit juliancenturies 3155760000 {:time 1})
+(defunit juliancentury 3155760000 {:time 1})
+(defunit julianyear 31557600N {:time 1})
+(defunit jupiterday 4466232/125 {:time 1})
+(defunit jupiterdist 778570000000N {:length 1})
+(defunit jupitermass 1898190000000000000000000000N {:mass 1})
+(defunit jupiteryear 58488789986192997/156250000 {:time 1})
+(defunit k 1380649/100000000000000000000000000000 {:mass 1, :length 2, :time -2, :temperature -1})
+(defunit k_e 312500000000000000000000000000000000000/34770314256307894224887761593 {:current -2, :time -4, :mass 1, :length 3})
+(defunit kanon 676917/50000000 {:length 1})
 (defunit kappline
   "Named by and for Gisbert Kapp"
-  (qty/quantity 3/50000 {:length 2, :mass 1, :time -2, :current -1}))
+  3/50000 {:length 2, :mass 1, :time -2, :current -1})
 (defunit karat
   "measure of gold purity"
-  (qty/quantity 1/24 {}))
+  1/24 {})
 (defunit kat
   "SI symbol for katal"
-  (qty/quantity 1 {:amount_of_substance 1, :time -1}))
-(defunit katal (qty/quantity 1 {:amount_of_substance 1, :time -1}))
+  1 {:amount_of_substance 1, :time -1})
+(defunit katal 1 {:amount_of_substance 1, :time -1})
 (defunit kayser
   "Proposed as a unit for wavenumber"
-  (qty/quantity 100N {:length -1}))
+  100N {:length -1})
 (defunit keg
   "The standard \"keg\" is a half barrel"
-  (qty/quantity 14668470663/250000000000 {:length 3}))
+  14668470663/250000000000 {:length 3})
 (defunit kelvin
   "The kelvin was redefined in 2019 as: The kelvin, symbol K, is the SI unit of thermodynamic temperature. It is defined by taking the fixed numerical value of the Boltzmann constant k to be 1.380649e−23 when expressed in the unit J K^−1, which is equal to kg m^2 s^−2 K^−1, where the kilogram, metre and second are defined in terms of h, c and Δν_Cs.\" (The defined frequency of the cesium-133 atom.)"
-  (qty/quantity 1 {:temperature 1}))
+  1 {:temperature 1})
 (defunit kerosene
   "Energy in liquid kerosene"
-  (qty/quantity 17750000000000000000/473176473 {:mass 1, :length -1, :time -2}))
+  17750000000000000000/473176473 {:mass 1, :length -1, :time -2})
 (defunit key
   "usually of marijuana, 60's"
-  (qty/quantity 1 {:mass 1}))
+  1 {:mass 1})
 (defunit kg
   "The standard unit of mass. The 2019 SI definition of the kilogram is: The kilogram, symbol kg, is the SI unit of mass. It is defined by taking the fixed numerical value of the Planck constant h to be 6.62607015e−34 when expressed in the unit J s, which is equal to kg m^2 s^−1, where the metre and the second are defined in terms of c and Δν_Cs. (The defined frequency of the cesium-133 atom.)"
-  (qty/quantity 1 {:mass 1}))
-(defunit kgf (qty/quantity 196133/20000 {:mass 1, :length 1, :time -2}))
+  1 {:mass 1})
+(defunit kgf 196133/20000 {:mass 1, :length 1, :time -2})
 (defunit khous
   "were reconstructed from fragments."
-  (qty/quantity 81/25000 {:length 3}))
-(defunit kilogram (qty/quantity 1 {:mass 1}))
-(defunit kilohm (qty/quantity 1000 {:mass 1, :length 2, :time -3, :current -2}))
+  81/25000 {:length 3})
+(defunit kilogram 1 {:mass 1})
+(defunit kilohm 1000 {:mass 1, :length 2, :time -3, :current -2})
 (defunit kine
   "velocity"
-  (qty/quantity 1/100 {:length 1, :time -1}))
+  1/100 {:length 1, :time -1})
 (defunit kip
   "from kilopound"
-  (qty/quantity 8896443230521/2000000000 {:mass 1, :length 1, :time -2}))
-(defunit kleine_kanon (qty/quantity 75213/6250000 {:length 1}))
-(defunit kleine_sabon (qty/quantity 676917/25000000 {:length 1}))
-(defunit knot (qty/quantity 463/900 {:length 1, :time -1}))
-(defunit kolonel (qty/quantity 526491/200000000 {:length 1}))
-(defunit kor (qty/quantity 18453882447/50000000000 {:length 3}))
-(defunit korpus (qty/quantity 75213/20000000 {:length 1}))
+  8896443230521/2000000000 {:mass 1, :length 1, :time -2})
+(defunit kleine_kanon 75213/6250000 {:length 1})
+(defunit kleine_sabon 676917/25000000 {:length 1})
+(defunit knot 463/900 {:length 1, :time -1})
+(defunit kolonel 526491/200000000 {:length 1})
+(defunit kor 18453882447/50000000000 {:length 3})
+(defunit korpus 75213/20000000 {:length 1})
 (defunit koshersalt
   "Diamond Crystal salt, from package Note that Morton kosher salt is much denser."
-  (qty/quantity 12800000000/22532213 {:mass 1, :length -3}))
-(defunit kph (qty/quantity 5/18 {:length 1, :time -1}))
-(defunit krypton (qty/quantity 419/5000 {:mass 1, :amount_of_substance -1}))
-(defunit kus (qty/quantity 99/200 {:length 1}))
+  12800000000/22532213 {:mass 1, :length -3})
+(defunit kph 5/18 {:length 1, :time -1})
+(defunit krypton 419/5000 {:mass 1, :amount_of_substance -1})
+(defunit kus 99/200 {:length 1})
 (defunit kvalue
   "k-value, insulation conductance/in thick"
-  (qty/quantity 52752792631/365760000000 {:mass 1, :length 1, :time -3, :temperature -1}))
+  52752792631/365760000000 {:mass 1, :length 1, :time -3, :temperature -1})
 (defunit l
   "the temperature of its maximum density under a pressure of 1 atm. This was supposed to be 1000 cubic cm, but it was discovered that the original measurement was off. In 1964, the liter was redefined to be exactly 1000 cubic centimeters."
-  (qty/quantity 1/1000 {:length 3}))
-(defunit lac (qty/quantity 100000 {}))
-(defunit lakh (qty/quantity 100000 {}))
-(defunit lambda (qty/quantity 1/1000000000 {:length 3}))
-(defunit lambda_C (qty/quantity 18931629/7802641527014999332 {:length 1}))
-(defunit lambda_C_n (qty/quantity 18931629/14346589496133679328000 {:length 1}))
-(defunit lambda_C_p (qty/quantity 18931629/14326841099578413860000 {:length 1}))
-(defunit lambert (qty/quantity 5000000000000000000000/1570796326794896619 {:luminous_intensity 1, :length -2}))
-(defunit landarea (qty/quantity 148847000000000N {:length 2}))
-(defunit langley (qty/quantity 41840N {:mass 1, :time -2}))
-(defunit lanthanum (qty/quantity 277811/2000000 {:mass 1, :amount_of_substance -1}))
-(defunit last (qty/quantity 454609/312500 {:length 3}))
-(defunit lateromanfoot (qty/quantity 1471/5000 {:length 1}))
+  1/1000 {:length 3})
+(defunit lac 100000 {})
+(defunit lakh 100000 {})
+(defunit lambda 1/1000000000 {:length 3})
+(defunit lambda_C 18931629/7802641527014999332 {:length 1})
+(defunit lambda_C_n 18931629/14346589496133679328000 {:length 1})
+(defunit lambda_C_p 18931629/14326841099578413860000 {:length 1})
+(defunit lambert 5000000000000000000000/1570796326794896619 {:luminous_intensity 1, :length -2})
+(defunit landarea 148847000000000N {:length 2})
+(defunit langley 41840N {:mass 1, :time -2})
+(defunit lanthanum 277811/2000000 {:mass 1, :amount_of_substance -1})
+(defunit last 454609/312500 {:length 3})
+(defunit lateromanfoot 1471/5000 {:length 1})
 (defunit lawrencium
   "Longest lived"
-  (qty/quantity 26211/100000 {:mass 1, :amount_of_substance -1}))
+  26211/100000 {:mass 1, :amount_of_substance -1})
 (defunit lb
   "From the latin libra"
-  (qty/quantity 45359237/100000000 {:mass 1}))
-(defunit lbbag (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
+  45359237/100000000 {:mass 1})
+(defunit lbbag 45359237/27870912000 {:mass 1, :length -2})
 (defunit lbbible
   "strong and opaque."
-  (qty/quantity 45359237/30645100000 {:mass 1, :length -2}))
-(defunit lbblanks (qty/quantity 589081/258064000 {:mass 1, :length -2}))
-(defunit lbblotting (qty/quantity 45359237/14709648000 {:mass 1, :length -2}))
+  45359237/30645100000 {:mass 1, :length -2})
+(defunit lbblanks 589081/258064000 {:mass 1, :length -2})
+(defunit lbblotting 45359237/14709648000 {:mass 1, :length -2})
 (defunit lbbond
   "durable for repeated"
-  (qty/quantity 4123567/1096772000 {:mass 1, :length -2}))
-(defunit lbbook (qty/quantity 45359237/30645100000 {:mass 1, :length -2}))
-(defunit lbboxboard (qty/quantity 45359237/9290304000 {:mass 1, :length -2}))
-(defunit lbbristol (qty/quantity 45359237/20685442500 {:mass 1, :length -2}))
-(defunit lbcopy (qty/quantity 4123567/1096772000 {:mass 1, :length -2}))
-(defunit lbcover (qty/quantity 45359237/16774160000 {:mass 1, :length -2}))
-(defunit lbf (qty/quantity 8896443230521/2000000000000 {:mass 1, :length 1, :time -2}))
-(defunit lbglassine (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
-(defunit lbindex (qty/quantity 45359237/25088659500 {:mass 1, :length -2}))
-(defunit lbindexbristol (qty/quantity 45359237/25088659500 {:mass 1, :length -2}))
-(defunit lbledger (qty/quantity 4123567/1096772000 {:mass 1, :length -2}))
-(defunit lbm (qty/quantity 45359237/100000000 {:mass 1}))
-(defunit lbnewsprint (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
-(defunit lboffset (qty/quantity 45359237/30645100000 {:mass 1, :length -2}))
-(defunit lbpaperboard (qty/quantity 45359237/9290304000 {:mass 1, :length -2}))
-(defunit lbpostcard (qty/quantity 45359237/20685442500 {:mass 1, :length -2}))
-(defunit lbposter (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
-(defunit lbtag (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
-(defunit lbtext (qty/quantity 45359237/30645100000 {:mass 1, :length -2}))
-(defunit lbtissue (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
-(defunit lbwaxing (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
-(defunit lbweddingbristol (qty/quantity 45359237/20685442500 {:mass 1, :length -2}))
-(defunit lbwrapping (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
+  4123567/1096772000 {:mass 1, :length -2})
+(defunit lbbook 45359237/30645100000 {:mass 1, :length -2})
+(defunit lbboxboard 45359237/9290304000 {:mass 1, :length -2})
+(defunit lbbristol 45359237/20685442500 {:mass 1, :length -2})
+(defunit lbcopy 4123567/1096772000 {:mass 1, :length -2})
+(defunit lbcover 45359237/16774160000 {:mass 1, :length -2})
+(defunit lbf 8896443230521/2000000000000 {:mass 1, :length 1, :time -2})
+(defunit lbglassine 45359237/27870912000 {:mass 1, :length -2})
+(defunit lbindex 45359237/25088659500 {:mass 1, :length -2})
+(defunit lbindexbristol 45359237/25088659500 {:mass 1, :length -2})
+(defunit lbledger 4123567/1096772000 {:mass 1, :length -2})
+(defunit lbm 45359237/100000000 {:mass 1})
+(defunit lbnewsprint 45359237/27870912000 {:mass 1, :length -2})
+(defunit lboffset 45359237/30645100000 {:mass 1, :length -2})
+(defunit lbpaperboard 45359237/9290304000 {:mass 1, :length -2})
+(defunit lbpostcard 45359237/20685442500 {:mass 1, :length -2})
+(defunit lbposter 45359237/27870912000 {:mass 1, :length -2})
+(defunit lbtag 45359237/27870912000 {:mass 1, :length -2})
+(defunit lbtext 45359237/30645100000 {:mass 1, :length -2})
+(defunit lbtissue 45359237/27870912000 {:mass 1, :length -2})
+(defunit lbwaxing 45359237/27870912000 {:mass 1, :length -2})
+(defunit lbweddingbristol 45359237/20685442500 {:mass 1, :length -2})
+(defunit lbwrapping 45359237/27870912000 {:mass 1, :length -2})
 (defunit lbwriting
   "ink penetration."
-  (qty/quantity 4123567/1096772000 {:mass 1, :length -2}))
-(defunit lea (qty/quantity 6858/25 {:length 1}))
-(defunit lead (qty/quantity 259/1250 {:mass 1, :amount_of_substance -1}))
-(defunit leadstone (qty/quantity 45359237/8000000 {:mass 1}))
-(defunit leadwey (qty/quantity 317514659/4000000 {:mass 1}))
-(defunit leapyear (qty/quantity 31622400 {:time 1}))
-(defunit ledgersize (qty/quantity 3016123/25000000 {:length 2}))
-(defunit legalsize (qty/quantity 1919351/25000000 {:length 2}))
+  4123567/1096772000 {:mass 1, :length -2})
+(defunit lea 6858/25 {:length 1})
+(defunit lead 259/1250 {:mass 1, :amount_of_substance -1})
+(defunit leadstone 45359237/8000000 {:mass 1})
+(defunit leadwey 317514659/4000000 {:mass 1})
+(defunit leapyear 31622400 {:time 1})
+(defunit ledgersize 3016123/25000000 {:length 2})
+(defunit legalsize 1919351/25000000 {:length 2})
 (defunit lentor
   "old name"
-  (qty/quantity 1/10000 {:length 2, :time -1}))
-(defunit leo (qty/quantity 10 {:length 1, :time -2}))
-(defunit letech (qty/quantity 4625127959403/25000000000000 {:length 3}))
-(defunit lettersize (qty/quantity 3016123/50000000 {:length 2}))
+  1/10000 {:length 2, :time -1})
+(defunit leo 10 {:length 1, :time -2})
+(defunit letech 4625127959403/25000000000000 {:length 3})
+(defunit lettersize 3016123/50000000 {:length 2})
 (defunit li
   "Chinese unit of length 100 li is considered a day's march"
-  (qty/quantity 402336/695 {:length 1}))
+  402336/695 {:length 1})
 (defunit liang
   "Chinese weight unit"
-  (qty/quantity 498951607/4800000000 {:mass 1}))
+  498951607/4800000000 {:mass 1})
 (defunit libra
   "The Roman pound varied significantly"
-  (qty/quantity 8184102333/25000000000 {:mass 1}))
+  8184102333/25000000000 {:mass 1})
 (defunit librae
   "from 4210 grains to 5232 grains. Most of"
-  (qty/quantity 8184102333/25000000000 {:mass 1}))
+  8184102333/25000000000 {:mass 1})
 (defunit lid
   "Another 60's weed unit"
-  (qty/quantity 45359237/1600000000 {:mass 1}))
-(defunit light (qty/quantity 299792458 {:length 1, :time -1}))
-(defunit lightminute (qty/quantity 17987547480 {:length 1}))
-(defunit lightsecond (qty/quantity 299792458 {:length 1}))
+  45359237/1600000000 {:mass 1})
+(defunit light 299792458 {:length 1, :time -1})
+(defunit lightminute 17987547480 {:length 1})
+(defunit lightsecond 299792458 {:length 1})
 (defunit lightspeed
   "sure, why not."
-  (qty/quantity 299792458 {:length 1, :time -1}))
+  299792458 {:length 1, :time -1})
 (defunit lightyear
   "The 365.25 day year is specified in NIST publication 811"
-  (qty/quantity 2363563738872000N {:length 1}))
+  2363563738872000N {:length 1})
 (defunit ligne
   "of the average barleycorn"
-  (qty/quantity 125/55412 {:length 1}))
+  125/55412 {:length 1})
 (defunit line
   "Also defined as '.1 in' or as '1e-8 Wb'"
-  (qty/quantity 127/60000 {:length 1}))
+  127/60000 {:length 1})
 (defunit linenyarncount
   "Also used for hemp and ramie"
-  (qty/quantity 27432000000/45359237 {:length 1, :mass -1}))
-(defunit link (qty/quantity 792/3937 {:length 1}))
-(defunit liquidbarrel (qty/quantity 29810117799/250000000000 {:length 3}))
+  27432000000/45359237 {:length 1, :mass -1})
+(defunit link 792/3937 {:length 1})
+(defunit liquidbarrel 29810117799/250000000000 {:length 3})
 (defunit liter
   "The liter was defined in 1901 as the"
-  (qty/quantity 1/1000 {:length 3}))
-(defunit lithium (qty/quantity 6941/1000000 {:mass 1, :amount_of_substance -1}))
-(defunit litre (qty/quantity 1/1000 {:length 3}))
-(defunit lm (qty/quantity 1 {:luminous_intensity 1}))
-(defunit log (qty/quantity 12775764771/25000000000000 {:length 3}))
-(defunit longhundredweight (qty/quantity 317514659/6250000 {:mass 1}))
-(defunit longprimer (qty/quantity 1757299/500000000 {:length 1}))
-(defunit longton (qty/quantity 317514659/312500 {:mass 1}))
+  1/1000 {:length 3})
+(defunit lithium 6941/1000000 {:mass 1, :amount_of_substance -1})
+(defunit litre 1/1000 {:length 3})
+(defunit lm 1 {:luminous_intensity 1})
+(defunit log 12775764771/25000000000000 {:length 3})
+(defunit longhundredweight 317514659/6250000 {:mass 1})
+(defunit longprimer 1757299/500000000 {:length 1})
+(defunit longton 317514659/312500 {:mass 1})
 (defunit lorentz
   "Used to measure the extent that the frequency of light is shifted by a magnetic field."
-  (qty/quantity 17567726250000000000000000000000000000/376291774340032405556311055013414077 {:current 1, :length -1, :mass -1, :time 2}))
+  17567726250000000000000000000000000000/376291774340032405556311055013414077 {:current 1, :length -1, :mass -1, :time 2})
 (defunit loschmidt
   "Molecules per cubic meter of an ideal gas at STP. Loschmidt did work similar to Avogadro."
-  (qty/quantity 67550000000000000000000000000000000/2514161829 {:length -3}))
-(defunit lpm (qty/quantity 1/60000 {:length 3, :time -1}))
-(defunit lumberg (qty/quantity 1 {:luminous_intensity 1, :time 1}))
+  67550000000000000000000000000000000/2514161829 {:length -3})
+(defunit lpm 1/60000 {:length 3, :time -1})
+(defunit lumberg 1 {:luminous_intensity 1, :time 1})
 (defunit lumen
   "Luminous flux"
-  (qty/quantity 1 {:luminous_intensity 1}))
+  1 {:luminous_intensity 1})
 (defunit lunarmonth
   "Time between full moons. Full"
-  (qty/quantity 1594649997/625 {:time 1}))
-(defunit lunaryear (qty/quantity 19135799964/625 {:time 1}))
+  1594649997/625 {:time 1})
+(defunit lunaryear 19135799964/625 {:time 1})
 (defunit lunation
   "moon are on opposite sides of"
-  (qty/quantity 1594649997/625 {:time 1}))
+  1594649997/625 {:time 1})
 (defunit lune
   "the earth. Since the earth"
-  (qty/quantity 531549999/6250 {:time 1}))
+  531549999/6250 {:time 1})
 (defunit lunour
   "moves around the sun, the moon has to revolve a bit farther to get into the full moon configuration."
-  (qty/quantity 177183333/50000 {:time 1}))
+  177183333/50000 {:time 1})
 (defunit lusec
   "Used in vacuum science"
-  (qty/quantity 26664477483/200000000000000 {:length 2, :mass 1, :time -3}))
+  26664477483/200000000000000 {:length 2, :mass 1, :time -3})
 (defunit lustrum
   "The Lustrum was a Roman purification ceremony that took place every five years. Classically educated Englishmen used this term."
-  (qty/quantity 9861539367087/62500 {:time 1}))
-(defunit lutetium (qty/quantity 174967/1000000 {:mass 1, :amount_of_substance -1}))
+  9861539367087/62500 {:time 1})
+(defunit lutetium 174967/1000000 {:mass 1, :amount_of_substance -1})
 (defunit lux
   "Illuminance or exitance (luminous"
-  (qty/quantity 1 {:luminous_intensity 1, :length -2}))
+  1 {:luminous_intensity 1, :length -2})
 (defunit lx
   "flux incident on or coming from"
-  (qty/quantity 1 {:luminous_intensity 1, :length -2}))
-(defunit ly (qty/quantity 2363563738872000N {:length 1}))
+  1 {:luminous_intensity 1, :length -2})
+(defunit ly 2363563738872000N {:length 1})
 (defunit m
   "The 2019 SI definition of the meter is:"
-  (qty/quantity 1 {:length 1}))
-(defunit m_alpha (qty/quantity 1328931469/200000000000000000000000000000000000 {:mass 1}))
-(defunit m_d (qty/quantity 4179479721/1250000000000000000000000000000000000 {:mass 1}))
-(defunit m_e (qty/quantity 91093837139/100000000000000000000000000000000000000000 {:mass 1}))
-(defunit m_mu (qty/quantity 1883531627/10000000000000000000000000000000000000 {:mass 1}))
-(defunit m_muon (qty/quantity 1883531627/10000000000000000000000000000000000000 {:mass 1}))
-(defunit m_n (qty/quantity 20936593757/12500000000000000000000000000000000000 {:mass 1}))
-(defunit m_p (qty/quantity 33452438519/20000000000000000000000000000000000000 {:mass 1}))
-(defunit m_tau (qty/quantity 158377/50000000000000000000000000000000 {:mass 1}))
-(defunit m_u (qty/quantity 41513476723/25000000000000000000000000000000000000 {:mass 1}))
+  1 {:length 1})
+(defunit m_alpha 1328931469/200000000000000000000000000000000000 {:mass 1})
+(defunit m_d 4179479721/1250000000000000000000000000000000000 {:mass 1})
+(defunit m_e 91093837139/100000000000000000000000000000000000000000 {:mass 1})
+(defunit m_mu 1883531627/10000000000000000000000000000000000000 {:mass 1})
+(defunit m_muon 1883531627/10000000000000000000000000000000000000 {:mass 1})
+(defunit m_n 20936593757/12500000000000000000000000000000000000 {:mass 1})
+(defunit m_p 33452438519/20000000000000000000000000000000000000 {:mass 1})
+(defunit m_tau 158377/50000000000000000000000000000000 {:mass 1})
+(defunit m_u 41513476723/25000000000000000000000000000000000000 {:mass 1})
 (defunit mach
   "speed of sound in dry air at STP"
-  (qty/quantity 16573/50 {:length 1, :time -1}))
-(defunit mache (qty/quantity 13690N {:time -1, :length -3}))
-(defunit magnesium (qty/quantity 4861/200000 {:mass 1, :amount_of_substance -1}))
-(defunit magneticconstant (qty/quantity 125663706127/100000000000000000 {:mass 1, :length 1, :time -2, :current -2}))
+  16573/50 {:length 1, :time -1})
+(defunit mache 13690N {:time -1, :length -3})
+(defunit magnesium 4861/200000 {:mass 1, :amount_of_substance -1})
+(defunit magneticconstant 125663706127/100000000000000000 {:mass 1, :length 1, :time -2, :current -2})
 (defunit magnum
   "Standardized in 1979, but given as 2 qt in some references"
-  (qty/quantity 3/2000 {:length 3}))
-(defunit majorsecond (qty/quantity 9/8 {}))
-(defunit majorseventh (qty/quantity 15/8 {}))
-(defunit majorsixth (qty/quantity 5/3 {}))
-(defunit majorthird (qty/quantity 5/4 {}))
+  3/2000 {:length 3})
+(defunit majorsecond 9/8 {})
+(defunit majorseventh 15/8 {})
+(defunit majorsixth 5/3 {})
+(defunit majorthird 5/4 {})
 (defunit manchesteryarnnumber
   "old system used for silk"
-  (qty/quantity 45359237/23408640000000 {:mass 1, :length -1}))
-(defunit mancus (qty/quantity 45359237/800000000 {:mass 1}))
-(defunit manganese (qty/quantity 1098761/20000000 {:mass 1, :amount_of_substance -1}))
-(defunit marathon (qty/quantity 230164959024/15625 {:length 2}))
-(defunit marineleague (qty/quantity 5556 {:length 1}))
+  45359237/23408640000000 {:mass 1, :length -1})
+(defunit mancus 45359237/800000000 {:mass 1})
+(defunit manganese 1098761/20000000 {:mass 1, :amount_of_substance -1})
+(defunit marathon 230164959024/15625 {:length 2})
+(defunit marineleague 5556 {:length 1})
 (defunit marsday
   "The common \"sol\" definition."
-  (qty/quantity 178137728496/25 {:time 3}))
-(defunit marsmass (qty/quantity 641910000000000000000000N {:mass 1}))
-(defunit marssiderealday (qty/quantity 4346944704N {:time 3}))
-(defunit marssolarday (qty/quantity 178137728496/25 {:time 3}))
-(defunit marsyear (qty/quantity 59352480N {:time 1}))
-(defunit mas (qty/quantity 523598775598298873/108000000000000000000000000 {}))
-(defunit mast (qty/quantity 45359237/40000000 {:mass 1}))
+  178137728496/25 {:time 3})
+(defunit marsmass 641910000000000000000000N {:mass 1})
+(defunit marssiderealday 4346944704N {:time 3})
+(defunit marssolarday 178137728496/25 {:time 3})
+(defunit marsyear 59352480N {:time 1})
+(defunit mas 523598775598298873/108000000000000000000000000 {})
+(defunit mast 45359237/40000000 {:mass 1})
 (defunit maxwell
   "Also called the \"line"
-  (qty/quantity 1/100000000 {:length 2, :mass 1, :time -2, :current -1}))
+  1/100000000 {:length 2, :mass 1, :time -2, :current -1})
 (defunit mayer
   "specific heat capacity"
-  (qty/quantity 1000N {:length 2, :time -2, :temperature -1}))
-(defunit mbh (qty/quantity 52752792631/180000000 {:mass 1, :length 2, :time -3}))
+  1000N {:length 2, :time -2, :temperature -1})
+(defunit mbh 52752792631/180000000 {:mass 1, :length 2, :time -3})
 (defunit mcg
   "Frequently used for vitamins"
-  (qty/quantity 1/1000000000 {:mass 1}))
-(defunit mcm (qty/quantity 25335373954874887567851/50000000000000000000000000000 {:length 2}))
+  1/1000000000 {:mass 1})
+(defunit mcm 25335373954874887567851/50000000000000000000000000000 {:length 2})
 (defunit mcs
   "luminous energy per area, used to measure photographic exposure"
-  (qty/quantity 1 {:luminous_intensity 1, :length -2, :time 1}))
+  1 {:luminous_intensity 1, :length -2, :time 1})
 (defunit mechanicalohm
   "mechanical resistance"
-  (qty/quantity 1/1000 {:mass 1, :time -1}))
-(defunit medimnos (qty/quantity 162/3125 {:length 3}))
-(defunit megohm (qty/quantity 1000000N {:mass 1, :length 2, :time -3, :current -2}))
+  1/1000 {:mass 1, :time -1})
+(defunit medimnos 162/3125 {:length 3})
+(defunit megohm 1000000N {:mass 1, :length 2, :time -3, :current -2})
 (defunit mendelevium
   "Longest lived"
-  (qty/quantity 2581/10000 {:mass 1, :amount_of_substance -1}))
-(defunit mercounce (qty/quantity 58319019/2000000000 {:mass 1}))
-(defunit mercpennyweight (qty/quantity 58319019/40000000000 {:mass 1}))
-(defunit mercpound (qty/quantity 174957057/400000000 {:mass 1}))
-(defunit mercury (qty/quantity 20059/100000 {:mass 1, :amount_of_substance -1}))
-(defunit mercuryday (qty/quantity 126675792/25 {:time 1}))
-(defunit mercurydensity (qty/quantity 135951/10 {:mass 1, :length -3}))
-(defunit mercurymass (qty/quantity 330220000000000000000000N {:mass 1}))
-(defunit mercuryyear (qty/quantity 7513344N {:time 1}))
-(defunit meridian (qty/quantity 19330289/1250000000 {:length 1}))
+  2581/10000 {:mass 1, :amount_of_substance -1})
+(defunit mercounce 58319019/2000000000 {:mass 1})
+(defunit mercpennyweight 58319019/40000000000 {:mass 1})
+(defunit mercpound 174957057/400000000 {:mass 1})
+(defunit mercury 20059/100000 {:mass 1, :amount_of_substance -1})
+(defunit mercuryday 126675792/25 {:time 1})
+(defunit mercurydensity 135951/10 {:mass 1, :length -3})
+(defunit mercurymass 330220000000000000000000N {:mass 1})
+(defunit mercuryyear 7513344N {:time 1})
+(defunit meridian 19330289/1250000000 {:length 1})
 (defunit meter
   "The metre, symbol m, is the SI unit of length. It is defined by taking the fixed numerical value of the speed of light in vacuum c to be 299_792_458 when expressed in the unit m s^−1, where the second is defined in terms of the caesium frequency Δν_Cs."
-  (qty/quantity 1 {:length 1}))
+  1 {:length 1})
 (defunit metercandle
   "Illuminance from a 1 candela source at a distance of one meter"
-  (qty/quantity 1 {:luminous_intensity 1, :length -2}))
+  1 {:luminous_intensity 1, :length -2})
 (defunit methanol
   "Density of methanol"
-  (qty/quantity 7913/10 {:mass 1, :length -3}))
-(defunit methuselah (qty/quantity 3/500 {:length 3}))
-(defunit metre (qty/quantity 1 {:length 1}))
+  7913/10 {:mass 1, :length -3})
+(defunit methuselah 3/500 {:length 3})
+(defunit metre 1 {:length 1})
 (defunit metretes
   "The kotyle is a day's corn ration"
-  (qty/quantity 243/6250 {:length 3}))
+  243/6250 {:length 3})
 (defunit metriccable
   "Used by France and Spain"
-  (qty/quantity 200 {:length 1}))
-(defunit metriccarat (qty/quantity 1/5000 {:mass 1}))
-(defunit metriccup (qty/quantity 1/4000 {:length 3}))
-(defunit metricfifth (qty/quantity 3/4000 {:length 3}))
-(defunit metricgrain (qty/quantity 1/20000 {:mass 1}))
-(defunit metrichorsepower (qty/quantity 588399/800 {:mass 1, :length 2, :time -3}))
-(defunit metricounce (qty/quantity 1/40 {:mass 1}))
+  200 {:length 1})
+(defunit metriccarat 1/5000 {:mass 1})
+(defunit metriccup 1/4000 {:length 3})
+(defunit metricfifth 3/4000 {:length 3})
+(defunit metricgrain 1/20000 {:mass 1})
+(defunit metrichorsepower 588399/800 {:mass 1, :length 2, :time -3})
+(defunit metricounce 1/40 {:mass 1})
 (defunit metricpoint
   "Proposed in 1977 by Eurograf"
-  (qty/quantity 3/8000 {:length 1}))
-(defunit metricquart (qty/quantity 1/1000 {:length 3}))
-(defunit metrictenth (qty/quantity 3/8000 {:length 3}))
-(defunit metricton (qty/quantity 1000 {:mass 1}))
-(defunit metricyarncount (qty/quantity 1000N {:length 1, :mass -1}))
-(defunit mgd (qty/quantity 157725491/3600000000 {:length 3, :time -1}))
+  3/8000 {:length 1})
+(defunit metricquart 1/1000 {:length 3})
+(defunit metrictenth 3/8000 {:length 3})
+(defunit metricton 1000 {:mass 1})
+(defunit metricyarncount 1000N {:length 1, :mass -1})
+(defunit mgd 157725491/3600000000 {:length 3, :time -1})
 (defunit mho
   "Inverse of ohm, hence ohm spelled backward"
-  (qty/quantity 1 {:current 2, :mass -1, :length -2, :time 3}))
-(defunit mi (qty/quantity 201168/125 {:length 1}))
-(defunit microhm (qty/quantity 1/1000000 {:mass 1, :length 2, :time -3, :current -2}))
+  1 {:current 2, :mass -1, :length -2, :time 3})
+(defunit mi 201168/125 {:length 1})
+(defunit microhm 1/1000000 {:mass 1, :length 2, :time -3, :current -2})
 (defunit micron
   "One millionth of a meter"
-  (qty/quantity 1/1000000 {:length 1}))
-(defunit mignonette (qty/quantity 22844887/10000000000 {:length 1}))
-(defunit mil (qty/quantity 127/5000000 {:length 1}))
+  1/1000000 {:length 1})
+(defunit mignonette 22844887/10000000000 {:length 1})
+(defunit mil 127/5000000 {:length 1})
 (defunit milangle
   "Official NIST definition. Another choice is 1ee-3 radian."
-  (qty/quantity 1570796326794896619/1600000000000000000000 {}))
-(defunit mile (qty/quantity 201168/125 {:length 1}))
-(defunit millennia (qty/quantity 19723078734174/625 {:time 1}))
-(defunit millennium (qty/quantity 19723078734174/625 {:time 1}))
-(defunit milliard (qty/quantity 1000000000N {}))
-(defunit million (qty/quantity 1000000N {}))
-(defunit min (qty/quantity 60 {:time 1}))
-(defunit minersinchAZ (qty/quantity 55306341/78125000000 {:length 3, :time -1}))
+  1570796326794896619/1600000000000000000000 {})
+(defunit mile 201168/125 {:length 1})
+(defunit millennia 19723078734174/625 {:time 1})
+(defunit millennium 19723078734174/625 {:time 1})
+(defunit milliard 1000000000N {})
+(defunit million 1000000N {})
+(defunit min 60 {:time 1})
+(defunit minersinchAZ 55306341/78125000000 {:length 3, :time -1})
 (defunit minersinchBC
   "British Columbia"
-  (qty/quantity 387144387/488281250000 {:length 3, :time -1}))
-(defunit minersinchCA (qty/quantity 55306341/78125000000 {:length 3, :time -1}))
-(defunit minersinchCO (qty/quantity 718982433/976562500000 {:length 3, :time -1}))
-(defunit minersinchID (qty/quantity 55306341/97656250000 {:length 3, :time -1}))
-(defunit minersinchKS (qty/quantity 55306341/97656250000 {:length 3, :time -1}))
-(defunit minersinchMT (qty/quantity 55306341/78125000000 {:length 3, :time -1}))
-(defunit minersinchND (qty/quantity 55306341/97656250000 {:length 3, :time -1}))
-(defunit minersinchNE (qty/quantity 55306341/97656250000 {:length 3, :time -1}))
-(defunit minersinchNM (qty/quantity 55306341/97656250000 {:length 3, :time -1}))
-(defunit minersinchNV (qty/quantity 55306341/78125000000 {:length 3, :time -1}))
-(defunit minersinchOR (qty/quantity 55306341/78125000000 {:length 3, :time -1}))
-(defunit minersinchSD (qty/quantity 55306341/97656250000 {:length 3, :time -1}))
-(defunit minersinchUT (qty/quantity 55306341/97656250000 {:length 3, :time -1}))
-(defunit minim (qty/quantity 157725491/2560000000000000 {:length 3}))
-(defunit minion (qty/quantity 12301093/5000000000 {:length 1}))
-(defunit minorseventh (qty/quantity 9/5 {}))
-(defunit minorsixth (qty/quantity 8/5 {}))
-(defunit minorthird (qty/quantity 6/5 {}))
-(defunit minute (qty/quantity 60 {:time 1}))
+  387144387/488281250000 {:length 3, :time -1})
+(defunit minersinchCA 55306341/78125000000 {:length 3, :time -1})
+(defunit minersinchCO 718982433/976562500000 {:length 3, :time -1})
+(defunit minersinchID 55306341/97656250000 {:length 3, :time -1})
+(defunit minersinchKS 55306341/97656250000 {:length 3, :time -1})
+(defunit minersinchMT 55306341/78125000000 {:length 3, :time -1})
+(defunit minersinchND 55306341/97656250000 {:length 3, :time -1})
+(defunit minersinchNE 55306341/97656250000 {:length 3, :time -1})
+(defunit minersinchNM 55306341/97656250000 {:length 3, :time -1})
+(defunit minersinchNV 55306341/78125000000 {:length 3, :time -1})
+(defunit minersinchOR 55306341/78125000000 {:length 3, :time -1})
+(defunit minersinchSD 55306341/97656250000 {:length 3, :time -1})
+(defunit minersinchUT 55306341/97656250000 {:length 3, :time -1})
+(defunit minim 157725491/2560000000000000 {:length 3})
+(defunit minion 12301093/5000000000 {:length 1})
+(defunit minorseventh 9/5 {})
+(defunit minorsixth 8/5 {})
+(defunit minorthird 6/5 {})
+(defunit minute 60 {:time 1})
 (defunit mired
   "reciprocal color temperature. The name abbreviates micro reciprocal degree."
-  (qty/quantity 1000000N {:temperature -1}))
-(defunit missal (qty/quantity 225639/12500000 {:length 1}))
-(defunit mite (qty/quantity 6479891/2000000000000 {:mass 1}))
-(defunit mittel (qty/quantity 526491/100000000 {:length 1}))
-(defunit mmH2O (qty/quantity 196133/20000 {:length -1, :time -2, :mass 1}))
-(defunit mmHg (qty/quantity 26664477483/200000000 {:length -1, :time -2, :mass 1}))
-(defunit mo (qty/quantity 3287179789029/1250000 {:time 1}))
+  1000000N {:temperature -1})
+(defunit missal 225639/12500000 {:length 1})
+(defunit mite 6479891/2000000000000 {:mass 1})
+(defunit mittel 526491/100000000 {:length 1})
+(defunit mmH2O 196133/20000 {:length -1, :time -2, :mass 1})
+(defunit mmHg 26664477483/200000000 {:length -1, :time -2, :mass 1})
+(defunit mo 3287179789029/1250000 {:time 1})
 (defunit mobileohm
   "mobile ohm, measure of mechanical"
-  (qty/quantity 1000N {:mass -1, :time 1}))
-(defunit modii (qty/quantity 362563791/39062500000 {:length 3}))
-(defunit modius (qty/quantity 362563791/39062500000 {:length 3}))
-(defunit mol (qty/quantity 1 {:amount_of_substance 1}))
+  1000N {:mass -1, :time 1})
+(defunit modii 362563791/39062500000 {:length 3})
+(defunit modius 362563791/39062500000 {:length 3})
+(defunit mol 1 {:amount_of_substance 1})
 (defunit molal
   "Unit of concentration (moles/kg)"
-  (qty/quantity 1 {:amount_of_substance 1, :mass -1}))
+  1 {:amount_of_substance 1, :mass -1})
 (defunit molar
   "Unit of concentration (moles/liter)"
-  (qty/quantity 1000N {:amount_of_substance 1, :length -3}))
+  1000N {:amount_of_substance 1, :length -3})
 (defunit molarvolume
   "Volume occupied by one mole of an ideal gas at STP. Units m^3/mol"
-  (qty/quantity 378515910691426251/16887500000000000000 {:amount_of_substance -1, :length 3}))
-(defunit molasses (qty/quantity 5522634375/4096766 {:mass 1, :length -3}))
+  378515910691426251/16887500000000000000 {:amount_of_substance -1, :length 3})
+(defunit molasses 5522634375/4096766 {:mass 1, :length -3})
 (defunit mole
   "An \"amount of substance\". The 2019 SI definition is: The mole, symbol mol, is the SI unit of amount of substance. One mole contains exactly 6.02214076e23 elementary entities. This number is the fixed numerical value of the Avogadro constant, N_A, when expressed in the unit mol^−1 and is called the Avogadro number. The amount of substance, symbol n, of a system is a measure of the number of specified elementary entities. An elementary entity may be an atom, a molecule, an ion, an electron, any other particle or specified group of particles."
-  (qty/quantity 1 {:amount_of_substance 1}))
-(defunit molybdenum (qty/quantity 4797/50000 {:mass 1, :amount_of_substance -1}))
+  1 {:amount_of_substance 1})
+(defunit molybdenum 4797/50000 {:mass 1, :amount_of_substance -1})
 (defunit month
   "This is obviously an average for the limiting case... so is accurate in the long term but useless for adding an offset to a specific date."
-  (qty/quantity 3287179789029/1250000 {:time 1}))
-(defunit monthly (qty/quantity 1250000/3287179789029 {:time -1}))
-(defunit moongravity (qty/quantity 81/50 {:length 1, :time -2}))
-(defunit moonlum (qty/quantity 2500 {:luminous_intensity 1, :length -2}))
-(defunit moonmass (qty/quantity 73483000000000000000000N {:mass 1}))
-(defunit mounce (qty/quantity 1/40 {:mass 1}))
-(defunit mpg (qty/quantity 48000000000/112903 {:length -2}))
-(defunit mpge (qty/quantity 1397/105312500 {:length -1, :mass -1, :time 2}))
-(defunit mph (qty/quantity 1397/3125 {:length 1, :time -1}))
+  3287179789029/1250000 {:time 1})
+(defunit monthly 1250000/3287179789029 {:time -1})
+(defunit moongravity 81/50 {:length 1, :time -2})
+(defunit moonlum 2500 {:luminous_intensity 1, :length -2})
+(defunit moonmass 73483000000000000000000N {:mass 1})
+(defunit mounce 1/40 {:mass 1})
+(defunit mpg 48000000000/112903 {:length -2})
+(defunit mpge 1397/105312500 {:length -1, :mass -1, :time 2})
+(defunit mph 1397/3125 {:length 1, :time -1})
 (defunit mu0
   "permeability of vacuum 2022 CODATA. Uncertainty is +/- 20 in the last 2 digits."
-  (qty/quantity 125663706127/100000000000000000 {:mass 1, :length 1, :time -2, :current -2}))
-(defunit mu_B (qty/quantity 1862479784135943/200827880381184188726354713040000000000 {:current 1, :length 2}))
-(defunit mu_N (qty/quantity 35387115898582917/7006262339730308196007795634800000000000000 {:current 1, :length 2}))
-(defunit mu_d (qty/quantity 4330735087/1000000000000000000000000000000000000 {:length 2, :current 1}))
-(defunit mu_p (qty/quantity 28212135909/2000000000000000000000000000000000000 {:length 2, :current 1}))
+  125663706127/100000000000000000 {:mass 1, :length 1, :time -2, :current -2})
+(defunit mu_B 1862479784135943/200827880381184188726354713040000000000 {:current 1, :length 2})
+(defunit mu_N 35387115898582917/7006262339730308196007795634800000000000000 {:current 1, :length 2})
+(defunit mu_d 4330735087/1000000000000000000000000000000000000 {:length 2, :current 1})
+(defunit mu_p 28212135909/2000000000000000000000000000000000000 {:length 2, :current 1})
 (defunit muonmass
   "+/- 42 in last 2 digits"
-  (qty/quantity 1883531627/10000000000000000000000000000000000000 {:mass 1}))
-(defunit musicalfifth (qty/quantity 3/2 {}))
-(defunit musicalfourth (qty/quantity 4/3 {}))
+  1883531627/10000000000000000000000000000000000000 {:mass 1})
+(defunit musicalfifth 3/2 {})
+(defunit musicalfourth 4/3 {})
 (defunit nat
   "log[e]/log[2]"
-  (qty/quantity 2254211001389/1562500000000 {:information 1}))
+  2254211001389/1562500000000 {:information 1})
 (defunit natural_gas
   "Energy in natural gas"
-  (qty/quantity 2128906250000000/55306341 {:mass 1, :length -1, :time -2}))
-(defunit naturalgas (qty/quantity 2128906250000000/55306341 {:mass 1, :length -1, :time -2}))
+  2128906250000000/55306341 {:mass 1, :length -1, :time -2})
+(defunit naturalgas 2128906250000000/55306341 {:mass 1, :length -1, :time -2})
 (defunit nauticalmile
   "Supposed to be one minute of latitude at the equator. That value is about 1855 m. Early estimates of the earth's circumference were a bit off. The value of 1852 m was made the international standard in 1929. The US did not accept this value until July 1, 1954. The UK switched in 1970. The value of this unit was adopted by the First International Extraordinary Hydrographic Conference, Monaco, 1929, under the name \"International nautical mile."
-  (qty/quantity 1852 {:length 1}))
-(defunit navycablelength (qty/quantity 864000/3937 {:length 1}))
-(defunit nebuchadnezzar (qty/quantity 3/200 {:length 3}))
-(defunit neodymium (qty/quantity 1803/12500 {:mass 1, :amount_of_substance -1}))
-(defunit neon (qty/quantity 201797/10000000 {:mass 1, :amount_of_substance -1}))
-(defunit neptuneday (qty/quantity 331776/5 {:time 1}))
-(defunit neptunemass (qty/quantity 102780000000000000000000000N {:mass 1}))
-(defunit neptuneyear (qty/quantity 812580982308601713/156250000 {:time 1}))
-(defunit neptunium (qty/quantity 1185241/5000000 {:mass 1, :amount_of_substance -1}))
-(defunit nest (qty/quantity 3 {}))
-(defunit neutroncharge (qty/quantity 0N {:current 1, :time 1}))
+  1852 {:length 1})
+(defunit navycablelength 864000/3937 {:length 1})
+(defunit nebuchadnezzar 3/200 {:length 3})
+(defunit neodymium 1803/12500 {:mass 1, :amount_of_substance -1})
+(defunit neon 201797/10000000 {:mass 1, :amount_of_substance -1})
+(defunit neptuneday 331776/5 {:time 1})
+(defunit neptunemass 102780000000000000000000000N {:mass 1})
+(defunit neptuneyear 812580982308601713/156250000 {:time 1})
+(defunit neptunium 1185241/5000000 {:mass 1, :amount_of_substance -1})
+(defunit nest 3 {})
+(defunit neutroncharge 0N {:current 1, :time 1})
 (defunit neutronmass
   "+/- 85 in last 2 digits"
-  (qty/quantity 20936593757/12500000000000000000000000000000000000 {:mass 1}))
-(defunit neutronwavelength (qty/quantity 18931629/14346589496133679328000 {:length 1}))
+  20936593757/12500000000000000000000000000000000000 {:mass 1})
+(defunit neutronwavelength 18931629/14346589496133679328000 {:length 1})
 (defunit newhayload
   "hay and \"old\" hay rather than a new unit"
-  (qty/quantity 1224699399/1250000 {:mass 1}))
+  1224699399/1250000 {:mass 1})
 (defunit newhaytruss
   "New and old here seem to refer to \"new"
-  (qty/quantity 136077711/5000000 {:mass 1}))
+  136077711/5000000 {:mass 1})
 (defunit newton
   "force"
-  (qty/quantity 1 {:mass 1, :length 1, :time -2}))
-(defunit nibble (qty/quantity 4 {:information 1}))
-(defunit nickel (qty/quantity 293467/5000000 {:mass 1, :amount_of_substance -1}))
-(defunit nine (qty/quantity 9 {}))
-(defunit ninety (qty/quantity 90 {}))
-(defunit niobium (qty/quantity 4645319/50000000 {:mass 1, :amount_of_substance -1}))
+  1 {:mass 1, :length 1, :time -2})
+(defunit nibble 4 {:information 1})
+(defunit nickel 293467/5000000 {:mass 1, :amount_of_substance -1})
+(defunit nine 9 {})
+(defunit ninety 90 {})
+(defunit niobium 4645319/50000000 {:mass 1, :amount_of_substance -1})
 (defunit nit
   "Luminance: the intensity per projected"
-  (qty/quantity 1 {:luminous_intensity 1, :length -2}))
-(defunit nitrogen (qty/quantity 700337/50000000 {:mass 1, :amount_of_substance -1}))
+  1 {:luminous_intensity 1, :length -2})
+(defunit nitrogen 700337/50000000 {:mass 1, :amount_of_substance -1})
 (defunit nobelium
   "Longest lived"
-  (qty/quantity 2591009/10000000 {:mass 1, :amount_of_substance -1}))
+  2591009/10000000 {:mass 1, :amount_of_substance -1})
 (defunit nodicalmonth
   "The nodes are the points where"
-  (qty/quantity 7347299373/3125 {:time 1}))
-(defunit noggin (qty/quantity 454609/3200000000 {:length 3}))
-(defunit nonilliard (qty/quantity 1000000000000000000000000000000000000000000000000000000000N {}))
-(defunit nonillion (qty/quantity 1000000000000000000000000000000N {}))
-(defunit nonpareil (qty/quantity 5271897/2500000000 {:length 1}))
-(defunit nonpareille (qty/quantity 225639/100000000 {:length 1}))
-(defunit nonplusultra (qty/quantity 75213/100000000 {:length 1}))
+  7347299373/3125 {:time 1})
+(defunit noggin 454609/3200000000 {:length 3})
+(defunit nonilliard 1000000000000000000000000000000000000000000000000000000000N {})
+(defunit nonillion 1000000000000000000000000000000N {})
+(defunit nonpareil 5271897/2500000000 {:length 1})
+(defunit nonpareille 225639/100000000 {:length 1})
+(defunit nonplusultra 75213/100000000 {:length 1})
 (defunit northerncubit
   "plus/minus .2 in"
-  (qty/quantity 16891/25000 {:length 1}))
-(defunit northernfoot (qty/quantity 16891/50000 {:length 1}))
-(defunit novemdecillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000N {}))
-(defunit noventilliard (qty/quantity 1000000000000000000000000000000000000000000000000000000000N {}))
-(defunit noventillion (qty/quantity 1000000000000000000000000000000N {}))
+  16891/25000 {:length 1})
+(defunit northernfoot 16891/50000 {:length 1})
+(defunit novemdecillion 1000000000000000000000000000000000000000000000000000000000000N {})
+(defunit noventilliard 1000000000000000000000000000000000000000000000000000000000N {})
+(defunit noventillion 1000000000000000000000000000000N {})
 (defunit nox
   "These two units were proposed for"
-  (qty/quantity 1/1000 {:luminous_intensity 1, :length -2}))
-(defunit nuclearmagneton (qty/quantity 35387115898582917/7006262339730308196007795634800000000000000 {:current 1, :length 2}))
-(defunit number10can (qty/quantity 9936705933/3200000000000 {:length 3}))
-(defunit number1can (qty/quantity 473176473/1600000000000 {:length 3}))
-(defunit number2_5can (qty/quantity 3312235311/4000000000000 {:length 3}))
-(defunit number2can (qty/quantity 8990352987/16000000000000 {:length 3}))
-(defunit number3can (qty/quantity 473176473/500000000000 {:length 3}))
-(defunit number5can (qty/quantity 3312235311/2000000000000 {:length 3}))
+  1/1000 {:luminous_intensity 1, :length -2})
+(defunit nuclearmagneton 35387115898582917/7006262339730308196007795634800000000000000 {:current 1, :length 2})
+(defunit number10can 9936705933/3200000000000 {:length 3})
+(defunit number1can 473176473/1600000000000 {:length 3})
+(defunit number2_5can 3312235311/4000000000000 {:length 3})
+(defunit number2can 8990352987/16000000000000 {:length 3})
+(defunit number3can 473176473/500000000000 {:length 3})
+(defunit number5can 3312235311/2000000000000 {:length 3})
 (defunit nybble
   "Half of a byte. Sometimes equal to different lengths such as 3 bits."
-  (qty/quantity 4 {:information 1}))
-(defunit oatbushel (qty/quantity 45359237/3125000 {:mass 1}))
-(defunit oceanarea (qty/quantity 361900000000000N {:length 2}))
+  4 {:information 1})
+(defunit oatbushel 45359237/3125000 {:mass 1})
+(defunit oceanarea 361900000000000N {:length 2})
 (defunit oceanvolume
   "All Earth's oceans ETOPO1 data, https://www.ngdc.noaa.gov/mgg/global/etopo1_ocean_volumes.html"
-  (qty/quantity 1335000000000000000N {:length 3}))
-(defunit octant (qty/quantity 1570796326794896619/1000000000000000000 {}))
-(defunit octave (qty/quantity 2 {}))
-(defunit octilliard (qty/quantity 1000000000000000000000000000000000000000000000000000N {}))
-(defunit octillion (qty/quantity 1000000000000000000000000000N {}))
-(defunit octodecillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000N {}))
-(defunit oersted (qty/quantity 10000000000000/125663706127 {:current 1, :length -1}))
+  1335000000000000000N {:length 3})
+(defunit octant 1570796326794896619/1000000000000000000 {})
+(defunit octave 2 {})
+(defunit octilliard 1000000000000000000000000000000000000000000000000000N {})
+(defunit octillion 1000000000000000000000000000N {})
+(defunit octodecillion 1000000000000000000000000000000000000000000000000000000000N {})
+(defunit oersted 10000000000000/125663706127 {:current 1, :length -1})
 (defunit ohm
   "electrical resistance"
-  (qty/quantity 1 {:mass 1, :length 2, :time -3, :current -2}))
-(defunit oil (qty/quantity 41868000N {:length 2, :time -2}))
-(defunit oilbarrel (qty/quantity 9936705933/62500000000 {:length 3}))
+  1 {:mass 1, :length 2, :time -3, :current -2})
+(defunit oil 41868000N {:length 2, :time -2})
+(defunit oilbarrel 9936705933/62500000000 {:length 3})
 (defunit oldUKRNshackle
   "Used by Royal Navy until 1949"
-  (qty/quantity 90000/3937 {:length 1}))
-(defunit oldUSknot (qty/quantity 3860927/7500000 {:length 1, :time -1}))
+  90000/3937 {:length 1})
+(defunit oldUSknot 3860927/7500000 {:length 1, :time -1})
 (defunit oldUSnauticalmile
   "Used in U.S. before July 1, 1954"
-  (qty/quantity 11582781/6250 {:length 1}))
+  11582781/6250 {:length 1})
 (defunit oldbrcable
   "nautical mile."
-  (qty/quantity 115824/625 {:length 1}))
+  115824/625 {:length 1})
 (defunit oldbrknot
   "switched to the international"
-  (qty/quantity 4826/9375 {:length 1, :time -1}))
+  4826/9375 {:length 1, :time -1})
 (defunit oldbrnauticalmile
   "Used until 1970 when the UK"
-  (qty/quantity 231648/125 {:length 1}))
+  231648/125 {:length 1})
 (defunit oldchinesecatty
   "Before metric conversion."
-  (qty/quantity 45359237/75000000 {:mass 1}))
-(defunit oldchinesepicul (qty/quantity 45359237/750000 {:mass 1}))
+  45359237/75000000 {:mass 1})
+(defunit oldchinesepicul 45359237/750000 {:mass 1})
 (defunit olddidotpoint
   "François Ambroise Didot, one of a family of printers, changed Fournier's definition around 1770 to fit to the French units then in use."
-  (qty/quantity 125/332472 {:length 1}))
-(defunit oldhayload (qty/quantity 2857631931/3125000 {:mass 1}))
+  125/332472 {:length 1})
+(defunit oldhayload 2857631931/3125000 {:mass 1})
 (defunit oldhaytruss
   "and an old unit."
-  (qty/quantity 317514659/12500000 {:mass 1}))
-(defunit oldhollandcable (qty/quantity 885600/3937 {:length 1}))
+  317514659/12500000 {:mass 1})
+(defunit oldhollandcable 885600/3937 {:length 1})
 (defunit oldliter
   "space occupied by 1 kg of pure water at"
-  (qty/quantity 250007/250000000 {:length 3}))
-(defunit oldportugalcable (qty/quantity 1015200/3937 {:length 1}))
-(defunit oldrussiancable (qty/quantity 720000/3937 {:length 1}))
-(defunit olympicamma (qty/quantity 92583/5000 {:length 1}))
-(defunit olympicbema (qty/quantity 30861/40000 {:length 1}))
-(defunit olympiccord (qty/quantity 92583/5000 {:length 1}))
+  250007/250000000 {:length 3})
+(defunit oldportugalcable 1015200/3937 {:length 1})
+(defunit oldrussiancable 720000/3937 {:length 1})
+(defunit olympicamma 92583/5000 {:length 1})
+(defunit olympicbema 30861/40000 {:length 1})
+(defunit olympiccord 92583/5000 {:length 1})
 (defunit olympiccubit
   "These olympic measures were not as"
-  (qty/quantity 92583/200000 {:length 1}))
-(defunit olympicdakylos (qty/quantity 30861/1600000 {:length 1}))
-(defunit olympicfathom (qty/quantity 92583/50000 {:length 1}))
-(defunit olympicfeet (qty/quantity 30861/100000 {:length 1}))
+  92583/200000 {:length 1})
+(defunit olympicdakylos 30861/1600000 {:length 1})
+(defunit olympicfathom 92583/50000 {:length 1})
+(defunit olympicfeet 30861/100000 {:length 1})
 (defunit olympicfinger
   "They were used in agriculture."
-  (qty/quantity 30861/1600000 {:length 1}))
+  30861/1600000 {:length 1})
 (defunit olympicfoot
   "common as the other greek measures."
-  (qty/quantity 30861/100000 {:length 1}))
-(defunit olympicorguia (qty/quantity 92583/50000 {:length 1}))
-(defunit olympicpace (qty/quantity 30861/40000 {:length 1}))
-(defunit olympicpalestra (qty/quantity 30861/400000 {:length 1}))
-(defunit olympicpalm (qty/quantity 30861/400000 {:length 1}))
-(defunit olympicplethron (qty/quantity 30861/1000 {:length 1}))
-(defunit olympicspan (qty/quantity 1143/5000 {:length 1}))
-(defunit olympicspithame (qty/quantity 1143/5000 {:length 1}))
-(defunit olympicstadion (qty/quantity 92583/500 {:length 1}))
-(defunit one (qty/quantity 1 {}))
-(defunit orguia (qty/quantity 94869/50000 {:length 1}))
-(defunit osmium (qty/quantity 19023/100000 {:mass 1, :amount_of_substance -1}))
-(defunit ounce (qty/quantity 45359237/1600000000 {:mass 1}))
+  30861/100000 {:length 1})
+(defunit olympicorguia 92583/50000 {:length 1})
+(defunit olympicpace 30861/40000 {:length 1})
+(defunit olympicpalestra 30861/400000 {:length 1})
+(defunit olympicpalm 30861/400000 {:length 1})
+(defunit olympicplethron 30861/1000 {:length 1})
+(defunit olympicspan 1143/5000 {:length 1})
+(defunit olympicspithame 1143/5000 {:length 1})
+(defunit olympicstadion 92583/500 {:length 1})
+(defunit one 1 {})
+(defunit orguia 94869/50000 {:length 1})
+(defunit osmium 19023/100000 {:mass 1, :amount_of_substance -1})
+(defunit ounce 45359237/1600000000 {:mass 1})
 (defunit ouncedal
   "force which accelerates an ounce at 1 ft/s^2"
-  (qty/quantity 17281869297/2000000000000 {:mass 1, :length 1, :time -2}))
-(defunit oxygen (qty/quantity 79997/5000000 {:mass 1, :amount_of_substance -1}))
-(defunit oz (qty/quantity 45359237/1600000000 {:mass 1}))
-(defunit ozt (qty/quantity 19439673/625000000 {:mass 1}))
+  17281869297/2000000000000 {:mass 1, :length 1, :time -2})
+(defunit oxygen 79997/5000000 {:mass 1, :amount_of_substance -1})
+(defunit oz 45359237/1600000000 {:mass 1})
+(defunit ozt 19439673/625000000 {:mass 1})
 (defunit pace
   "distance between points where alternate feet touch the ground"
-  (qty/quantity 381/500 {:length 1}))
-(defunit pair (qty/quantity 2 {}))
-(defunit palladium (qty/quantity 5321/50000 {:mass 1, :amount_of_substance -1}))
+  381/500 {:length 1})
+(defunit pair 2 {})
+(defunit palladium 5321/50000 {:mass 1, :amount_of_substance -1})
 (defunit palmlength
   "or the length of the hand"
-  (qty/quantity 127/625 {:length 1}))
+  127/625 {:length 1})
 (defunit palmwidth
   "The palm is a unit defined as either the width"
-  (qty/quantity 127/1250 {:length 1}))
-(defunit paperM (qty/quantity 45359237/100000000000 {:mass 1}))
-(defunit paragon (qty/quantity 1757299/250000000 {:length 1}))
+  127/1250 {:length 1})
+(defunit paperM 45359237/100000000000 {:mass 1})
+(defunit paragon 1757299/250000000 {:length 1})
 (defunit parasang
   "Persian unit of length usually thought to be between 3 and 3.5 miles"
-  (qty/quantity 704088/125 {:length 1}))
+  704088/125 {:length 1})
 (defunit parsec
   "Unit of length equal to distance"
-  (qty/quantity 16156570035600000000000000000000000/523598775598298873 {:length 1}))
+  16156570035600000000000000000000000/523598775598298873 {:length 1})
 (defunit partsperbillion
   "USA billion"
-  (qty/quantity 1/1000000000 {}))
-(defunit partspermillion (qty/quantity 1/1000000 {}))
+  1/1000000000 {})
+(defunit partspermillion 1/1000000 {})
 (defunit partspertrillion
   "USA trillion"
-  (qty/quantity 1/1000000000000 {}))
+  1/1000000000000 {})
 (defunit pascal
   "pressure or stress"
-  (qty/quantity 1 {:mass 1, :length -1, :time -2}))
-(defunit passus (qty/quantity 37/25 {:length 1}))
+  1 {:mass 1, :length -1, :time -2})
+(defunit passus 37/25 {:length 1})
 (defunit pc
   "from the sun to a point having heliocentric parallax of 1 arcsec (derived from parallax second). IAU Resolution B2, 2015 (link below) cites two textbooks as saying that \"the parsec is defined as exactly (648000 / pi) au which is equivalent to the previous definition included here: au radian / arcsec but it does not quote any standards body. (648000 is 3600 * 180, the number of arcseconds in a semicircle. This is thus not a correct trigonometric scale, but a small-angle approximation. The rigorous trigonometric measure would be given by d = r/tan[theta] or specifically au / tan[arcsec]) Note that the parsec is defined not as the angle when the Earth is on opposite sides of the Sun, but half that angle."
-  (qty/quantity 16156570035600000000000000000000000/523598775598298873 {:length 1}))
-(defunit pdl (qty/quantity 17281869297/125000000000 {:mass 1, :length 1, :time -2}))
-(defunit pearl (qty/quantity 1757299/1000000000 {:length 1}))
-(defunit peck (qty/quantity 220244188543/25000000000000 {:length 3}))
+  16156570035600000000000000000000000/523598775598298873 {:length 1})
+(defunit pdl 17281869297/125000000000 {:mass 1, :length 1, :time -2})
+(defunit pearl 1757299/1000000000 {:length 1})
+(defunit peck 220244188543/25000000000000 {:length 3})
 (defunit pedes
   "Roman Land Surveyors\", Dilke gives 295.7 mm."
-  (qty/quantity 37/125 {:length 1}))
+  37/125 {:length 1})
 (defunit pennyweight
   "Abbreviated \"d\" in reference to a"
-  (qty/quantity 19439673/12500000000 {:mass 1}))
-(defunit percent (qty/quantity 1/100 {}))
-(defunit perch (qty/quantity 19800/3937 {:length 1}))
-(defunit perfectream (qty/quantity 516 {}))
-(defunit periot (qty/quantity 6479891/960000000000000 {:mass 1}))
-(defunit perl (qty/quantity 75213/40000000 {:length 1}))
-(defunit permeabilityofvacuum (qty/quantity 125663706127/100000000000000000 {:mass 1, :length 1, :time -2, :current -2}))
-(defunit permittivityofvacuum (qty/quantity 22135469547/2500000000000000000000 {:current 2, :time 4, :mass -1, :length -3}))
-(defunit persianroyalcubit (qty/quantity 8001/12500 {:length 1}))
+  19439673/12500000000 {:mass 1})
+(defunit percent 1/100 {})
+(defunit perch 19800/3937 {:length 1})
+(defunit perfectream 516 {})
+(defunit periot 6479891/960000000000000 {:mass 1})
+(defunit perl 75213/40000000 {:length 1})
+(defunit permeabilityofvacuum 125663706127/100000000000000000 {:mass 1, :length 1, :time -2, :current -2})
+(defunit permittivityofvacuum 22135469547/2500000000000000000000 {:current 2, :time 4, :mass -1, :length -3})
+(defunit persianroyalcubit 8001/12500 {:length 1})
 (defunit pes
   "This value appears in numerous sources. In \"The"
-  (qty/quantity 37/125 {:length 1}))
+  37/125 {:length 1})
 (defunit pesdrusianus
   "or 33.35 cm, used in Gaul & Germany in 1st c BC"
-  (qty/quantity 333/1000 {:length 1}))
-(defunit petit (qty/quantity 75213/25000000 {:length 1}))
+  333/1000 {:length 1})
+(defunit petit 75213/25000000 {:length 1})
 (defunit petroleumbarrel
   "Originated in Pennsylvania oil fields, from the winetierce"
-  (qty/quantity 9936705933/62500000000 {:length 3}))
-(defunit ph (qty/quantity 10000N {:luminous_intensity 1, :length -2}))
-(defunit phobosdist (qty/quantity 9378500N {:length 1}))
-(defunit phobosmass (qty/quantity 10800000000000000N {:mass 1}))
-(defunit phosphorus (qty/quantity 15486881/500000000 {:mass 1, :amount_of_substance -1}))
+  9936705933/62500000000 {:length 3})
+(defunit ph 10000N {:luminous_intensity 1, :length -2})
+(defunit phobosdist 9378500N {:length 1})
+(defunit phobosmass 10800000000000000N {:mass 1})
+(defunit phosphorus 15486881/500000000 {:mass 1, :amount_of_substance -1})
 (defunit phot
   "a surface)"
-  (qty/quantity 10000N {:luminous_intensity 1, :length -2}))
-(defunit pi (qty/quantity 1570796326794896619/500000000000000000 {}))
-(defunit pica (qty/quantity 5271897/1250000000 {:length 1}))
+  10000N {:luminous_intensity 1, :length -2})
+(defunit pi 1570796326794896619/500000000000000000 {})
+(defunit pica 5271897/1250000000 {:length 1})
 (defunit pied
   "Half of the hashimicubit,"
-  (qty/quantity 4500/13853 {:length 1}))
-(defunit pieze (qty/quantity 1000 {:mass 1, :length -1, :time -2}))
-(defunit pin (qty/quantity 4091481/200000000 {:length 3}))
+  4500/13853 {:length 1})
+(defunit pieze 1000 {:mass 1, :length -1, :time -2})
+(defunit pin 4091481/200000000 {:length 3})
 (defunit pinlength
   "A//17 pin is 17/16 in long in the USA."
-  (qty/quantity 127/80000 {:length 1}))
-(defunit pint (qty/quantity 473176473/1000000000000 {:length 3}))
-(defunit pk (qty/quantity 220244188543/25000000000000 {:length 3}))
+  127/80000 {:length 1})
+(defunit pint 473176473/1000000000000 {:length 3})
+(defunit pk 220244188543/25000000000000 {:length 3})
 (defunit planck
   "action of one joule over one second"
-  (qty/quantity 1 {:mass 1, :length 2, :time -1}))
-(defunit plancksconstant (qty/quantity 132521403/200000000000000000000000000000000000000000 {:mass 1, :length 2, :time -1}))
+  1 {:mass 1, :length 2, :time -1})
+(defunit plancksconstant 132521403/200000000000000000000000000000000000000000 {:mass 1, :length 2, :time -1})
 (defunit plate000000gauge
   "300 oz / ft^2"
-  (qty/quantity 381/32000 {:length 1}))
+  381/32000 {:length 1})
 (defunit plate00000gauge
   "280 oz / ft^2"
-  (qty/quantity 889/80000 {:length 1}))
+  889/80000 {:length 1})
 (defunit plate0000gauge
   "260 oz / ft^2"
-  (qty/quantity 1651/160000 {:length 1}))
+  1651/160000 {:length 1})
 (defunit plate000gauge
   "240 oz / ft^2"
-  (qty/quantity 381/40000 {:length 1}))
+  381/40000 {:length 1})
 (defunit plate00gauge
   "220 oz / ft^2"
-  (qty/quantity 1397/160000 {:length 1}))
+  1397/160000 {:length 1})
 (defunit plate0gauge
   "200 oz / ft^2"
-  (qty/quantity 127/16000 {:length 1}))
+  127/16000 {:length 1})
 (defunit plate10gauge
   "90 oz / ft^2"
-  (qty/quantity 1143/320000 {:length 1}))
+  1143/320000 {:length 1})
 (defunit plate11gauge
   "80 oz / ft^2"
-  (qty/quantity 127/40000 {:length 1}))
+  127/40000 {:length 1})
 (defunit plate12gauge
   "70 oz / ft^2"
-  (qty/quantity 889/320000 {:length 1}))
+  889/320000 {:length 1})
 (defunit plate13gauge
   "60 oz / ft^2"
-  (qty/quantity 381/160000 {:length 1}))
+  381/160000 {:length 1})
 (defunit plate14gauge
   "50 oz / ft^2"
-  (qty/quantity 127/64000 {:length 1}))
+  127/64000 {:length 1})
 (defunit plate15gauge
   "45 oz / ft^2"
-  (qty/quantity 1143/640000 {:length 1}))
+  1143/640000 {:length 1})
 (defunit plate16gauge
   "40 oz / ft^2"
-  (qty/quantity 127/80000 {:length 1}))
+  127/80000 {:length 1})
 (defunit plate17gauge
   "36 oz / ft^2"
-  (qty/quantity 1143/800000 {:length 1}))
+  1143/800000 {:length 1})
 (defunit plate18gauge
   "32 oz / ft^2"
-  (qty/quantity 127/100000 {:length 1}))
+  127/100000 {:length 1})
 (defunit plate19gauge
   "28 oz / ft^2"
-  (qty/quantity 889/800000 {:length 1}))
+  889/800000 {:length 1})
 (defunit plate1gauge
   "180 oz / ft^2"
-  (qty/quantity 1143/160000 {:length 1}))
+  1143/160000 {:length 1})
 (defunit plate20gauge
   "24 oz / ft^2"
-  (qty/quantity 381/400000 {:length 1}))
+  381/400000 {:length 1})
 (defunit plate21gauge
   "22 oz / ft^2"
-  (qty/quantity 1397/1600000 {:length 1}))
+  1397/1600000 {:length 1})
 (defunit plate22gauge
   "20 oz / ft^2"
-  (qty/quantity 127/160000 {:length 1}))
+  127/160000 {:length 1})
 (defunit plate23gauge
   "18 oz / ft^2"
-  (qty/quantity 1143/1600000 {:length 1}))
+  1143/1600000 {:length 1})
 (defunit plate24gauge
   "16 oz / ft^2"
-  (qty/quantity 127/200000 {:length 1}))
+  127/200000 {:length 1})
 (defunit plate25gauge
   "14 oz / ft^2"
-  (qty/quantity 889/1600000 {:length 1}))
+  889/1600000 {:length 1})
 (defunit plate26gauge
   "12 oz / ft^2"
-  (qty/quantity 381/800000 {:length 1}))
+  381/800000 {:length 1})
 (defunit plate27gauge
   "11 oz / ft^2"
-  (qty/quantity 1397/3200000 {:length 1}))
+  1397/3200000 {:length 1})
 (defunit plate28gauge
   "10 oz / ft^2"
-  (qty/quantity 127/320000 {:length 1}))
+  127/320000 {:length 1})
 (defunit plate29gauge
   "9 oz / ft^2"
-  (qty/quantity 1143/3200000 {:length 1}))
+  1143/3200000 {:length 1})
 (defunit plate2gauge
   "170 oz / ft^2"
-  (qty/quantity 2159/320000 {:length 1}))
+  2159/320000 {:length 1})
 (defunit plate30gauge
   "8 oz / ft^2"
-  (qty/quantity 127/400000 {:length 1}))
+  127/400000 {:length 1})
 (defunit plate31gauge
   "7 oz / ft^2"
-  (qty/quantity 889/3200000 {:length 1}))
+  889/3200000 {:length 1})
 (defunit plate32gauge
   "6.5 oz / ft^2"
-  (qty/quantity 1651/6400000 {:length 1}))
+  1651/6400000 {:length 1})
 (defunit plate33gauge
   "6 oz / ft^2"
-  (qty/quantity 381/1600000 {:length 1}))
+  381/1600000 {:length 1})
 (defunit plate34gauge
   "5.5 oz / ft^2"
-  (qty/quantity 1397/6400000 {:length 1}))
+  1397/6400000 {:length 1})
 (defunit plate35gauge
   "5 oz / ft^2"
-  (qty/quantity 127/640000 {:length 1}))
+  127/640000 {:length 1})
 (defunit plate36gauge
   "4.5 oz / ft^2"
-  (qty/quantity 1143/6400000 {:length 1}))
+  1143/6400000 {:length 1})
 (defunit plate37gauge
   "4.25 oz / ft^2"
-  (qty/quantity 2159/12800000 {:length 1}))
+  2159/12800000 {:length 1})
 (defunit plate38gauge
   "4 oz / ft^2"
-  (qty/quantity 127/800000 {:length 1}))
+  127/800000 {:length 1})
 (defunit plate3gauge
   "160 oz / ft^2"
-  (qty/quantity 127/20000 {:length 1}))
+  127/20000 {:length 1})
 (defunit plate4gauge
   "150 oz / ft^2"
-  (qty/quantity 381/64000 {:length 1}))
+  381/64000 {:length 1})
 (defunit plate5gauge
   "140 oz / ft^2"
-  (qty/quantity 889/160000 {:length 1}))
+  889/160000 {:length 1})
 (defunit plate6gauge
   "130 oz / ft^2"
-  (qty/quantity 1651/320000 {:length 1}))
+  1651/320000 {:length 1})
 (defunit plate7gauge
   "120 oz / ft^2"
-  (qty/quantity 381/80000 {:length 1}))
+  381/80000 {:length 1})
 (defunit plate8gauge
   "110 oz / ft^2"
-  (qty/quantity 1397/320000 {:length 1}))
+  1397/320000 {:length 1})
 (defunit plate9gauge
   "100 oz / ft^2"
-  (qty/quantity 127/32000 {:length 1}))
-(defunit platinum (qty/quantity 4877/25000 {:mass 1, :amount_of_substance -1}))
-(defunit plethron (qty/quantity 31623/1000 {:length 1}))
-(defunit pli (qty/quantity 45359237/2540000 {:mass 1, :length -1}))
-(defunit plutoday (qty/quantity 13795488/25 {:time 1}))
-(defunit plutomass (qty/quantity 13025000000000000000000N {:mass 1}))
+  127/32000 {:length 1})
+(defunit platinum 4877/25000 {:mass 1, :amount_of_substance -1})
+(defunit plethron 31623/1000 {:length 1})
+(defunit pli 45359237/2540000 {:mass 1, :length -1})
+(defunit plutoday 13795488/25 {:time 1})
+(defunit plutomass 13025000000000000000000N {:mass 1})
 (defunit plutonium
   "Longest lived. 239.05"
-  (qty/quantity 1220321/5000000 {:mass 1, :amount_of_substance -1}))
+  1220321/5000000 {:mass 1, :amount_of_substance -1})
 (defunit plutoradius
   "+/- 0.8 km http://pluto.jhuapl.edu/News-Center/News-Article.php?page=20150713"
-  (qty/quantity 1188300N {:length 1}))
-(defunit plutoyear (qty/quantity 122253503533777539/15625000 {:time 1}))
-(defunit podes (qty/quantity 31623/100000 {:length 1}))
+  1188300N {:length 1})
+(defunit plutoyear 122253503533777539/15625000 {:time 1})
+(defunit podes 31623/100000 {:length 1})
 (defunit point
   "exact, NIST Handbook 44, Appendix 3"
-  (qty/quantity 1757299/5000000000 {:length 1}))
-(defunit pointangle (qty/quantity 1570796326794896619/8000000000000000000 {}))
+  1757299/5000000000 {:length 1})
+(defunit pointangle 1570796326794896619/8000000000000000000 {})
 (defunit poise
   "viscosity, honors Jean Poiseuille"
-  (qty/quantity 1/10 {:mass 1, :length -1, :time -1}))
+  1/10 {:mass 1, :length -1, :time -1})
 (defunit poiseuille
   "viscosity"
-  (qty/quantity 1 {:mass 1, :length -1, :time -1}))
+  1 {:mass 1, :length -1, :time -1})
 (defunit polonium
   "Longest lived. 209.98"
-  (qty/quantity 65307/312500 {:mass 1, :amount_of_substance -1}))
-(defunit poncelet (qty/quantity 196133/200 {:mass 1, :length 2, :time -3}))
-(defunit pond (qty/quantity 196133/20000000 {:mass 1, :length 1, :time -2}))
-(defunit pony (qty/quantity 473176473/16000000000000 {:length 3}))
-(defunit ponykeg (qty/quantity 14668470663/500000000000 {:length 3}))
+  65307/312500 {:mass 1, :amount_of_substance -1})
+(defunit poncelet 196133/200 {:mass 1, :length 2, :time -3})
+(defunit pond 196133/20000000 {:mass 1, :length 1, :time -2})
+(defunit pony 473176473/16000000000000 {:length 3})
+(defunit ponykeg 14668470663/500000000000 {:length 3})
 (defunit postscriptpoint
   "people at some point."
-  (qty/quantity 127/360000 {:length 1}))
-(defunit potassium (qty/quantity 390983/10000000 {:mass 1, :amount_of_substance -1}))
-(defunit pottle (qty/quantity 454609/200000000 {:length 3}))
+  127/360000 {:length 1})
+(defunit potassium 390983/10000000 {:mass 1, :amount_of_substance -1})
+(defunit pottle 454609/200000000 {:length 3})
 (defunit pouce
   "fixed the meter at 3 frenchfeet + 11.296 lignes."
-  (qty/quantity 375/13853 {:length 1}))
+  375/13853 {:length 1})
 (defunit pound
   "Defined exactly, 0.45359237 kg"
-  (qty/quantity 45359237/100000000 {:mass 1}))
+  45359237/100000000 {:mass 1})
 (defunit poundal
   "same thing for a pound"
-  (qty/quantity 17281869297/125000000000 {:mass 1, :length 1, :time -2}))
-(defunit poundbagpaper (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
+  17281869297/125000000000 {:mass 1, :length 1, :time -2})
+(defunit poundbagpaper 45359237/27870912000 {:mass 1, :length -2})
 (defunit poundbiblepaper
   "Designed to be lightweight, thin,"
-  (qty/quantity 45359237/30645100000 {:mass 1, :length -2}))
-(defunit poundblankspaper (qty/quantity 589081/258064000 {:mass 1, :length -2}))
-(defunit poundblottingpaper (qty/quantity 45359237/14709648000 {:mass 1, :length -2}))
+  45359237/30645100000 {:mass 1, :length -2})
+(defunit poundblankspaper 589081/258064000 {:mass 1, :length -2})
+(defunit poundblottingpaper 45359237/14709648000 {:mass 1, :length -2})
 (defunit poundbondpaper
   "Bond paper is stiff and"
-  (qty/quantity 4123567/1096772000 {:mass 1, :length -2}))
-(defunit poundbookpaper (qty/quantity 45359237/30645100000 {:mass 1, :length -2}))
-(defunit poundboxboard (qty/quantity 45359237/9290304000 {:mass 1, :length -2}))
-(defunit poundbristolpaper (qty/quantity 45359237/20685442500 {:mass 1, :length -2}))
-(defunit poundcopypaper (qty/quantity 4123567/1096772000 {:mass 1, :length -2}))
-(defunit poundcoverpaper (qty/quantity 45359237/16774160000 {:mass 1, :length -2}))
-(defunit poundglassinepaper (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
-(defunit poundindexbristolpaper (qty/quantity 45359237/25088659500 {:mass 1, :length -2}))
-(defunit poundindexpaper (qty/quantity 45359237/25088659500 {:mass 1, :length -2}))
-(defunit poundledgerpaper (qty/quantity 4123567/1096772000 {:mass 1, :length -2}))
-(defunit poundnewsprintpaper (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
+  4123567/1096772000 {:mass 1, :length -2})
+(defunit poundbookpaper 45359237/30645100000 {:mass 1, :length -2})
+(defunit poundboxboard 45359237/9290304000 {:mass 1, :length -2})
+(defunit poundbristolpaper 45359237/20685442500 {:mass 1, :length -2})
+(defunit poundcopypaper 4123567/1096772000 {:mass 1, :length -2})
+(defunit poundcoverpaper 45359237/16774160000 {:mass 1, :length -2})
+(defunit poundglassinepaper 45359237/27870912000 {:mass 1, :length -2})
+(defunit poundindexbristolpaper 45359237/25088659500 {:mass 1, :length -2})
+(defunit poundindexpaper 45359237/25088659500 {:mass 1, :length -2})
+(defunit poundledgerpaper 4123567/1096772000 {:mass 1, :length -2})
+(defunit poundnewsprintpaper 45359237/27870912000 {:mass 1, :length -2})
 (defunit poundoffsetpaper
   "For offset printing"
-  (qty/quantity 45359237/30645100000 {:mass 1, :length -2}))
-(defunit poundpaperboard (qty/quantity 45359237/9290304000 {:mass 1, :length -2}))
-(defunit poundpostcardpaper (qty/quantity 45359237/20685442500 {:mass 1, :length -2}))
-(defunit poundposterpaper (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
-(defunit poundtagpaper (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
-(defunit poundtextpaper (qty/quantity 45359237/30645100000 {:mass 1, :length -2}))
-(defunit poundtissuepaper (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
-(defunit poundwaxingpaper (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
-(defunit poundweddingbristol (qty/quantity 45359237/20685442500 {:mass 1, :length -2}))
-(defunit poundwrappingpaper (qty/quantity 45359237/27870912000 {:mass 1, :length -2}))
+  45359237/30645100000 {:mass 1, :length -2})
+(defunit poundpaperboard 45359237/9290304000 {:mass 1, :length -2})
+(defunit poundpostcardpaper 45359237/20685442500 {:mass 1, :length -2})
+(defunit poundposterpaper 45359237/27870912000 {:mass 1, :length -2})
+(defunit poundtagpaper 45359237/27870912000 {:mass 1, :length -2})
+(defunit poundtextpaper 45359237/30645100000 {:mass 1, :length -2})
+(defunit poundtissuepaper 45359237/27870912000 {:mass 1, :length -2})
+(defunit poundwaxingpaper 45359237/27870912000 {:mass 1, :length -2})
+(defunit poundweddingbristol 45359237/20685442500 {:mass 1, :length -2})
+(defunit poundwrappingpaper 45359237/27870912000 {:mass 1, :length -2})
 (defunit poundwritingpaper
   "filing, and it resists"
-  (qty/quantity 4123567/1096772000 {:mass 1, :length -2}))
-(defunit pous (qty/quantity 31623/100000 {:length 1}))
-(defunit ppb (qty/quantity 1/1000000000 {}))
-(defunit ppm (qty/quantity 1/1000000 {}))
-(defunit ppt (qty/quantity 1/1000000000000 {}))
-(defunit praseodymium (qty/quantity 2818153/20000000 {:mass 1, :amount_of_substance -1}))
+  4123567/1096772000 {:mass 1, :length -2})
+(defunit pous 31623/100000 {:length 1})
+(defunit ppb 1/1000000000 {})
+(defunit ppm 1/1000000 {})
+(defunit ppt 1/1000000000000 {})
+(defunit praseodymium 2818153/20000000 {:mass 1, :amount_of_substance -1})
 (defunit preece
   "resistivity"
-  (qty/quantity 10000000000000N {:mass 1, :length 3, :time -3, :current -2}))
-(defunit printerspoint (qty/quantity 1757299/5000000000 {:length 1}))
+  10000000000000N {:mass 1, :length 3, :time -3, :current -2})
+(defunit printerspoint 1757299/5000000000 {:length 1})
 (defunit promethium
   "Longest lived. 146.92"
-  (qty/quantity 1449127/10000000 {:mass 1, :amount_of_substance -1}))
+  1449127/10000000 {:mass 1, :amount_of_substance -1})
 (defunit proof
   "Alcohol content measured by volume at 60 degrees Fahrenheit. This is a USA measure. In Europe proof=percent."
-  (qty/quantity 1/200 {}))
+  1/200 {})
 (defunit propane
   "Energy in liquid propane"
-  (qty/quantity 4012500000000000000/157725491 {:mass 1, :length -1, :time -2}))
-(defunit protactinium (qty/quantity 5775897/25000000 {:mass 1, :amount_of_substance -1}))
-(defunit protoncharge (qty/quantity 801088317/5000000000000000000000000000 {:current 1, :time 1}))
+  4012500000000000000/157725491 {:mass 1, :length -1, :time -2})
+(defunit protactinium 5775897/25000000 {:mass 1, :amount_of_substance -1})
+(defunit protoncharge 801088317/5000000000000000000000000000 {:current 1, :time 1})
 (defunit protonmagneticmoment
   "+/- 60 in last 2 digits"
-  (qty/quantity 28212135909/2000000000000000000000000000000000000 {:length 2, :current 1}))
+  28212135909/2000000000000000000000000000000000000 {:length 2, :current 1})
 (defunit protonmass
   "+/- 52 in last 2 digits"
-  (qty/quantity 33452438519/20000000000000000000000000000000000000 {:mass 1}))
-(defunit protonwavelength (qty/quantity 18931629/14326841099578413860000 {:length 1}))
-(defunit psi (qty/quantity 8896443230521/1290320000 {:mass 1, :length -1, :time -2}))
+  33452438519/20000000000000000000000000000000000000 {:mass 1})
+(defunit protonwavelength 18931629/14326841099578413860000 {:length 1})
+(defunit psi 8896443230521/1290320000 {:mass 1, :length -1, :time -2})
 (defunit psia
   "absolute pressure"
-  (qty/quantity 8896443230521/1290320000 {:mass 1, :length -1, :time -2}))
-(defunit pspoint (qty/quantity 127/360000 {:length 1}))
-(defunit pt (qty/quantity 473176473/1000000000000 {:length 3}))
-(defunit pulsatance (qty/quantity 1 {:time -1}))
-(defunit puncheon (qty/quantity 4091481/12500000 {:length 3}))
-(defunit pythagoreancomma (qty/quantity 531441/524288 {}))
-(defunit pythagoreanthird (qty/quantity 81/64 {}))
-(defunit qt (qty/quantity 473176473/500000000000 {:length 3}))
-(defunit quad (qty/quantity 1055055852620000000N {:mass 1, :length 2, :time -2}))
-(defunit quadrans (qty/quantity 8184102333/100000000000 {:mass 1}))
-(defunit quadrant (qty/quantity 1570796326794896619/1000000000000000000 {}))
-(defunit quadrantal (qty/quantity 1087691373/39062500000 {:length 3}))
-(defunit quadrilliard (qty/quantity 1000000000000000000000000000N {}))
-(defunit quadrillion (qty/quantity 1000000000000000N {}))
-(defunit quadruple (qty/quantity 4 {}))
-(defunit quart (qty/quantity 473176473/500000000000 {:length 3}))
-(defunit quartaria (qty/quantity 362563791/2500000000000 {:length 3}))
-(defunit quartarius (qty/quantity 362563791/2500000000000 {:length 3}))
-(defunit quattuordecillion (qty/quantity 1000000000000000000000000000000000000000000000N {}))
-(defunit quincunx (qty/quantity 2728034111/20000000000 {:mass 1}))
-(defunit quindecillion (qty/quantity 1000000000000000000000000000000000000000000000000N {}))
-(defunit quintal (qty/quantity 100 {:mass 1}))
-(defunit quintant (qty/quantity 1570796326794896619/1250000000000000000 {}))
-(defunit quintilliard (qty/quantity 1000000000000000000000000000000000N {}))
-(defunit quintillion (qty/quantity 1000000000000000000N {}))
-(defunit quintuple (qty/quantity 5 {}))
-(defunit quire (qty/quantity 25 {}))
-(defunit r_e (qty/quantity 5635880641/2000000000000000000000000 {:length 1}))
+  8896443230521/1290320000 {:mass 1, :length -1, :time -2})
+(defunit pspoint 127/360000 {:length 1})
+(defunit pt 473176473/1000000000000 {:length 3})
+(defunit pulsatance 1 {:time -1})
+(defunit puncheon 4091481/12500000 {:length 3})
+(defunit pythagoreancomma 531441/524288 {})
+(defunit pythagoreanthird 81/64 {})
+(defunit qt 473176473/500000000000 {:length 3})
+(defunit quad 1055055852620000000N {:mass 1, :length 2, :time -2})
+(defunit quadrans 8184102333/100000000000 {:mass 1})
+(defunit quadrant 1570796326794896619/1000000000000000000 {})
+(defunit quadrantal 1087691373/39062500000 {:length 3})
+(defunit quadrilliard 1000000000000000000000000000N {})
+(defunit quadrillion 1000000000000000N {})
+(defunit quadruple 4 {})
+(defunit quart 473176473/500000000000 {:length 3})
+(defunit quartaria 362563791/2500000000000 {:length 3})
+(defunit quartarius 362563791/2500000000000 {:length 3})
+(defunit quattuordecillion 1000000000000000000000000000000000000000000000N {})
+(defunit quincunx 2728034111/20000000000 {:mass 1})
+(defunit quindecillion 1000000000000000000000000000000000000000000000000N {})
+(defunit quintal 100 {:mass 1})
+(defunit quintant 1570796326794896619/1250000000000000000 {})
+(defunit quintilliard 1000000000000000000000000000000000N {})
+(defunit quintillion 1000000000000000000N {})
+(defunit quintuple 5 {})
+(defunit quire 25 {})
+(defunit r_e 5635880641/2000000000000000000000000 {:length 1})
 (defunit rad
   "From Radiation Absorbed Dose"
-  (qty/quantity 1/100 {:length 2, :time -2}))
+  1/100 {:length 2, :time -2})
 (defunit radian
   "The angle subtended at the center of a circle by an arc equal in length to the radius of the circle. A circle thus subtends an angle of 2 pi radians."
-  (qty/quantity 1 {}))
-(defunit radium (qty/quantity 1130127/5000000 {:mass 1, :amount_of_substance -1}))
+  1 {})
+(defunit radium 1130127/5000000 {:mass 1, :amount_of_substance -1})
 (defunit radon
   "Longest lived"
-  (qty/quantity 138761/625000 {:mass 1, :amount_of_substance -1}))
-(defunit ramsdenschain (qty/quantity 762/25 {:length 1}))
-(defunit ramsdenslink (qty/quantity 381/1250 {:length 1}))
-(defunit ray (qty/quantity 100000N {:length -4, :mass 1, :time -1}))
+  138761/625000 {:mass 1, :amount_of_substance -1})
+(defunit ramsdenschain 762/25 {:length 1})
+(defunit ramsdenslink 381/1250 {:length 1})
+(defunit ray 100000N {:length -4, :mass 1, :time -1})
 (defunit rayl
   "Specific acoustical resistance"
-  (qty/quantity 10N {:length -2, :mass 1, :time -1}))
-(defunit rd (qty/quantity 19800/3937 {:length 1}))
-(defunit ream (qty/quantity 500 {}))
-(defunit refrigeration (qty/quantity 1163/300 {:length 2, :time -3}))
+  10N {:length -2, :mass 1, :time -1})
+(defunit rd 19800/3937 {:length 1})
+(defunit ream 500 {})
+(defunit refrigeration 1163/300 {:length 2, :time -3})
 (defunit registerton
   "Used for internal capacity of ships"
-  (qty/quantity 55306341/19531250 {:length 3}))
-(defunit rehoboam (qty/quantity 9/2000 {:length 3}))
+  55306341/19531250 {:length 3})
+(defunit rehoboam 9/2000 {:length 3})
 (defunit rem
   "keV X-rays. Different types of radiation are weighted by the Relative Biological Effectiveness (RBE)."
-  (qty/quantity 1/100 {:length 2, :time -2}))
+  1/100 {:length 2, :time -2})
 (defunit remendigit
   "side length of 1 royal egyptian cubit. This is divided into 40 digits which are not the same size as the digits based on the royal cubit."
-  (qty/quantity 92583/5000000 {:length 1}))
+  92583/5000000 {:length 1})
 (defunit rep
   "Roentgen Equivalent Physical, the amount of radiation which , absorbed in the body, would liberate the same amount of energy as 1 roentgen of X rays would, or 97 ergs."
-  (qty/quantity 419/50000 {:length 2, :time -2}))
-(defunit rev (qty/quantity 1570796326794896619/250000000000000000 {}))
-(defunit revolution (qty/quantity 1570796326794896619/250000000000000000 {}))
-(defunit reyn (qty/quantity 8896443230521/1290320000 {:mass 1, :length -1, :time -1}))
+  419/50000 {:length 2, :time -2})
+(defunit rev 1570796326794896619/250000000000000000 {})
+(defunit revolution 1570796326794896619/250000000000000000 {})
+(defunit reyn 8896443230521/1290320000 {:mass 1, :length -1, :time -1})
 (defunit rhe
   "reciprocal viscosity"
-  (qty/quantity 10N {:mass -1, :length 1, :time 1}))
-(defunit rhenium (qty/quantity 186207/1000000 {:mass 1, :amount_of_substance -1}))
-(defunit rhodium (qty/quantity 205811/2000000 {:mass 1, :amount_of_substance -1}))
-(defunit ricebushel (qty/quantity 408233133/20000000 {:mass 1}))
+  10N {:mass -1, :length 1, :time 1})
+(defunit rhenium 186207/1000000 {:mass 1, :amount_of_substance -1})
+(defunit rhodium 205811/2000000 {:mass 1, :amount_of_substance -1})
+(defunit ricebushel 408233133/20000000 {:mass 1})
 (defunit rick
   "Stack of firewood"
-  (qty/quantity 294967152/244140625 {:length 3}))
-(defunit rightangle (qty/quantity 1570796326794896619/1000000000000000000 {}))
-(defunit rod (qty/quantity 19800/3937 {:length 1}))
+  294967152/244140625 {:length 3})
+(defunit rightangle 1570796326794896619/1000000000000000000 {})
+(defunit rod 19800/3937 {:length 1})
 (defunit roentgen
   "Ionizing radiation that produces 1 statcoulomb of charge in 1 cc of dry air at stp."
-  (qty/quantity 129/500000 {:current 1, :time 1, :mass -1}))
+  129/500000 {:current 1, :time 1, :mass -1})
 (defunit rollwallpaper
   "Area of roll of wall paper"
-  (qty/quantity 435483/156250 {:length 2}))
+  435483/156250 {:length 2})
 (defunit romanaspound
   "Old pound based on bronze coinage, the earliest money of Rome BC 338 to BC 268."
-  (qty/quantity 2728034111/10000000000 {:mass 1}))
+  2728034111/10000000000 {:mass 1})
 (defunit romancubit
   "units."
-  (qty/quantity 111/250 {:length 1}))
+  111/250 {:length 1})
 (defunit romandigit
   "same names as the subdivisions of the pound,"
-  (qty/quantity 37/2000 {:length 1}))
+  37/2000 {:length 1})
 (defunit romanfeet
   "from which all the other units are derived."
-  (qty/quantity 37/125 {:length 1}))
+  37/125 {:length 1})
 (defunit romanfoot
   "There is some uncertainty in this definition"
-  (qty/quantity 37/125 {:length 1}))
+  37/125 {:length 1})
 (defunit romaninch
   "The subdivisions of the Roman foot have the"
-  (qty/quantity 37/1500 {:length 1}))
-(defunit romanleague (qty/quantity 2220N {:length 1}))
+  37/1500 {:length 1})
+(defunit romanleague 2220N {:length 1})
 (defunit romanmile
   "1000 paces"
-  (qty/quantity 1480N {:length 1}))
-(defunit romanobol (qty/quantity 2728034111/4800000000000 {:mass 1}))
+  1480N {:length 1})
+(defunit romanobol 2728034111/4800000000000 {:mass 1})
 (defunit romanounce
   "was in use from BC 27 to AD 296."
-  (qty/quantity 2728034111/100000000000 {:mass 1}))
+  2728034111/100000000000 {:mass 1})
 (defunit romanpace
   "Roman double pace (basic military unit)"
-  (qty/quantity 37/25 {:length 1}))
+  37/25 {:length 1})
 (defunit romanpalm
   "but we can't have the names for different"
-  (qty/quantity 37/500 {:length 1}))
-(defunit romanperch (qty/quantity 74/25 {:length 1}))
+  37/500 {:length 1})
+(defunit romanperch 74/25 {:length 1})
 (defunit romanpound
   "the standards were obtained from the weight"
-  (qty/quantity 8184102333/25000000000 {:mass 1}))
+  8184102333/25000000000 {:mass 1})
 (defunit rontgen
   "Sometimes it appears spelled this way"
-  (qty/quantity 129/500000 {:current 1, :time 1, :mass -1}))
-(defunit rood (qty/quantity 15681600000/15499969 {:length 2}))
-(defunit rpm (qty/quantity 523598775598298873/5000000000000000000 {:time -1}))
-(defunit rps (qty/quantity 1570796326794896619/250000000000000000 {:time -1}))
-(defunit rubidium (qty/quantity 427339/5000000 {:mass 1, :amount_of_substance -1}))
+  129/500000 {:current 1, :time 1, :mass -1})
+(defunit rood 15681600000/15499969 {:length 2})
+(defunit rpm 523598775598298873/5000000000000000000 {:time -1})
+(defunit rps 1570796326794896619/250000000000000000 {:time -1})
+(defunit rubidium 427339/5000000 {:mass 1, :amount_of_substance -1})
 (defunit ruby
   "British"
-  (qty/quantity 19330289/10000000000 {:length 1}))
-(defunit ruthenium (qty/quantity 10107/100000 {:mass 1, :amount_of_substance -1}))
-(defunit rutherford (qty/quantity 1000000N {:time -1}))
+  19330289/10000000000 {:length 1})
+(defunit ruthenium 10107/100000 {:mass 1, :amount_of_substance -1})
+(defunit rutherford 1000000N {:time -1})
 (defunit rydberg
   "Rydberg energy"
-  (qty/quantity 1282975513735210262046510653078379104749659/588555337748438588244981955679282000000000000000000000000000 {:mass 1, :length 2, :time -2}))
-(defunit ryebushel (qty/quantity 317514659/12500000 {:mass 1}))
+  1282975513735210262046510653078379104749659/588555337748438588244981955679282000000000000000000000000000 {:mass 1, :length 2, :time -2})
+(defunit ryebushel 317514659/12500000 {:mass 1})
 (defunit s
   "The 2019 SI definition of the second is:"
-  (qty/quantity 1 {:time 1}))
+  1 {:time 1})
 (defunit sabin
   "Measure of sound absorption equal to the absorbing power of one square foot of a perfectly absorbing material. The sound absorptivity of an object is the area times a dimensionless absorptivity coefficient."
-  (qty/quantity 145161/1562500 {:length 2}))
-(defunit salmanazar (qty/quantity 9/1000 {:length 3}))
-(defunit salt (qty/quantity 192000000000/157725491 {:mass 1, :length -3}))
-(defunit samarium (qty/quantity 3759/25000 {:mass 1, :amount_of_substance -1}))
-(defunit saturnday (qty/quantity 37800N {:time 1}))
-(defunit saturnmass (qty/quantity 568500000000000000000000000N {:mass 1}))
-(defunit saturnyear (qty/quantity 145250613337824423/156250000 {:time 1}))
-(defunit sawbuck (qty/quantity 10 {:currency 1}))
+  145161/1562500 {:length 2})
+(defunit salmanazar 9/1000 {:length 3})
+(defunit salt 192000000000/157725491 {:mass 1, :length -3})
+(defunit samarium 3759/25000 {:mass 1, :amount_of_substance -1})
+(defunit saturnday 37800N {:time 1})
+(defunit saturnmass 568500000000000000000000000N {:mass 1})
+(defunit saturnyear 145250613337824423/156250000 {:time 1})
+(defunit sawbuck 10 {:currency 1})
 (defunit sb
   "(nit is from latin nitere = to shine.)"
-  (qty/quantity 10000N {:luminous_intensity 1, :length -2}))
-(defunit scandium (qty/quantity 4495591/100000000 {:mass 1, :amount_of_substance -1}))
+  10000N {:luminous_intensity 1, :length -2})
+(defunit scandium 4495591/100000000 {:mass 1, :amount_of_substance -1})
 (defunit sccm
   "'s' is for \"standard\" to indicate"
-  (qty/quantity 1351/800000 {:mass 1, :length 2, :time -3}))
+  1351/800000 {:mass 1, :length 2, :time -3})
 (defunit sccs
   "flow at standard pressure"
-  (qty/quantity 4053/40000 {:mass 1, :length 2, :time -3}))
-(defunit scfh (qty/quantity 24906288897/31250000000 {:mass 1, :length 2, :time -3}))
-(defunit scfm (qty/quantity 74718866691/1562500000 {:mass 1, :length 2, :time -3}))
-(defunit schoenus (qty/quantity 5920N {:length 1}))
+  4053/40000 {:mass 1, :length 2, :time -3})
+(defunit scfh 24906288897/31250000000 {:mass 1, :length 2, :time -3})
+(defunit scfm 74718866691/1562500000 {:mass 1, :length 2, :time -3})
+(defunit schoenus 5920N {:length 1})
 (defunit scoopnumber
   "Ice cream scoops are labeled with a number specifying how many scoops fill a quart."
-  (qty/quantity 500000000000/473176473 {:length -3}))
-(defunit score (qty/quantity 20 {}))
-(defunit scriptulum (qty/quantity 2728034111/2400000000000 {:mass 1}))
-(defunit scruple (qty/quantity 6479891/5000000000 {:mass 1}))
-(defunit scrupula (qty/quantity 2728034111/2400000000000 {:mass 1}))
-(defunit seah (qty/quantity 1541709319801/125000000000000 {:length 3}))
-(defunit seam (qty/quantity 454609/1562500 {:length 3}))
-(defunit seamile (qty/quantity 9144/5 {:length 1}))
-(defunit sec (qty/quantity 1 {:time 1}))
+  500000000000/473176473 {:length -3})
+(defunit score 20 {})
+(defunit scriptulum 2728034111/2400000000000 {:mass 1})
+(defunit scruple 6479891/5000000000 {:mass 1})
+(defunit scrupula 2728034111/2400000000000 {:mass 1})
+(defunit seah 1541709319801/125000000000000 {:length 3})
+(defunit seam 454609/1562500 {:length 3})
+(defunit seamile 9144/5 {:length 1})
+(defunit sec 1 {:time 1})
 (defunit second
   "The second, symbol s, is the SI unit of time. It is defined by taking the fixed numerical value of the caesium frequency Δν_Cs, the unperturbed ground-state hyperfine transition frequency of the caesium 133 atom, to be 9_192_631_770 when expressed in the unit Hz, which is equal to s^−1."
-  (qty/quantity 1 {:time 1}))
-(defunit section (qty/quantity 40144896000000/15499969 {:length 2}))
-(defunit selenium (qty/quantity 987/12500 {:mass 1, :amount_of_substance -1}))
-(defunit semis (qty/quantity 8184102333/50000000000 {:mass 1}))
-(defunit semisextula (qty/quantity 2728034111/1200000000000 {:mass 1}))
-(defunit semodii (qty/quantity 362563791/78125000000 {:length 3}))
-(defunit semodius (qty/quantity 362563791/78125000000 {:length 3}))
-(defunit semuncia (qty/quantity 2728034111/200000000000 {:mass 1}))
-(defunit sennight (qty/quantity 604800 {:time 1}))
-(defunit seprunx (qty/quantity 19096238777/100000000000 {:mass 1}))
-(defunit septendecillion (qty/quantity 1000000000000000000000000000000000000000000000000000000N {}))
-(defunit septilliard (qty/quantity 1000000000000000000000000000000000000000000000N {}))
-(defunit septillion (qty/quantity 1000000000000000000000000N {}))
-(defunit septuple (qty/quantity 7 {}))
-(defunit sescuncia (qty/quantity 8184102333/200000000000 {:mass 1}))
-(defunit seven (qty/quantity 7 {}))
-(defunit seventy (qty/quantity 70 {}))
-(defunit sexdecillion (qty/quantity 1000000000000000000000000000000000000000000000000000N {}))
-(defunit sextans (qty/quantity 2728034111/50000000000 {:mass 1}))
-(defunit sextant (qty/quantity 523598775598298873/500000000000000000 {}))
+  1 {:time 1})
+(defunit section 40144896000000/15499969 {:length 2})
+(defunit selenium 987/12500 {:mass 1, :amount_of_substance -1})
+(defunit semis 8184102333/50000000000 {:mass 1})
+(defunit semisextula 2728034111/1200000000000 {:mass 1})
+(defunit semodii 362563791/78125000000 {:length 3})
+(defunit semodius 362563791/78125000000 {:length 3})
+(defunit semuncia 2728034111/200000000000 {:mass 1})
+(defunit sennight 604800 {:time 1})
+(defunit seprunx 19096238777/100000000000 {:mass 1})
+(defunit septendecillion 1000000000000000000000000000000000000000000000000000000N {})
+(defunit septilliard 1000000000000000000000000000000000000000000000N {})
+(defunit septillion 1000000000000000000000000N {})
+(defunit septuple 7 {})
+(defunit sescuncia 8184102333/200000000000 {:mass 1})
+(defunit seven 7 {})
+(defunit seventy 70 {})
+(defunit sexdecillion 1000000000000000000000000000000000000000000000000000N {})
+(defunit sextans 2728034111/50000000000 {:mass 1})
+(defunit sextant 523598775598298873/500000000000000000 {})
 (defunit sextarii
   "there is uncertainty. Six large Roman measures survive with volumes ranging from 34.4 in^3 to 39.55 in^3. Three of them cluster around the size given here."
-  (qty/quantity 362563791/625000000000 {:length 3}))
+  362563791/625000000000 {:length 3})
 (defunit sextarius
   "Basic unit of Roman volume. As always,"
-  (qty/quantity 362563791/625000000000 {:length 3}))
-(defunit sextilliard (qty/quantity 1000000000000000000000000000000000000000N {}))
-(defunit sextillion (qty/quantity 1000000000000000000000N {}))
-(defunit sextula (qty/quantity 2728034111/600000000000 {:mass 1}))
-(defunit sextuple (qty/quantity 6 {}))
+  362563791/625000000000 {:length 3})
+(defunit sextilliard 1000000000000000000000000000000000000000N {})
+(defunit sextillion 1000000000000000000000N {})
+(defunit sextula 2728034111/600000000000 {:mass 1})
+(defunit sextuple 6 {})
 (defunit shackle
   "Adopted 1949 by British navy"
-  (qty/quantity 108000/3937 {:length 1}))
-(defunit shake (qty/quantity 1/100000000 {:time 1}))
+  108000/3937 {:length 1})
+(defunit shake 1/100000000 {:time 1})
 (defunit shed
   "Defined to be a smaller companion to the barn, but it's too small to be of much use."
-  (qty/quantity 1/10000000000000000000000000000000000000000000000000000 {:length 2}))
+  1/10000000000000000000000000000000000000000000000000000 {:length 2})
 (defunit shippington
   "Used for ship's cargo freight or timber"
-  (qty/quantity 55306341/48828125 {:length 3}))
-(defunit shock (qty/quantity 60 {}))
+  55306341/48828125 {:length 3})
+(defunit shock 60 {})
 (defunit shoeiron
   "Used to measure leather in soles"
-  (qty/quantity 127/240000 {:length 1}))
+  127/240000 {:length 1})
 (defunit shoeounce
   "Used to measure non-sole shoe leather"
-  (qty/quantity 127/320000 {:length 1}))
+  127/320000 {:length 1})
 (defunit shortening
   "vegetable shortening"
-  (qty/quantity 3313580625/4096766 {:mass 1, :length -3}))
+  3313580625/4096766 {:mass 1, :length -3})
 (defunit shortgreekcubit
   "Elbow to start of fingers."
-  (qty/quantity 284607/800000 {:length 1}))
-(defunit shorthundredweight (qty/quantity 45359237/1000000 {:mass 1}))
-(defunit shortquarter (qty/quantity 45359237/200000 {:mass 1}))
-(defunit shortquire (qty/quantity 24 {}))
-(defunit shortream (qty/quantity 480 {}))
-(defunit shortton (qty/quantity 45359237/50000 {:mass 1}))
+  284607/800000 {:length 1})
+(defunit shorthundredweight 45359237/1000000 {:mass 1})
+(defunit shortquarter 45359237/200000 {:mass 1})
+(defunit shortquire 24 {})
+(defunit shortream 480 {})
+(defunit shortton 45359237/50000 {:mass 1})
 (defunit shot
   "Sometimes 1 floz"
-  (qty/quantity 1419529419/32000000000000 {:length 3}))
-(defunit siderealday (qty/quantity 17781537531051/15625 {:time 3}))
+  1419529419/32000000000000 {:length 3})
+(defunit siderealday 17781537531051/15625 {:time 3})
 (defunit siderealhour
   "between two successive transits"
-  (qty/quantity 5927179177017/125000 {:time 3}))
+  5927179177017/125000 {:time 3})
 (defunit siderealminute
   "of a star over the meridian,"
-  (qty/quantity 1975726392339/2500000 {:time 3}))
+  1975726392339/2500000 {:time 3})
 (defunit siderealmonth
   "Time required for the moon to orbit the earth"
-  (qty/quantity 1475369694/625 {:time 1}))
+  1475369694/625 {:time 1})
 (defunit siderealsecond
   "or the time required for the earth to make one rotation relative to the stars. The more usual solar day is the time required to make a rotation relative to the sun. Because the earth moves in its orbit, it has to turn a bit extra to face the sun again, hence the solar day is slightly longer."
-  (qty/quantity 658575464113/50000000 {:time 3}))
+  658575464113/50000000 {:time 3})
 (defunit siderealyear
   "The time for the earth to make one revolution around the sun relative to the stars."
-  (qty/quantity 9861921731259/312500 {:time 1}))
+  9861921731259/312500 {:time 1})
 (defunit siegbahn
   "of X-rays. It is defined to be 1/3029.45 of the spacing of calcite planes at 18 degC. It was intended to be exactly 1e-13 m, but was later found to be off slightly."
-  (qty/quantity 50101/500000000000000000 {:length 1}))
+  50101/500000000000000000 {:length 1})
 (defunit siemens
   "electrical conductance"
-  (qty/quantity 1 {:current 2, :mass -1, :length -2, :time 3}))
+  1 {:current 2, :mass -1, :length -2, :time 3})
 (defunit siemensunit
   "Resistance of a meter long column of mercury with a 1 mm cross section."
-  (qty/quantity 4767/5000 {:mass 1, :length 2, :time -3, :current -2}))
+  4767/5000 {:mass 1, :length 2, :time -3, :current -2})
 (defunit sievert
   "Dose equivalent: dosage that has the"
-  (qty/quantity 1 {:length 2, :time -2}))
+  1 {:length 2, :time -2})
 (defunit sievertunit
   "Unit of gamma ray dose delivered in one hour at a distance of 1 cm from a point source of 1 mg of radium enclosed in platinum .5 mm thick."
-  (qty/quantity 54051/25000000 {:current 1, :time 1, :mass -1}))
+  54051/25000000 {:current 1, :time 1, :mass -1})
 (defunit sigma
   "at temperature T is given by sigma T^4. Exactly defined as of 2019 but since pi is transcendental, it doesn't have a finite representation. https://physics.nist.gov/cgi-bin/cuu/Value?sigma"
-  (qty/quantity 80501092948521088867488369932300398190977913808046719518598807407388692934430742468721301569590816283564227451/1419678613746631030208994604859444253906250000000000000000000000000000000000000000000000000000000000000000000000000000 {:mass 1, :time -3, :temperature -4}))
-(defunit sigma_e (qty/quantity 66524587051/1000000000000000000000000000000000000000 {:length 2}))
-(defunit sigma_t (qty/quantity 66524587051/1000000000000000000000000000000000000000 {:length 2}))
+  80501092948521088867488369932300398190977913808046719518598807407388692934430742468721301569590816283564227451/1419678613746631030208994604859444253906250000000000000000000000000000000000000000000000000000000000000000000000000000 {:mass 1, :time -3, :temperature -4})
+(defunit sigma_e 66524587051/1000000000000000000000000000000000000000 {:length 2})
+(defunit sigma_t 66524587051/1000000000000000000000000000000000000000 {:length 2})
 (defunit sign
   "Angular extent of one sign of the zodiac"
-  (qty/quantity 523598775598298873/1000000000000000000 {}))
-(defunit silicon (qty/quantity 56171/2000000 {:mass 1, :amount_of_substance -1}))
-(defunit silver (qty/quantity 539341/5000000 {:mass 1, :amount_of_substance -1}))
+  523598775598298873/1000000000000000000 {})
+(defunit silicon 56171/2000000 {:mass 1, :amount_of_substance -1})
+(defunit silver 539341/5000000 {:mass 1, :amount_of_substance -1})
 (defunit silverdirhem
   "The weights were derived from these two"
-  (qty/quantity 58319019/20000000000 {:mass 1}))
-(defunit silverkirat (qty/quantity 58319019/320000000000 {:mass 1}))
-(defunit silverrotl (qty/quantity 174957057/500000000 {:mass 1}))
-(defunit silversmithpoint (qty/quantity 127/20000000 {:length 1}))
-(defunit silverwukiyeh (qty/quantity 58319019/2000000000 {:mass 1}))
-(defunit siscilius (qty/quantity 2728034111/400000000000 {:mass 1}))
-(defunit six (qty/quantity 6 {}))
-(defunit sixty (qty/quantity 60 {}))
-(defunit size10_5ring (qty/quantity 79197980000671892633361/1250000000000000000000000 {:length 1}))
-(defunit size10ring (qty/quantity 77602050932648277668457/1250000000000000000000000 {:length 1}))
-(defunit size11_5ring (qty/quantity 82389838136719122563169/1250000000000000000000000 {:length 1}))
-(defunit size11ring (qty/quantity 16158781813739101519653/250000000000000000000000 {:length 1}))
-(defunit size12_5ring (qty/quantity 85581696272766352492977/1250000000000000000000000 {:length 1}))
-(defunit size12ring (qty/quantity 83985767204742737528073/1250000000000000000000000 {:length 1}))
-(defunit size13_5ring (qty/quantity 17754710881762716484557/250000000000000000000000 {:length 1}))
-(defunit size13ring (qty/quantity 87177625340789967457881/1250000000000000000000000 {:length 1}))
-(defunit size2ring (qty/quantity 53663114912294053194897/1250000000000000000000000 {:length 1}))
-(defunit size3_5ring (qty/quantity 11370994609668256624941/250000000000000000000000 {:length 1}))
-(defunit size3ring (qty/quantity 55259043980317668159801/1250000000000000000000000 {:length 1}))
-(defunit size4_5ring (qty/quantity 60046831184388513054513/1250000000000000000000000 {:length 1}))
-(defunit size4ring (qty/quantity 58450902116364898089609/1250000000000000000000000 {:length 1}))
-(defunit size5_5ring (qty/quantity 63238689320435742984321/1250000000000000000000000 {:length 1}))
-(defunit size5ring (qty/quantity 61642760252412128019417/1250000000000000000000000 {:length 1}))
-(defunit size6_5ring (qty/quantity 66430547456482972914129/1250000000000000000000000 {:length 1}))
-(defunit size6ring (qty/quantity 2593384735538374317969/50000000000000000000000 {:length 1}))
-(defunit size7_5ring (qty/quantity 69622405592530202843937/1250000000000000000000000 {:length 1}))
-(defunit size7ring (qty/quantity 68026476524506587879033/1250000000000000000000000 {:length 1}))
-(defunit size8_5ring (qty/quantity 14562852745715486554749/250000000000000000000000 {:length 1}))
-(defunit size8ring (qty/quantity 71218334660553817808841/1250000000000000000000000 {:length 1}))
-(defunit size9_5ring (qty/quantity 76006121864624662703553/1250000000000000000000000 {:length 1}))
-(defunit size9ring (qty/quantity 74410192796601047738649/1250000000000000000000000 {:length 1}))
-(defunit sizeAring (qty/quantity 3/80 {:length 1}))
-(defunit sizeBring (qty/quantity 31/800 {:length 1}))
-(defunit sizeCring (qty/quantity 1/25 {:length 1}))
-(defunit sizeDring (qty/quantity 33/800 {:length 1}))
-(defunit sizeEring (qty/quantity 17/400 {:length 1}))
-(defunit sizeFring (qty/quantity 7/160 {:length 1}))
-(defunit sizeGring (qty/quantity 9/200 {:length 1}))
-(defunit sizeHring (qty/quantity 37/800 {:length 1}))
-(defunit sizeIring (qty/quantity 19/400 {:length 1}))
-(defunit sizeJring (qty/quantity 39/800 {:length 1}))
-(defunit sizeKring (qty/quantity 1/20 {:length 1}))
-(defunit sizeLring (qty/quantity 41/800 {:length 1}))
-(defunit sizeMring (qty/quantity 21/400 {:length 1}))
-(defunit sizeNring (qty/quantity 43/800 {:length 1}))
-(defunit sizeOring (qty/quantity 11/200 {:length 1}))
-(defunit sizePring (qty/quantity 9/160 {:length 1}))
-(defunit sizeQring (qty/quantity 23/400 {:length 1}))
-(defunit sizeRring (qty/quantity 47/800 {:length 1}))
-(defunit sizeSring (qty/quantity 3/50 {:length 1}))
-(defunit sizeTring (qty/quantity 49/800 {:length 1}))
-(defunit sizeUring (qty/quantity 1/16 {:length 1}))
-(defunit sizeVring (qty/quantity 51/800 {:length 1}))
-(defunit sizeWring (qty/quantity 13/200 {:length 1}))
-(defunit sizeXring (qty/quantity 53/800 {:length 1}))
-(defunit sizeYring (qty/quantity 27/400 {:length 1}))
-(defunit sizeZring (qty/quantity 11/160 {:length 1}))
+  58319019/20000000000 {:mass 1})
+(defunit silverkirat 58319019/320000000000 {:mass 1})
+(defunit silverrotl 174957057/500000000 {:mass 1})
+(defunit silversmithpoint 127/20000000 {:length 1})
+(defunit silverwukiyeh 58319019/2000000000 {:mass 1})
+(defunit siscilius 2728034111/400000000000 {:mass 1})
+(defunit six 6 {})
+(defunit sixty 60 {})
+(defunit size10_5ring 79197980000671892633361/1250000000000000000000000 {:length 1})
+(defunit size10ring 77602050932648277668457/1250000000000000000000000 {:length 1})
+(defunit size11_5ring 82389838136719122563169/1250000000000000000000000 {:length 1})
+(defunit size11ring 16158781813739101519653/250000000000000000000000 {:length 1})
+(defunit size12_5ring 85581696272766352492977/1250000000000000000000000 {:length 1})
+(defunit size12ring 83985767204742737528073/1250000000000000000000000 {:length 1})
+(defunit size13_5ring 17754710881762716484557/250000000000000000000000 {:length 1})
+(defunit size13ring 87177625340789967457881/1250000000000000000000000 {:length 1})
+(defunit size2ring 53663114912294053194897/1250000000000000000000000 {:length 1})
+(defunit size3_5ring 11370994609668256624941/250000000000000000000000 {:length 1})
+(defunit size3ring 55259043980317668159801/1250000000000000000000000 {:length 1})
+(defunit size4_5ring 60046831184388513054513/1250000000000000000000000 {:length 1})
+(defunit size4ring 58450902116364898089609/1250000000000000000000000 {:length 1})
+(defunit size5_5ring 63238689320435742984321/1250000000000000000000000 {:length 1})
+(defunit size5ring 61642760252412128019417/1250000000000000000000000 {:length 1})
+(defunit size6_5ring 66430547456482972914129/1250000000000000000000000 {:length 1})
+(defunit size6ring 2593384735538374317969/50000000000000000000000 {:length 1})
+(defunit size7_5ring 69622405592530202843937/1250000000000000000000000 {:length 1})
+(defunit size7ring 68026476524506587879033/1250000000000000000000000 {:length 1})
+(defunit size8_5ring 14562852745715486554749/250000000000000000000000 {:length 1})
+(defunit size8ring 71218334660553817808841/1250000000000000000000000 {:length 1})
+(defunit size9_5ring 76006121864624662703553/1250000000000000000000000 {:length 1})
+(defunit size9ring 74410192796601047738649/1250000000000000000000000 {:length 1})
+(defunit sizeAring 3/80 {:length 1})
+(defunit sizeBring 31/800 {:length 1})
+(defunit sizeCring 1/25 {:length 1})
+(defunit sizeDring 33/800 {:length 1})
+(defunit sizeEring 17/400 {:length 1})
+(defunit sizeFring 7/160 {:length 1})
+(defunit sizeGring 9/200 {:length 1})
+(defunit sizeHring 37/800 {:length 1})
+(defunit sizeIring 19/400 {:length 1})
+(defunit sizeJring 39/800 {:length 1})
+(defunit sizeKring 1/20 {:length 1})
+(defunit sizeLring 41/800 {:length 1})
+(defunit sizeMring 21/400 {:length 1})
+(defunit sizeNring 43/800 {:length 1})
+(defunit sizeOring 11/200 {:length 1})
+(defunit sizePring 9/160 {:length 1})
+(defunit sizeQring 23/400 {:length 1})
+(defunit sizeRring 47/800 {:length 1})
+(defunit sizeSring 3/50 {:length 1})
+(defunit sizeTring 49/800 {:length 1})
+(defunit sizeUring 1/16 {:length 1})
+(defunit sizeVring 51/800 {:length 1})
+(defunit sizeWring 13/200 {:length 1})
+(defunit sizeXring 53/800 {:length 1})
+(defunit sizeYring 27/400 {:length 1})
+(defunit sizeZring 11/160 {:length 1})
 (defunit skeincotton
   "80 turns of thread on a reel with a 54 in circumference (varies for other kinds of thread)"
-  (qty/quantity 13716/125 {:length 1}))
+  13716/125 {:length 1})
 (defunit skot
   "measurements relating to dark adapted eyes."
-  (qty/quantity 500000000000000/1570796326794896619 {:luminous_intensity 1, :length -2}))
+  500000000000000/1570796326794896619 {:luminous_intensity 1, :length -2})
 (defunit skylum
   "average, clear sky"
-  (qty/quantity 8000 {:luminous_intensity 1, :length -2}))
+  8000 {:luminous_intensity 1, :length -2})
 (defunit skylum_o
   "average, overcast sky"
-  (qty/quantity 2000 {:luminous_intensity 1, :length -2}))
+  2000 {:luminous_intensity 1, :length -2})
 (defunit slinch
   "Mass unit derived from inch second"
-  (qty/quantity 8896443230521/50800000000 {:mass 1}))
+  8896443230521/50800000000 {:mass 1})
 (defunit slinchf
   "pound-force system. Used in space applications where in/sec^2 was a natural acceleration measure."
-  (qty/quantity 1744886100131775293/1016000000000000 {:mass 1, :length 1, :time -2}))
-(defunit slph (qty/quantity 1351/48000 {:mass 1, :length 2, :time -3}))
-(defunit slpm (qty/quantity 1351/800 {:mass 1, :length 2, :time -3}))
-(defunit slug (qty/quantity 8896443230521/609600000000 {:mass 1}))
-(defunit slugf (qty/quantity 1744886100131775293/12192000000000000 {:mass 1, :length 1, :time -2}))
-(defunit smallpica (qty/quantity 19330289/5000000000 {:length 1}))
+  1744886100131775293/1016000000000000 {:mass 1, :length 1, :time -2})
+(defunit slph 1351/48000 {:mass 1, :length 2, :time -3})
+(defunit slpm 1351/800 {:mass 1, :length 2, :time -3})
+(defunit slug 8896443230521/609600000000 {:mass 1})
+(defunit slugf 1744886100131775293/12192000000000000 {:mass 1, :length 1, :time -2})
+(defunit smallpica 19330289/5000000000 {:length 1})
 (defunit smoot
   "Height of Oliver R. Smoot Jr. see: http://aether.lbl.gov/www/personnel/smoot/smoot-measure.html"
-  (qty/quantity 338709/1250000 {:length 2}))
-(defunit sodium (qty/quantity 2873721/125000000 {:mass 1, :amount_of_substance -1}))
+  338709/1250000 {:length 2})
+(defunit sodium 2873721/125000000 {:mass 1, :amount_of_substance -1})
 (defunit solarday
   "The time for the earth to rotate on its axis relative to the sun."
-  (qty/quantity 86400 {:time 1}))
+  86400 {:time 1})
 (defunit solarmass
   "Common unit name"
-  (qty/quantity 1989100000000000000000000000000N {:mass 1}))
-(defunit solaryear (qty/quantity 9861539367087/312500 {:time 1}))
-(defunit soybeanbushel (qty/quantity 136077711/5000000 {:mass 1}))
+  1989100000000000000000000000000N {:mass 1})
+(defunit solaryear 9861539367087/312500 {:time 1})
+(defunit soybeanbushel 136077711/5000000 {:mass 1})
 (defunit spat
   "Rarely used for astronomical measurements"
-  (qty/quantity 1000000000000N {:length 1}))
-(defunit sphere (qty/quantity 1570796326794896619/125000000000000000 {}))
-(defunit sphericalrightangle (qty/quantity 1570796326794896619/1000000000000000000 {}))
-(defunit split (qty/quantity 1/5000 {:length 3}))
+  1000000000000N {:length 1})
+(defunit sphere 1570796326794896619/125000000000000000 {})
+(defunit sphericalrightangle 1570796326794896619/1000000000000000000 {})
+(defunit split 1/5000 {:length 3})
 (defunit splitdeal
   "And half again as thick is a split deal."
-  (qty/quantity 202789917/12500000000 {:length 3}))
+  202789917/12500000000 {:length 3})
 (defunit squareactus
   "actus quadratus"
-  (qty/quantity 788544/625 {:length 2}))
-(defunit squarearcmin (qty/quantity 274155677808037739331322691433070129/3240000000000000000000000000000000000000000 {}))
-(defunit squarearcsec (qty/quantity 274155677808037739331322691433070129/11664000000000000000000000000000000000000000000 {}))
-(defunit squaredegree (qty/quantity 274155677808037739331322691433070129/900000000000000000000000000000000000000 {}))
-(defunit squareminute (qty/quantity 274155677808037739331322691433070129/3240000000000000000000000000000000000000000 {}))
-(defunit squaresecond (qty/quantity 274155677808037739331322691433070129/11664000000000000000000000000000000000000000000 {}))
+  788544/625 {:length 2})
+(defunit squarearcmin 274155677808037739331322691433070129/3240000000000000000000000000000000000000000 {})
+(defunit squarearcsec 274155677808037739331322691433070129/11664000000000000000000000000000000000000000000 {})
+(defunit squaredegree 274155677808037739331322691433070129/900000000000000000000000000000000000000 {})
+(defunit squareminute 274155677808037739331322691433070129/3240000000000000000000000000000000000000000 {})
+(defunit squaresecond 274155677808037739331322691433070129/11664000000000000000000000000000000000000000000 {})
 (defunit sr
   "Solid angle which cuts off an area of the surface of"
-  (qty/quantity 1 {}))
-(defunit st (qty/quantity 1 {:length 3}))
-(defunit stade (qty/quantity 185N {:length 1}))
-(defunit stadia (qty/quantity 185N {:length 1}))
-(defunit stadion (qty/quantity 94869/500 {:length 1}))
-(defunit stadium (qty/quantity 185N {:length 1}))
+  1 {})
+(defunit st 1 {:length 3})
+(defunit stade 185N {:length 1})
+(defunit stadia 185N {:length 1})
+(defunit stadion 94869/500 {:length 1})
+(defunit stadium 185N {:length 1})
 (defunit standard
   "This is the St Petersburg or Pittsburg standard. Apparently the term is short for \"standard hundred which was meant to refer to 100 pieces of wood (deals). However, this particular standard is equal to 120 deals which are 12 ft by 11 in by 1.5 inches (not the standard deal)."
-  (qty/quantity 1825109253/390625000 {:length 3}))
+  1825109253/390625000 {:length 3})
 (defunit standardgauge
   "Standard width between railroad track"
-  (qty/quantity 822579/3125000 {:length 2}))
+  822579/3125000 {:length 2})
 (defunit standardtemp
   "standard temperature, exactly defined"
-  (qty/quantity 5463/20 {:temperature 1}))
-(defunit statamp (qty/quantity 1/2997924580 {:current 1}))
-(defunit statampere (qty/quantity 1/2997924580 {:current 1}))
-(defunit statcoul (qty/quantity 1/2997924580 {:current 1, :time 1}))
-(defunit statcoulomb (qty/quantity 1/2997924580 {:current 1, :time 1}))
-(defunit statfarad (qty/quantity 25000/22468879468420441 {:current 2, :time 4, :length -2, :mass -1}))
-(defunit stathenry (qty/quantity 22468879468420441/25000 {:length 2, :mass 1, :time -2, :current -2}))
-(defunit statmaxwell (qty/quantity 149896229/500000 {:length 2, :mass 1, :time -2, :current -1}))
-(defunit statmho (qty/quantity 25000/22468879468420441 {:length -2, :mass -1, :time 3, :current 2}))
-(defunit statohm (qty/quantity 22468879468420441/25000 {:length 2, :mass 1, :time -3, :current -2}))
-(defunit statvolt (qty/quantity 149896229/500000 {:length 2, :mass 1, :time -3, :current -1}))
-(defunit stdtemp (qty/quantity 5463/20 {:temperature 1}))
+  5463/20 {:temperature 1})
+(defunit statamp 1/2997924580 {:current 1})
+(defunit statampere 1/2997924580 {:current 1})
+(defunit statcoul 1/2997924580 {:current 1, :time 1})
+(defunit statcoulomb 1/2997924580 {:current 1, :time 1})
+(defunit statfarad 25000/22468879468420441 {:current 2, :time 4, :length -2, :mass -1})
+(defunit stathenry 22468879468420441/25000 {:length 2, :mass 1, :time -2, :current -2})
+(defunit statmaxwell 149896229/500000 {:length 2, :mass 1, :time -2, :current -1})
+(defunit statmho 25000/22468879468420441 {:length -2, :mass -1, :time 3, :current 2})
+(defunit statohm 22468879468420441/25000 {:length 2, :mass 1, :time -3, :current -2})
+(defunit statvolt 149896229/500000 {:length 2, :mass 1, :time -3, :current -1})
+(defunit stdtemp 5463/20 {:temperature 1})
 (defunit stefanboltzmann
   "The radiant emittance by a blackbody"
-  (qty/quantity 80501092948521088867488369932300398190977913808046719518598807407388692934430742468721301569590816283564227451/1419678613746631030208994604859444253906250000000000000000000000000000000000000000000000000000000000000000000000000000 {:mass 1, :time -3, :temperature -4}))
+  80501092948521088867488369932300398190977913808046719518598807407388692934430742468721301569590816283564227451/1419678613746631030208994604859444253906250000000000000000000000000000000000000000000000000000000000000000000000000000 {:mass 1, :time -3, :temperature -4})
 (defunit steradian
   "the sphere equal to that of a square with sides of length equal to the radius of the sphere. A sphere thus subtends 4 pi steradians. Also a dimensionless unit (length^2/length^2) If you have radians as a fundamental unit, and want to have steradians tracked correctly, replace the first definition with sr := radian^2"
-  (qty/quantity 1 {}))
-(defunit stere (qty/quantity 1 {:length 3}))
-(defunit sthene (qty/quantity 1000 {:mass 1, :length 1, :time -2}))
-(defunit stick (qty/quantity 127/2500 {:length 1}))
-(defunit stickbutter (qty/quantity 45359237/400000000 {:mass 1}))
+  1 {})
+(defunit stere 1 {:length 3})
+(defunit sthene 1000 {:mass 1, :length 1, :time -2})
+(defunit stick 127/2500 {:length 1})
+(defunit stickbutter 45359237/400000000 {:mass 1})
 (defunit stilb
   "area of an extended luminous source."
-  (qty/quantity 10000N {:luminous_intensity 1, :length -2}))
-(defunit stoke (qty/quantity 1/10000 {:length 2, :time -1}))
+  10000N {:luminous_intensity 1, :length -2})
+(defunit stoke 1/10000 {:length 2, :time -1})
 (defunit stokes
   "kinematic viscosity"
-  (qty/quantity 1/10000 {:length 2, :time -1}))
-(defunit stone (qty/quantity 317514659/50000000 {:mass 1}))
+  1/10000 {:length 2, :time -1})
+(defunit stone 317514659/50000000 {:mass 1})
 (defunit strike
   "16th century unit, sometimes defined as .5, 2, or 4 bushels depending on the location. It probably doesn't make a lot of sense to define in terms of imperial bushels. Zupko gives a value of 2 Winchester grain bushels or about 70.5 liters."
-  (qty/quantity 141/2000 {:length 3}))
-(defunit strontium (qty/quantity 4381/50000 {:mass 1, :amount_of_substance -1}))
+  141/2000 {:length 3})
+(defunit strontium 4381/50000 {:mass 1, :amount_of_substance -1})
 (defunit sturgeon
   "magnetic reluctance"
-  (qty/quantity 1 {:mass -1, :length -2, :time 2, :current 2}))
-(defunit sulfur (qty/quantity 16033/500000 {:mass 1, :amount_of_substance -1}))
-(defunit sulphur (qty/quantity 16033/500000 {:mass 1, :amount_of_substance -1}))
-(defunit sumeriancubit (qty/quantity 99/200 {:length 1}))
-(defunit sumerianfoot (qty/quantity 33/100 {:length 1}))
+  1 {:mass -1, :length -2, :time 2, :current 2})
+(defunit sulfur 16033/500000 {:mass 1, :amount_of_substance -1})
+(defunit sulphur 16033/500000 {:mass 1, :amount_of_substance -1})
+(defunit sumeriancubit 99/200 {:length 1})
+(defunit sumerianfoot 33/100 {:length 1})
 (defunit sundist
   "mean earth-sun distance"
-  (qty/quantity 7479901148035639923/50000000 {:length 1}))
+  7479901148035639923/50000000 {:length 1})
 (defunit sundist_far
   "earth-sun distance at aphelion"
-  (qty/quantity 152100000000N {:length 1}))
+  152100000000N {:length 1})
 (defunit sundist_near
   "earth-sun distance at perihelion"
-  (qty/quantity 147100000000N {:length 1}))
+  147100000000N {:length 1})
 (defunit sunillum
   "clear sky"
-  (qty/quantity 100000N {:luminous_intensity 1, :length -2}))
+  100000N {:luminous_intensity 1, :length -2})
 (defunit sunillum_o
   "overcast sky"
-  (qty/quantity 10000N {:luminous_intensity 1, :length -2}))
+  10000N {:luminous_intensity 1, :length -2})
 (defunit sunlum
   "at zenith"
-  (qty/quantity 1600000000N {:luminous_intensity 1, :length -2}))
+  1600000000N {:luminous_intensity 1, :length -2})
 (defunit sunlum_h
   "value at horizon"
-  (qty/quantity 6000000N {:luminous_intensity 1, :length -2}))
-(defunit sunmass (qty/quantity 1989100000000000000000000000000N {:mass 1}))
-(defunit sunpower (qty/quantity 386000000000000000000000000N {:mass 1, :length 2, :time -3}))
-(defunit surveychain (qty/quantity 79200/3937 {:length 1}))
-(defunit surveyorschain (qty/quantity 79200/3937 {:length 1}))
-(defunit surveyorslink (qty/quantity 792/3937 {:length 1}))
-(defunit surveyorspole (qty/quantity 19800/3937 {:length 1}))
-(defunit susi (qty/quantity 1143/250000 {:length 1}))
+  6000000N {:luminous_intensity 1, :length -2})
+(defunit sunmass 1989100000000000000000000000000N {:mass 1})
+(defunit sunpower 386000000000000000000000000N {:mass 1, :length 2, :time -3})
+(defunit surveychain 79200/3937 {:length 1})
+(defunit surveyorschain 79200/3937 {:length 1})
+(defunit surveyorslink 792/3937 {:length 1})
+(defunit surveyorspole 19800/3937 {:length 1})
+(defunit susi 1143/250000 {:length 1})
 (defunit svedberg
   "Used for measuring the sedimentation coefficient for centrifuging."
-  (qty/quantity 1/10000000000000 {:time 1}))
+  1/10000000000000 {:time 1})
 (defunit sverdrup
   "http://en.wikipedia.org/wiki/Sverdrup"
-  (qty/quantity 1000000N {:length 3, :time -1}))
+  1000000N {:length 3, :time -1})
 (defunit synodicmonth
   "moon occur when the sun and"
-  (qty/quantity 1594649997/625 {:time 1}))
-(defunit syntoniccomma (qty/quantity 81/80 {}))
-(defunit t (qty/quantity 1000 {:mass 1}))
-(defunit tablespoon (qty/quantity 473176473/32000000000000 {:length 3}))
+  1594649997/625 {:time 1})
+(defunit syntoniccomma 81/80 {})
+(defunit t 1000 {:mass 1})
+(defunit tablespoon 473176473/32000000000000 {:length 3})
 (defunit talbot
   "Luminous energy"
-  (qty/quantity 1 {:luminous_intensity 1, :time 1}))
-(defunit tantalum (qty/quantity 1809479/10000000 {:mass 1, :amount_of_substance -1}))
-(defunit tatamimat (qty/quantity 81306289/50000000 {:length 2}))
+  1 {:luminous_intensity 1, :time 1})
+(defunit tantalum 1809479/10000000 {:mass 1, :amount_of_substance -1})
+(defunit tatamimat 81306289/50000000 {:length 2})
 (defunit taumass
   "+/- 21 in last 2 digits"
-  (qty/quantity 158377/50000000000000000000000000000000 {:mass 1}))
-(defunit tbl (qty/quantity 473176473/32000000000000 {:length 3}))
-(defunit tbsp (qty/quantity 473176473/32000000000000 {:length 3}))
-(defunit teaspoon (qty/quantity 157725491/32000000000000 {:length 3}))
+  158377/50000000000000000000000000000000 {:mass 1})
+(defunit tbl 473176473/32000000000000 {:length 3})
+(defunit tbsp 473176473/32000000000000 {:length 3})
+(defunit teaspoon 157725491/32000000000000 {:length 3})
 (defunit technetium
   "Longest lived. 98.906"
-  (qty/quantity 7649/78125 {:mass 1, :amount_of_substance -1}))
-(defunit technicalatmosphere (qty/quantity 196133/2 {:mass 1, :length -1, :time -2}))
-(defunit tellurium (qty/quantity 319/2500 {:mass 1, :amount_of_substance -1}))
-(defunit ten (qty/quantity 10 {}))
-(defunit terbium (qty/quantity 7946267/50000000 {:mass 1, :amount_of_substance -1}))
-(defunit tertia (qty/quantity 75213/12500000 {:length 1}))
+  7649/78125 {:mass 1, :amount_of_substance -1})
+(defunit technicalatmosphere 196133/2 {:mass 1, :length -1, :time -2})
+(defunit tellurium 319/2500 {:mass 1, :amount_of_substance -1})
+(defunit ten 10 {})
+(defunit terbium 7946267/50000000 {:mass 1, :amount_of_substance -1})
+(defunit tertia 75213/12500000 {:length 1})
 (defunit tesla
   "magnetic flux density"
-  (qty/quantity 1 {:mass 1, :time -2, :current -1}))
+  1 {:mass 1, :time -2, :current -1})
 (defunit tex
   "rational metric yarn measure, meant"
-  (qty/quantity 1/1000000 {:mass 1, :length -1}))
+  1/1000000 {:mass 1, :length -1})
 (defunit texscaledpoint
   "The TeX typesetting system uses"
-  (qty/quantity 1757299/327680000000000 {:length 1}))
+  1757299/327680000000000 {:length 1})
 (defunit texsp
   "this for all computations."
-  (qty/quantity 1757299/327680000000000 {:length 1}))
-(defunit text (qty/quantity 676917/100000000 {:length 1}))
+  1757299/327680000000000 {:length 1})
+(defunit text 676917/100000000 {:length 1})
 (defunit thaibaht
   "New name for thaitical, not to be confused with the Thai currency called \"Thailand_baht\"."
-  (qty/quantity 3/200 {:mass 1}))
-(defunit thaicatty (qty/quantity 3/5 {:mass 1}))
-(defunit thaichang (qty/quantity 6/5 {:mass 1}))
-(defunit thaifung (qty/quantity 3/1600 {:mass 1}))
-(defunit thaihap (qty/quantity 60N {:mass 1}))
-(defunit thaikoyan (qty/quantity 1200N {:mass 1}))
-(defunit thaipicul (qty/quantity 60N {:mass 1}))
+  3/200 {:mass 1})
+(defunit thaicatty 3/5 {:mass 1})
+(defunit thaichang 6/5 {:mass 1})
+(defunit thaifung 3/1600 {:mass 1})
+(defunit thaihap 60N {:mass 1})
+(defunit thaikoyan 1200N {:mass 1})
+(defunit thaipicul 60N {:mass 1})
 (defunit thaisadtahng
   "Alternate transliteration"
-  (qty/quantity 3/20000 {:mass 1}))
-(defunit thaisalung (qty/quantity 3/800 {:mass 1}))
-(defunit thaisatang (qty/quantity 3/20000 {:mass 1}))
-(defunit thaitamlung (qty/quantity 3/50 {:mass 1}))
-(defunit thaitical (qty/quantity 3/200 {:mass 1}))
-(defunit thallium (qty/quantity 2043833/10000000 {:mass 1, :amount_of_substance -1}))
-(defunit therm (qty/quantity 105480400 {:mass 1, :length 2, :time -2}))
+  3/20000 {:mass 1})
+(defunit thaisalung 3/800 {:mass 1})
+(defunit thaisatang 3/20000 {:mass 1})
+(defunit thaitamlung 3/50 {:mass 1})
+(defunit thaitical 3/200 {:mass 1})
+(defunit thallium 2043833/10000000 {:mass 1, :amount_of_substance -1})
+(defunit therm 105480400 {:mass 1, :length 2, :time -2})
 (defunit thermalampere
   "entropy flow"
-  (qty/quantity 1 {:mass 1, :length 2, :time -3, :temperature -1}))
+  1 {:mass 1, :length 2, :time -3, :temperature -1})
 (defunit thermalcoulomb
   "entropy"
-  (qty/quantity 1 {:mass 1, :length 2, :time -2, :temperature -1}))
-(defunit thermalfarad (qty/quantity 1 {:mass 1, :length 2, :time -2, :temperature -2}))
+  1 {:mass 1, :length 2, :time -2, :temperature -1})
+(defunit thermalfarad 1 {:mass 1, :length 2, :time -2, :temperature -2})
 (defunit thermalhenry
   "thermal inductance"
-  (qty/quantity 1 {:mass -1, :length -2, :time 4, :temperature 2}))
+  1 {:mass -1, :length -2, :time 4, :temperature 2})
 (defunit thermalohm
   "thermal resistance"
-  (qty/quantity 1 {:temperature 2, :mass -1, :length -2, :time 3}))
+  1 {:temperature 2, :mass -1, :length -2, :time 3})
 (defunit thermalvolt
   "thermal potential difference"
-  (qty/quantity 1 {:temperature 1}))
-(defunit thermcalorie (qty/quantity 523/125 {:mass 1, :length 2, :time -2}))
+  1 {:temperature 1})
+(defunit thermcalorie 523/125 {:mass 1, :length 2, :time -2})
 (defunit thermie
   "Heat required to raise the temperature of a tonne of water from 14.5 to 15.5 degC."
-  (qty/quantity 4185800N {:mass 1, :length 2, :time -2}))
-(defunit thirty (qty/quantity 30 {}))
-(defunit thorium (qty/quantity 2320381/10000000 {:mass 1, :amount_of_substance -1}))
-(defunit thou (qty/quantity 127/5000000 {:length 1}))
-(defunit thousand (qty/quantity 1000 {}))
-(defunit three (qty/quantity 3 {}))
-(defunit thullium (qty/quantity 16893421/100000000 {:mass 1, :amount_of_substance -1}))
+  4185800N {:mass 1, :length 2, :time -2})
+(defunit thirty 30 {})
+(defunit thorium 2320381/10000000 {:mass 1, :amount_of_substance -1})
+(defunit thou 127/5000000 {:length 1})
+(defunit thousand 1000 {})
+(defunit three 3 {})
+(defunit thullium 16893421/100000000 {:mass 1, :amount_of_substance -1})
 (defunit timberfoot
   "Used for measuring solid blocks of wood"
-  (qty/quantity 55306341/1953125000 {:length 3}))
-(defunit timeatom (qty/quantity 15/94 {:time 1}))
-(defunit timeminute (qty/quantity 360N {:time 1}))
-(defunit timeostent (qty/quantity 60N {:time 1}))
-(defunit timeounce (qty/quantity 15/2 {:time 1}))
+  55306341/1953125000 {:length 3})
+(defunit timeatom 15/94 {:time 1})
+(defunit timeminute 360N {:time 1})
+(defunit timeostent 60N {:time 1})
+(defunit timeounce 15/2 {:time 1})
 (defunit timepoint
   "also given as 1/4"
-  (qty/quantity 720N {:time 1}))
-(defunit timer (qty/quantity 40 {}))
-(defunit tin (qty/quantity 11871/100000 {:mass 1, :amount_of_substance -1}))
-(defunit titanium (qty/quantity 47867/1000000 {:mass 1, :amount_of_substance -1}))
-(defunit titanmass (qty/quantity 135000000000000000000000N {:mass 1}))
-(defunit toise (qty/quantity 27000/13853 {:length 1}))
-(defunit ton (qty/quantity 45359237/50000 {:mass 1}))
+  720N {:time 1})
+(defunit timer 40 {})
+(defunit tin 11871/100000 {:mass 1, :amount_of_substance -1})
+(defunit titanium 47867/1000000 {:mass 1, :amount_of_substance -1})
+(defunit titanmass 135000000000000000000000N {:mass 1})
+(defunit toise 27000/13853 {:length 1})
+(defunit ton 45359237/50000 {:mass 1})
 (defunit tondal
   "and for a ton"
-  (qty/quantity 17281869297/62500000 {:mass 1, :length 1, :time -2}))
-(defunit tonf (qty/quantity 8896443230521/1000000000 {:mass 1, :length 1, :time -2}))
-(defunit tonne (qty/quantity 1000 {:mass 1}))
-(defunit tonref (qty/quantity 52752792631/15000000 {:mass 1, :length 2, :time -3}))
+  17281869297/62500000 {:mass 1, :length 1, :time -2})
+(defunit tonf 8896443230521/1000000000 {:mass 1, :length 1, :time -2})
+(defunit tonne 1000 {:mass 1})
+(defunit tonref 52752792631/15000000 {:mass 1, :length 2, :time -3})
 (defunit tonrefrigeration
   "One ton refrigeration is the rate of heat extraction required turn one ton of water to ice in a day. Ice is defined to have a latent heat of 144 Btu/lb."
-  (qty/quantity 52752792631/15000000 {:mass 1, :length 2, :time -3}))
+  52752792631/15000000 {:mass 1, :length 2, :time -3})
 (defunit tonsrefrigeration
   "Irregular plural"
-  (qty/quantity 52752792631/15000000 {:mass 1, :length 2, :time -3}))
+  52752792631/15000000 {:mass 1, :length 2, :time -3})
 (defunit tor
   "Torricelli, should not be confused. Acording to [15] the torr is actually atm/760 which is slightly different."
-  (qty/quantity 1 {:mass 1, :length -1, :time -2}))
+  1 {:mass 1, :length -1, :time -2})
 (defunit torr
   "Exactly defined. Differs from mmHg by about 1 part in 7 million."
-  (qty/quantity 20265/152 {:mass 1, :length -1, :time -2}))
-(defunit towerounce (qty/quantity 58319019/2000000000 {:mass 1}))
-(defunit towerpennyweight (qty/quantity 58319019/40000000000 {:mass 1}))
-(defunit towerpound (qty/quantity 174957057/500000000 {:mass 1}))
-(defunit township (qty/quantity 1445216256000000/15499969 {:length 2}))
+  20265/152 {:mass 1, :length -1, :time -2})
+(defunit towerounce 58319019/2000000000 {:mass 1})
+(defunit towerpennyweight 58319019/40000000000 {:mass 1})
+(defunit towerpound 174957057/500000000 {:mass 1})
+(defunit township 1445216256000000/15499969 {:length 2})
 (defunit tradedirhem
   "units with two identically named systems used for silver and used for trade purposes"
-  (qty/quantity 19439673/6250000000 {:mass 1}))
-(defunit tradekirat (qty/quantity 19439673/100000000000 {:mass 1}))
-(defunit traderotl (qty/quantity 58319019/156250000 {:mass 1}))
-(defunit tradewukiyeh (qty/quantity 19439673/625000000 {:mass 1}))
-(defunit treble (qty/quantity 3 {}))
-(defunit tredecillion (qty/quantity 1000000000000000000000000000000000000000000N {}))
-(defunit triens (qty/quantity 2728034111/25000000000 {:mass 1}))
-(defunit trilliard (qty/quantity 1000000000000000000000N {}))
-(defunit trillion (qty/quantity 1000000000000N {}))
-(defunit triple (qty/quantity 3 {}))
+  19439673/6250000000 {:mass 1})
+(defunit tradekirat 19439673/100000000000 {:mass 1})
+(defunit traderotl 58319019/156250000 {:mass 1})
+(defunit tradewukiyeh 19439673/625000000 {:mass 1})
+(defunit treble 3 {})
+(defunit tredecillion 1000000000000000000000000000000000000000000N {})
+(defunit triens 2728034111/25000000000 {:mass 1})
+(defunit trilliard 1000000000000000000000N {})
+(defunit trillion 1000000000000N {})
+(defunit triple 3 {})
 (defunit trit
   "log[3]/log[2]"
-  (qty/quantity 19812031259/12500000000 {:information 1}))
-(defunit trondrop (qty/quantity 771107029/400000000000 {:mass 1}))
-(defunit tronounce (qty/quantity 771107029/25000000000 {:mass 1}))
-(defunit tronpound (qty/quantity 771107029/1250000000 {:mass 1}))
-(defunit tronstone (qty/quantity 771107029/78125000 {:mass 1}))
+  19812031259/12500000000 {:information 1})
+(defunit trondrop 771107029/400000000000 {:mass 1})
+(defunit tronounce 771107029/25000000000 {:mass 1})
+(defunit tronpound 771107029/1250000000 {:mass 1})
+(defunit tronstone 771107029/78125000 {:mass 1})
 (defunit tropicalyear
   "The mean interval between vernal equinoxes. Differs from the sidereal year by 1 part in 26000 due to precession of the earth about its rotational axis combined with precession of the perihelion of the earth's orbit."
-  (qty/quantity 9861539367087/312500 {:time 1}))
-(defunit troyounce (qty/quantity 19439673/625000000 {:mass 1}))
-(defunit troypound (qty/quantity 58319019/156250000 {:mass 1}))
-(defunit tsi (qty/quantity 8896443230521/645160 {:mass 1, :length -1, :time -2}))
-(defunit tsp (qty/quantity 157725491/32000000000000 {:length 3}))
+  9861539367087/312500 {:time 1})
+(defunit troyounce 19439673/625000000 {:mass 1})
+(defunit troypound 58319019/156250000 {:mass 1})
+(defunit tsi 8896443230521/645160 {:mass 1, :length -1, :time -2})
+(defunit tsp 157725491/32000000000000 {:length 3})
 (defunit tsubo
   "Used in agriculture"
-  (qty/quantity 81306289/25000000 {:length 2}))
-(defunit tungsten (qty/quantity 1149/6250 {:mass 1, :amount_of_substance -1}))
-(defunit turn (qty/quantity 1570796326794896619/250000000000000000 {}))
-(defunit twenty (qty/quantity 20 {}))
-(defunit two (qty/quantity 2 {}))
-(defunit typp (qty/quantity 91440000000/45359237 {:length 1, :mass -1}))
+  81306289/25000000 {:length 2})
+(defunit tungsten 1149/6250 {:mass 1, :amount_of_substance -1})
+(defunit turn 1570796326794896619/250000000000000000 {})
+(defunit twenty 20 {})
+(defunit two 2 {})
+(defunit typp 91440000000/45359237 {:length 1, :mass -1})
 (defunit u
   "1/12 of the mass of carbon 12)"
-  (qty/quantity 41513476723/25000000000000000000000000000000000000 {:mass 1}))
+  41513476723/25000000000000000000000000000000000000 {:mass 1})
 (defunit uF
   "Concession to electrical engineers without adding the questionable \"u as a general prefix."
-  (qty/quantity 1/1000000 {:current 2, :time 4, :mass -1, :length -2}))
+  1/1000000 {:current 2, :time 4, :mass -1, :length -2})
 (defunit ua
   "The SI defines \"ua\" as the international symbol for the astronomical unit, but the IAU recommends that \"au\" be used. See 2012 resolution B2 here: http://www.iau.org/static/resolutions/IAU2012_English.pdf"
-  (qty/quantity 149597870700 {:length 1}))
+  149597870700 {:length 1})
 (defunit uncia
   "of particular coins. The one given here is"
-  (qty/quantity 2728034111/100000000000 {:mass 1}))
+  2728034111/100000000000 {:mass 1})
 (defunit unciae
   "based on the Gold Aureus of Augustus which"
-  (qty/quantity 2728034111/100000000000 {:mass 1}))
-(defunit undecillion (qty/quantity 1000000000000000000000000000000000000N {}))
-(defunit unitpole (qty/quantity 1570796326794896619/12500000000000000000000000 {:length 2, :mass 1, :time -2, :current -1}))
-(defunit unity (qty/quantity 1 {}))
+  2728034111/100000000000 {:mass 1})
+(defunit undecillion 1000000000000000000000000000000000000N {})
+(defunit unitpole 1570796326794896619/12500000000000000000000000 {:length 2, :mass 1, :time -2, :current -1})
+(defunit unity 1 {})
 (defunit universeage
   "Error is 38 million years Source: ibid"
-  (qty/quantity 2177270107622936208/5 {:time 1}))
-(defunit uranium (qty/quantity 2380289/10000000 {:mass 1, :amount_of_substance -1}))
-(defunit uranusday (qty/quantity 38807694/625 {:time 1}))
-(defunit uranusmass (qty/quantity 86625000000000000000000000N {:mass 1}))
-(defunit uranusyear (qty/quantity 207121911326928261/78125000 {:time 1}))
-(defunit vac (qty/quantity 100N {:mass 1, :length -1, :time -2}))
-(defunit vanadium (qty/quantity 101883/2000000 {:mass 1, :amount_of_substance -1}))
-(defunit vegetable_oil (qty/quantity 1840878125/2048383 {:mass 1, :length -3}))
+  2177270107622936208/5 {:time 1})
+(defunit uranium 2380289/10000000 {:mass 1, :amount_of_substance -1})
+(defunit uranusday 38807694/625 {:time 1})
+(defunit uranusmass 86625000000000000000000000N {:mass 1})
+(defunit uranusyear 207121911326928261/78125000 {:time 1})
+(defunit vac 100N {:mass 1, :length -1, :time -2})
+(defunit vanadium 101883/2000000 {:mass 1, :amount_of_substance -1})
+(defunit vegetable_oil 1840878125/2048383 {:mass 1, :length -3})
 (defunit venusday
   "retrograde"
-  (qty/quantity 20996064N {:time 1}))
-(defunit venusmass (qty/quantity 4869000000000000000000000N {:mass 1}))
-(defunit venusyear (qty/quantity 19412352N {:time 1}))
-(defunit vigintillion (qty/quantity 1000000000000000000000000000000000000000000000000000000000000000N {}))
+  20996064N {:time 1})
+(defunit venusmass 4869000000000000000000000N {:mass 1})
+(defunit venusyear 19412352N {:time 1})
+(defunit vigintillion 1000000000000000000000000000000000000000000000000000000000000000N {})
 (defunit violle
   "luminous intensity of 1 cm^2 of platinum at its temperature of solidification (2045 K)"
-  (qty/quantity 2017/100 {:luminous_intensity 1}))
+  2017/100 {:luminous_intensity 1})
 (defunit volt
   "potential difference"
-  (qty/quantity 1 {:mass 1, :length 2, :time -3, :current -1}))
-(defunit von_Klitzing_constant (qty/quantity 5521725125000000000000/213914163877964163 {:mass 1, :length 2, :time -3, :current -2}))
+  1 {:mass 1, :length 2, :time -3, :current -1})
+(defunit von_Klitzing_constant 5521725125000000000000/213914163877964163 {:mass 1, :length 2, :time -3, :current -2})
 (defunit watch
   "time a sentry stands watch or a ship's crew is on duty."
-  (qty/quantity 14400 {:time 1}))
+  14400 {:time 1})
 (defunit water
   "Standard density of water (defined)"
-  (qty/quantity 1000N {:mass 1, :length -3}))
-(defunit waterhorsepower (qty/quantity 746043/1000 {:mass 1, :length 2, :time -3}))
-(defunit waterton (qty/quantity 3182263/3125000 {:length 3}))
+  1000N {:mass 1, :length -3})
+(defunit waterhorsepower 746043/1000 {:mass 1, :length 2, :time -3})
+(defunit waterton 3182263/3125000 {:length 3})
 (defunit watt
   "power"
-  (qty/quantity 1 {:mass 1, :length 2, :time -3}))
-(defunit wavenumber (qty/quantity 19864458571489287/1000000000000000000000000000000000000000 {:mass 1, :length 2, :time -2}))
+  1 {:mass 1, :length 2, :time -3})
+(defunit wavenumber 19864458571489287/1000000000000000000000000000000000000000 {:mass 1, :length 2, :time -2})
 (defunit wc
   "water column"
-  (qty/quantity 1000N {:mass 1, :length -3}))
+  1000N {:mass 1, :length -3})
 (defunit weber
   "magnetic flux"
-  (qty/quantity 1 {:mass 1, :length 2, :time -2, :current -1}))
-(defunit week (qty/quantity 604800 {:time 1}))
-(defunit weekly (qty/quantity 1/604800 {:time -1}))
-(defunit wheatbushel (qty/quantity 136077711/5000000 {:mass 1}))
+  1 {:mass 1, :length 2, :time -2, :current -1})
+(defunit week 604800 {:time 1})
+(defunit weekly 1/604800 {:time -1})
+(defunit wheatbushel 136077711/5000000 {:mass 1})
 (defunit wholedeal
   "If it's half as thick as the standard deal it's called a \"whole deal\"!"
-  (qty/quantity 202789917/6250000000 {:length 3}))
+  202789917/6250000000 {:length 3})
 (defunit wiendisplacement
   "Wien's Displacement Law gives the frequency at which the the Planck spectrum has maximum intensity. The relation is lambda T = b where lambda is wavelength, T is temperature and b is the Wien displacement. This relation is used to determine the temperature of stars. This is the 2022 CODATA value. NIST claims this is exact, but they give an equation with a random unexplained, inexact, divisor, b = (h c / k) / 4.965114231... https://physics.nist.gov/cgi-bin/cuu/Value?bwien"
-  (qty/quantity 579554391/200000000000 {:length 1, :temperature 1}))
+  579554391/200000000000 {:length 1, :temperature 1})
 (defunit winebottle
   "US industry standard, 1979"
-  (qty/quantity 3/4000 {:length 3}))
-(defunit wineglass (qty/quantity 473176473/4000000000000 {:length 3}))
-(defunit winesplit (qty/quantity 3/16000 {:length 3}))
-(defunit wire0000gauge (qty/quantity 2921/250000 {:length 1}))
-(defunit wire000gauge (qty/quantity 4064/390625 {:length 1}))
-(defunit wire00gauge (qty/quantity 7239/781250 {:length 1}))
-(defunit wire0gauge (qty/quantity 412623/50000000 {:length 1}))
-(defunit wire10gauge (qty/quantity 129413/50000000 {:length 1}))
-(defunit wire11gauge (qty/quantity 576199/250000000 {:length 1}))
-(defunit wire12gauge (qty/quantity 1026287/500000000 {:length 1}))
-(defunit wire13gauge (qty/quantity 228473/125000000 {:length 1}))
-(defunit wire14gauge (qty/quantity 101727/62500000 {:length 1}))
-(defunit wire15gauge (qty/quantity 724789/500000000 {:length 1}))
-(defunit wire16gauge (qty/quantity 322707/250000000 {:length 1}))
-(defunit wire17gauge (qty/quantity 287401/250000000 {:length 1}))
-(defunit wire18gauge (qty/quantity 51181/50000000 {:length 1}))
-(defunit wire19gauge (qty/quantity 455803/500000000 {:length 1}))
-(defunit wire1gauge (qty/quantity 367411/50000000 {:length 1}))
-(defunit wire20gauge (qty/quantity 101473/125000000 {:length 1}))
-(defunit wire21gauge (qty/quantity 180721/250000000 {:length 1}))
-(defunit wire22gauge (qty/quantity 64389/100000000 {:length 1}))
-(defunit wire23gauge (qty/quantity 286639/500000000 {:length 1}))
-(defunit wire24gauge (qty/quantity 25527/50000000 {:length 1}))
-(defunit wire25gauge (qty/quantity 22733/50000000 {:length 1}))
-(defunit wire26gauge (qty/quantity 101219/250000000 {:length 1}))
-(defunit wire27gauge (qty/quantity 9017/25000000 {:length 1}))
-(defunit wire28gauge (qty/quantity 10033/31250000 {:length 1}))
-(defunit wire29gauge (qty/quantity 71501/250000000 {:length 1}))
-(defunit wire2gauge (qty/quantity 20447/3125000 {:length 1}))
-(defunit wire30gauge (qty/quantity 127381/500000000 {:length 1}))
-(defunit wire31gauge (qty/quantity 35433/156250000 {:length 1}))
-(defunit wire32gauge (qty/quantity 20193/100000000 {:length 1}))
-(defunit wire33gauge (qty/quantity 22479/125000000 {:length 1}))
-(defunit wire34gauge (qty/quantity 160147/1000000000 {:length 1}))
-(defunit wire35gauge (qty/quantity 142621/1000000000 {:length 1}))
-(defunit wire36gauge (qty/quantity 127/1000000 {:length 1}))
-(defunit wire37gauge (qty/quantity 565531/5000000000 {:length 1}))
-(defunit wire38gauge (qty/quantity 100711/1000000000 {:length 1}))
-(defunit wire39gauge (qty/quantity 448437/5000000000 {:length 1}))
-(defunit wire3gauge (qty/quantity 145669/25000000 {:length 1}))
-(defunit wire40gauge (qty/quantity 79883/1000000000 {:length 1}))
-(defunit wire41gauge (qty/quantity 889/12500000 {:length 1}))
-(defunit wire42gauge (qty/quantity 158369/2500000000 {:length 1}))
-(defunit wire43gauge (qty/quantity 282067/5000000000 {:length 1}))
-(defunit wire44gauge (qty/quantity 125603/2500000000 {:length 1}))
-(defunit wire45gauge (qty/quantity 223647/5000000000 {:length 1}))
-(defunit wire46gauge (qty/quantity 6223/156250000 {:length 1}))
-(defunit wire47gauge (qty/quantity 177419/5000000000 {:length 1}))
-(defunit wire48gauge (qty/quantity 39497/1250000000 {:length 1}))
-(defunit wire49gauge (qty/quantity 35179/1250000000 {:length 1}))
-(defunit wire4gauge (qty/quantity 259461/50000000 {:length 1}))
-(defunit wire50gauge (qty/quantity 1252601/50000000000 {:length 1}))
-(defunit wire51gauge (qty/quantity 1115441/50000000000 {:length 1}))
-(defunit wire52gauge (qty/quantity 496697/25000000000 {:length 1}))
-(defunit wire53gauge (qty/quantity 442341/25000000000 {:length 1}))
-(defunit wire54gauge (qty/quantity 787781/50000000000 {:length 1}))
-(defunit wire55gauge (qty/quantity 175387/12500000000 {:length 1}))
-(defunit wire56gauge (qty/quantity 624713/50000000000 {:length 1}))
-(defunit wire5gauge (qty/quantity 231013/50000000 {:length 1}))
-(defunit wire6gauge (qty/quantity 10287/2500000 {:length 1}))
-(defunit wire7gauge (qty/quantity 183261/50000000 {:length 1}))
-(defunit wire8gauge (qty/quantity 32639/10000000 {:length 1}))
-(defunit wire9gauge (qty/quantity 18161/6250000 {:length 1}))
-(defunit wk (qty/quantity 604800 {:time 1}))
-(defunit woolbolt (qty/quantity 8001/125 {:length 1}))
-(defunit woolclove (qty/quantity 317514659/100000000 {:mass 1}))
-(defunit woollast (qty/quantity 12383071701/6250000 {:mass 1}))
-(defunit woolsack (qty/quantity 4127690567/25000000 {:mass 1}))
-(defunit woolsarpler (qty/quantity 4127690567/12500000 {:mass 1}))
-(defunit woolstone (qty/quantity 317514659/50000000 {:mass 1}))
-(defunit wooltod (qty/quantity 317514659/25000000 {:mass 1}))
-(defunit woolwey (qty/quantity 4127690567/50000000 {:mass 1}))
+  3/4000 {:length 3})
+(defunit wineglass 473176473/4000000000000 {:length 3})
+(defunit winesplit 3/16000 {:length 3})
+(defunit wire0000gauge 2921/250000 {:length 1})
+(defunit wire000gauge 4064/390625 {:length 1})
+(defunit wire00gauge 7239/781250 {:length 1})
+(defunit wire0gauge 412623/50000000 {:length 1})
+(defunit wire10gauge 129413/50000000 {:length 1})
+(defunit wire11gauge 576199/250000000 {:length 1})
+(defunit wire12gauge 1026287/500000000 {:length 1})
+(defunit wire13gauge 228473/125000000 {:length 1})
+(defunit wire14gauge 101727/62500000 {:length 1})
+(defunit wire15gauge 724789/500000000 {:length 1})
+(defunit wire16gauge 322707/250000000 {:length 1})
+(defunit wire17gauge 287401/250000000 {:length 1})
+(defunit wire18gauge 51181/50000000 {:length 1})
+(defunit wire19gauge 455803/500000000 {:length 1})
+(defunit wire1gauge 367411/50000000 {:length 1})
+(defunit wire20gauge 101473/125000000 {:length 1})
+(defunit wire21gauge 180721/250000000 {:length 1})
+(defunit wire22gauge 64389/100000000 {:length 1})
+(defunit wire23gauge 286639/500000000 {:length 1})
+(defunit wire24gauge 25527/50000000 {:length 1})
+(defunit wire25gauge 22733/50000000 {:length 1})
+(defunit wire26gauge 101219/250000000 {:length 1})
+(defunit wire27gauge 9017/25000000 {:length 1})
+(defunit wire28gauge 10033/31250000 {:length 1})
+(defunit wire29gauge 71501/250000000 {:length 1})
+(defunit wire2gauge 20447/3125000 {:length 1})
+(defunit wire30gauge 127381/500000000 {:length 1})
+(defunit wire31gauge 35433/156250000 {:length 1})
+(defunit wire32gauge 20193/100000000 {:length 1})
+(defunit wire33gauge 22479/125000000 {:length 1})
+(defunit wire34gauge 160147/1000000000 {:length 1})
+(defunit wire35gauge 142621/1000000000 {:length 1})
+(defunit wire36gauge 127/1000000 {:length 1})
+(defunit wire37gauge 565531/5000000000 {:length 1})
+(defunit wire38gauge 100711/1000000000 {:length 1})
+(defunit wire39gauge 448437/5000000000 {:length 1})
+(defunit wire3gauge 145669/25000000 {:length 1})
+(defunit wire40gauge 79883/1000000000 {:length 1})
+(defunit wire41gauge 889/12500000 {:length 1})
+(defunit wire42gauge 158369/2500000000 {:length 1})
+(defunit wire43gauge 282067/5000000000 {:length 1})
+(defunit wire44gauge 125603/2500000000 {:length 1})
+(defunit wire45gauge 223647/5000000000 {:length 1})
+(defunit wire46gauge 6223/156250000 {:length 1})
+(defunit wire47gauge 177419/5000000000 {:length 1})
+(defunit wire48gauge 39497/1250000000 {:length 1})
+(defunit wire49gauge 35179/1250000000 {:length 1})
+(defunit wire4gauge 259461/50000000 {:length 1})
+(defunit wire50gauge 1252601/50000000000 {:length 1})
+(defunit wire51gauge 1115441/50000000000 {:length 1})
+(defunit wire52gauge 496697/25000000000 {:length 1})
+(defunit wire53gauge 442341/25000000000 {:length 1})
+(defunit wire54gauge 787781/50000000000 {:length 1})
+(defunit wire55gauge 175387/12500000000 {:length 1})
+(defunit wire56gauge 624713/50000000000 {:length 1})
+(defunit wire5gauge 231013/50000000 {:length 1})
+(defunit wire6gauge 10287/2500000 {:length 1})
+(defunit wire7gauge 183261/50000000 {:length 1})
+(defunit wire8gauge 32639/10000000 {:length 1})
+(defunit wire9gauge 18161/6250000 {:length 1})
+(defunit wk 604800 {:time 1})
+(defunit woolbolt 8001/125 {:length 1})
+(defunit woolclove 317514659/100000000 {:mass 1})
+(defunit woollast 12383071701/6250000 {:mass 1})
+(defunit woolsack 4127690567/25000000 {:mass 1})
+(defunit woolsarpler 4127690567/12500000 {:mass 1})
+(defunit woolstone 317514659/50000000 {:mass 1})
+(defunit wooltod 317514659/25000000 {:mass 1})
+(defunit woolwey 4127690567/50000000 {:mass 1})
 (defunit woolyarnrun
   "1600 yds of \"number 1 yarn\" weighs a pound."
-  (qty/quantity 146304000000/45359237 {:length 1, :mass -1}))
-(defunit worstedyarncount (qty/quantity 7315200000/6479891 {:length 1, :mass -1}))
-(defunit xenon (qty/quantity 13129/100000 {:mass 1, :amount_of_substance -1}))
+  146304000000/45359237 {:length 1, :mass -1})
+(defunit worstedyarncount 7315200000/6479891 {:length 1, :mass -1})
+(defunit xenon 13129/100000 {:mass 1, :amount_of_substance -1})
 (defunit xestes
   "from two earthenware vessels that"
-  (qty/quantity 27/50000 {:length 3}))
+  27/50000 {:length 3})
 (defunit xunit
   "Used for measuring wavelengths"
-  (qty/quantity 50101/500000000000000000 {:length 1}))
-(defunit yard (qty/quantity 1143/1250 {:length 1}))
+  50101/500000000000000000 {:length 1})
+(defunit yard 1143/1250 {:length 1})
 (defunit yarncut
   "Less common system used in Pennsylvania for wool yarn"
-  (qty/quantity 27432000000/45359237 {:length 1, :mass -1}))
-(defunit yd (qty/quantity 1143/1250 {:length 1}))
-(defunit year (qty/quantity 9861539367087/312500 {:time 1}))
-(defunit yearly (qty/quantity 312500/9861539367087 {:time -1}))
-(defunit yr (qty/quantity 9861539367087/312500 {:time 1}))
-(defunit ytterbium (qty/quantity 2163/12500 {:mass 1, :amount_of_substance -1}))
-(defunit yttrium (qty/quantity 1778117/20000000 {:mass 1, :amount_of_substance -1}))
-(defunit zero (qty/quantity 0 {}))
+  27432000000/45359237 {:length 1, :mass -1})
+(defunit yd 1143/1250 {:length 1})
+(defunit year 9861539367087/312500 {:time 1})
+(defunit yearly 312500/9861539367087 {:time -1})
+(defunit yr 9861539367087/312500 {:time 1})
+(defunit ytterbium 2163/12500 {:mass 1, :amount_of_substance -1})
+(defunit yttrium 1778117/20000000 {:mass 1, :amount_of_substance -1})
+(defunit zero 0 {})
 (defunit zerocelsius
   "In 2019, defined exactly. The triple point of water is now experimentally measured. The BIPM brochure states that \"The previous definition of the kelvin set the temperature of the triple point of water, T_TPW, to be exactly 273.16 K. Due to the fact that the present definition of the kelvin fixes the numerical value of k instead of T_TPW , the latter must now be determined experimentally. At the time of adopting the present definition T_TPW was equal to 273.16 K with a relative standard uncertainty of 3.7 × 10 −7 based on measurements of k made prior to the redefinition. https://www.bipm.org/en/publications/si-brochure/"
-  (qty/quantity 5463/20 {:temperature 1}))
-(defunit zinc (qty/quantity 6539/100000 {:mass 1, :amount_of_substance -1}))
-(defunit zinc10gauge (qty/quantity 127/250000 {:length 1}))
-(defunit zinc11gauge (qty/quantity 381/625000 {:length 1}))
-(defunit zinc12gauge (qty/quantity 889/1250000 {:length 1}))
-(defunit zinc13gauge (qty/quantity 127/156250 {:length 1}))
-(defunit zinc14gauge (qty/quantity 1143/1250000 {:length 1}))
-(defunit zinc15gauge (qty/quantity 127/125000 {:length 1}))
-(defunit zinc16gauge (qty/quantity 1143/1000000 {:length 1}))
-(defunit zinc17gauge (qty/quantity 127/100000 {:length 1}))
-(defunit zinc18gauge (qty/quantity 1397/1000000 {:length 1}))
-(defunit zinc19gauge (qty/quantity 381/250000 {:length 1}))
-(defunit zinc1gauge (qty/quantity 127/2500000 {:length 1}))
-(defunit zinc20gauge (qty/quantity 889/500000 {:length 1}))
-(defunit zinc21gauge (qty/quantity 127/62500 {:length 1}))
-(defunit zinc22gauge (qty/quantity 1143/500000 {:length 1}))
-(defunit zinc23gauge (qty/quantity 127/50000 {:length 1}))
-(defunit zinc24gauge (qty/quantity 127/40000 {:length 1}))
-(defunit zinc25gauge (qty/quantity 127/20000 {:length 1}))
-(defunit zinc26gauge (qty/quantity 381/40000 {:length 1}))
-(defunit zinc27gauge (qty/quantity 127/10000 {:length 1}))
-(defunit zinc28gauge (qty/quantity 127/5000 {:length 1}))
-(defunit zinc2gauge (qty/quantity 127/1250000 {:length 1}))
-(defunit zinc3gauge (qty/quantity 381/2500000 {:length 1}))
-(defunit zinc4gauge (qty/quantity 127/625000 {:length 1}))
-(defunit zinc5gauge (qty/quantity 127/500000 {:length 1}))
-(defunit zinc6gauge (qty/quantity 381/1250000 {:length 1}))
-(defunit zinc7gauge (qty/quantity 889/2500000 {:length 1}))
-(defunit zinc8gauge (qty/quantity 127/312500 {:length 1}))
-(defunit zinc9gauge (qty/quantity 1143/2500000 {:length 1}))
-(defunit zirconium (qty/quantity 11403/125000 {:mass 1, :amount_of_substance -1}))
+  5463/20 {:temperature 1})
+(defunit zinc 6539/100000 {:mass 1, :amount_of_substance -1})
+(defunit zinc10gauge 127/250000 {:length 1})
+(defunit zinc11gauge 381/625000 {:length 1})
+(defunit zinc12gauge 889/1250000 {:length 1})
+(defunit zinc13gauge 127/156250 {:length 1})
+(defunit zinc14gauge 1143/1250000 {:length 1})
+(defunit zinc15gauge 127/125000 {:length 1})
+(defunit zinc16gauge 1143/1000000 {:length 1})
+(defunit zinc17gauge 127/100000 {:length 1})
+(defunit zinc18gauge 1397/1000000 {:length 1})
+(defunit zinc19gauge 381/250000 {:length 1})
+(defunit zinc1gauge 127/2500000 {:length 1})
+(defunit zinc20gauge 889/500000 {:length 1})
+(defunit zinc21gauge 127/62500 {:length 1})
+(defunit zinc22gauge 1143/500000 {:length 1})
+(defunit zinc23gauge 127/50000 {:length 1})
+(defunit zinc24gauge 127/40000 {:length 1})
+(defunit zinc25gauge 127/20000 {:length 1})
+(defunit zinc26gauge 381/40000 {:length 1})
+(defunit zinc27gauge 127/10000 {:length 1})
+(defunit zinc28gauge 127/5000 {:length 1})
+(defunit zinc2gauge 127/1250000 {:length 1})
+(defunit zinc3gauge 381/2500000 {:length 1})
+(defunit zinc4gauge 127/625000 {:length 1})
+(defunit zinc5gauge 127/500000 {:length 1})
+(defunit zinc6gauge 381/1250000 {:length 1})
+(defunit zinc7gauge 889/2500000 {:length 1})
+(defunit zinc8gauge 127/312500 {:length 1})
+(defunit zinc9gauge 1143/2500000 {:length 1})
+(defunit zirconium 11403/125000 {:mass 1, :amount_of_substance -1})
 
 ;; ---- common prefixed units ----
-(defunit km (qty/quantity 1000 {:length 1}))
-(defunit cm (qty/quantity 1/100 {:length 1}))
-(defunit mm (qty/quantity 1/1000 {:length 1}))
-(defunit nm (qty/quantity 1/1000000000 {:length 1}))
-(defunit mg (qty/quantity 1/1000000 {:mass 1}))
-(defunit mL (qty/quantity 1/1000000 {:length 3}))
-(defunit ml (qty/quantity 1/1000000 {:length 3}))
-(defunit cL (qty/quantity 1/100000 {:length 3}))
-(defunit kL (qty/quantity 1N {:length 3}))
-(defunit kJ (qty/quantity 1000 {:mass 1, :length 2, :time -2}))
-(defunit MJ (qty/quantity 1000000 {:mass 1, :length 2, :time -2}))
-(defunit mW (qty/quantity 1/1000 {:mass 1, :length 2, :time -3}))
-(defunit kW (qty/quantity 1000 {:mass 1, :length 2, :time -3}))
-(defunit MW (qty/quantity 1000000 {:mass 1, :length 2, :time -3}))
-(defunit mV (qty/quantity 1/1000 {:mass 1, :length 2, :time -3, :current -1}))
-(defunit kV (qty/quantity 1000 {:mass 1, :length 2, :time -3, :current -1}))
-(defunit kPa (qty/quantity 1000 {:mass 1, :length -1, :time -2}))
-(defunit MPa (qty/quantity 1000000 {:mass 1, :length -1, :time -2}))
-(defunit kHz (qty/quantity 1000 {:time -1}))
-(defunit MHz (qty/quantity 1000000 {:time -1}))
-(defunit GHz (qty/quantity 1000000000 {:time -1}))
-(defunit kN (qty/quantity 1000 {:mass 1, :length 1, :time -2}))
-(defunit kiloton (qty/quantity 45359237/50 {:mass 1}))
-(defunit megaton (qty/quantity 907184740N {:mass 1}))
+(defunit km 1000 {:length 1})
+(defunit cm 1/100 {:length 1})
+(defunit mm 1/1000 {:length 1})
+(defunit nm 1/1000000000 {:length 1})
+(defunit mg 1/1000000 {:mass 1})
+(defunit mL 1/1000000 {:length 3})
+(defunit ml 1/1000000 {:length 3})
+(defunit cL 1/100000 {:length 3})
+(defunit kL 1N {:length 3})
+(defunit kJ 1000 {:mass 1, :length 2, :time -2})
+(defunit MJ 1000000 {:mass 1, :length 2, :time -2})
+(defunit mW 1/1000 {:mass 1, :length 2, :time -3})
+(defunit kW 1000 {:mass 1, :length 2, :time -3})
+(defunit MW 1000000 {:mass 1, :length 2, :time -3})
+(defunit mV 1/1000 {:mass 1, :length 2, :time -3, :current -1})
+(defunit kV 1000 {:mass 1, :length 2, :time -3, :current -1})
+(defunit kPa 1000 {:mass 1, :length -1, :time -2})
+(defunit MPa 1000000 {:mass 1, :length -1, :time -2})
+(defunit kHz 1000 {:time -1})
+(defunit MHz 1000000 {:time -1})
+(defunit GHz 1000000000 {:time -1})
+(defunit kN 1000 {:mass 1, :length 1, :time -2})
+(defunit kiloton 45359237/50 {:mass 1})
+(defunit megaton 907184740N {:mass 1})
 
 ;; ---- plural aliases ----
 (def As A)

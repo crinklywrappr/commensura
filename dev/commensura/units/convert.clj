@@ -197,7 +197,8 @@
 
           ;; dimension name:  expr ||| name
           (str/includes? code "|||")
-          (let [[lhs nm] (map str/trim (str/split code #"\|\|\|" 2))]
+          (let [[lhs nm] (map str/trim (str/split code #"\|\|\|" 2))
+                nm (str/replace nm "_" " ")]      ; human label; brackets allow spaces
             (reset! last-unit nil)
             (try (swap! dimnames assoc (:dims (evaluate lhs @env @prefixes)) nm)
                  (catch Exception _ (swap! skipped conj [code "dimname"]))))

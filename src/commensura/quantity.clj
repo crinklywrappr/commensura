@@ -8,167 +8,255 @@
 ;;;; Public License <https://www.gnu.org/licenses/> for details.
 
 (ns commensura.quantity
-  "The core Quantity value: an exact magnitude (in base SI units) plus a
-  dimension map (base-dimension -> integer exponent), with an optional display
-  unit (`sym` + `factor`) used only for printing / `to`.
+  "The two value types.
 
-  A unit var such as `commensura.units/foot` is itself a Quantity equal to *one*
-  foot; because Quantity implements `IFn`, `(foot 10)` scales it to ten feet."
-  (:require [commensura.dimensions :as dims]
+  A `Unit` is a *named* registered unit — a name, an exact base-SI magnitude, and
+  a stored dimension map. `foot`, `meter`, `newton`, `beer` are all Units; a bare
+  Unit is one of itself and prints `1 foot ≈ 1.0 [length]`. `defunit` mints Units.
+
+  A `Quantity` is an *anonymous* computed value — an exact magnitude plus an
+  ordered display `formula` (a vector of `UnitTerm`s). Its dimensions are *derived*
+  from the formula, never stored, so they can't disagree with it. Every arithmetic
+  result is a Quantity: `(by (u/feet 10) (u/feet 12) (u/feet 8))` carries `[foot^3]`
+  and prints as cubic feet.
+
+  So: named ⇒ Unit (stores dims), anonymous ⇒ Quantity (stores a formula); dims
+  live in exactly one place. Both are callable (`(u/foot 10)` scales one foot to
+  ten, yielding a Quantity) and both implement `Dimensionable`/`Measured`."
+  (:require [commensura.registry :as registry]
+            [clojure.string :as str]
             [clojure.pprint :as pp]))
 
-(defn- dimension-name
-  "Human name for a dimension map, e.g. {:length 3} -> \"volume\", or a
-  base-dimension fallback ({:length 1} -> \"length\"), or nil."
-  [d]
-  (or (get dims/names d)
-      (when (and (== 1 (count d)) (== 1 (val (first d))))
-        (name (key (first d))))))
+;; ---- protocols ----
+(defprotocol Dimensionable
+  (dims [x] "Base-dimension -> integer-exponent map (zero exponents removed)."))
 
-(declare scale magnitude dimensions display-value format-quantity)
+(defprotocol Measured
+  (magnitude [x]
+    "Exact magnitude in base SI units. Plain numbers are `rationalize`d (3.2 ->
+    16/5) so decimal inputs stay exact, matching Frink."))
 
-;; mag    - exact magnitude in base units (Ratio/BigInt/Long/BigDecimal)
-;; dims   - {base-dim exponent}, zero exponents removed
-;; sym    - display unit name (or nil => base units)
-;; factor - base-magnitude of one display unit (for `display-value`), or nil
-(defrecord Quantity [mag dims sym factor]
+;; ---- dimension-map helpers ----
+(defn- clean [d] (into {} (remove (comp zero? val)) d))
+(defn- scale-dims [d n] (clean (into {} (map (fn [[k v]] [k (* v n)])) d)))
+(defn- merge-dims [a b] (clean (merge-with + a b)))
+
+(declare scale as-formula format-quantity)
+
+;; one term of a display formula, e.g. foot^3 — a Unit raised to a power
+(defrecord UnitTerm [unit-name exp factor base-dims]
+  Dimensionable
+  (dims [_] (scale-dims base-dims exp)))          ; this term's dimensional contribution
+
+;; a named registered unit: name + base magnitude + stored dimensions
+(defrecord Unit [name mag dims]
+  Dimensionable (dims [_] dims)
+  Measured      (magnitude [_] mag)
   clojure.lang.IFn
   (invoke [this n] (scale this n))
   (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
-  Object
-  (toString [this] (format-quantity this)))
+  Object (toString [this] (format-quantity this)))
 
-(defn quantity? [x] (instance? Quantity x))
+;; an anonymous computed value: magnitude + ordered display formula (dims derived)
+(defrecord Quantity [mag formula]
+  Dimensionable (dims [_] (reduce merge-dims {} (map dims formula)))
+  Measured      (magnitude [_] mag)
+  clojure.lang.IFn
+  (invoke [this n] (scale this n))
+  (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
+  Object (toString [this] (format-quantity this)))
 
-(defn quantity
-  "Construct a Quantity — the single construction path (the only caller of the
-  record factory `->Quantity`). The magnitude is taken as already-exact; plain
-  numbers are `rationalize`d at the input boundary (`scalar`/`scale`/`magnitude`),
-  not here.
-    [mag]                  dimensionless, no display unit
-    [mag dims]             base-unit form (no display unit)
-    [mag dims sym factor]  with a display unit (`sym` + one-unit base `factor`)"
-  ([mag]                 (quantity mag {} nil nil))
-  ([mag dims]            (quantity mag dims nil nil))
-  ([mag dims sym factor] (->Quantity mag dims sym factor)))
+(extend-protocol Dimensionable
+  Number (dims [_] {})
+  nil    (dims [_] {}))
+(extend-protocol Measured
+  Number (magnitude [x] (rationalize x)))
 
-(defn magnitude
-  "Exact base-unit magnitude of x (a Quantity or plain number). Plain numbers are
-  `rationalize`d so decimal literals like 3.2 become exact (16/5), matching Frink."
-  [x]
-  (if (quantity? x) (:mag x) (rationalize x)))
+(defn unit?     [x] (instance? Unit x))
+(defn quantity? [x] (or (instance? Unit x) (instance? Quantity x)))
 
-(defn dimensions
-  "Dimension map of x; plain numbers are dimensionless ({})."
-  [x]
-  (if (quantity? x) (:dims x) {}))
-
-(defn dimensionless? [x] (empty? (dimensions x)))
-(defn conforms? [a b] (= (dimensions a) (dimensions b)))
+;; ---- constructors ----
+(defn unit
+  "Mint a named registered `Unit` from a name, base magnitude, and dimensions —
+  what `defunit` and the generated builtins call."
+  [name mag dims]
+  (->Unit name mag (clean dims)))
 
 (defn scalar
-  "Wrap a plain number as a dimensionless Quantity (idempotent on Quantities)."
+  "Wrap a plain number as a dimensionless Quantity (idempotent on Units/Quantities)."
   [n]
-  (if (quantity? n) n (quantity (rationalize n))))
+  (if (quantity? n) n (->Quantity (rationalize n) [])))
+
+;; ---- accessors ----
+(defn dimensionless? [x] (empty? (dims x)))
+(defn conforms? [a b] (= (dims a) (dims b)))
 
 (defn scale
-  "Scale a unit/quantity's magnitude by a plain number — what `(u/feet 10)` does.
-  Retains the display unit."
+  "Scale a Unit/Quantity's magnitude by a plain number — what `(u/feet 10)` does.
+  Always yields an anonymous Quantity (the result is no longer *the* unit itself)."
   [q n]
-  (quantity (* (:mag q) (rationalize n)) (:dims q) (:sym q) (:factor q)))
+  (->Quantity (* (magnitude q) (rationalize n)) (as-formula q)))
 
-(defn- clean [dims] (into {} (remove (comp zero? val)) dims))
-(defn- negate-dims [dims] (into {} (map (fn [[k v]] [k (- v)])) dims))
+;; ---- display-formula algebra ----
+(defn- as-formula
+  "The display formula for any operand: a Quantity's own formula, a Unit promoted
+  to a single term, or [] for plain numbers."
+  [x]
+  (cond
+    (instance? Quantity x) (:formula x)
+    (instance? Unit x)     [(->UnitTerm (:name x) 1 (:mag x) (:dims x))]
+    :else                  []))
 
-(defn- sym-of [x] (when (quantity? x) (:sym x)))
-(defn- factor-of [x] (when (quantity? x) (:factor x)))
+(defn- combine-terms
+  "Merge UnitTerms sharing a unit-name (adding exponents), drop terms that cancel
+  to exponent 0, and canonicalize order to positive-exponent terms (first-seen
+  order) followed by negative-exponent terms — so the printed formula and the
+  reader are exact inverses."
+  [terms]
+  (let [order   (distinct (map :unit-name terms))
+        by-name (group-by :unit-name terms)
+        merged  (keep (fn [nm]
+                        (let [ts (by-name nm)
+                              e  (reduce + (map :exp ts))]
+                          (when-not (zero? e)
+                            (assoc (first ts) :exp e))))
+                      order)]
+    (into (filterv (comp pos? :exp) merged)
+          (filterv (comp neg? :exp) merged))))
 
-(defn qmul [x y]
-  ;; Multiplying by a bare dimensionless scalar preserves the other operand's
-  ;; display unit, so (by 5 (foot 12)) still reads in feet.
-  (let [[sym factor] (cond
-                       (and (sym-of x) (not (quantity? y))) [(sym-of x) (factor-of x)]
-                       (and (sym-of y) (not (quantity? x))) [(sym-of y) (factor-of y)]
-                       :else [nil nil])]
-    (quantity (* (magnitude x) (magnitude y))
-              (clean (merge-with + (dimensions x) (dimensions y)))
-              sym factor)))
+(defn- formula-neg [formula] (mapv #(update % :exp -) formula))
+(defn- formula-pow [formula n]
+  (if (zero? n) [] (mapv #(update % :exp * n) formula)))
 
-(defn qdiv [x y]
-  (quantity (/ (magnitude x) (magnitude y))
-            (clean (merge-with + (dimensions x) (negate-dims (dimensions y))))))
-
-(defn qadd [x y]
-  (when-not (conforms? x y)
-    (throw (ex-info "plus: non-conforming dimensions"
-                    {:a (dimensions x) :b (dimensions y)})))
-  ;; sum keeps the left operand's display unit
-  (quantity (+ (magnitude x) (magnitude y)) (dimensions x) (sym-of x) (factor-of x)))
-
-(defn qsub [x y]
-  (when-not (conforms? x y)
-    (throw (ex-info "minus: non-conforming dimensions"
-                    {:a (dimensions x) :b (dimensions y)})))
-  (quantity (- (magnitude x) (magnitude y)) (dimensions x) (sym-of x) (factor-of x)))
-
-(defn- expt
-  "Exact integer power (keeps the exact tower)."
-  [base n]
+;; ---- exact integer power (keeps the exact tower) ----
+(defn- expt [base n]
   (cond
     (zero? n) 1
     (pos? n)  (reduce * (repeat n base))
     :else     (/ 1 (reduce * (repeat (- n) base)))))
 
+;; ---- arithmetic (always yields an anonymous Quantity) ----
+(defn qmul [x y]
+  (->Quantity (* (magnitude x) (magnitude y))
+              (combine-terms (concat (as-formula x) (as-formula y)))))
+
+(defn qdiv [x y]
+  (->Quantity (/ (magnitude x) (magnitude y))
+              (combine-terms (concat (as-formula x) (formula-neg (as-formula y))))))
+
 (defn qpow [x n]
-  (quantity (expt (magnitude x) n)
-            (clean (into {} (map (fn [[k v]] [k (* v n)])) (dimensions x)))))
+  (->Quantity (expt (magnitude x) n) (formula-pow (as-formula x) n)))
+
+(defn- assert-conforms [op x y]
+  (when-not (conforms? x y)
+    (throw (ex-info (str op ": non-conforming dimensions")
+                    {:a (dims x) :b (dims y)}))))
+
+(defn qadd [x y]
+  (assert-conforms "plus" x y)
+  (->Quantity (+ (magnitude x) (magnitude y)) (as-formula x)))    ; keeps left's formula
+
+(defn qsub [x y]
+  (assert-conforms "minus" x y)
+  (->Quantity (- (magnitude x) (magnitude y)) (as-formula x)))
 
 (defn to
-  "Re-express q in the target unit basis (dimension-preserving). Requires matching
-  dimensions; the physical magnitude is unchanged — only the display unit changes,
-  so the printed value equals magnitude(q)/magnitude(target)."
+  "Re-express q over the target unit basis (dimension-preserving). The physical
+  magnitude is unchanged — only the display formula becomes the target's, so the
+  printed value equals magnitude(q)/factor(target)."
   [q target]
-  (when-not (conforms? q target)
-    (throw (ex-info "to: non-conforming units"
-                    {:from (dimensions q) :to (dimensions target)})))
-  (quantity (magnitude q) (dimensions q) (:sym target) (magnitude target)))
+  (assert-conforms "to" q target)
+  (->Quantity (magnitude q) (as-formula target)))
 
 (defn ratio
   "Bare dimensionless count: how many of target fit in q."
   [q target]
-  (when-not (conforms? q target)
-    (throw (ex-info "ratio: non-conforming units"
-                    {:a (dimensions q) :b (dimensions target)})))
-  (quantity (/ (magnitude q) (magnitude target))))
+  (assert-conforms "ratio" q target)
+  (->Quantity (/ (magnitude q) (magnitude target)) []))
+
+;; ---- display ----
+(defn- formula-factor
+  "Base magnitude of one of the compound display unit: the product of each term's
+  factor raised to its exponent."
+  [formula]
+  (reduce (fn [acc t] (* acc (expt (:factor t) (:exp t)))) 1 formula))
 
 (defn display-value
-  "The exact value shown to the user: base magnitude divided by the display
-  unit's factor (or the base magnitude itself when there is no display unit)."
+  "The exact value shown to the user: for a Quantity, base magnitude divided by
+  the display formula's combined factor; a Unit is always one of itself (1); a
+  plain number is itself."
   [q]
-  (if (quantity? q)
-    (let [f (:factor q)]
-      (if (and f (not (zero? f))) (/ (:mag q) f) (:mag q)))
-    q))
+  (cond
+    (instance? Quantity q) (let [f (formula-factor (:formula q))]
+                             (if (zero? f) (:mag q) (/ (:mag q) f)))
+    (instance? Unit q)     1
+    :else                  q))
+
+(defn- base-dim-name
+  "A *single* base dimension rendered unambiguously — {:length 4} -> \"length^4\",
+  {:length -1} -> \"1/length\", {:length 1} -> \"length\" — or nil for compounds."
+  [d]
+  (when (== 1 (count d))
+    (let [[k e] (first d)
+          nm    (str/replace (clojure.core/name k) "_" " ")]
+      (cond
+        (== e 1)  nm
+        (pos? e)  (str nm "^" e)
+        (== e -1) (str "1/" nm)
+        :else     (str "1/" nm "^" (- e))))))
+
+(defn- dimension-name
+  "Human name for a dimension map: a registered name (builtin `|||` label or a
+  user `register-dimension!`), else a single-base-dimension expression, else nil
+  (a compound with no registered name)."
+  [d]
+  (or (registry/dimension-name d)
+      (base-dim-name d)))
+
+(defn- term-str [nm e] (if (== e 1) nm (str nm "^" e)))
+
+(defn- format-formula
+  "Render a formula as `foot^3`, `mile/hour`, `meter/minute/celsius`, `kg m/s^3`,
+  or \"\" (empty). The numerator is a space-joined product; each divisor gets its
+  own `/`, so it reads as the repeated division `(per a b c)` that produced it."
+  [formula]
+  (let [pos   (filter (comp pos? :exp) formula)
+        neg   (filter (comp neg? :exp) formula)
+        numer (str/join " " (map #(term-str (:unit-name %) (:exp %)) pos))
+        dens  (map #(str "/" (term-str (:unit-name %) (- (:exp %)))) neg)]
+    (cond
+      (empty? formula) ""
+      (empty? neg)     numer
+      :else            (apply str (if (empty? pos) "1" numer) dens))))
+
+(defn- unit-string [q]
+  (cond
+    (instance? Quantity q) (format-formula (:formula q))
+    (instance? Unit q)     (:name q)
+    :else                  ""))
 
 (defn format-quantity
   "Human-readable form: `<exact> <unit> ≈ <approx> [dimension]`. Used by
-  `toString`/`str`/`println`, and as the payload of the `#commensura/quantity` literal."
+  `toString`/`str`/`println`, and as the payload of the `#commensura/…` literals."
   [q]
   (let [dv    (display-value q)
-        d     (:dims q)
-        dname (dimension-name d)]
+        d     (dims q)
+        dname (dimension-name d)
+        us    (unit-string q)]
     (str (pr-str dv)
-         (when (:sym q) (str " " (:sym q)))
+         (when (seq us) (str " " us))
          " ≈ " (double dv) " "
-         (cond dname    (str "[" dname "]")
-               (seq d)  (pr-str d)
+         (cond dname   (str "[" dname "]")
+               (seq d)  "[unknown dimension]"          ; unnamed compound — name it with register-dimension!
                :else    "[dimensionless]"))))
 
-;; `pr`/`prn`/the REPL emit a `#commensura/quantity` tagged literal whose payload is the
-;; human-readable string; `str`/`println` (toString) emit the string itself.
+;; `pr`/`prn`/the REPL emit a tagged literal whose payload is the human-readable
+;; string; the two records share the format but carry distinct tags.
+(defmethod print-method Unit     [q ^java.io.Writer w]
+  (.write w (str "#commensura/unit " (pr-str (format-quantity q)))))
 (defmethod print-method Quantity [q ^java.io.Writer w]
   (.write w (str "#commensura/quantity " (pr-str (format-quantity q)))))
 
-;; clojure.pprint (which CIDER/Calva use to render results) ignores print-method on
-;; records and dumps the raw map — delegate it back to our print-method.
+;; clojure.pprint (CIDER/Calva) ignores print-method on records — delegate back.
+(defmethod pp/simple-dispatch Unit     [q] (print-method q *out*))
 (defmethod pp/simple-dispatch Quantity [q] (print-method q *out*))

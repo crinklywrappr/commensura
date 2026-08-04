@@ -13,7 +13,7 @@
 (defn q= "Same physical quantity (magnitude + dimensions), ignoring display unit."
   [a b]
   (and (= (q/magnitude a) (q/magnitude b))
-       (= (q/dimensions a) (q/dimensions b))))
+       (= (q/dims a) (q/dims b))))
 
 ;; ---- generators (exact magnitudes only) ----
 (def gen-exact
@@ -55,7 +55,7 @@
 
 (defspec to-preserves-dimension 200
   (prop/for-all [[qty a b] gen-conforming]
-    (= (q/dimensions (c/to qty b)) (q/dimensions qty))))
+    (= (q/dims (c/to qty b)) (q/dims qty))))
 
 (defspec conforms-reflexive 100
   (prop/for-all [qty gen-quantity] (q/conforms? qty qty)))
@@ -71,7 +71,7 @@
 (defspec per-self-is-one 200
   (prop/for-all [qty gen-nonzero-quantity]
     (let [r (c/per qty qty)]
-      (and (= 1 (q/magnitude r)) (empty? (q/dimensions r))))))
+      (and (= 1 (q/magnitude r)) (empty? (q/dims r))))))
 
 (defspec pow-two-is-self-product 200
   (prop/for-all [qty gen-quantity] (q= (c/pow qty 2) (c/by qty qty))))

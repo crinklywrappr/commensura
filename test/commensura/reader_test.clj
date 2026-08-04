@@ -14,8 +14,21 @@
     (doseq [q [(c/to (c/by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons) ; named unit
                (c/per u/mile u/hour)                                       ; base form (velocity)
                (u/newton 3)                                                ; integer, named
-               (c/per u/water u/alcohol)]]                                 ; dimensionless
+               (c/per u/water u/alcohol)                                   ; dimensionless
+               (c/per u/meter u/second u/kelvin)                           ; multi-divisor
+               (c/by (c/per u/meter u/minute) (c/per u/kelvin u/second))]] ; nested per → flat
       (is (= q (round-trip q))))))
+
+(deftest unit-literal-round-trips
+  (testing "a bare Unit reifies via #commensura/unit through the registry"
+    (is (= u/meter (round-trip u/meter)))            ; builtin
+    (is (= widget (round-trip widget)))))            ; user defunit
+
+(deftest multi-divisor-renders-with-a-slash-each
+  (testing "each divisor gets its own /, matching (per a b c)"
+    (let [s    (str (c/per u/meter u/second u/kelvin))          ; "<exact> <unit> ≈ …"
+          unit (subs s (inc (.indexOf s " ")) (.indexOf s " ≈ "))]
+      (is (= "meter/second/kelvin" unit)))))
 
 (deftest rejects-inconsistent-approximation
   (testing "a tampered approximation throws (junk / drift guard)"

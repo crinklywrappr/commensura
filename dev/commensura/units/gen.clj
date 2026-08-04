@@ -67,14 +67,14 @@
                           :let [{:keys [factor dims doc]} (units n)]]
                       (do (emit! n)
                           (if doc
-                            (format "(defunit %s\n  %s\n  (qty/quantity %s %s))" n (pr-str doc) (pr-str factor) (pr-str dims))
-                            (format "(defunit %s (qty/quantity %s %s))" n (pr-str factor) (pr-str dims))))))
+                            (format "(defunit %s\n  %s\n  %s %s)" n (pr-str doc) (pr-str factor) (pr-str dims))
+                            (format "(defunit %s %s %s)" n (pr-str factor) (pr-str dims))))))
          ;; 2. curated short prefixed vars
          prefixed-lines (vec (for [[v base mult] prefixed
                               :let [u (units base)]
                               :when (and u (not (@emitted v)))]
                           (do (emit! v)
-                              (format "(defunit %s (qty/quantity %s %s))"
+                              (format "(defunit %s %s %s)"
                                       v (pr-str (* mult (:factor u))) (pr-str (:dims u))))))
          ;; 3. plural aliases (append s) for everything emitted so far
          plural-lines (vec (for [n (sort @emitted)

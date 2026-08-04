@@ -28,9 +28,9 @@
 (defn interval
   "Construct from two conforming endpoints (ordered automatically)."
   [a b]
-  (when-not (= (q/dimensions a) (q/dimensions b))
+  (when-not (= (q/dims a) (q/dims b))
     (throw (ex-info "interval: non-conforming endpoints"
-                    {:a (q/dimensions a) :b (q/dimensions b)})))
+                    {:a (q/dims a) :b (q/dims b)})))
   (->Interval (qmin a b) (qmax a b)))
 
 (defn interval-pm

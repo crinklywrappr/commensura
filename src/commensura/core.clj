@@ -63,18 +63,32 @@
   "Dimensionless count: how many of target fit in x (quantity or interval)."
   [x target] (if (iv? x) (iv/iratio x target) (q/ratio x target)))
 
+(defn register-dimension!
+  "Give a human name to a dimension map, so quantities of that dimension print it
+  in the trailing `[..]` slot (overriding any builtin). Returns the name.
+
+    (register-dimension! {:length 4} \"quaternary space\")
+    (pow u/meter 4)   ;=> 1 meter^4 ≈ 1.0 [quaternary space]"
+  [dims nm]
+  (registry/register-dimension! dims nm))
+
 (defmacro defunit
-  "Define a callable custom unit var from a quantity expression — the modern
-  add-unit!. The bound value is one of the new unit, displays under its own name,
-  and works as a `to` target. An optional docstring may precede the expression
-  (this is also how the generated builtin units are defined):
+  "Define a callable `Unit` var — the modern add-unit!. The bound value is one of
+  the new unit, displays under its own name, and works as a `to` target. The body
+  is either a quantity/number *expression* (reduced to this unit's magnitude and
+  dimensions) or, for the generated builtins, a literal `magnitude dims` pair. An
+  optional docstring may precede either form:
 
     (defunit beer (by (u/floz 12) (u/percent 3.2) (per u/water u/alcohol)))
-    (beer 5)                 ;=> 5 beer
-    (to some-volume beer)    ;=> …how many beers"
+    (beer 5)                        ;=> 5 beer
+    (defunit foot 381/1250 {:length 1})    ; literal form (what the generator emits)"
   ([sym expr] `(defunit ~sym nil ~expr))
-  ([sym doc expr]
-   `(def ~sym ~@(when (string? doc) [doc])
-      (registry/register! ~(str sym)
-        (let [q# (q/scalar ~expr)]
-          (q/quantity (q/magnitude q#) (q/dimensions q#) ~(str sym) (q/magnitude q#)))))))
+  ([sym a b]
+   (if (number? a)                                    ; (defunit sym magnitude dims)
+     `(def ~sym (registry/register! ~(str sym) (q/unit ~(str sym) ~a ~b)))
+     `(def ~sym ~@(when (string? a) [a])              ; (defunit sym [doc] expr)
+        (let [v# (q/scalar ~b)]
+          (registry/register! ~(str sym)
+            (q/unit ~(str sym) (q/magnitude v#) (q/dims v#)))))))
+  ([sym doc mag dims]                                 ; (defunit sym doc magnitude dims)
+   `(def ~sym ~doc (registry/register! ~(str sym) (q/unit ~(str sym) ~mag ~dims)))))
