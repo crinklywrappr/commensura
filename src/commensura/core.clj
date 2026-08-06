@@ -72,19 +72,31 @@
   [dims nm]
   (registry/register-dimension! dims nm))
 
-;; TODO: docstring: remove reference to add-unit!
-;; TODO: docstring: less, prose, more bullet-point details about the arities
-;; TODO: docstring: more examples
 (defmacro defunit
-  "Define a callable `Unit` var — the modern add-unit!. The bound value is one of
-  the new unit, displays under its own name, and works as a `to` target. The body
-  is either a quantity/number *expression* (reduced to this unit's magnitude and
-  dimensions) or, for the generated builtins, a literal `magnitude dims` pair. An
-  optional docstring may precede either form:
+  "Define a callable `Unit` var. The bound value is the new unit name: it prints
+  under its own name, scales when called, and serves as a `to`/`ratio` target.
+
+  Four caller-facing forms — the 3-argument shape dispatches on whether its middle
+  form is a number (⇒ literal) or not (⇒ docstring):
+  - `(defunit sym expr)` — the everyday form: `expr` is any quantity/number
+    expression; its magnitude and dimensions become the unit's.
+  - `(defunit sym doc expr)` — as above, with a leading docstring on the var.
+  - `(defunit sym magnitude dims)` — a literal base-SI magnitude and dimension map,
+    with no evaluation; the form the generated builtins emit.
+  - `(defunit sym doc magnitude dims)` — the literal form with a leading docstring
+    (a generated builtin that carries a comment).
+
+  Examples:
 
     (defunit beer (by (u/floz 12) (u/percent 3.2) (per u/water u/alcohol)))
-    (beer 5)                        ;=> 5 beer
-    (defunit foot 381/1250 {:length 1})    ; literal form (what the generator emits)"
+    (beer 5)                                  ;=> 5 beer
+    (to (by u/magnum (u/percent 13.5)) beer)  ;=> …how many beers in a magnum
+    (ratio some-volume beer)                  ;=> …bare count of beers
+
+    (defunit smoot \"Oliver Smoot's height (an MIT prank unit)\" (u/inch 67))
+
+    (defunit foot 381/1250 {:length 1})       ; literal form
+    (defunit gee \"standard gravity\" 196133/20000 {:length 1 :time -2})"
   ([sym expr] `(defunit ~sym nil ~expr))
   ([sym a b]
    (if (number? a)                                    ; (defunit sym magnitude dims)

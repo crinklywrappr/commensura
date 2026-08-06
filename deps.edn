@@ -1,5 +1,6 @@
 {:paths ["src" "resources"]
- :deps {org.clojure/clojure {:mvn/version "1.12.5"}}
+ :deps {org.clojure/clojure {:mvn/version "1.12.5"}
+        com.taoensso/trove {:mvn/version "1.2.0"}}
  :aliases
  {:test
   {:extra-paths ["test"]

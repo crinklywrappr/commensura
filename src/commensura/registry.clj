@@ -29,22 +29,24 @@
   reification path is global, and redefining a name warns (last writer wins).
   For cold deserialization, the defining `defunit` must have run before a literal
   that names its unit is read."
-  (:require [commensura.dimensions :as dimensions]))   ; seed only
+  (:require [commensura.dimensions :as dimensions]   ; seed only
+            [taoensso.trove :as trove]))
 
 (defonce ^:private units (atom {}))
 
 (defn register!
-  "Register unit Quantity `qty` under string `nm`; returns `qty`. Warns (does not
-  throw) when redefining an existing name to a *different* value — last writer
-  wins, matching Frink."
+  "Register the unit `qty` under string `nm`; returns `qty`. The swap is atomic
+  (last writer wins, matching Frink); when it replaces an existing name with a
+  *different* value it warns afterward, including the old and new values."
   [nm qty]
-  (when-let [prev (@units nm)]
-    (when (not= prev qty)
-      (binding [*out* *err*]
-        ;; TODO: perform *all* logging with trove!
-        (println (str "WARNING: commensura unit \"" nm "\" redefined")))))
-  (swap! units assoc nm qty)
-  qty)
+  (let [[snapshot _] (swap-vals! units assoc nm qty)
+        old          (get snapshot nm)]
+    (when (and (some? old) (not= old qty))
+      (trove/log! {:level :warn
+                   :id ::unit-redefined
+                   :msg (str "commensura unit \"" nm "\" redefined")
+                   :data {:unit nm :old (into {} old) :new (into {} qty)}}))
+    qty))
 
 (defn lookup
   "The unit Quantity registered under string `nm`, or nil. Also a handy
