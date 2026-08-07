@@ -93,13 +93,41 @@
     (verify-approx! (q/display-value qty) approx s)
     qty))
 
-(defn read-unit
-  "Data-reader for `#commensura/unit \"<printed form>\"` → the named Unit, resolved
-  through the registry (its defining `defunit` must have run)."
+(defn- parse-unit-name
+  "Pull the unit name out of a unit literal, tolerating both the exact form
+  (`1 foot ≈ 1.0 [length]`) and the approximate form (`1 planckmass [mass]`, no ≈):
+  the name is the token(s) after the leading value, up to ` ≈ ` or ` [`."
   [s]
-  (let [{:keys [unit-str approx]} (parse-literal s)
-        u (or (and unit-str (registry/lookup unit-str))
-              (throw (ex-info "unknown unit in #commensura/unit literal"
-                              {:unit unit-str :literal s})))]
-    (verify-approx! (q/display-value u) approx s)     ; a Unit is one of itself (1)
+  (let [end (or (str/index-of s " ≈ ") (str/index-of s " [") (count s))
+        lhs (str/trim (subs s 0 end))
+        sp  (str/index-of lhs " ")]
+    (when sp (str/trim (subs lhs (inc sp))))))
+
+(defn read-unit
+  "Data-reader for `#commensura/unit \"<printed form>\"` → the named Unit (precise
+  or approximate), resolved through the registry (its defining `defunit` must have
+  run). Approximate units carry no `≈`, so the consistency check runs only when the
+  literal has one."
+  [s]
+  (let [nm (parse-unit-name s)
+        u  (or (and nm (registry/lookup nm))
+               (throw (ex-info "unknown unit in #commensura/unit literal"
+                               {:unit nm :literal s})))]
+    (when-let [[_ a] (re-find #" ≈ ([-+.\deE]+)" s)] ; a Unit is one of itself (1)
+      (verify-approx! (q/display-value u) (Double/parseDouble a) s))
     u))
+
+(defn read-approx
+  "Data-reader for `#commensura/approx \"<bigdecimal> <unit> [dim]\"` → an
+  ApproxQuantity, rebuilt from its display formula scaled by the inexact value.
+  (No ≈-check: the value is already approximate — it *is* the source of truth.)"
+  [s]
+  (let [i        (str/index-of s " [")               ; trailing [dim] is decorative
+        lhs      (str/trim (if i (subs s 0 i) s))
+        sp       (str/index-of lhs " ")
+        value    (bigdec (read-string (if sp (subs lhs 0 sp) lhs)))
+        unit-str (when sp (str/trim (subs lhs (inc sp))))
+        compound (if (seq unit-str) (reconstruct 1 unit-str) (q/scalar 1))]
+    ;; multiply an approximate dimensionless scalar by the (exact) compound: the
+    ;; approx operand promotes the product to an ApproxQuantity carrying its formula.
+    (q/qmul (q/quantity value []) compound)))
