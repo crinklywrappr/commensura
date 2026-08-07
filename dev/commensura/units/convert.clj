@@ -201,7 +201,8 @@
                 nm (str/replace nm "_" " ")]      ; human label; brackets allow spaces
             (reset! last-unit nil)
             (try (swap! dimnames assoc (:dims (evaluate lhs @env @prefixes)) nm)
-                 (catch Exception _ (swap! skipped conj [code "dimname"]))))
+                 ;; LHS unit may be defined later in the file — retry in the multi-pass loop
+                 (catch Exception _ (swap! pending conj [:dimname nm lhs]))))
 
           ;; nonlinear function:  Name[x] := ...
           (re-find #"^[^\s\[]+\s*\[[^\]]*\]\s*:=" code)
@@ -240,9 +241,10 @@
         (reset! pending [])
         (doseq [[typ nm expr] todo]
           (try (let [v (evaluate expr @env @prefixes)]
-                 (if (= typ :prefix)
-                   (swap! prefixes assoc nm (:factor v))
-                   (swap! env assoc nm v)))
+                 (case typ
+                   :prefix  (swap! prefixes assoc nm (:factor v))
+                   :dimname (swap! dimnames assoc (:dims v) nm)
+                   (swap! env assoc nm v)))               ; :unit
                (catch Exception _ (swap! pending conj [typ nm expr]))))
         (when (and (seq @pending) (< (count @pending) (count todo)) (< pass 12))
           (recur (inc pass)))))
