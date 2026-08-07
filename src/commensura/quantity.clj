@@ -8,7 +8,7 @@
 ;;;; Public License <https://www.gnu.org/licenses/> for details.
 
 (ns commensura.quantity
-  "The two value types.
+  "The value types.
 
   A `Unit` is a *named* registered unit — a name, an exact base-SI magnitude, and
   a stored dimension map. `foot`, `meter`, `newton`, `beer` are all Units; a bare
@@ -16,16 +16,24 @@
 
   A `Quantity` is an *anonymous* computed value — an exact magnitude plus an
   ordered display `formula` (a vector of `UnitTerm`s). Its dimensions are *derived*
-  from the formula, never stored, so they can't disagree with it. Every arithmetic
-  result is a Quantity: `(by (u/feet 10) (u/feet 12) (u/feet 8))` carries `[foot^3]`
-  and prints as cubic feet.
+  from the formula, never stored, so they can't disagree with it. Every exact
+  arithmetic result is a Quantity.
 
-  So: named ⇒ Unit (stores dims), anonymous ⇒ Quantity (stores a formula); dims
-  live in exactly one place. Both are callable (`(u/foot 10)` scales one foot to
-  ten, yielding a Quantity) and both implement `Dimensionable`/`Measured`."
+  An `ApproxQuantity` is the same as a `Quantity` but its magnitude is an
+  arbitrary-precision `BigDecimal` — for *irrational* values (planck units,
+  `semitone`, Richter) that have no exact rational form. Arithmetic *promotes*:
+  the moment any operand is approximate, the result is an `ApproxQuantity` and the
+  magnitude math runs under the caller's `*math-context*` (`with-precision` /
+  `binding`), defaulting to DECIMAL128. Approx values print with a distinct
+  `#commensura/approx` tag so inexactness is never mistaken for exact.
+
+  So: named ⇒ Unit (stores dims), anonymous ⇒ Quantity/ApproxQuantity (store a
+  formula); dims live in exactly one place. All are callable and implement
+  `Dimensionable`/`Measured`/`Formulaic`."
   (:require [commensura.registry :as registry]
             [clojure.string :as str]
-            [clojure.pprint :as pp]))
+            [clojure.pprint :as pp])
+  (:import [java.math MathContext]))
 
 ;; ---- protocols ----
 (defprotocol Dimensionable
@@ -33,8 +41,8 @@
 
 (defprotocol Measured
   (magnitude [x]
-    "Exact magnitude in base SI units. Plain numbers are `rationalize`d (3.2 ->
-    16/5) so decimal inputs stay exact, matching Frink."))
+    "Magnitude in base SI units. Exact for Units/Quantities/plain numbers
+    (`rationalize`d, so 3.2 -> 16/5); a BigDecimal for ApproxQuantities."))
 
 (defprotocol Formulaic
   (formula [x] "A vector of UnitTerms that describe the components of a measurement."))
@@ -47,6 +55,25 @@
         xf (comp (map mult) clean-xf)]
     (into {} xf d)))
 
+(defn- formula-dims
+  "Derive a quantity's dimensions from its display formula: sum each term's
+  contribution, dropping zero exponents."
+  [formula]
+  (transduce
+   (map dims)
+   (completing
+    (partial merge-with +)
+    (partial into {} clean-xf))
+   {} formula))
+
+;; commensura's fallback context for approximate (BigDecimal) arithmetic when the
+;; caller hasn't bound `*math-context*` (via `with-precision`/`binding`):
+;; 34-significant-digit DECIMAL128 (HALF_EVEN). Defined here because the approx
+;; records' `magnitude` coerces through it — a Ratio→BigDecimal conversion needs a
+;; context to terminate (`(bigdec 1/3)` throws otherwise).
+(def ^:private default-mc MathContext/DECIMAL128)
+(defn- ctx [] (or *math-context* default-mc))
+
 (declare scale format-quantity)
 
 ;; one term of a display formula, e.g. foot^3 — a Unit raised to a power
@@ -55,12 +82,12 @@
   (dims [_] (scale-dims base-dims exp)))          ; this term's dimensional contribution
 
 ;; a named registered unit: name + base magnitude + stored dimensions
-(defrecord Unit [name mag dims]
+(defrecord PreciseUnit [name mag dims]
   Dimensionable
   (dims [_] dims)
 
   Measured
-  (magnitude [_] mag)
+  (magnitude [_] (magnitude mag))
 
   Formulaic
   (formula [_] [(->UnitTerm name 1 mag dims)])
@@ -72,19 +99,49 @@
   Object
   (toString [this] (format-quantity this)))
 
-;; an anonymous computed value: magnitude + ordered display formula (dims derived)
-(defrecord Quantity [mag formula]
+;; an anonymous computed value: exact magnitude + ordered display formula
+(defrecord PreciseQuantity [mag formula]
   Dimensionable
-  (dims [_]
-    (transduce
-     (map dims)
-     (completing
-      (partial merge-with +)
-      (partial into {} clean-xf))
-     {} formula))
+  (dims [_] (formula-dims formula))
 
   Measured
-  (magnitude [_] mag)
+  (magnitude [_] (magnitude mag))
+
+  Formulaic
+  (formula [_] formula)
+
+  clojure.lang.IFn
+  (invoke [this n] (scale this n))
+  (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
+
+  Object
+  (toString [this] (format-quantity this)))
+
+;; like Unit, but the magnitude is an approximate BigDecimal (irrational value)
+(defrecord ApproxUnit [name mag dims]
+  Dimensionable
+  (dims [_] dims)
+
+  Measured
+  (magnitude [_] (binding [*math-context* (ctx)] (bigdec mag)))
+
+  Formulaic
+  (formula [_] [(->UnitTerm name 1 mag dims)])
+
+  clojure.lang.IFn
+  (invoke [this n] (scale this n))
+  (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
+
+  Object
+  (toString [this] (format-quantity this)))
+
+;; like Quantity, but the magnitude is an approximate BigDecimal (irrational value)
+(defrecord ApproxQuantity [mag formula]
+  Dimensionable
+  (dims [_] (formula-dims formula))
+
+  Measured
+  (magnitude [_] (binding [*math-context* (ctx)] (bigdec mag)))
 
   Formulaic
   (formula [_] formula)
@@ -101,41 +158,108 @@
   nil    (dims [_] {}))
 
 (extend-protocol Measured
-  Number (magnitude [x] (rationalize x)))
+  Number
+  (magnitude [n]
+    (let [mag' (rationalize n)]
+      (if (integer? mag')
+        (bigint mag')
+        mag'))))
 
 (extend-protocol Formulaic
   Number (formula [_] []))
 
-(defn unit? [x] (instance? Unit x))
+;; PREDICATES
 
-(defn quantity? [x] (instance? Quantity x))
+(defn unit? [x]
+  (or (instance? PreciseUnit x)
+      (instance? ApproxUnit x)))
+
+(defn quantity? [x]
+  (or (instance? PreciseQuantity x)
+      (instance? ApproxQuantity x)))
+
+(defn precise? [x]
+  (or (instance? PreciseUnit x)
+      (instance? PreciseQuantity x)))
+
+(defn approx? [x]
+  (or (instance? ApproxUnit x)
+      (instance? ApproxQuantity x)))
+
+;; ---- exact integer power (keeps the exact tower) ----
+(defn- expt [base n]
+  (cond
+    (zero? n) 1
+    (pos? n)  (reduce * (repeat n base))
+    :else     (/ 1 (reduce * (repeat (- n) base)))))
+
+;; ---- approximate (BigDecimal) numeric layer ------------------------------
+;; A magnitude that is a BigDecimal is *approximate*; any operation touching one
+;; yields a BigDecimal, so approximateness propagates. Precision and rounding
+;; follow the caller's `*math-context*` (set via `with-precision` or `binding`),
+;; defaulting to 34-digit DECIMAL128 (unbiased HALF_EVEN) when unbound. The exact
+;; Ratio/Long path never touches BigDecimal, so `*math-context*` only ever affects
+;; approximate arithmetic — never exact. (`default-mc`/`ctx` defined above the
+;; records, since their `magnitude` coerces through `ctx`.)
+
+;; Native +,-,*,/ under a bound *math-context* already dispatch correctly: exact
+;; Long/Ratio operands stay exact (the context is ignored), while any BigDecimal
+;; operand yields a BigDecimal rounded to the context (coercing ratios). So no
+;; type branch is needed — approximateness propagates through the numeric tower.
+(defn- nmul [a b] (binding [*math-context* (ctx)] (* a b)))
+(defn- nadd [a b] (binding [*math-context* (ctx)] (+ a b)))
+(defn- nsub [a b] (binding [*math-context* (ctx)] (- a b)))
+(defn- ndiv [a b] (binding [*math-context* (ctx)] (/ a b)))
+(defn- npow [a n]
+  (if (decimal? a)
+    (let [c (ctx)]
+      (if (neg? n)
+        (.divide 1M (.pow a (- n) c) c)
+        (.pow a n c)))
+    (expt a n)))
 
 ;; ---- constructors ----
 (defn unit
   "Mint a named registered `Unit` from a name, base magnitude, and dimensions —
   what `defunit` and the generated builtins call."
   [name mag dims]
-  (->Unit name mag (into {} clean-xf dims)))
+  (if (or (ratio? mag) (integer? mag))
+    (->PreciseUnit name mag (into {} clean-xf dims))
+    (->ApproxUnit name mag (into {} clean-xf dims))))
+
+(defn quantity
+  "Mint a PreciseQuantity if the magnitude is a ratio or integer, or can
+   be rationalized to an integer.  Otherwise, returns an ApproxQuantity."
+  [mag formula]
+  (if (or (ratio? mag) (integer? mag))
+    (->PreciseQuantity mag formula)
+    (let [mag' (rationalize mag)]
+      (if (integer? mag')
+        (->PreciseQuantity mag' formula)
+        ;; use the provided magnitude for ApproxQuantity
+        (->ApproxQuantity mag formula)))))
 
 (defn scalar
-  "Wrap a plain number as a dimensionless Quantity (idempotent on Units/Quantities)."
+  "Wrap a plain number as a dimensionless Quantity (idempotent on any quantity)."
   [n]
-  (if (or (unit? n) (quantity? n))
+  (if (or (unit? n) (quantity? n) (approx? n))
     n
-    (->Quantity (rationalize n) [])))
+    (->PreciseQuantity (rationalize n) [])))
 
 ;; ---- accessors ----
 (defn dimensionless? [x] (empty? (dims x)))
 (defn conforms? [a b] (= (dims a) (dims b)))
 
 (defn scale
-  "Scale a Unit/Quantity's magnitude by a plain number — what `(u/feet 10)` does.
-  Always yields an anonymous Quantity (the result is no longer *the* unit itself)."
+  "Scale a quantity's magnitude by a plain number — what `(u/feet 10)` does.
+  Yields an anonymous Quantity (or ApproxQuantity if the input is approximate)."
   [q n]
-  (->Quantity (* (magnitude q) (rationalize n)) (formula q)))
+  (cond
+    (precise? q) (->PreciseQuantity (* (magnitude q) (rationalize n)) (formula q))
+    (approx? q) (quantity (nmul (magnitude q) (rationalize n)) (formula q))
+    :else (throw (ex-info "q must be a unit or quantity" {:q q :n n}))))
 
 ;; ---- display-formula algebra ----
-
 (defn- combine-terms
   "Merge UnitTerms sharing a unit-name (adding exponents), drop terms that cancel
   to exponent 0, and canonicalize order to positive-exponent terms (first-seen
@@ -161,24 +285,27 @@
     []
     (mapv #(update % :exp * n) formula)))
 
-;; ---- exact integer power (keeps the exact tower) ----
-(defn- expt [base n]
-  (cond
-    (zero? n) 1
-    (pos? n)  (reduce * (repeat n base))
-    :else     (/ 1 (reduce * (repeat (- n) base)))))
-
-;; ---- arithmetic (always yields an anonymous Quantity) ----
+;; ---- arithmetic (yields an anonymous Quantity, promoting to ApproxQuantity) ----
+;; In the precise branch every operand's magnitude is already exact: precise records
+;; carry rational :mags by construction, and `magnitude` rationalizes plain numbers.
+;; So the exact `+ - * /`/`expt` here need no `rationalize` wrapper.
 (defn qmul [x y]
-  (->Quantity (* (magnitude x) (magnitude y))
-              (combine-terms (concat (formula x) (formula y)))))
+  (let [formula' (combine-terms (concat (formula x) (formula y)))]
+    (if (or (approx? x) (approx? y))
+      (quantity (nmul (magnitude x) (magnitude y)) formula')
+      (->PreciseQuantity (* (magnitude x) (magnitude y)) formula'))))
 
 (defn qdiv [x y]
-  (->Quantity (/ (magnitude x) (magnitude y))
-              (combine-terms (concat (formula x) (formula-neg (formula y))))))
+  (let [formula' (combine-terms (concat (formula x) (formula-neg (formula y))))]
+    (if (or (approx? x) (approx? y))
+      (quantity (ndiv (magnitude x) (magnitude y)) formula')
+      (->PreciseQuantity (/ (magnitude x) (magnitude y)) formula'))))
 
 (defn qpow [x n]
-  (->Quantity (expt (magnitude x) n) (formula-pow (formula x) n)))
+  (let [formula' (formula-pow (formula x) n)]
+    (if (approx? x)
+      (quantity (npow (magnitude x) n) formula')
+      (->PreciseQuantity (npow (magnitude x) n) formula'))))
 
 (defn- assert-conforms [op x y]
   (when-not (conforms? x y)
@@ -187,11 +314,16 @@
 
 (defn qadd [x y]
   (assert-conforms "plus" x y)
-  (->Quantity (+ (magnitude x) (magnitude y)) (formula x)))    ; keeps left's formula
+  ;; keeps left's formula
+  (if (or (approx? x) (approx? y))
+    (quantity (nadd (magnitude x) (magnitude y)) (formula x))
+    (->PreciseQuantity (+ (magnitude x) (magnitude y)) (formula x))))
 
 (defn qsub [x y]
   (assert-conforms "minus" x y)
-  (->Quantity (- (magnitude x) (magnitude y)) (formula x)))
+  (if (or (approx? x) (approx? y))
+    (quantity (nsub (magnitude x) (magnitude y)) (formula x))
+    (->PreciseQuantity (- (magnitude x) (magnitude y)) (formula x))))
 
 (defn to
   "Re-express q over the target unit basis (dimension-preserving). The physical
@@ -199,13 +331,17 @@
   printed value equals magnitude(q)/factor(target)."
   [q target]
   (assert-conforms "to" q target)
-  (->Quantity (magnitude q) (formula target)))
+  (if (or (approx? q) (approx? target))
+    (quantity (magnitude q) (formula target))
+    (->PreciseQuantity (magnitude q) (formula target))))
 
 (defn ratio
   "Bare dimensionless count: how many of target fit in q."
   [q target]
   (assert-conforms "ratio" q target)
-  (->Quantity (/ (magnitude q) (magnitude target)) []))
+  (if (or (approx? q) (approx? target))
+    (quantity (ndiv (magnitude q) (magnitude target)) [])
+    (->PreciseQuantity (/ (magnitude q) (magnitude target)) [])))
 
 ;; ---- display ----
 (defn- formula-factor
@@ -215,14 +351,16 @@
   (reduce (fn [acc t] (* acc (expt (:factor t) (:exp t)))) 1 formula))
 
 (defn display-value
-  "The exact value shown to the user: for a Quantity, base magnitude divided by
-  the display formula's combined factor; a Unit is always one of itself (1); a
-  plain number is itself."
+  "The value shown to the user: base magnitude divided by the display formula's
+  combined factor (approximate for an ApproxQuantity); a Unit is one of itself
+  (1); a plain number is itself."
   [q]
   (cond
-    (quantity? q) (let [f (formula-factor (:formula q))]
+    (unit? q)     1                                     ; a bare unit is one of itself
+    (approx? q)   (let [f (formula-factor (:formula q))] ; ApproxQuantity only
+                    (if (zero? f) (:mag q) (ndiv (:mag q) f)))
+    (quantity? q) (let [f (formula-factor (:formula q))] ; PreciseQuantity only
                     (if (zero? f) (:mag q) (/ (:mag q) f)))
-    (unit? q)     1
     :else         q))
 
 (defn- base-dim-name
@@ -264,32 +402,43 @@
 
 (defn- unit-string [q]
   (cond
-    (quantity? q) (format-formula (:formula q))
-    (unit? q)     (:name q)
+    (unit? q)     (:name q)                          ; PreciseUnit or ApproxUnit
+    (quantity? q) (format-formula (:formula q))      ; PreciseQuantity or ApproxQuantity
     :else         ""))
 
 (defn format-quantity
-  "Human-readable form: `<exact> <unit> ≈ <approx> [dimension]`. Used by
+  "Human-readable form. Exact: `<exact> <unit> ≈ <approx> [dimension]`. Approximate:
+  `<bigdecimal> <unit> [dimension]` (no ≈ — the value is already inexact). Used by
   `toString`/`str`/`println`, and as the payload of the `#commensura/…` literals."
   [q]
   (let [dv    (display-value q)
         d     (dims q)
         dname (dimension-name d)
-        us    (unit-string q)]
+        us    (unit-string q)
+        dimb  (cond dname   (str "[" dname "]")
+                    (seq d)  "[unknown dimension]"       ; unnamed compound — register-dimension!
+                    :else    "[dimensionless]")]
     (str (pr-str dv)
          (when (seq us) (str " " us))
-         " ≈ " (double dv) " "
-         (cond dname   (str "[" dname "]")
-               (seq d)  "[unknown dimension]"          ; unnamed compound — name it with register-dimension!
-               :else    "[dimensionless]"))))
+         (if (approx? q) "" (str " ≈ " (double dv)))
+         " " dimb)))
 
 ;; `pr`/`prn`/the REPL emit a tagged literal whose payload is the human-readable
-;; string; the two records share the format but carry distinct tags.
-(defmethod print-method Unit     [q ^java.io.Writer w]
+;; string; the records share the format but carry distinct tags.
+;; Both named units — precise or approximate — reify through the registry, so they
+;; share the `#commensura/unit` tag; approximateness is intrinsic to the registered
+;; value (and shows in the payload: an approx unit prints with no `≈`).
+(defmethod print-method PreciseUnit     [q ^java.io.Writer w]
   (.write w (str "#commensura/unit " (pr-str (format-quantity q)))))
-(defmethod print-method Quantity [q ^java.io.Writer w]
+(defmethod print-method ApproxUnit      [q ^java.io.Writer w]
+  (.write w (str "#commensura/unit " (pr-str (format-quantity q)))))
+(defmethod print-method PreciseQuantity [q ^java.io.Writer w]
   (.write w (str "#commensura/quantity " (pr-str (format-quantity q)))))
+(defmethod print-method ApproxQuantity  [q ^java.io.Writer w]
+  (.write w (str "#commensura/approx " (pr-str (format-quantity q)))))
 
 ;; clojure.pprint (CIDER/Calva) ignores print-method on records — delegate back.
-(defmethod pp/simple-dispatch Unit     [q] (print-method q *out*))
-(defmethod pp/simple-dispatch Quantity [q] (print-method q *out*))
+(defmethod pp/simple-dispatch PreciseUnit     [q] (print-method q *out*))
+(defmethod pp/simple-dispatch ApproxUnit      [q] (print-method q *out*))
+(defmethod pp/simple-dispatch PreciseQuantity [q] (print-method q *out*))
+(defmethod pp/simple-dispatch ApproxQuantity  [q] (print-method q *out*))
