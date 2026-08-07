@@ -4712,4 +4712,43 @@
   "C"
   {:scale 1, :offset 5463/20, :type :affine, :dims {:temperature 1}},
   "Reaumur"
-  {:scale 5/4, :offset 5463/20, :type :affine, :dims {:temperature 1}}}}
+  {:scale 5/4,
+   :offset 5463/20,
+   :type :affine,
+   :dims {:temperature 1}}},
+ :functions
+ [{:name "Fahrenheit",
+   :body
+   "Fahrenheit[x] := { if (x conforms K) return ((x - zerocelsius) / K) * 9/5 + 32 else if (x conforms 1) return ((x-32) * 5/9) K + zerocelsius else return \"Error\" }"}
+  {:name "F", :body "F[x] := Fahrenheit[x]"}
+  {:name "Celsius",
+   :body
+   "Celsius[x] := (x conforms K) ? (x-zerocelsius) / K : ((x conforms 1) ? (x K + zerocelsius) : \"Error\")"}
+  {:name "C", :body "C[x] := Celsius[x]"}
+  {:name "Reaumur",
+   :body
+   "Reaumur[x] := (x conforms K) ? (8/10 (x-zerocelsius)) / K : ((x conforms 1) ? (10/8 * x * K + zerocelsius) : \"Error\")"}
+  {:name "Richter",
+   :body
+   "Richter[n] := { if (n conforms 1) return 22387 e^(3.45388 n) J if (n conforms joule) return -2.9 + 0.28953 ln[n/J] return \"Error: Richter[$n] expected dimensionless number or unit with dimensions of energy.\" }"}
+  {:name "DMS",
+   :body
+   "DMS[d,m=0,s=0] := { if d<0 degrees -(-d degrees + m arcmin + s arcsec) else d degrees + m arcmin + s arcsec }"}
+  {:name "DMS",
+   :body
+   "DMS[angle] := { if (angle > 0 degrees) angle -> [\"degrees\", \"arcmin\", \"arcsec\"] else \"-\" + DMS[-angle] }"}
+  {:name "DM",
+   :body
+   "DM[angle] := { if (angle > 0 degrees) angle -> [\"degrees\", \"arcmin\"] else \"-\" + DM[-angle] }"}
+  {:name "HMS",
+   :body
+   "HMS[h,m=0,s=0] := { if h<0 -(-h hours + m min + s sec) else h hours + m min + s sec }"}
+  {:name "DHMS",
+   :body
+   "DHMS[d,h=0,m=0,s=0] := { if d<0 -(-d days + h hours + m min + s sec) else d days + h hours + m min + s sec }"}
+  {:name "HMS",
+   :body
+   "HMS[time] := { if time > 0 hours time -> [\"hours\", \"min\", \"sec\"] else \"-\" + HMS[-time] }"}
+  {:name "DHMS",
+   :body
+   "DHMS[time] := { if time > 0 days time -> [0, \"days\", \"hours\", \"min\", \"sec\", 0] else \"-\" + DHMS[-time] }"}]}

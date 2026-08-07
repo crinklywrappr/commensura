@@ -155,6 +155,27 @@
    "Reaumur"    {:scale 5/4 :offset 5463/20}
    "Rankine"    {:scale 5/9 :offset 0}})
 
+(defn- consume-function
+  "Given the lines vector `lv` and index `i` of a `Name[args] :=` line, return
+  [collected-code-lines next-index]. A brace `{ … }` body is balanced across
+  lines; a single-line ternary/alias body is just line i. `//` comments are
+  stripped from the collected lines (block comments are already gone)."
+  [lv i]
+  (let [line0 (first (split-comment (nth lv i)))
+        after (str/trim (subs line0 (+ 2 (str/index-of line0 ":="))))]
+    (if (and (seq after) (not (str/starts-with? after "{")))
+      [[line0] (inc i)]                                   ; single-line ternary / alias
+      (loop [j i, depth 0, seen? false, acc []]           ; brace block: balance { }
+        (if (>= j (count lv))
+          [acc j]
+          (let [ln     (first (split-comment (nth lv j)))
+                depth' (+ depth (count (filter #{\{} ln)) (- (count (filter #{\}} ln))))
+                seen?' (or seen? (str/includes? ln "{"))
+                acc'   (conj acc ln)]
+            (if (and seen?' (zero? depth'))
+              [acc' (inc j)]
+              (recur (inc j) depth' seen?' acc'))))))))
+
 (defn parse-units-file [text]
   (let [lines   (str/split-lines (strip-block-comments (unescape-unicode text)))
         base    (atom [])                 ; [dim-keyword ...]
@@ -162,74 +183,85 @@
         prefixes (atom {})                ; name -> value
         aliases (atom {})
         dimnames (atom {})                ; dims-map -> name
-        nonlin  (atom {})
+        nonlin  (atom {})                 ; name -> {:type :affine …} (runtime affine temps)
+        functions (atom [])               ; [{:name :body}] every Name[x] := def, for M2.6
         pending (atom [])                 ; [name expr] not yet resolvable
         skipped (atom [])                 ; [line reason]
         docs    (atom {})                 ; name -> docstring (from // comments)
         last-unit (atom nil)]             ; unit whose doc a following comment continues
-    ;; pass 1: line-by-line, in source order
-    (doseq [raw lines]
-      (let [[code comment] (split-comment raw)
-            code (str/trim code)
-            doc  (clean-doc comment)]
-        (cond
-          ;; comment-only / blank line
-          (str/blank? code)
-          (if (and @last-unit doc)                    ; continuation of a multi-line doc
-            (swap! docs update @last-unit #(str/trim (str % " " doc)))
-            (reset! last-unit nil))
+    ;; pass 1: line-by-line, in source order; a Name[x] := function consumes its
+    ;; whole (possibly multi-line brace) body as one unit rather than leaking its
+    ;; body lines to the :else "unparsed" bucket.
+    (let [lv (vec lines), n (count lv)]
+      (loop [i 0]
+        (when (< i n)
+          (let [raw (nth lv i)
+                [code comment] (split-comment raw)
+                code (str/trim code)
+                doc  (clean-doc comment)]
+            (if (re-find #"^[^\s\[]+\s*\[[^\]]*\]\s*:=" code)
+              ;; nonlinear function:  Name[args] := <ternary> | { …multi-line body… }
+              (let [[fn-lines next-i] (consume-function lv i)
+                    nm   (str/trim (re-find #"^[^\s\[]+" code))
+                    body (-> (str/join " " fn-lines) (str/replace #"\s+" " ") str/trim)]
+                (reset! last-unit nil)
+                (when-let [aff (affine-temps nm)]        ; runtime data for the affine temps
+                  (swap! nonlin assoc nm (assoc aff :type :affine :dims {:temperature 1})))
+                (swap! functions conj {:name nm :body body})  ; catalogue for M2.6
+                (recur next-i))
+              ;; every other form is a single line
+              (do
+                (cond
+                  ;; comment-only / blank line
+                  (str/blank? code)
+                  (if (and @last-unit doc)                    ; continuation of a multi-line doc
+                    (swap! docs update @last-unit #(str/trim (str % " " doc)))
+                    (reset! last-unit nil))
 
-          ;; base dimension:  dimname =!= sym
-          (str/includes? code "=!=")
-          (let [[dim sym] (map str/trim (str/split code #"=!=" 2))
-                dk (keyword dim), sym (first (str/split sym #"\s+"))]
-            (swap! base conj dk)
-            (swap! env assoc sym {:factor 1 :dims {dk 1}})
-            (reset! last-unit nil)
-            (when doc (swap! docs assoc sym doc) (reset! last-unit sym)))
+                  ;; base dimension:  dimname =!= sym
+                  (str/includes? code "=!=")
+                  (let [[dim sym] (map str/trim (str/split code #"=!=" 2))
+                        dk (keyword dim), sym (first (str/split sym #"\s+"))]
+                    (swap! base conj dk)
+                    (swap! env assoc sym {:factor 1 :dims {dk 1}})
+                    (reset! last-unit nil)
+                    (when doc (swap! docs assoc sym doc) (reset! last-unit sym)))
 
-          ;; prefix (standalone-capable):  name ::- value
-          (str/includes? code "::-")
-          (let [[nm v] (map str/trim (str/split code #"::-" 2))]
-            (reset! last-unit nil)
-            (try (swap! prefixes assoc nm (:factor (evaluate v @env @prefixes)))
-                 (catch Exception _ (swap! pending conj [:prefix nm v]))))
+                  ;; prefix (standalone-capable):  name ::- value
+                  (str/includes? code "::-")
+                  (let [[nm v] (map str/trim (str/split code #"::-" 2))]
+                    (reset! last-unit nil)
+                    (try (swap! prefixes assoc nm (:factor (evaluate v @env @prefixes)))
+                         (catch Exception _ (swap! pending conj [:prefix nm v]))))
 
-          ;; dimension name:  expr ||| name
-          (str/includes? code "|||")
-          (let [[lhs nm] (map str/trim (str/split code #"\|\|\|" 2))
-                nm (str/replace nm "_" " ")]      ; human label; brackets allow spaces
-            (reset! last-unit nil)
-            (try (swap! dimnames assoc (:dims (evaluate lhs @env @prefixes)) nm)
-                 ;; LHS unit may be defined later in the file — retry in the multi-pass loop
-                 (catch Exception _ (swap! pending conj [:dimname nm lhs]))))
+                  ;; dimension name:  expr ||| name
+                  (str/includes? code "|||")
+                  (let [[lhs nm] (map str/trim (str/split code #"\|\|\|" 2))
+                        nm (str/replace nm "_" " ")]      ; human label; brackets allow spaces
+                    (reset! last-unit nil)
+                    (try (swap! dimnames assoc (:dims (evaluate lhs @env @prefixes)) nm)
+                         ;; LHS unit may be defined later in the file — retry in the multi-pass loop
+                         (catch Exception _ (swap! pending conj [:dimname nm lhs]))))
 
-          ;; nonlinear function:  Name[x] := ...
-          (re-find #"^[^\s\[]+\s*\[[^\]]*\]\s*:=" code)
-          (let [nm (str/trim (re-find #"^[^\s\[]+" code))]
-            (reset! last-unit nil)
-            (if-let [aff (affine-temps nm)]
-              (swap! nonlin assoc nm (assoc aff :type :affine :dims {:temperature 1}))
-              (swap! skipped conj [nm "nonlinear-fn"])))
+                  ;; prefix alias:  sym :- prefixname   (also unit alias handled by :=)
+                  (re-find #"^\S+\s*:-\s" code)
+                  (let [[nm v] (map str/trim (str/split code #":-" 2))]
+                    (reset! last-unit nil)
+                    (swap! aliases assoc nm v))
 
-          ;; prefix alias:  sym :- prefixname   (also unit alias handled by :=)
-          (re-find #"^\S+\s*:-\s" code)
-          (let [[nm v] (map str/trim (str/split code #":-" 2))]
-            (reset! last-unit nil)
-            (swap! aliases assoc nm v))
+                  ;; derived unit:  name := expr
+                  (str/includes? code ":=")
+                  (let [[nm expr] (map str/trim (str/split code #":=" 2))]
+                    (reset! last-unit nil)
+                    (if (or (str/includes? expr "<<") (str/blank? expr))
+                      (swap! skipped conj [nm "special-value"])
+                      (do (try (swap! env assoc nm (evaluate expr @env @prefixes))
+                               (catch Exception _ (swap! pending conj [:unit nm expr])))
+                          ;; enable continuation only when the def itself carried a comment
+                          (when doc (swap! docs assoc nm doc) (reset! last-unit nm)))))
 
-          ;; derived unit:  name := expr
-          (str/includes? code ":=")
-          (let [[nm expr] (map str/trim (str/split code #":=" 2))]
-            (reset! last-unit nil)
-            (if (or (str/includes? expr "<<") (str/blank? expr))
-              (swap! skipped conj [nm "special-value"])
-              (do (try (swap! env assoc nm (evaluate expr @env @prefixes))
-                       (catch Exception _ (swap! pending conj [:unit nm expr])))
-                  ;; enable continuation only when the def itself carried a comment
-                  (when doc (swap! docs assoc nm doc) (reset! last-unit nm)))))
-
-          :else (do (reset! last-unit nil) (swap! skipped conj [code "unparsed"])))))
+                  :else (do (reset! last-unit nil) (swap! skipped conj [code "unparsed"])))
+                (recur (inc i))))))))
 
     ;; resolve prefix aliases (k :- kilo)
     (doseq [[nm v] @aliases]
@@ -256,6 +288,7 @@
      :units (into {} (map (fn [[nm u]] [nm (if-let [d (@docs nm)] (assoc u :doc d) u)])) @env)
      :dimension-names @dimnames
      :nonlinear @nonlin
+     :functions @functions
      :skipped @skipped}))
 
 (defn convert!
