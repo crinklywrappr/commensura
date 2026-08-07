@@ -13,6 +13,7 @@
   "d" 1/10,
   "n" 1/1000000000,
   "femto" 1/1000000000000000,
+  "int" 499999/500000,
   "milli" 1/1000,
   "z" 1/1000000000000000000000,
   "nano" 1/1000000000,
@@ -22,6 +23,7 @@
   "f" 1/1000000000000000,
   "micro" 1/1000000,
   "Q" 1000000000000000000000000000000N,
+  "british" 250000000/250000389,
   "q" 1/1000000000000000000000000000000,
   "p" 1/1000000000000,
   "deka" 10,
@@ -38,16 +40,20 @@
   "Y" 1000000000000000000000000N,
   "Z" 1000000000000000000000N,
   "kibi" 1024,
+  "hemi" 1/2,
   "atto" 1/1000000000000000000,
   "Gi" 1073741824,
   "deci" 1/10,
   "Pi" 1125899906842624,
+  "bi" 2,
+  "demi" 1/2,
   "E" 1000000000000000000N,
   "zetta" 1000000000000000000000N,
   "R" 1000000000000000000000000000N,
   "mebi" 1048576,
   "half" 1/2,
   "Ei" 1152921504606846976,
+  "unit_" 1,
   "da" 10,
   "ronto" 1/1000000000000000000000000000,
   "a" 1/1000000000000000000,
@@ -68,14 +74,19 @@
   "pebi" 1125899906842624,
   "hecto" 100,
   "quecto" 1/1000000000000000000000000000000,
+  "geodetic" 500000/499999,
   "h" 100,
   "centi" 1/100,
   "survey" 500000/499999,
   "peta" 1000000000000000N,
   "m" 1/1000,
+  "semi" 1/2,
+  "uni" 1,
+  "tri" 3,
   "c" 1/100,
   "quetta" 1000000000000000000000000000000N,
-  "Mi" 1048576},
+  "Mi" 1048576,
+  "statute" 500000/499999},
  :prefix-aliases
  {"T" "tera",
   "d" "deci",
@@ -129,12 +140,14 @@
    :dims {:length 1},
    :doc "The 365.25 day year is specified in NIST publication 811"},
   "T" {:factor 1, :dims {:mass 1, :time -2, :current -1}},
+  "irishrood" {:factor 78400000000000/47839750729, :dims {:length 2}},
   "plutoday" {:factor 13795488/25, :dims {:time 1}},
   "metricfifth" {:factor 3/4000, :dims {:length 3}},
   "percent" {:factor 1/100, :dims {}},
   "europeanUvalue"
   {:factor 1, :dims {:mass 1, :time -3, :temperature -1}},
   "zinc17gauge" {:factor 127/100000, :dims {:length 1}},
+  "ioradius" {:factor 1815000, :dims {:length 1}},
   "deuteronmass"
   {:factor 4179479721/1250000000000000000000000000000000000,
    :dims {:mass 1},
@@ -144,6 +157,10 @@
   {:factor 37/125,
    :dims {:length 1},
    :doc "from which all the other units are derived."},
+  "scotsoatlippies"
+  {:factor 25043125000000000/7628003619251619843, :dims {:length 3}},
+  "alegallon"
+  {:factor 11750000000000000/2542667873083873281, :dims {:length 3}},
   "oldUSknot" {:factor 3860927/7500000, :dims {:length 1, :time -1}},
   "atomicvelocity"
   {:factor 37528800680344590000000/17154523277381371,
@@ -178,6 +195,7 @@
    :doc "Convenient for describing molecular sizes"},
   "aeginaobol" {:factor 6479891/6250000000, :dims {:mass 1}},
   "kolonel" {:factor 526491/200000000, :dims {:length 1}},
+  "moonradius" {:factor 1738000, :dims {:length 1}, :doc "mean value"},
   "linenyarncount"
   {:factor 27432000000/45359237,
    :dims {:length 1, :mass -1},
@@ -201,6 +219,7 @@
   "furlong"
   {:factor 792000/3937, :dims {:length 1}, :doc "From \"furrow long"},
   "clove" {:factor 317514659/100000000, :dims {:mass 1}},
+  "scotsinch" {:factor 50270027/1968507000, :dims {:length 1}},
   "brfirkin"
   {:factor 4091481/100000000,
    :dims {:length 3},
@@ -221,6 +240,9 @@
    :doc "The kelvin is the unit of temperature."},
   "lbblanks" {:factor 589081/258064000, :dims {:mass 1, :length -2}},
   "brwire00000gauge" {:factor 3429/312500, :dims {:length 1}},
+  "scotswheatchalder"
+  {:factor 17578624000000000000/7628003619251619843,
+   :dims {:length 3}},
   "gravitationalconstant"
   {:factor 66743/1000000000000000,
    :dims {:mass -1, :length 3, :time -2}},
@@ -231,6 +253,7 @@
   {:factor 435483/156250,
    :dims {:length 2},
    :doc "Area of roll of wall paper"},
+  "europadist" {:factor 670900000, :dims {:length 1}},
   "jpsize20ring"
   {:factor 15184364492350667317/250000000000000000000,
    :dims {:length 1}},
@@ -371,6 +394,7 @@
   "facecord" {:factor 442450728/244140625, :dims {:length 3}},
   "plate20gauge"
   {:factor 381/400000, :dims {:length 1}, :doc "24 oz / ft^2"},
+  "uranusdist" {:factor 2870990000000N, :dims {:length 1}},
   "kappline"
   {:factor 3/50000,
    :dims {:length 2, :mass 1, :time -2, :current -1},
@@ -408,6 +432,7 @@
   {:factor 52752792631/9290304000,
    :dims {:temperature -1, :time -3, :mass 1},
    :doc "C-value U.S. insulation conductance rating"},
+  "saturndist" {:factor 1429400000000N, :dims {:length 1}},
   "earlyromanfoot" {:factor 2973/10000, :dims {:length 1}},
   "quadrillion" {:factor 1000000000000000N, :dims {}},
   "wire16gauge" {:factor 322707/250000000, :dims {:length 1}},
@@ -417,6 +442,10 @@
   {:factor 1/1000,
    :dims {:mass 1, :time -1},
    :doc "mechanical resistance"},
+  "cocoa_sifted"
+  {:factor 50000000000/157725491,
+   :dims {:mass 1, :length -3},
+   :doc "These are for nonalkalized cocoa"},
   "min" {:factor 60, :dims {:time 1}},
   "brwire33gauge" {:factor 127/500000, :dims {:length 1}},
   "brwire00gauge" {:factor 11049/1250000, :dims {:length 1}},
@@ -469,6 +498,8 @@
    :dims {:length 2, :time -2},
    :doc
    "So you can write tons TNT, this is a defined, not measured, value"},
+  "winepipe"
+  {:factor 134750000000000000/282518652564874809, :dims {:length 3}},
   "calorie_IT"
   {:factor 10467/2500, :dims {:mass 1, :length 2, :time -2}},
   "triens" {:factor 2728034111/25000000000, :dims {:mass 1}},
@@ -533,8 +564,13 @@
   "unitpole"
   {:factor 1570796326794896619/12500000000000000000000000,
    :dims {:length 2, :mass 1, :time -2, :current -1}},
+  "earthvolume"
+  {:factor
+   677004574871068454996882195966401845262427/625000000000000000000,
+   :dims {:length 3}},
   "atticmina" {:factor 174957057/400000000, :dims {:mass 1}},
   "six" {:factor 6, :dims {}},
+  "irishfathom" {:factor 400000/218723, :dims {:length 1}},
   "σₑ"
   {:factor 66524587051/1000000000000000000000000000000000000000,
    :dims {:length 2},
@@ -589,6 +625,8 @@
    :dims {:mass 1},
    :doc "+/- 21 in last 2 digits"},
   "wire56gauge" {:factor 624713/50000000000, :dims {:length 1}},
+  "choppin"
+  {:factor 2154250000000000/2542667873083873281, :dims {:length 3}},
   "C3paper"
   {:factor 18549/125000,
    :dims {:length 2},
@@ -694,6 +732,7 @@
    :doc "Characteristic impedance of vacuum"},
   "wire0000gauge" {:factor 2921/250000, :dims {:length 1}},
   "cab" {:factor 44005411989/25000000000000, :dims {:length 3}},
+  "irishpace" {:factor 1000000/656169, :dims {:length 1}},
   "brquintilliard"
   {:factor 1000000000000000000000000000000000N, :dims {}},
   "semodius" {:factor 362563791/78125000000, :dims {:length 3}},
@@ -716,11 +755,14 @@
   {:factor 16033/500000, :dims {:mass 1, :amount_of_substance -1}},
   "brace" {:factor 2, :dims {}},
   "imperialminim" {:factor 454609/7680000000000, :dims {:length 3}},
+  "eggwhite" {:factor 3/100, :dims {:mass 1}},
   "seah" {:factor 1541709319801/125000000000000, :dims {:length 3}},
   "centesimalsecond"
   {:factor 1570796326794896619/1000000000000000000000000, :dims {}},
   "degreesRankine" {:factor 5/9, :dims {:temperature 1}},
   "sizeWring" {:factor 13/200, :dims {:length 1}},
+  "englishbeergallon"
+  {:factor 11750000000000000/2542667873083873281, :dims {:length 3}},
   "poundglassinepaper"
   {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
   "hydrogen"
@@ -747,6 +789,10 @@
   "quadrans" {:factor 8184102333/100000000000, :dims {:mass 1}},
   "boll" {:factor 1363827/6250000, :dims {:length 3}},
   "olympicspithame" {:factor 1143/5000, :dims {:length 1}},
+  "cakeflour_spooned"
+  {:factor 2945405000/6145149,
+   :dims {:mass 1, :length -3},
+   :doc "measuring method. \"Scooped\", or"},
   "leadstone" {:factor 45359237/8000000, :dims {:mass 1}},
   "strontium"
   {:factor 4381/50000, :dims {:mass 1, :amount_of_substance -1}},
@@ -778,9 +824,13 @@
    :dims {:mass 1, :length 1, :time -2}},
   "plate0000gauge"
   {:factor 1651/160000, :dims {:length 1}, :doc "260 oz / ft^2"},
+  "sugar"
+  {:factor 400000000000/473176473, :dims {:mass 1, :length -3}},
   "eusize3ring" {:factor 43/1000, :dims {:length 1}},
   "number2can" {:factor 8990352987/16000000000000, :dims {:length 3}},
   "floz" {:factor 473176473/16000000000000, :dims {:length 3}},
+  "scotsoatpeck"
+  {:factor 100172500000000000/7628003619251619843, :dims {:length 3}},
   "molarvolume"
   {:factor 378515910691426251/16887500000000000000,
    :dims {:amount_of_substance -1, :length 3},
@@ -808,6 +858,8 @@
   {:factor 28212135909/2000000000000000000000000000000000000,
    :dims {:length 2, :current 1},
    :doc "+/- 60 in last 2 digits"},
+  "winebutt"
+  {:factor 134750000000000000/282518652564874809, :dims {:length 3}},
   "Q"
   {:factor 1/4000,
    :dims {:length 1},
@@ -815,6 +867,8 @@
   "lbweddingbristol"
   {:factor 45359237/20685442500, :dims {:mass 1, :length -2}},
   "brevier" {:factor 1757299/625000000, :dims {:length 1}},
+  "scotsoatfirlot"
+  {:factor 400690000000000000/7628003619251619843, :dims {:length 3}},
   "shortquire" {:factor 24, :dims {}},
   "mo" {:factor 3287179789029/1250000, :dims {:time 1}},
   "sr"
@@ -844,6 +898,11 @@
    :doc
    "Frankish coin called the \"denier minted in the late 700's. There were 240 deniers to the pound."},
   "brtrilliard" {:factor 1000000000000000000000N, :dims {}},
+  "charonradius"
+  {:factor 604000,
+   :dims {:length 1},
+   :doc
+   "http://pluto.jhuapl.edu/News-Center/News-Article.php?page=20150713"},
   "barye"
   {:factor 1/10,
    :dims {:length -1, :mass 1, :time -2},
@@ -872,6 +931,7 @@
    :doc "old system used for silk"},
   "plate22gauge"
   {:factor 127/160000, :dims {:length 1}, :doc "20 oz / ft^2"},
+  "flemishell" {:factor 150000/218723, :dims {:length 1}},
   "woolsack" {:factor 4127690567/25000000, :dims {:mass 1}},
   "protactinium"
   {:factor 5775897/25000000, :dims {:mass 1, :amount_of_substance -1}},
@@ -896,6 +956,10 @@
   {:factor 20929/5,
    :dims {:mass 1, :length 2, :time -2},
    :doc "Used in refrigeration engineering."},
+  "englishbeerpint"
+  {:factor 1468750000000000/2542667873083873281, :dims {:length 3}},
+  "irishquarter"
+  {:factor 190400000000000000/847555957694624427, :dims {:length 3}},
   "wk" {:factor 604800, :dims {:time 1}},
   "electrichorsepower"
   {:factor 746, :dims {:mass 1, :length 2, :time -3}},
@@ -946,12 +1010,17 @@
   {:factor 5007188500/6145149, :dims {:mass 1, :length -3}},
   "kilohm"
   {:factor 1000, :dims {:mass 1, :length 2, :time -3, :current -2}},
+  "scotsquart"
+  {:factor 8617000000000000/2542667873083873281, :dims {:length 3}},
   "wineglass" {:factor 473176473/4000000000000, :dims {:length 3}},
   "artaba" {:factor 8149034976091/125000000000000, :dims {:length 3}},
   "shoeounce"
   {:factor 127/320000,
    :dims {:length 1},
    :doc "Used to measure non-sole shoe leather"},
+  "scotsrood"
+  {:factor 3459566516361018001/2690985978506250, :dims {:length 2}},
+  "irishinch" {:factor 50000/1968507, :dims {:length 1}},
   "marssolarday" {:factor 178137728496/25, :dims {:time 3}},
   "trit"
   {:factor 19812031259/12500000000,
@@ -977,7 +1046,13 @@
    :dims {:mass 1, :length -2},
    :doc "strong and opaque."},
   "fine" {:factor 1/1000, :dims {}, :doc "Measure of gold purity"},
+  "jupiterradius_polar" {:factor 66854000, :dims {:length 1}},
   "metricquart" {:factor 1/1000, :dims {:length 3}},
+  "sunradius"
+  {:factor 696342000,
+   :dims {:length 1},
+   :doc
+   "Plus/minus 65 km, http://www.ifa.hawaii.edu/info/press-releases/solar_radius/"},
   "lbpaperboard"
   {:factor 45359237/9290304000, :dims {:mass 1, :length -2}},
   "tor"
@@ -997,6 +1072,9 @@
    "can be expressed as 1/lambda = R (1/m^2 - 1/n^2). where R is a number that various slightly from element to element. For hydrogen, R_H is the value, and for heavy elements, the value approaches Rinfinity."},
   "brseptilliard"
   {:factor 1000000000000000000000000000000000000000000000N, :dims {}},
+  "scotsoatchalder"
+  {:factor 25644160000000000000/7628003619251619843,
+   :dims {:length 3}},
   "Y0"
   {:factor 50000000000000000/18836515670601495083,
    :dims {:mass -1, :length -2, :time 3, :current 2},
@@ -1025,6 +1103,8 @@
    :dims {:length 1},
    :doc
    "2022 CODATA value https://physics.nist.gov/cgi-bin/cuu/Value?re uncertainty is +/- 13 in the last 2 digits"},
+  "cocoa_spooned"
+  {:factor 164000000000/473176473, :dims {:mass 1, :length -3}},
   "calcium"
   {:factor 20039/500000, :dims {:mass 1, :amount_of_substance -1}},
   "brwire21gauge" {:factor 127/156250, :dims {:length 1}},
@@ -1033,6 +1113,7 @@
   {:factor 45359237/25088659500, :dims {:mass 1, :length -2}},
   "mmH2O"
   {:factor 196133/20000, :dims {:length -1, :time -2, :mass 1}},
+  "irishspan" {:factor 50000/218723, :dims {:length 1}},
   "meter"
   {:factor 1,
    :dims {:length 1},
@@ -1042,6 +1123,7 @@
   {:factor 1000N,
    :dims {:amount_of_substance 1, :length -3},
    :doc "Unit of concentration (moles/liter)"},
+  "venusradius" {:factor 6052000, :dims {:length 1}},
   "mendelevium"
   {:factor 2581/10000,
    :dims {:mass 1, :amount_of_substance -1},
@@ -1056,6 +1138,7 @@
    :doc "is defined to have an area of"},
   "inH2O"
   {:factor 24908891/100000, :dims {:length -1, :time -2, :mass 1}},
+  "europaradius" {:factor 1569000, :dims {:length 1}},
   "jpsize2ring"
   {:factor 523598775598298873/12500000000000000000, :dims {:length 1}},
   "skylum_o"
@@ -1098,6 +1181,11 @@
   "chlorine"
   {:factor 354527/10000000, :dims {:mass 1, :amount_of_substance -1}},
   "sumeriancubit" {:factor 99/200, :dims {:length 1}},
+  "nail"
+  {:factor 12500/218723,
+   :dims {:length 1},
+   :doc
+   "Originally the width of the thumbnail, or 1/16 ft. This took on the general meaning of 1/16 and settled on the nail of a yard or 1/16 yards as its final value. [12]"},
   "tsubo"
   {:factor 81306289/25000000,
    :dims {:length 2},
@@ -1107,7 +1195,11 @@
   "mittel" {:factor 526491/100000000, :dims {:length 1}},
   "plate32gauge"
   {:factor 1651/6400000, :dims {:length 1}, :doc "6.5 oz / ft^2"},
+  "irishfurlong"
+  {:factor 56000000/218723, :dims {:length 1}, :doc "these lengths."},
   "ledgersize" {:factor 3016123/25000000, :dims {:length 2}},
+  "irishpeck"
+  {:factor 54400000000000000/7628003619251619843, :dims {:length 3}},
   "brquarter" {:factor 454609/1562500, :dims {:length 3}},
   "mach"
   {:factor 16573/50,
@@ -1115,6 +1207,9 @@
    :doc "speed of sound in dry air at STP"},
   "A4paper" {:factor 6237/100000, :dims {:length 2}},
   "wire20gauge" {:factor 101473/125000000, :dims {:length 1}},
+  "upquarkcharge"
+  {:factor 267029439/2500000000000000000000000000,
+   :dims {:current 1, :time 1}},
   "brwire000gauge" {:factor 11811/1250000, :dims {:length 1}},
   "Wb" {:factor 1, :dims {:mass 1, :length 2, :time -2, :current -1}},
   "ε₀"
@@ -1141,6 +1236,8 @@
   "wire1gauge" {:factor 367411/50000000, :dims {:length 1}},
   "cottonyarncount"
   {:factor 10972800000/6479891, :dims {:length 1, :mass -1}},
+  "powdered_sugar"
+  {:factor 2945405000/6145149, :dims {:mass 1, :length -3}},
   "wiendisplacement"
   {:factor 579554391/200000000000,
    :dims {:length 1, :temperature 1},
@@ -1195,6 +1292,8 @@
   "copper"
   {:factor 31773/500000, :dims {:mass 1, :amount_of_substance -1}},
   "B9paper" {:factor 341/125000, :dims {:length 2}},
+  "irishnoggin"
+  {:factor 850000000000000/7628003619251619843, :dims {:length 3}},
   "faraday_chem"
   {:factor 964957/10,
    :dims {:current 1, :time 1},
@@ -1204,6 +1303,8 @@
   {:factor 1000000000000000000000000000000000000000000000000000N,
    :dims {}},
   "grosse_kanon" {:factor 1579473/100000000, :dims {:length 1}},
+  "irishpuncheon"
+  {:factor 761600000000000000/2542667873083873281, :dims {:length 3}},
   "oldhayload" {:factor 2857631931/3125000, :dims {:mass 1}},
   "vegetable_oil"
   {:factor 1840878125/2048383, :dims {:mass 1, :length -3}},
@@ -1225,12 +1326,15 @@
   "thaisalung" {:factor 3/800, :dims {:mass 1}},
   "carbon"
   {:factor 12011/1000000, :dims {:mass 1, :amount_of_substance -1}},
+  "alepint"
+  {:factor 1468750000000000/2542667873083873281, :dims {:length 3}},
   "wire19gauge" {:factor 455803/500000000, :dims {:length 1}},
   "sizeMring" {:factor 21/400, :dims {:length 1}},
   "heredia" {:factor 3154176/625, :dims {:length 2}},
   "poundpaperboard"
   {:factor 45359237/9290304000, :dims {:mass 1, :length -2}},
   "brwire31gauge" {:factor 3683/12500000, :dims {:length 1}},
+  "saturnradius" {:factor 60268000, :dims {:length 1}},
   "longprimer" {:factor 1757299/500000000, :dims {:length 1}},
   "thaikoyan" {:factor 1200N, :dims {:mass 1}},
   "C0paper"
@@ -1241,6 +1345,8 @@
   {:factor
    274155677808037739331322691433070129/11664000000000000000000000000000000000000000000,
    :dims {}},
+  "winebarrel"
+  {:factor 33687500000000000/282518652564874809, :dims {:length 3}},
   "kus" {:factor 99/200, :dims {:length 1}},
   "phobosdist" {:factor 9378500N, :dims {:length 1}},
   "akaina" {:factor 31623/10000, :dims {:length 1}},
@@ -1272,6 +1378,7 @@
    :doc "Thermochemical calorie, 4.184 J"},
   "lbcover"
   {:factor 45359237/16774160000, :dims {:mass 1, :length -2}},
+  "uranusradius" {:factor 25559000, :dims {:length 1}},
   "juliancenturies" {:factor 3155760000, :dims {:time 1}},
   "fL"
   {:factor 781250000000000000000000/228018365593873988110659,
@@ -1281,6 +1388,7 @@
   "Uvalue"
   {:factor 52752792631/9290304000,
    :dims {:temperature -1, :time -3, :mass 1}},
+  "titanradius" {:factor 2575000, :dims {:length 1}},
   "Ω"
   {:factor 1,
    :dims {:mass 1, :length 2, :time -3, :current -2},
@@ -1321,6 +1429,7 @@
   {:factor 1/10,
    :dims {:length -1, :mass 1, :time -2},
    :doc "old name"},
+  "milk" {:factor 44000000000/43016043, :dims {:mass 1, :length -3}},
   "E_h"
   {:factor
    1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000,
@@ -1345,6 +1454,8 @@
   {:factor 2159/320000, :dims {:length 1}, :doc "170 oz / ft^2"},
   "B8paper" {:factor 341/62500, :dims {:length 2}},
   "lbbook" {:factor 45359237/30645100000, :dims {:mass 1, :length -2}},
+  "irishtun"
+  {:factor 761600000000000000/847555957694624427, :dims {:length 3}},
   "Mx"
   {:factor 1/100000000,
    :dims {:length 2, :mass 1, :time -2, :current -1}},
@@ -1365,9 +1476,21 @@
   "B3paper" {:factor 353/2000, :dims {:length 2}},
   "plate3gauge"
   {:factor 127/20000, :dims {:length 1}, :doc "160 oz / ft^2"},
+  "irishhogshead"
+  {:factor 190400000000000000/847555957694624427, :dims {:length 3}},
   "sizeUring" {:factor 1/16, :dims {:length 1}},
   "imperialpeck" {:factor 454609/50000000, :dims {:length 3}},
+  "barleycorn"
+  {:factor 50000/5905521,
+   :dims {:length 1},
+   :doc
+   "Given in Realm of Measure as the difference between successive shoe sizes"},
   "basispoint" {:factor 1/10000, :dims {}, :doc "Used in finance"},
+  "scotsfeet" {:factor 50270027/164042250, :dims {:length 1}},
+  "flour_sifted"
+  {:factor 2945405000/6145149,
+   :dims {:mass 1, :length -3},
+   :doc "measure into a bin, and then sweeping"},
   "Btu_th"
   {:factor 23722880951/22500000, :dims {:mass 1, :length 2, :time -2}},
   "siemens"
@@ -1428,6 +1551,7 @@
   {:factor 10,
    :dims {:current 1},
    :doc "long wires that are 1 cm apart"},
+  "marsradius" {:factor 3397000, :dims {:length 1}},
   "bps"
   {:factor 1,
    :dims {:information 1, :time -1},
@@ -1468,6 +1592,8 @@
    :dims {:length -1}},
   "gross" {:factor 144, :dims {}},
   "brpeck" {:factor 454609/50000000, :dims {:length 3}},
+  "scotswheatboll"
+  {:factor 1098664000000000000/7628003619251619843, :dims {:length 3}},
   "sunillum_o"
   {:factor 10000N,
    :dims {:luminous_intensity 1, :length -2},
@@ -1551,6 +1677,7 @@
    :doc "Standardized in 1979, but given as 2 qt in some references"},
   "tellurium"
   {:factor 319/2500, :dims {:mass 1, :amount_of_substance -1}},
+  "englishell" {:factor 250000/218723, :dims {:length 1}},
   "brundecillion"
   {:factor
    1000000000000000000000000000000000000000000000000000000000000000000N,
@@ -1589,6 +1716,8 @@
   {:factor 378515910691426251/16887500000000000000,
    :dims {:amount_of_substance -1, :length 3},
    :doc "Units m^3/mol"},
+  "irishquart"
+  {:factor 6800000000000000/7628003619251619843, :dims {:length 3}},
   "attictalent" {:factor 524871171/20000000, :dims {:mass 1}},
   "shot"
   {:factor 1419529419/32000000000000,
@@ -1682,6 +1811,8 @@
    :dims {:mass 1, :length -2},
    :doc "For offset printing"},
   "sizeFring" {:factor 7/160, :dims {:length 1}},
+  "scotswheatlippies"
+  {:factor 17166625000000000/7628003619251619843, :dims {:length 3}},
   "circularmil"
   {:factor 25335373954874887567851/50000000000000000000000000000000,
    :dims {:length 2},
@@ -1692,6 +1823,7 @@
   {:factor 1000N,
    :dims {:amount_of_substance 1, :length -3},
    :doc "Sometimes capitalized"},
+  "scotschain" {:factor 1859990999/82021125, :dims {:length 1}},
   "apounce" {:factor 19439673/625000000, :dims {:mass 1}},
   "wire12gauge" {:factor 1026287/500000000, :dims {:length 1}},
   "faraday"
@@ -1705,6 +1837,7 @@
   "eusize19ring" {:factor 59/1000, :dims {:length 1}},
   "timepoint"
   {:factor 720N, :dims {:time 1}, :doc "also given as 1/4"},
+  "rope" {:factor 4000000/656169, :dims {:length 1}},
   "sextuple" {:factor 6, :dims {}},
   "surveychain" {:factor 79200/3937, :dims {:length 1}},
   "fingerlength"
@@ -1725,6 +1858,7 @@
    :dims {:time 3},
    :doc "of a star over the meridian,"},
   "apdram" {:factor 19439673/5000000000, :dims {:mass 1}},
+  "scotsell" {:factor 1859990999/1968507000, :dims {:length 1}},
   "beerbarrel"
   {:factor 14668470663/125000000000,
    :dims {:length 3},
@@ -1853,6 +1987,7 @@
    :dims {:mass -1, :length 1, :time 1},
    :doc "reciprocal viscosity"},
   "mph" {:factor 1397/3125, :dims {:length 1, :time -1}},
+  "venusdist" {:factor 108200000000N, :dims {:length 1}},
   "becquerel"
   {:factor 1, :dims {:time -1}, :doc "Activity of radioactive source"},
   "kvalue"
@@ -1911,6 +2046,8 @@
    :dims {:mass 1}},
   "stade" {:factor 185N, :dims {:length 1}},
   "dessertspoon" {:factor 1/100000, :dims {:length 3}},
+  "jupiterradius"
+  {:factor 69911000, :dims {:length 1}, :doc "Volumetric mean radius"},
   "S" {:factor 1, :dims {:current 2, :mass -1, :length -2, :time 3}},
   "greatgross" {:factor 1728, :dims {}},
   "brtablespoon"
@@ -1928,6 +2065,8 @@
   "droit" {:factor 6479891/48000000000000, :dims {:mass 1}},
   "plate000000gauge"
   {:factor 381/32000, :dims {:length 1}, :doc "300 oz / ft^2"},
+  "scotsoatboll"
+  {:factor 1602760000000000000/7628003619251619843, :dims {:length 3}},
   "sizeLring" {:factor 41/800, :dims {:length 1}},
   "asbestoscut"
   {:factor 9144000000/45359237,
@@ -1941,13 +2080,23 @@
   {:factor 4123567/1096772000, :dims {:mass 1, :length -2}},
   "hour" {:factor 3600, :dims {:time 1}},
   "oz" {:factor 45359237/1600000000, :dims {:mass 1}},
+  "downquarkcharge"
+  {:factor -267029439/5000000000000000000000000000,
+   :dims {:current 1, :time 1}},
   "mast" {:factor 45359237/40000000, :dims {:mass 1}},
+  "heavycream"
+  {:factor 464000000000/473176473, :dims {:mass 1, :length -3}},
   "susi" {:factor 1143/250000, :dims {:length 1}},
   "heer" {:factor 13716/25, :dims {:length 1}},
   "hefnerunit"
   {:factor 459/500,
    :dims {:luminous_intensity 1},
    :doc "in use before candela"},
+  "marsdist" {:factor 227940000000N, :dims {:length 1}},
+  "moondist"
+  {:factor 384400000,
+   :dims {:length 1},
+   :doc "mean earth-moon distance"},
   "btu_th"
   {:factor 23722880951/22500000, :dims {:mass 1, :length 2, :time -2}},
   "poise"
@@ -1968,6 +2117,7 @@
   {:factor 37/125,
    :dims {:length 1},
    :doc "Roman Land Surveyors\", Dilke gives 295.7 mm."},
+  "mercuryradius" {:factor 2439000, :dims {:length 1}},
   "refrigeration" {:factor 1163/300, :dims {:length 2, :time -3}},
   "arabicinch" {:factor 16891/750000, :dims {:length 1}},
   "lambda_C_p"
@@ -2153,6 +2303,8 @@
    :dims {},
    :doc
    "the sphere equal to that of a square with sides of length equal to the radius of the sphere. A sphere thus subtends 4 pi steradians. Also a dimensionless unit (length^2/length^2) If you have radians as a fundamental unit, and want to have steradians tracked correctly, replace the first definition with sr := radian^2"},
+  "cocoa_butter"
+  {:factor 2209053750/2048383, :dims {:mass 1, :length -3}},
   "wire18gauge" {:factor 51181/50000000, :dims {:length 1}},
   "koshersalt"
   {:factor 12800000000/22532213,
@@ -2162,6 +2314,7 @@
   "frenchpoint" {:factor 125/664944, :dims {:length 1}},
   "poundboxboard"
   {:factor 45359237/9290304000, :dims {:mass 1, :length -2}},
+  "scotsfall" {:factor 1859990999/328084500, :dims {:length 1}},
   "pony" {:factor 473176473/16000000000000, :dims {:length 3}},
   "romanfoot"
   {:factor 37/125,
@@ -2190,6 +2343,8 @@
    :dims {:length 2},
    :doc
    "Height of Oliver R. Smoot Jr. see: http://aether.lbl.gov/www/personnel/smoot/smoot-measure.html"},
+  "dutchcocoa_spooned"
+  {:factor 184000000000/473176473, :dims {:mass 1, :length -3}},
   "brbillion" {:factor 1000000000000N, :dims {}},
   "amphorae"
   {:factor 1087691373/39062500000,
@@ -2203,6 +2358,8 @@
   {:factor 52752792631/50000000, :dims {:mass 1, :length 2, :time -2}},
   "eggyolkvolume"
   {:factor 1104078437/64000000000000, :dims {:length 3}},
+  "irishrundlet"
+  {:factor 54400000000000000/847555957694624427, :dims {:length 3}},
   "gravities"
   {:factor 196133/20000,
    :dims {:length 1, :time -2},
@@ -2228,6 +2385,7 @@
    :dims {:information 1},
    :doc
    "log[10]/log[2] bits, or the entropy of a uniformly-distributed random variable over 10 symbols."},
+  "mercurydist" {:factor 57910000000N, :dims {:length 1}},
   "foot" {:factor 381/1250, :dims {:length 1}},
   "plate19gauge"
   {:factor 889/800000, :dims {:length 1}, :doc "28 oz / ft^2"},
@@ -2238,6 +2396,10 @@
    :doc "Elbow to end of knuckles."},
   "silverwukiyeh" {:factor 58319019/2000000000, :dims {:mass 1}},
   "pi" {:factor 1570796326794896619/500000000000000000, :dims {}},
+  "brownsugar_dark"
+  {:factor 478000000000/473176473, :dims {:mass 1, :length -3}},
+  "irishstrike"
+  {:factor 435200000000000000/7628003619251619843, :dims {:length 3}},
   "silverkirat" {:factor 58319019/320000000000, :dims {:mass 1}},
   "A10paper" {:factor 481/500000, :dims {:length 2}},
   "brwire36gauge" {:factor 2413/12500000, :dims {:length 1}},
@@ -2277,6 +2439,11 @@
    :dims {}},
   "Wh" {:factor 3600, :dims {:mass 1, :length 2, :time -2}},
   "timeatom" {:factor 15/94, :dims {:time 1}},
+  "span"
+  {:factor 50000/218723,
+   :dims {:length 1},
+   :doc
+   "supposed to be distance from thumb to pinky with full hand extension"},
   "abohm"
   {:factor 1/1000000000,
    :dims {:length 2, :mass 1, :time -3, :current -2}},
@@ -2357,6 +2524,8 @@
    1000000000000000000000000000000000000000000000000000000000000000000000000N,
    :dims {}},
   "ozt" {:factor 19439673/625000000, :dims {:mass 1}},
+  "alehogshead"
+  {:factor 199750000000000000/847555957694624427, :dims {:length 3}},
   "acrefoot" {:factor 75271680000000/61023377953, :dims {:length 3}},
   "gauss" {:factor 1/10000, :dims {:mass 1, :time -2, :current -1}},
   "kerosene"
@@ -2391,6 +2560,8 @@
   {:factor 1397/105312500,
    :dims {:length -1, :mass -1, :time 2},
    :doc "EPA definition, of miles per gallon, electric. See above."},
+  "irishbarrel"
+  {:factor 95200000000000000/847555957694624427, :dims {:length 3}},
   "wire26gauge" {:factor 101219/250000000, :dims {:length 1}},
   "draconicmonth"
   {:factor 7347299373/3125,
@@ -2432,6 +2603,7 @@
   {:factor 136077711/5000000,
    :dims {:mass 1},
    :doc "New and old here seem to refer to \"new"},
+  "charondist" {:factor 19640000, :dims {:length 1}},
   "plate13gauge"
   {:factor 381/160000, :dims {:length 1}, :doc "60 oz / ft^2"},
   "arpent"
@@ -2446,6 +2618,7 @@
   {:factor 8901179185171080841/125000000000000000000,
    :dims {:length 1}},
   "mgd" {:factor 157725491/3600000000, :dims {:length 3, :time -1}},
+  "irishpalm" {:factor 50000/656169, :dims {:length 1}},
   "F" {:factor 1, :dims {:current 2, :time 4, :mass -1, :length -2}},
   "nat"
   {:factor 2254211001389/1562500000000,
@@ -2513,6 +2686,7 @@
    :doc "Alternate spelling, used in many translations"},
   "plate000gauge"
   {:factor 381/40000, :dims {:length 1}, :doc "240 oz / ft^2"},
+  "butter" {:factor 5890810000/6145149, :dims {:mass 1, :length -3}},
   "iupenicillin" {:factor 3/5000000000, :dims {:mass 1}},
   "da" {:factor 86400, :dims {:time 1}},
   "brmilliard" {:factor 1000000000N, :dims {}},
@@ -2587,6 +2761,8 @@
   "jpsize5ring"
   {:factor 22514747350726851539/500000000000000000000,
    :dims {:length 1}},
+  "irishpipe"
+  {:factor 380800000000000000/847555957694624427, :dims {:length 3}},
   "technicalatmosphere"
   {:factor 196133/2, :dims {:mass 1, :length -1, :time -2}},
   "ricebushel" {:factor 408233133/20000000, :dims {:mass 1}},
@@ -2603,6 +2779,8 @@
   {:factor 4258588257/500000000000,
    :dims {:length 3},
    :doc "Why not?"},
+  "irishbushel"
+  {:factor 217600000000000000/7628003619251619843, :dims {:length 3}},
   "preece"
   {:factor 10000000000000N,
    :dims {:mass 1, :length 3, :time -3, :current -2},
@@ -2612,11 +2790,17 @@
    :dims {:temperature 1},
    :doc "The *size* of a degree in the Fahrenheit scale."},
   "perfectream" {:factor 516, :dims {}},
+  "winehogshead"
+  {:factor 67375000000000000/282518652564874809, :dims {:length 3}},
   "Gs" {:factor 1/10000, :dims {:mass 1, :time -2, :current -1}},
   "novemdecillion"
   {:factor
    1000000000000000000000000000000000000000000000000000000000000N,
    :dims {}},
+  "alebarrel"
+  {:factor 399500000000000000/2542667873083873281, :dims {:length 3}},
+  "irishdrybarrel"
+  {:factor 870400000000000000/7628003619251619843, :dims {:length 3}},
   "acnua" {:factor 788544/625, :dims {:length 2}},
   "intvolt"
   {:factor 100033/100000,
@@ -2628,7 +2812,10 @@
    :doc "The basic B size has an area"},
   "zinc21gauge" {:factor 127/62500, :dims {:length 1}},
   "tronpound" {:factor 771107029/1250000000, :dims {:mass 1}},
+  "englishbeerhogshead"
+  {:factor 23500000000000000/94172884188291603, :dims {:length 3}},
   "text" {:factor 676917/100000000, :dims {:length 1}},
+  "chenice" {:factor 660732565629/625000000000000, :dims {:length 3}},
   "eman"
   {:factor 3700N,
    :dims {:time -1, :length -3},
@@ -2678,6 +2865,8 @@
   "seamile" {:factor 9144/5, :dims {:length 1}},
   "plate31gauge"
   {:factor 889/3200000, :dims {:length 1}, :doc "7 oz / ft^2"},
+  "scotswheatpeck"
+  {:factor 68666500000000000/7628003619251619843, :dims {:length 3}},
   "eusize20ring" {:factor 3/50, :dims {:length 1}},
   "Btu"
   {:factor 52752792631/50000000,
@@ -2723,6 +2912,8 @@
   {:factor 1/100000000000000000000000000,
    :dims {:mass 1, :time -2},
    :doc "K. G. Jansky identified radio waves coming"},
+  "alequart"
+  {:factor 2937500000000000/2542667873083873281, :dims {:length 3}},
   "intohm"
   {:factor 200099/200000,
    :dims {:mass 1, :length 2, :time -3, :current -2},
@@ -2748,10 +2939,13 @@
   {:factor 26981539/1000000000,
    :dims {:mass 1, :amount_of_substance -1}},
   "township" {:factor 1445216256000000/15499969, :dims {:length 2}},
+  "cornstarch"
+  {:factor 80000000000/157725491, :dims {:mass 1, :length -3}},
   "breadflour_sifted"
   {:factor 6258985625/12290298,
    :dims {:mass 1, :length -3},
    :doc "and then sweep the top. Sifted means"},
+  "irishacre" {:factor 313600000000000/47839750729, :dims {:length 2}},
   "keg"
   {:factor 14668470663/250000000000,
    :dims {:length 3},
@@ -2775,12 +2969,19 @@
   "size8ring"
   {:factor 71218334660553817808841/1250000000000000000000000,
    :dims {:length 1}},
+  "titandist" {:factor 1221850000, :dims {:length 1}},
   "earthradius_polar" {:factor 31783761571/5000, :dims {:length 1}},
+  "scotswheatlippy"
+  {:factor 17166625000000000/7628003619251619843,
+   :dims {:length 3},
+   :doc "Also used for peas, beans, rye, salt"},
   "legalsize" {:factor 1919351/25000000, :dims {:length 2}},
   "jpsize3ring"
   {:factor 21467549799530253793/500000000000000000000,
    :dims {:length 1}},
   "wire3gauge" {:factor 145669/25000000, :dims {:length 1}},
+  "winetun"
+  {:factor 269500000000000000/282518652564874809, :dims {:length 3}},
   "frenchinch"
   {:factor 375/13853,
    :dims {:length 1},
@@ -2830,6 +3031,7 @@
    :dims {:mass 1},
    :doc "IU is for international unit"},
   "schoenus" {:factor 5920N, :dims {:length 1}},
+  "egg" {:factor 1/20, :dims {:mass 1}},
   "brfloz"
   {:factor 454609/16000000000,
    :dims {:length 3},
@@ -2855,6 +3057,9 @@
   "brbilliard" {:factor 1000000000000000N, :dims {}},
   "rps"
   {:factor 1570796326794896619/250000000000000000, :dims {:time -1}},
+  "englishbeerbarrel"
+  {:factor 47000000000000000/282518652564874809, :dims {:length 3}},
+  "scotsfoot" {:factor 50270027/164042250, :dims {:length 1}},
   "plutoyear" {:factor 122253503533777539/15625000, :dims {:time 1}},
   "plate30gauge"
   {:factor 127/400000, :dims {:length 1}, :doc "8 oz / ft^2"},
@@ -2918,6 +3123,8 @@
   "rd" {:factor 19800/3937, :dims {:length 1}},
   "krypton"
   {:factor 419/5000, :dims {:mass 1, :amount_of_substance -1}},
+  "scotswheatfirlot"
+  {:factor 274666000000000000/7628003619251619843, :dims {:length 3}},
   "wire44gauge" {:factor 125603/2500000000, :dims {:length 1}},
   "fourier"
   {:factor 1, :dims {:temperature 2, :mass -1, :length -2, :time 3}},
@@ -2929,6 +3136,7 @@
   "kine" {:factor 1/100, :dims {:length 1, :time -1}, :doc "velocity"},
   "seventy" {:factor 70, :dims {}},
   "aeginadrachmae" {:factor 19439673/3125000000, :dims {:mass 1}},
+  "earth_flattening" {:factor -31783761571/5000, :dims {:length 1}},
   "sizeOring" {:factor 11/200, :dims {:length 1}},
   "plate33gauge"
   {:factor 381/1600000, :dims {:length 1}, :doc "6 oz / ft^2"},
@@ -2951,6 +3159,11 @@
    :dims {:time 1},
    :doc
    "The Lustrum was a Roman purification ceremony that took place every five years. Classically educated Englishmen used this term."},
+  "mu_n"
+  {:factor -96623653/10000000000000000000000000000000000,
+   :dims {:length 2, :current 1}},
+  "scotsgallon"
+  {:factor 34468000000000000/2542667873083873281, :dims {:length 3}},
   "parasang"
   {:factor 704088/125,
    :dims {:length 1},
@@ -2961,8 +3174,11 @@
   "feet" {:factor 381/1250, :dims {:length 1}},
   "number1can" {:factor 473176473/1600000000000, :dims {:length 3}},
   "eusize12ring" {:factor 13/250, :dims {:length 1}},
+  "jupiterradius_equatorial"
+  {:factor 71492000, :dims {:length 1}, :doc "(1 bar level)"},
   "woolclove" {:factor 317514659/100000000, :dims {:mass 1}},
   "longton" {:factor 317514659/312500, :dims {:mass 1}},
+  "statutemile" {:factor 6336000/3937, :dims {:length 1}},
   "t" {:factor 1000, :dims {:mass 1}},
   "imperialgallon" {:factor 454609/100000000, :dims {:length 3}},
   "cochlearia" {:factor 120854597/10000000000000, :dims {:length 3}},
@@ -2983,6 +3199,7 @@
   {:factor 22468879468420441/25000,
    :dims {:length 2, :mass 1, :time -2, :current -2}},
   "tbl" {:factor 473176473/32000000000000, :dims {:length 3}},
+  "neptuneradius" {:factor 24764000, :dims {:length 1}},
   "size10ring"
   {:factor 77602050932648277668457/1250000000000000000000000,
    :dims {:length 1}},
@@ -3014,6 +3231,7 @@
    :dims {:time 1},
    :doc
    "Used for measuring the sedimentation coefficient for centrifuging."},
+  "scotslink" {:factor 1859990999/8202112500, :dims {:length 1}},
   "cicero" {:factor 225639/50000000, :dims {:length 1}},
   "brwire0gauge" {:factor 10287/1250000, :dims {:length 1}},
   "neptunemass"
@@ -3062,6 +3280,10 @@
   "iomass" {:factor 89300000000000000000000N, :dims {:mass 1}},
   "curium"
   {:factor 2470703/10000000, :dims {:mass 1, :amount_of_substance -1}},
+  "irishperch"
+  {:factor 1400000/218723,
+   :dims {:length 1},
+   :doc "are different from"},
   "lettersize" {:factor 3016123/50000000, :dims {:length 2}},
   "minersinchID"
   {:factor 55306341/97656250000, :dims {:length 3, :time -1}},
@@ -3103,6 +3325,7 @@
   "poundwrappingpaper"
   {:factor 45359237/27870912000, :dims {:mass 1, :length -2}},
   "lbledger" {:factor 4123567/1096772000, :dims {:mass 1, :length -2}},
+  "scotsfurlong" {:factor 3719981998/16404225, :dims {:length 1}},
   "link" {:factor 792/3937, :dims {:length 1}},
   "helium"
   {:factor 2001301/500000000,
@@ -3131,6 +3354,9 @@
   {:factor 1570796326794896619/1000000000000000000, :dims {}},
   "thou" {:factor 127/5000000, :dims {:length 1}},
   "dioptre" {:factor 1, :dims {:length -1}},
+  "mu_e"
+  {:factor -92847646917/10000000000000000000000000000000000,
+   :dims {:length 2, :current 1}},
   "freightton"
   {:factor 55306341/48828125,
    :dims {:length 3},
@@ -3158,6 +3384,8 @@
   {:factor 127/360000,
    :dims {:length 1},
    :doc "people at some point."},
+  "scotsgill"
+  {:factor 269281250000000/2542667873083873281, :dims {:length 3}},
   "Hg"
   {:factor 135951/10,
    :dims {:mass 1, :length -3},
@@ -3189,6 +3417,10 @@
    :doc
    "Measures intensity of ultraviolet light with wavelength 296.7 nm."},
   "uranusday" {:factor 38807694/625, :dims {:time 1}},
+  "electronmagneticmoment"
+  {:factor -92847646917/10000000000000000000000000000000000,
+   :dims {:length 2, :current 1},
+   :doc "+/- 29 in last 2 digits"},
   "bismuth"
   {:factor 20898037/100000000,
    :dims {:mass 1, :amount_of_substance -1}},
@@ -3213,11 +3445,14 @@
    :doc
    "One ton refrigeration is the rate of heat extraction required turn one ton of water to ice in a day. Ice is defined to have a latent heat of 144 Btu/lb."},
   "borgis" {:factor 676917/200000000, :dims {:length 1}},
+  "callistodist" {:factor 1883000000, :dims {:length 1}},
   "curie"
   {:factor 37000000000N,
    :dims {:time -1},
    :doc "Defined in 1910 as the radioactivity"},
   "one" {:factor 1, :dims {}},
+  "irishtierce"
+  {:factor 380800000000000000/2542667873083873281, :dims {:length 3}},
   "erg"
   {:factor 1/10000000,
    :dims {:length 2, :mass 1, :time -2},
@@ -3318,14 +3553,23 @@
   "Josephson_constant"
   {:factor 21362355120000000000000/44173801,
    :dims {:current 1, :time 2, :mass -1, :length -2}},
+  "brownsugar_light"
+  {:factor 62000000000/67596639,
+   :dims {:mass 1, :length -3},
+   :doc "packed"},
   "semis" {:factor 8184102333/50000000000, :dims {:mass 1}},
   "henry"
   {:factor 1,
    :dims {:mass 1, :length 2, :time -2, :current -2},
    :doc "inductance"},
   "wire25gauge" {:factor 22733/50000000, :dims {:length 1}},
+  "irishfoot" {:factor 200000/656169, :dims {:length 1}},
   "arcdegree"
   {:factor 523598775598298873/30000000000000000000, :dims {}},
+  "irishlink"
+  {:factor 56000/218723,
+   :dims {:length 1},
+   :doc "or English values for"},
   "g" {:factor 1/1000, :dims {:mass 1}},
   "firkin" {:factor 4258588257/125000000000, :dims {:length 3}},
   "argon"
@@ -3424,6 +3668,8 @@
   {:factor 1883531627/10000000000000000000000000000000000000,
    :dims {:mass 1},
    :doc "+/- 42 in last 2 digits"},
+  "iodist" {:factor 422000000, :dims {:length 1}},
+  "earthradius_equatorial" {:factor 6378137, :dims {:length 1}},
   "atomicenergy"
   {:factor
    1282975513735210262046510653078379104749659/294277668874219294122490977839641000000000000000000000000000,
@@ -3453,6 +3699,7 @@
   "plate4gauge"
   {:factor 381/64000, :dims {:length 1}, :doc "150 oz / ft^2"},
   "mercurymass" {:factor 330220000000000000000000N, :dims {:mass 1}},
+  "pole" {:factor 1100000/218723, :dims {:length 1}},
   "blink"
   {:factor 108/125,
    :dims {:time 1},
@@ -3479,6 +3726,8 @@
   "wavenumber"
   {:factor 19864458571489287/1000000000000000000000000000000000000000,
    :dims {:mass 1, :length 2, :time -2}},
+  "winetierce"
+  {:factor 134750000000000000/847555957694624427, :dims {:length 3}},
   "waterton" {:factor 3182263/3125000, :dims {:length 3}},
   "electricconstant"
   {:factor 22135469547/2500000000000000000000,
@@ -3543,6 +3792,8 @@
   {:factor 31623/100000,
    :dims {:length 1},
    :doc "Egyptian Royal cubit in [11]. It is"},
+  "cocoa_scooped"
+  {:factor 190000000000/473176473, :dims {:mass 1, :length -3}},
   "wire37gauge" {:factor 565531/5000000000, :dims {:length 1}},
   "platinum"
   {:factor 4877/25000, :dims {:mass 1, :amount_of_substance -1}},
@@ -3552,6 +3803,8 @@
   {:factor 101883/2000000, :dims {:mass 1, :amount_of_substance -1}},
   "fin" {:factor 5, :dims {:currency 1}},
   "jewelerspoint" {:factor 1/500000, :dims {:mass 1}},
+  "eggwhitevolume"
+  {:factor 473176473/16000000000000, :dims {:length 3}},
   "egyptianroyalcubit"
   {:factor 262001/500000,
    :dims {:length 1},
@@ -3561,8 +3814,14 @@
   {:factor 18435447/7812500000,
    :dims {:length 3},
    :doc "feet board measure"},
+  "scotsacre"
+  {:factor 6919133032722036002/1345492989253125, :dims {:length 2}},
   "zinc2gauge" {:factor 127/1250000, :dims {:length 1}},
   "treble" {:factor 3, :dims {}},
+  "flour_scooped"
+  {:factor 3681756250/6145149,
+   :dims {:mass 1, :length -3},
+   :doc "means to lightly spoon into a measure"},
   "plate6gauge"
   {:factor 1651/320000, :dims {:length 1}, :doc "130 oz / ft^2"},
   "cal_twenty"
@@ -3581,6 +3840,12 @@
   "abfarad"
   {:factor 1000000000N,
    :dims {:current 2, :time 4, :length -2, :mass -1}},
+  "ell"
+  {:factor 250000/218723,
+   :dims {:length 1},
+   :doc "supposed to be measure from elbow to fingertips"},
+  "goad"
+  {:factor 300000/218723, :dims {:length 1}, :doc "used for cloth"},
   "deg" {:factor 523598775598298873/30000000000000000000, :dims {}},
   "wire6gauge" {:factor 10287/2500000, :dims {:length 1}},
   "frenchfoot"
@@ -3666,6 +3931,7 @@
   {:factor 299792458,
    :dims {:length 1, :time -1},
    :doc "sure, why not."},
+  "irishmile" {:factor 448000000/218723, :dims {:length 1}},
   "engineerschain" {:factor 762/25, :dims {:length 1}},
   "aeginastater"
   {:factor 19439673/1562500000,
@@ -3673,6 +3939,7 @@
    :doc "Varies up to 199 grain"},
   "surveyorslink" {:factor 792/3937, :dims {:length 1}},
   "semisextula" {:factor 2728034111/1200000000000, :dims {:mass 1}},
+  "ganymededist" {:factor 1070000000, :dims {:length 1}},
   "leadwey" {:factor 317514659/4000000, :dims {:mass 1}},
   "jiffy"
   {:factor 1/100,
@@ -3730,6 +3997,9 @@
   "cmil"
   {:factor 25335373954874887567851/50000000000000000000000000000000,
    :dims {:length 2}},
+  "scotspint"
+  {:factor 4308500000000000/2542667873083873281, :dims {:length 3}},
+  "league" {:factor 19008000/3937, :dims {:length 1}},
   "europamass" {:factor 48000000000000000000000N, :dims {:mass 1}},
   "brquadrilliard" {:factor 1000000000000000000000000000N, :dims {}},
   "sizeIring" {:factor 19/400, :dims {:length 1}},
@@ -3740,6 +4010,11 @@
    :dims {:mass 1, :length -2},
    :doc "Bond paper is stiff and"},
   "fothers" {:factor 952543977/1000000, :dims {:mass 1}},
+  "winegallon"
+  {:factor 9625000000000000/2542667873083873281,
+   :dims {:length 3},
+   :doc
+   "Sometimes called the Winchester Wine Gallon, it was legalized in 1707 by Queen Anne, and given the definition of 231 cubic inches. It had been in use for a while as 8 pounds of wine using a merchant's pound of 7200 grains or 15 troy ounces. (The old mercantile pound had been 15 tower ounces.)"},
   "olympicfoot"
   {:factor 30861/100000,
    :dims {:length 1},
@@ -3773,6 +4048,7 @@
   "stadion" {:factor 94869/500, :dims {:length 1}},
   "erbium"
   {:factor 8363/50000, :dims {:mass 1, :amount_of_substance -1}},
+  "callistoradius" {:factor 2400000, :dims {:length 1}},
   "sigma_e"
   {:factor 66524587051/1000000000000000000000000000000000000000,
    :dims {:length 2}},
@@ -3819,6 +4095,10 @@
    :dims {:length 2},
    :doc "of sqrt(sqrt(2)) square meters."},
   "kgf" {:factor 196133/20000, :dims {:mass 1, :length 1, :time -2}},
+  "irishpole"
+  {:factor 1400000/218723,
+   :dims {:length 1},
+   :doc "Only these values"},
   "uF"
   {:factor 1/1000000,
    :dims {:current 2, :time 4, :mass -1, :length -2},
@@ -3849,6 +4129,9 @@
    "Planck's constant, exactly defined by the SI rules that take effect on May 20, 2019. https://physics.nist.gov/cgi-bin/cuu/Value?h"},
   "woolwey" {:factor 4127690567/50000000, :dims {:mass 1}},
   "ream" {:factor 500, :dims {}},
+  "winepint"
+  {:factor 1203125000000000/2542667873083873281, :dims {:length 3}},
+  "irishcubit" {:factor 100000/218723, :dims {:length 1}},
   "ligne"
   {:factor 125/55412,
    :dims {:length 1},
@@ -3928,8 +4211,12 @@
   "assyriancubit" {:factor 3429/6250, :dims {:length 1}},
   "woolsarpler" {:factor 4127690567/12500000, :dims {:mass 1}},
   "flock" {:factor 40, :dims {}},
+  "irishpint"
+  {:factor 3400000000000000/7628003619251619843, :dims {:length 3}},
   "brwire40gauge" {:factor 381/3125000, :dims {:length 1}},
   "brquartermass" {:factor 317514659/25000000, :dims {:mass 1}},
+  "scotsmile" {:factor 29759855984/16404225, :dims {:length 1}},
+  "deimosdist" {:factor 23458000, :dims {:length 1}},
   "blackcubit" {:factor 16891/31250, :dims {:length 1}},
   "candle"
   {:factor 51/50,
@@ -3987,6 +4274,8 @@
    :doc
    "Supposed to be the insulance required to keep a resting person comfortable indoors. The value given is from NIST and the CRC, but [5] gives a slightly different value of 0.875 ft^2 degF hr / Btu. Misc other measures"},
   "meridian" {:factor 19330289/1250000000, :dims {:length 1}},
+  "dutchcocoa_scooped"
+  {:factor 190000000000/473176473, :dims {:mass 1, :length -3}},
   "magnesium"
   {:factor 4861/200000, :dims {:mass 1, :amount_of_substance -1}},
   "brquattuordecillion"
@@ -4005,7 +4294,14 @@
   "R_K"
   {:factor 5521725125000000000000/213914163877964163,
    :dims {:mass 1, :length 2, :time -3, :current -2}},
+  "mutchkin"
+  {:factor 1077125000000000/2542667873083873281, :dims {:length 3}},
+  "winepuncheon"
+  {:factor 269500000000000000/847555957694624427, :dims {:length 3}},
   "rutherford" {:factor 1000000N, :dims {:time -1}},
+  "mu_mu"
+  {:factor -44904483/1000000000000000000000000000000000,
+   :dims {:length 2, :current 1}},
   "Tbsp" {:factor 473176473/32000000000000, :dims {:length 3}},
   "four" {:factor 4, :dims {}},
   "lumen"
@@ -4021,6 +4317,8 @@
   "tsp" {:factor 157725491/32000000000000, :dims {:length 3}},
   "circle" {:factor 1570796326794896619/250000000000000000, :dims {}},
   "sumerianfoot" {:factor 33/100, :dims {:length 1}},
+  "scotsbarrel"
+  {:factor 275744000000000000/2542667873083873281, :dims {:length 3}},
   "plate1gauge"
   {:factor 1143/160000, :dims {:length 1}, :doc "180 oz / ft^2"},
   "lbnewsprint"
@@ -4059,6 +4357,8 @@
   {:factor 1,
    :dims {:luminous_intensity 1, :time 1},
    :doc "Luminous energy"},
+  "winequart"
+  {:factor 2406250000000000/2542667873083873281, :dims {:length 3}},
   "romanpound"
   {:factor 8184102333/25000000000,
    :dims {:mass 1},
@@ -4080,6 +4380,8 @@
    :dims {:time 1},
    :doc "Irregular plural"},
   "wire23gauge" {:factor 286639/500000000, :dims {:length 1}},
+  "irishpottle"
+  {:factor 13600000000000000/7628003619251619843, :dims {:length 3}},
   "boilerhorsepower"
   {:factor 19619/2, :dims {:mass 1, :length 2, :time -3}},
   "mcm"
@@ -4157,6 +4459,9 @@
   {:factor 127/1250,
    :dims {:length 1},
    :doc "The palm is a unit defined as either the width"},
+  "eggvolume"
+  {:factor 223895974600719729/2048000000000000000000000000,
+   :dims {:length 6}},
   "jpsize1ring"
   {:factor 20420352248333656047/500000000000000000000,
    :dims {:length 1}},
@@ -4206,6 +4511,10 @@
   {:factor 1143/3200000, :dims {:length 1}, :doc "9 oz / ft^2"},
   "brsextilliard"
   {:factor 1000000000000000000000000000000000000000N, :dims {}},
+  "muonmagneticmoment"
+  {:factor -44904483/1000000000000000000000000000000000,
+   :dims {:length 2, :current 1},
+   :doc "+/- 10 in last 2 digits"},
   "sign"
   {:factor 523598775598298873/1000000000000000000,
    :dims {},
@@ -4225,6 +4534,7 @@
   {:factor 1000N,
    :dims {:mass -1, :time 1},
    :doc "mobile ohm, measure of mechanical"},
+  "irishyard" {:factor 200000/218723, :dims {:length 1}},
   "drybarrel" {:factor 903336903/7812500000, :dims {:length 3}},
   "wire4gauge" {:factor 259461/50000000, :dims {:length 1}},
   "inch" {:factor 127/5000, :dims {:length 1}, :doc "Exactly 2.54 cm"},
@@ -4247,6 +4557,8 @@
   "abcoul" {:factor 10, :dims {:current 1, :time 1}},
   "greekfathom" {:factor 94869/50000, :dims {:length 1}},
   "olympicstadion" {:factor 92583/500, :dims {:length 1}},
+  "winerundlet"
+  {:factor 19250000000000000/282518652564874809, :dims {:length 3}},
   "plate7gauge"
   {:factor 381/80000, :dims {:length 1}, :doc "120 oz / ft^2"},
   "mol" {:factor 1, :dims {:amount_of_substance 1}},
@@ -4339,6 +4651,7 @@
    :doc "The \"point\" is used to measure rainfall in Australia"},
   "jerk" {:factor 381/1250, :dims {:length 1, :time -3}},
   "brwire35gauge" {:factor 2667/12500000, :dims {:length 1}},
+  "neptunedist" {:factor 4497070000000N, :dims {:length 1}},
   "fillpower"
   {:factor 16387064/28349523125,
    :dims {:length 3, :mass -1},
@@ -4353,6 +4666,7 @@
   {:factor 1757299/5000000000,
    :dims {:length 1},
    :doc "exact, NIST Handbook 44, Appendix 3"},
+  "plutodist" {:factor 5913520000000N, :dims {:length 1}},
   "mcs"
   {:factor 1,
    :dims {:luminous_intensity 1, :length -2, :time 1},
@@ -4380,6 +4694,10 @@
    :dims {:length 1, :time -1},
    :doc
    "speed of light in vacuum (exact) The speed of light is the same to all observers in all local frames. The relation between the meter and the second is thus fixed by this definition. This is good."},
+  "neutronmagneticmoment"
+  {:factor -96623653/10000000000000000000000000000000000,
+   :dims {:length 2, :current 1},
+   :doc "+/- 23 in last 2 digits"},
   "plancksconstant"
   {:factor 132521403/200000000000000000000000000000000000000000,
    :dims {:mass 1, :length 2, :time -1}},
@@ -4500,13 +4818,25 @@
   "size4_5ring"
   {:factor 60046831184388513054513/1250000000000000000000000,
    :dims {:length 1}},
+  "englishbeerquart"
+  {:factor 2937500000000000/2542667873083873281, :dims {:length 3}},
   "aeginatalent" {:factor 58319019/1562500, :dims {:mass 1}},
   "C7paper" {:factor 4617/500000, :dims {:length 2}},
   "egyptianshortcubit" {:factor 786003/1750000, :dims {:length 1}},
+  "sourcream"
+  {:factor 44000000000/43016043, :dims {:mass 1, :length -3}},
   "majorsixth" {:factor 5/3, :dims {}},
+  "scotsoatlippy"
+  {:factor 25043125000000000/7628003619251619843,
+   :dims {:length 3},
+   :doc "Also used for barley and malt"},
   "gadolinium"
   {:factor 629/4000, :dims {:mass 1, :amount_of_substance -1}},
   "timer" {:factor 40, :dims {}},
+  "irishchain"
+  {:factor 5600000/218723,
+   :dims {:length 1},
+   :doc "the British Imperial"},
   "lune"
   {:factor 531549999/6250,
    :dims {:time 1},
@@ -4519,6 +4849,7 @@
    :dims {:length 3},
    :doc
    "If it's half as thick as the standard deal it's called a \"whole deal\"!"},
+  "irishfeet" {:factor 200000/656169, :dims {:length 1}},
   "amu_phys"
   {:factor 165981/100000000000000000000000000000000,
    :dims {:mass 1},
@@ -4540,6 +4871,8 @@
   "size7ring"
   {:factor 68026476524506587879033/1250000000000000000000000,
    :dims {:length 1}},
+  "irishgallon"
+  {:factor 27200000000000000/7628003619251619843, :dims {:length 3}},
   "terbium"
   {:factor 7946267/50000000, :dims {:mass 1, :amount_of_substance -1}},
   "sturgeon"
@@ -4552,6 +4885,10 @@
   {:factor 37/25,
    :dims {:length 1},
    :doc "Roman double pace (basic military unit)"},
+  "dutchcocoa_sifted"
+  {:factor 50000000000/157725491,
+   :dims {:mass 1, :length -3},
+   :doc "These are for Dutch processed cocoa"},
   "cord"
   {:factor 884901456/244140625,
    :dims {:length 3},
@@ -4594,6 +4931,7 @@
    :doc "earth-sun distance at aphelion"},
   "ytterbium"
   {:factor 2163/12500, :dims {:mass 1, :amount_of_substance -1}},
+  "ganymederadius" {:factor 2631000, :dims {:length 1}},
   "fifty" {:factor 50, :dims {}},
   "shackle"
   {:factor 108000/3937,

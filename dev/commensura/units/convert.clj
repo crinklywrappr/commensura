@@ -40,13 +40,13 @@
 (defn- parse-number [s]
   (let [s (-> s str/trim (str/replace "_" ""))]       ; Frink allows 9_192_631_770
     (cond
-      (re-matches #"[-+]?\d+" s)          (normalize-int (bigint s))
+      (re-matches #"[-+]?\d+\.?" s)        (normalize-int (bigint (str/replace s "." ""))) ; incl. trailing dot: 696342.
       (re-find   #"(?i)e" s)              (let [[m e] (str/split s #"(?i)ee?")]  ; e OR ee exponent
                                             (* (parse-number m) (pow10 (Long/parseLong e))))
       (re-matches #"[-+]?\d*\.\d+" s)      (decimal->ratio s)
       :else (throw (ex-info "bad number" {:s s})))))
 
-(defn- number-token? [t] (and t (re-matches #"\d[\d_.]*(?:[eE][eE]?[-+]?\d+)?" t)))
+(defn- number-token? [t] (and t (re-matches #"[-+]?(?:\d[\d_.]*|\.\d[\d_]*)(?:[eE][eE]?[-+]?\d+)?" t)))
 
 ;; ---------------------------------------------------------------- dims
 (defn- clean [dims] (into {} (remove (comp zero? val)) dims))
@@ -78,11 +78,13 @@
         (or (resolve-id env prefixes (subs id 0 (dec (count id))))
             (when (str/ends-with? id "es") (resolve-id env prefixes (subs id 0 (- (count id) 2))))
             (when (str/ends-with? id "ies")
-              (resolve-id env prefixes (str (subs id 0 (- (count id) 3)) "y")))))))
+              (resolve-id env prefixes (str (subs id 0 (- (count id) 3)) "y")))))
+      ;; a standalone-capable prefix used alone is its own dimensionless value (survey, kilo)
+      (when-let [pv (get prefixes id)] {:factor pv :dims {}})))
 
 ;; ---------------------------------------------------------------- tokenizer + parser
 ;; number (optionally signed) | identifier | operator (incl. unary +/-)
-(def ^:private token-re #"[-+]?\d[\d_.]*(?:[eE][eE]?[-+]?\d+)?|[^\s/^()*+-]+|[/^()*+-]")
+(def ^:private token-re #"[-+]?(?:\d[\d_.]*|\.\d[\d_]*)(?:[eE][eE]?[-+]?\d+)?|[^\s/^()*+-]+|[/^()*+-]")
 
 (defn- tokenize [s] (vec (re-seq token-re s)))
 
@@ -263,23 +265,33 @@
                   :else (do (reset! last-unit nil) (swap! skipped conj [code "unparsed"])))
                 (recur (inc i))))))))
 
-    ;; resolve prefix aliases (k :- kilo)
+    ;; prefix-name aliases resolve immediately (k :- kilo)
     (doseq [[nm v] @aliases]
       (when-let [pv (get @prefixes v)] (swap! prefixes assoc nm pv)))
 
-    ;; multi-pass: retry pending defs until stable
-    (loop [pass 0]
-      (let [todo @pending]
-        (reset! pending [])
-        (doseq [[typ nm expr] todo]
-          (try (let [v (evaluate expr @env @prefixes)]
-                 (case typ
-                   :prefix  (swap! prefixes assoc nm (:factor v))
-                   :dimname (swap! dimnames assoc (:dims v) nm)
-                   (swap! env assoc nm v)))               ; :unit
-               (catch Exception _ (swap! pending conj [typ nm expr]))))
-        (when (and (seq @pending) (< (count @pending) (count todo)) (< pass 12))
-          (recur (inc pass)))))
+    (letfn [(resolve-pending! []                    ; retry pending defs until stable
+              (loop [pass 0]
+                (let [todo @pending]
+                  (reset! pending [])
+                  (doseq [[typ nm expr] todo]
+                    (try (let [v (evaluate expr @env @prefixes)]
+                           (case typ
+                             :prefix  (swap! prefixes assoc nm (:factor v))
+                             :dimname (swap! dimnames assoc (:dims v) nm)
+                             (swap! env assoc nm v)))    ; :unit
+                         (catch Exception _ (swap! pending conj [typ nm expr]))))
+                  (when (and (seq @pending) (< (count @pending) (count todo)) (< pass 12))
+                    (recur (inc pass))))))]
+      (resolve-pending!)
+      ;; expression-valued `:-` prefixes (british :- 1200000/3937014 m/ft): resolve only
+      ;; now that their unit deps (ft, m) are defined — otherwise `ft` resolves to a
+      ;; spurious femto·tonne prefix-decomposition instead of the foot unit.
+      (doseq [[nm v] @aliases]
+        (when-not (contains? @prefixes nm)
+          (try (swap! prefixes assoc nm (:factor (evaluate v @env @prefixes)))
+               (catch Exception _ nil))))
+      (resolve-pending!))                           ; units depending on those prefixes (britishinch-*)
+
     (doseq [[_ nm expr] @pending] (swap! skipped conj [nm (str "unresolved: " expr)]))
 
     {:base-dimensions (set @base)

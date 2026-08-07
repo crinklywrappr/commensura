@@ -264,6 +264,11 @@
 (defunit alcohol
   "For now, density of ethanol"
   7893/10 {:mass 1, :length -3})
+(defunit alebarrel 399500000000000000/2542667873083873281 {:length 3})
+(defunit alegallon 11750000000000000/2542667873083873281 {:length 3})
+(defunit alehogshead 199750000000000000/847555957694624427 {:length 3})
+(defunit alepint 1468750000000000/2542667873083873281 {:length 3})
+(defunit alequart 2937500000000000/2542667873083873281 {:length 3})
 (defunit alpha 18764400340172295000000/2571398349572188507749959 {})
 (defunit alphaparticlemass
   "+/- 21 in last 2 digits"
@@ -391,6 +396,9 @@
   1/10 {:length -1, :mass 1, :time -2})
 (defunit barium 137327/1000000 {:mass 1, :amount_of_substance -1})
 (defunit barleybushel 136077711/6250000 {:mass 1})
+(defunit barleycorn
+  "Given in Realm of Measure as the difference between successive shoe sizes"
+  50000/5905521 {:length 1})
 (defunit barn
   "Used to measure cross section for particle physics collision, said to have originated in the phrase \"big as a barn\"."
   1/10000000000000000000000000000 {:length 2})
@@ -535,6 +543,10 @@
 (defunit broctillion 1000000000000000000000000000000000000000000000000N {})
 (defunit broctodecillion 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000N {})
 (defunit bromine 2497/31250 {:mass 1, :amount_of_substance -1})
+(defunit brownsugar_dark 478000000000/473176473 {:mass 1, :length -3})
+(defunit brownsugar_light
+  "packed"
+  62000000000/67596639 {:mass 1, :length -3})
 (defunit brpeck 454609/50000000 {:length 3})
 (defunit brpint 454609/800000000 {:length 3})
 (defunit brquadrilliard 1000000000000000000000000000N {})
@@ -639,6 +651,7 @@
 (defunit bushel
   "Volume of 8 inch high cylinder with 18.5"
   220244188543/6250000000000 {:length 3})
+(defunit butter 5890810000/6145149 {:mass 1, :length -3})
 (defunit butter_clarified 5007188500/6145149 {:mass 1, :length -3})
 (defunit buttonline
   "The line was used in 19th century USA to measure width of buttons."
@@ -663,6 +676,9 @@
 (defunit cakeflour_sifted
   "The density of flour depends on the"
   2577229375/6145149 {:mass 1, :length -3})
+(defunit cakeflour_spooned
+  "measuring method. \"Scooped\", or"
+  2945405000/6145149 {:mass 1, :length -3})
 (defunit cal 10467/2500 {:mass 1, :length 2, :time -2})
 (defunit cal_IT
   "International Table calorie, 4.1868 J"
@@ -690,7 +706,9 @@
 (defunit californium
   "Longest lived. 252.08"
   627699/2500000 {:mass 1, :amount_of_substance -1})
+(defunit callistodist 1883000000 {:length 1})
 (defunit callistomass 108000000000000000000000N {:mass 1})
+(defunit callistoradius 2400000 {:length 1})
 (defunit calorie 10467/2500 {:mass 1, :length 2, :time -2})
 (defunit calorie_IT 10467/2500 {:mass 1, :length 2, :time -2})
 (defunit calorie_th 523/125 {:mass 1, :length 2, :time -2})
@@ -747,7 +765,12 @@
 (defunit cfs 55306341/1953125000 {:length 3, :time -1})
 (defunit ch 79200/3937 {:length 1})
 (defunit chain 79200/3937 {:length 1})
+(defunit charondist 19640000 {:length 1})
 (defunit charonmass 1900000000000000000000N {:mass 1})
+(defunit charonradius
+  "http://pluto.jhuapl.edu/News-Center/News-Article.php?page=20150713"
+  604000 {:length 1})
+(defunit chenice 660732565629/625000000000000 {:length 3})
 (defunit cheonix 1087691373/1250000000000 {:length 3})
 (defunit chinesecatty 1/2 {:mass 1})
 (defunit chinesemace 45359237/12000000000 {:mass 1})
@@ -760,6 +783,7 @@
   "for one man."
   27/25000 {:length 3})
 (defunit chomer 4625127959403/12500000000000 {:length 3})
+(defunit choppin 2154250000000000/2542667873083873281 {:length 3})
 (defunit chromium 519961/10000000 {:mass 1, :amount_of_substance -1})
 (defunit cicero 225639/50000000 {:length 1})
 (defunit circle 1570796326794896619/250000000000000000 {})
@@ -787,6 +811,12 @@
 (defunit coal 18200000N {:length 2, :time -2})
 (defunit cobalt 147333/2500000 {:mass 1, :amount_of_substance -1})
 (defunit cochlearia 120854597/10000000000000 {:length 3})
+(defunit cocoa_butter 2209053750/2048383 {:mass 1, :length -3})
+(defunit cocoa_scooped 190000000000/473176473 {:mass 1, :length -3})
+(defunit cocoa_sifted
+  "These are for nonalkalized cocoa"
+  50000000000/157725491 {:mass 1, :length -3})
+(defunit cocoa_spooned 164000000000/473176473 {:mass 1, :length -3})
 (defunit columbian 1757299/312500000 {:length 1})
 (defunit commonyear 31536000 {:time 1})
 (defunit computerpica
@@ -807,6 +837,7 @@
   "One foot long section of a cord"
   110612682/244140625 {:length 3})
 (defunit cornbushel 317514659/12500000 {:mass 1})
+(defunit cornstarch 80000000000/157725491 {:mass 1, :length -3})
 (defunit cornsyrup 8468039375/6145149 {:mass 1, :length -3})
 (defunit corpus 75213/20000000 {:length 1})
 (defunit cottonbolt
@@ -906,6 +937,7 @@
 (defunit degreesrankine
   "The Rankine scale has the"
   5/9 {:temperature 1})
+(defunit deimosdist 23458000 {:length 1})
 (defunit deimosmass 1800000000000000N {:mass 1})
 (defunit denier
   "used for silk and rayon"
@@ -942,6 +974,7 @@
 (defunit doubleremen
   "Length of the diagonal of a square with"
   92583/125000 {:length 1})
+(defunit downquarkcharge -267029439/5000000000000000000000000000 {:current 1, :time 1})
 (defunit dozen 12 {})
 (defunit dr 45359237/25600000000 {:mass 1})
 (defunit draconicmonth
@@ -964,6 +997,11 @@
 (defunit dryquart 220244188543/200000000000000 {:length 3})
 (defunit dsp 1/100000 {:length 3})
 (defunit duodecillion 1000000000000000000000000000000000000000N {})
+(defunit dutchcocoa_scooped 190000000000/473176473 {:mass 1, :length -3})
+(defunit dutchcocoa_sifted
+  "These are for Dutch processed cocoa"
+  50000000000/157725491 {:mass 1, :length -3})
+(defunit dutchcocoa_spooned 184000000000/473176473 {:mass 1, :length -3})
 (defunit duty 3389544870828501/2500000000000000 {:length 2, :mass 1, :time -2})
 (defunit dwt
   "Frankish coin called the \"denier minted in the late 700's. There were 240 deniers to the pound."
@@ -980,14 +1018,21 @@
   "Energy acquired by a particle with charge e"
   801088317/5000000000000000000000000000 {:time -2, :mass 1, :length 2})
 (defunit earlyromanfoot 2973/10000 {:length 1})
+(defunit earth_flattening -31783761571/5000 {:length 1})
 (defunit earthday 17781537531051/15625 {:time 3})
 (defunit earthdist 7479901148035639923/50000000 {:length 1})
 (defunit earthmass 5974200000000000000000000N {:mass 1})
 (defunit earthradius
   "mean +/- 0.02 km"
   6371010N {:length 1})
+(defunit earthradius_equatorial 6378137 {:length 1})
 (defunit earthradius_polar 31783761571/5000 {:length 1})
+(defunit earthvolume 677004574871068454996882195966401845262427/625000000000000000000 {:length 3})
 (defunit earthyear 9861921731259/312500 {:time 1})
+(defunit egg 1/20 {:mass 1})
+(defunit eggvolume 223895974600719729/2048000000000000000000000000 {:length 6})
+(defunit eggwhite 3/100 {:mass 1})
+(defunit eggwhitevolume 473176473/16000000000000 {:length 3})
 (defunit eggyolk 93/5000 {:mass 1})
 (defunit eggyolkvolume 1104078437/64000000000000 {:length 3})
 (defunit egyptianpalm 262001/3500000 {:length 1})
@@ -1003,6 +1048,9 @@
 (defunit electricconstant 22135469547/2500000000000000000000 {:current 2, :time 4, :mass -1, :length -3})
 (defunit electrichorsepower 746 {:mass 1, :length 2, :time -3})
 (defunit electroncharge -801088317/5000000000000000000000000000 {:current 1, :time 1})
+(defunit electronmagneticmoment
+  "+/- 29 in last 2 digits"
+  -92847646917/10000000000000000000000000000000000 {:length 2, :current 1})
 (defunit electronmass
   "+/- 28 in last 2 digits"
   91093837139/100000000000000000000000000000000000000000 {:mass 1})
@@ -1013,6 +1061,9 @@
 (defunit elementarycharge
   "Defined exactly by the SI rules that take effect on May 20, 2019 https://physics.nist.gov/cgi-bin/cuu/Value?e also called \"e but that's reserved for the base of the natural logarithm."
   801088317/5000000000000000000000000000 {:current 1, :time 1})
+(defunit ell
+  "supposed to be measure from elbow to fingertips"
+  250000/218723 {:length 1})
 (defunit eman
   "radioactive concentration"
   3700N {:time -1, :length -3})
@@ -1025,9 +1076,15 @@
 (defunit engineerschain 762/25 {:length 1})
 (defunit engineerslink 381/1250 {:length 1})
 (defunit english 12301093/2500000000 {:length 1})
+(defunit englishbeerbarrel 47000000000000000/282518652564874809 {:length 3})
+(defunit englishbeergallon 11750000000000000/2542667873083873281 {:length 3})
+(defunit englishbeerhogshead 23500000000000000/94172884188291603 {:length 3})
+(defunit englishbeerpint 1468750000000000/2542667873083873281 {:length 3})
+(defunit englishbeerquart 2937500000000000/2542667873083873281 {:length 3})
 (defunit englishcarat
   "Originally intended to be 4 grain but this value ended up being used in the London diamond market"
   20495895233/100000000000000 {:mass 1})
+(defunit englishell 250000/218723 {:length 1})
 (defunit eotvos
   "Change in gravitational acceleration over horizontal distance"
   1/1000000000 {:time -2})
@@ -1050,7 +1107,9 @@
 (defunit ethanol
   "Density of ethanol"
   7893/10 {:mass 1, :length -3})
+(defunit europadist 670900000 {:length 1})
 (defunit europamass 48000000000000000000000N {:mass 1})
+(defunit europaradius 1569000 {:length 1})
 (defunit europeanUvalue 1 {:mass 1, :time -3, :temperature -1})
 (defunit europeanpoint
   "for the point used in Europe"
@@ -1145,7 +1204,14 @@
   "Construction term referring to sidewalk."
   145161/312500 {:length 2})
 (defunit fldr 473176473/128000000000000 {:length 3})
+(defunit flemishell 150000/218723 {:length 1})
 (defunit flock 40 {})
+(defunit flour_scooped
+  "means to lightly spoon into a measure"
+  3681756250/6145149 {:mass 1, :length -3})
+(defunit flour_sifted
+  "measure into a bin, and then sweeping"
+  2945405000/6145149 {:mass 1, :length -3})
 (defunit flour_spooned
   "the excess off the top. \"Spooned"
   6258985625/12290298 {:mass 1, :length -3})
@@ -1226,7 +1292,9 @@
   1 {:current 1})
 (defunit gamma 1/1000000000 {:mass 1})
 (defunit gammil 1/1000 {:mass 1, :length -3})
+(defunit ganymededist 1070000000 {:length 1})
 (defunit ganymedemass 148000000000000000000000N {:mass 1})
+(defunit ganymederadius 2631000 {:length 1})
 (defunit garamond 75213/20000000 {:length 1})
 (defunit gasconstant
   "molar gas constant, Now exactly defined in terms of Avogadro's constant and Boltzmann's constant. https://physics.nist.gov/cgi-bin/cuu/Value?r"
@@ -1254,6 +1322,9 @@
   "Mass which is accelerated at 1 cm/s^2 by 1 gram force"
   196133/200000 {:mass 1})
 (defunit gm 1/1000 {:mass 1})
+(defunit goad
+  "used for cloth"
+  300000/218723 {:length 1})
 (defunit gold 9848327/50000000 {:mass 1, :amount_of_substance -1})
 (defunit gomer 660732565629/250000000000000 {:length 3})
 (defunit gon
@@ -1318,6 +1389,7 @@
   81153/125000 {:length 1})
 (defunit hawserlaidcable 936000/3937 {:length 1})
 (defunit hbar 44173801/418879020478639098400000000000000000000000 {:mass 1, :length 2, :time -1})
+(defunit heavycream 464000000000/473176473 {:mass 1, :length -3})
 (defunit hebrewcubit 111633/250000 {:length 1})
 (defunit hectare 10000 {:length 2})
 (defunit heer 13716/25 {:length 1})
@@ -1426,9 +1498,55 @@
   "spectroscopy."
   19864458571489287/1000000000000000000000000000000000000000 {:mass 1, :length 2, :time -2})
 (defunit iodine 12690447/100000000 {:mass 1, :amount_of_substance -1})
+(defunit iodist 422000000 {:length 1})
 (defunit iomass 89300000000000000000000N {:mass 1})
 (defunit ionicfoot 37/125 {:length 1})
+(defunit ioradius 1815000 {:length 1})
 (defunit iridium 192217/1000000 {:mass 1, :amount_of_substance -1})
+(defunit irishacre 313600000000000/47839750729 {:length 2})
+(defunit irishbarrel 95200000000000000/847555957694624427 {:length 3})
+(defunit irishbushel 217600000000000000/7628003619251619843 {:length 3})
+(defunit irishchain
+  "the British Imperial"
+  5600000/218723 {:length 1})
+(defunit irishcubit 100000/218723 {:length 1})
+(defunit irishdrybarrel 870400000000000000/7628003619251619843 {:length 3})
+(defunit irishfathom 400000/218723 {:length 1})
+(defunit irishfeet 200000/656169 {:length 1})
+(defunit irishfoot 200000/656169 {:length 1})
+(defunit irishfurlong
+  "these lengths."
+  56000000/218723 {:length 1})
+(defunit irishgallon 27200000000000000/7628003619251619843 {:length 3})
+(defunit irishhogshead 190400000000000000/847555957694624427 {:length 3})
+(defunit irishinch 50000/1968507 {:length 1})
+(defunit irishlink
+  "or English values for"
+  56000/218723 {:length 1})
+(defunit irishmile 448000000/218723 {:length 1})
+(defunit irishnoggin 850000000000000/7628003619251619843 {:length 3})
+(defunit irishpace 1000000/656169 {:length 1})
+(defunit irishpalm 50000/656169 {:length 1})
+(defunit irishpeck 54400000000000000/7628003619251619843 {:length 3})
+(defunit irishperch
+  "are different from"
+  1400000/218723 {:length 1})
+(defunit irishpint 3400000000000000/7628003619251619843 {:length 3})
+(defunit irishpipe 380800000000000000/847555957694624427 {:length 3})
+(defunit irishpole
+  "Only these values"
+  1400000/218723 {:length 1})
+(defunit irishpottle 13600000000000000/7628003619251619843 {:length 3})
+(defunit irishpuncheon 761600000000000000/2542667873083873281 {:length 3})
+(defunit irishquart 6800000000000000/7628003619251619843 {:length 3})
+(defunit irishquarter 190400000000000000/847555957694624427 {:length 3})
+(defunit irishrood 78400000000000/47839750729 {:length 2})
+(defunit irishrundlet 54400000000000000/847555957694624427 {:length 3})
+(defunit irishspan 50000/218723 {:length 1})
+(defunit irishstrike 435200000000000000/7628003619251619843 {:length 3})
+(defunit irishtierce 380800000000000000/2542667873083873281 {:length 3})
+(defunit irishtun 761600000000000000/847555957694624427 {:length 3})
+(defunit irishyard 200000/218723 {:length 1})
 (defunit iron 11169/200000 {:mass 1, :amount_of_substance -1})
 (defunit islamicleapyear
   "began counting on July 16, AD 622 when Muhammad emigrated to Medina (the year of the Hegira). They need 11 leap days in 30 years to stay in sync with the lunar year which is a bit longer than the 29.5 days of the average month."
@@ -1509,6 +1627,13 @@
 (defunit jupiterday 4466232/125 {:time 1})
 (defunit jupiterdist 778570000000N {:length 1})
 (defunit jupitermass 1898190000000000000000000000N {:mass 1})
+(defunit jupiterradius
+  "Volumetric mean radius"
+  69911000 {:length 1})
+(defunit jupiterradius_equatorial
+  "(1 bar level)"
+  71492000 {:length 1})
+(defunit jupiterradius_polar 66854000 {:length 1})
 (defunit jupiteryear 58488789986192997/156250000 {:time 1})
 (defunit k 1380649/100000000000000000000000000000 {:mass 1, :length 2, :time -2, :temperature -1})
 (defunit k_e 312500000000000000000000000000000000000/34770314256307894224887761593 {:current -2, :time -4, :mass 1, :length 3})
@@ -1627,6 +1752,7 @@
 (defunit lead 259/1250 {:mass 1, :amount_of_substance -1})
 (defunit leadstone 45359237/8000000 {:mass 1})
 (defunit leadwey 317514659/4000000 {:mass 1})
+(defunit league 19008000/3937 {:length 1})
 (defunit leapyear 31622400 {:time 1})
 (defunit ledgersize 3016123/25000000 {:length 2})
 (defunit legalsize 1919351/25000000 {:length 2})
@@ -1754,7 +1880,9 @@
 (defunit marsday
   "The common \"sol\" definition."
   178137728496/25 {:time 3})
+(defunit marsdist 227940000000N {:length 1})
 (defunit marsmass 641910000000000000000000N {:mass 1})
+(defunit marsradius 3397000 {:length 1})
 (defunit marssiderealday 4346944704N {:time 3})
 (defunit marssolarday 178137728496/25 {:time 3})
 (defunit marsyear 59352480N {:time 1})
@@ -1788,7 +1916,9 @@
 (defunit mercury 20059/100000 {:mass 1, :amount_of_substance -1})
 (defunit mercuryday 126675792/25 {:time 1})
 (defunit mercurydensity 135951/10 {:mass 1, :length -3})
+(defunit mercurydist 57910000000N {:length 1})
 (defunit mercurymass 330220000000000000000000N {:mass 1})
+(defunit mercuryradius 2439000 {:length 1})
 (defunit mercuryyear 7513344N {:time 1})
 (defunit meridian 19330289/1250000000 {:length 1})
 (defunit meter
@@ -1836,6 +1966,7 @@
   "Official NIST definition. Another choice is 1ee-3 radian."
   1570796326794896619/1600000000000000000000 {})
 (defunit mile 201168/125 {:length 1})
+(defunit milk 44000000000/43016043 {:mass 1, :length -3})
 (defunit millennia 19723078734174/625 {:time 1})
 (defunit millennium 19723078734174/625 {:time 1})
 (defunit milliard 1000000000N {})
@@ -1896,9 +2027,15 @@
   "This is obviously an average for the limiting case... so is accurate in the long term but useless for adding an offset to a specific date."
   3287179789029/1250000 {:time 1})
 (defunit monthly 1250000/3287179789029 {:time -1})
+(defunit moondist
+  "mean earth-moon distance"
+  384400000 {:length 1})
 (defunit moongravity 81/50 {:length 1, :time -2})
 (defunit moonlum 2500 {:luminous_intensity 1, :length -2})
 (defunit moonmass 73483000000000000000000N {:mass 1})
+(defunit moonradius
+  "mean value"
+  1738000 {:length 1})
 (defunit mounce 1/40 {:mass 1})
 (defunit mpg 48000000000/112903 {:length -2})
 (defunit mpge 1397/105312500 {:length -1, :mass -1, :time 2})
@@ -1909,12 +2046,22 @@
 (defunit mu_B 1862479784135943/200827880381184188726354713040000000000 {:current 1, :length 2})
 (defunit mu_N 35387115898582917/7006262339730308196007795634800000000000000 {:current 1, :length 2})
 (defunit mu_d 4330735087/1000000000000000000000000000000000000 {:length 2, :current 1})
+(defunit mu_e -92847646917/10000000000000000000000000000000000 {:length 2, :current 1})
+(defunit mu_mu -44904483/1000000000000000000000000000000000 {:length 2, :current 1})
+(defunit mu_n -96623653/10000000000000000000000000000000000 {:length 2, :current 1})
 (defunit mu_p 28212135909/2000000000000000000000000000000000000 {:length 2, :current 1})
+(defunit muonmagneticmoment
+  "+/- 10 in last 2 digits"
+  -44904483/1000000000000000000000000000000000 {:length 2, :current 1})
 (defunit muonmass
   "+/- 42 in last 2 digits"
   1883531627/10000000000000000000000000000000000000 {:mass 1})
 (defunit musicalfifth 3/2 {})
 (defunit musicalfourth 4/3 {})
+(defunit mutchkin 1077125000000000/2542667873083873281 {:length 3})
+(defunit nail
+  "Originally the width of the thumbnail, or 1/16 ft. This took on the general meaning of 1/16 and settled on the nail of a yard or 1/16 yards as its final value. [12]"
+  12500/218723 {:length 1})
 (defunit nat
   "log[e]/log[2]"
   2254211001389/1562500000000 {:information 1})
@@ -1930,11 +2077,16 @@
 (defunit neodymium 1803/12500 {:mass 1, :amount_of_substance -1})
 (defunit neon 201797/10000000 {:mass 1, :amount_of_substance -1})
 (defunit neptuneday 331776/5 {:time 1})
+(defunit neptunedist 4497070000000N {:length 1})
 (defunit neptunemass 102780000000000000000000000N {:mass 1})
+(defunit neptuneradius 24764000 {:length 1})
 (defunit neptuneyear 812580982308601713/156250000 {:time 1})
 (defunit neptunium 1185241/5000000 {:mass 1, :amount_of_substance -1})
 (defunit nest 3 {})
 (defunit neutroncharge 0N {:current 1, :time 1})
+(defunit neutronmagneticmoment
+  "+/- 23 in last 2 digits"
+  -96623653/10000000000000000000000000000000000 {:length 2, :current 1})
 (defunit neutronmass
   "+/- 85 in last 2 digits"
   20936593757/12500000000000000000000000000000000000 {:mass 1})
@@ -2290,6 +2442,7 @@
 (defunit plethron 31623/1000 {:length 1})
 (defunit pli 45359237/2540000 {:mass 1, :length -1})
 (defunit plutoday 13795488/25 {:time 1})
+(defunit plutodist 5913520000000N {:length 1})
 (defunit plutomass 13025000000000000000000N {:mass 1})
 (defunit plutonium
   "Longest lived. 239.05"
@@ -2309,6 +2462,7 @@
 (defunit poiseuille
   "viscosity"
   1 {:mass 1, :length -1, :time -1})
+(defunit pole 1100000/218723 {:length 1})
 (defunit polonium
   "Longest lived. 209.98"
   65307/312500 {:mass 1, :amount_of_substance -1})
@@ -2365,6 +2519,7 @@
   "filing, and it resists"
   4123567/1096772000 {:mass 1, :length -2})
 (defunit pous 31623/100000 {:length 1})
+(defunit powdered_sugar 2945405000/6145149 {:mass 1, :length -3})
 (defunit ppb 1/1000000000 {})
 (defunit ppm 1/1000000 {})
 (defunit ppt 1/1000000000000 {})
@@ -2514,6 +2669,7 @@
   "Sometimes it appears spelled this way"
   129/500000 {:current 1, :time 1, :mass -1})
 (defunit rood 15681600000/15499969 {:length 2})
+(defunit rope 4000000/656169 {:length 1})
 (defunit rpm 523598775598298873/5000000000000000000 {:time -1})
 (defunit rps 1570796326794896619/250000000000000000 {:time -1})
 (defunit rubidium 427339/5000000 {:mass 1, :amount_of_substance -1})
@@ -2536,7 +2692,9 @@
 (defunit salt 192000000000/157725491 {:mass 1, :length -3})
 (defunit samarium 3759/25000 {:mass 1, :amount_of_substance -1})
 (defunit saturnday 37800N {:time 1})
+(defunit saturndist 1429400000000N {:length 1})
 (defunit saturnmass 568500000000000000000000000N {:mass 1})
+(defunit saturnradius 60268000 {:length 1})
 (defunit saturnyear 145250613337824423/156250000 {:time 1})
 (defunit sawbuck 10 {:currency 1})
 (defunit sb
@@ -2556,6 +2714,38 @@
   "Ice cream scoops are labeled with a number specifying how many scoops fill a quart."
   500000000000/473176473 {:length -3})
 (defunit score 20 {})
+(defunit scotsacre 6919133032722036002/1345492989253125 {:length 2})
+(defunit scotsbarrel 275744000000000000/2542667873083873281 {:length 3})
+(defunit scotschain 1859990999/82021125 {:length 1})
+(defunit scotsell 1859990999/1968507000 {:length 1})
+(defunit scotsfall 1859990999/328084500 {:length 1})
+(defunit scotsfeet 50270027/164042250 {:length 1})
+(defunit scotsfoot 50270027/164042250 {:length 1})
+(defunit scotsfurlong 3719981998/16404225 {:length 1})
+(defunit scotsgallon 34468000000000000/2542667873083873281 {:length 3})
+(defunit scotsgill 269281250000000/2542667873083873281 {:length 3})
+(defunit scotsinch 50270027/1968507000 {:length 1})
+(defunit scotslink 1859990999/8202112500 {:length 1})
+(defunit scotsmile 29759855984/16404225 {:length 1})
+(defunit scotsoatboll 1602760000000000000/7628003619251619843 {:length 3})
+(defunit scotsoatchalder 25644160000000000000/7628003619251619843 {:length 3})
+(defunit scotsoatfirlot 400690000000000000/7628003619251619843 {:length 3})
+(defunit scotsoatlippies 25043125000000000/7628003619251619843 {:length 3})
+(defunit scotsoatlippy
+  "Also used for barley and malt"
+  25043125000000000/7628003619251619843 {:length 3})
+(defunit scotsoatpeck 100172500000000000/7628003619251619843 {:length 3})
+(defunit scotspint 4308500000000000/2542667873083873281 {:length 3})
+(defunit scotsquart 8617000000000000/2542667873083873281 {:length 3})
+(defunit scotsrood 3459566516361018001/2690985978506250 {:length 2})
+(defunit scotswheatboll 1098664000000000000/7628003619251619843 {:length 3})
+(defunit scotswheatchalder 17578624000000000000/7628003619251619843 {:length 3})
+(defunit scotswheatfirlot 274666000000000000/7628003619251619843 {:length 3})
+(defunit scotswheatlippies 17166625000000000/7628003619251619843 {:length 3})
+(defunit scotswheatlippy
+  "Also used for peas, beans, rye, salt"
+  17166625000000000/7628003619251619843 {:length 3})
+(defunit scotswheatpeck 68666500000000000/7628003619251619843 {:length 3})
 (defunit scriptulum 2728034111/2400000000000 {:mass 1})
 (defunit scruple 6479891/5000000000 {:mass 1})
 (defunit scrupula 2728034111/2400000000000 {:mass 1})
@@ -2760,7 +2950,11 @@
   "Common unit name"
   1989100000000000000000000000000N {:mass 1})
 (defunit solaryear 9861539367087/312500 {:time 1})
+(defunit sourcream 44000000000/43016043 {:mass 1, :length -3})
 (defunit soybeanbushel 136077711/5000000 {:mass 1})
+(defunit span
+  "supposed to be distance from thumb to pinky with full hand extension"
+  50000/218723 {:length 1})
 (defunit spat
   "Rarely used for astronomical measurements"
   1000000000000N {:length 1})
@@ -2804,6 +2998,7 @@
 (defunit statmaxwell 149896229/500000 {:length 2, :mass 1, :time -2, :current -1})
 (defunit statmho 25000/22468879468420441 {:length -2, :mass -1, :time 3, :current 2})
 (defunit statohm 22468879468420441/25000 {:length 2, :mass 1, :time -3, :current -2})
+(defunit statutemile 6336000/3937 {:length 1})
 (defunit statvolt 149896229/500000 {:length 2, :mass 1, :time -3, :current -1})
 (defunit stdtemp 5463/20 {:temperature 1})
 (defunit stefanboltzmann
@@ -2831,6 +3026,7 @@
 (defunit sturgeon
   "magnetic reluctance"
   1 {:mass -1, :length -2, :time 2, :current 2})
+(defunit sugar 400000000000/473176473 {:mass 1, :length -3})
 (defunit sulfur 16033/500000 {:mass 1, :amount_of_substance -1})
 (defunit sulphur 16033/500000 {:mass 1, :amount_of_substance -1})
 (defunit sumeriancubit 99/200 {:length 1})
@@ -2858,6 +3054,9 @@
   6000000N {:luminous_intensity 1, :length -2})
 (defunit sunmass 1989100000000000000000000000000N {:mass 1})
 (defunit sunpower 386000000000000000000000000N {:mass 1, :length 2, :time -3})
+(defunit sunradius
+  "Plus/minus 65 km, http://www.ifa.hawaii.edu/info/press-releases/solar_radius/"
+  696342000 {:length 1})
 (defunit surveychain 79200/3937 {:length 1})
 (defunit surveyorschain 79200/3937 {:length 1})
 (defunit surveyorslink 792/3937 {:length 1})
@@ -2963,8 +3162,10 @@
   720N {:time 1})
 (defunit timer 40 {})
 (defunit tin 11871/100000 {:mass 1, :amount_of_substance -1})
+(defunit titandist 1221850000 {:length 1})
 (defunit titanium 47867/1000000 {:mass 1, :amount_of_substance -1})
 (defunit titanmass 135000000000000000000000N {:mass 1})
+(defunit titanradius 2575000 {:length 1})
 (defunit toise 27000/13853 {:length 1})
 (defunit ton 45359237/50000 {:mass 1})
 (defunit tondal
@@ -3044,9 +3245,12 @@
 (defunit universeage
   "Error is 38 million years Source: ibid"
   2177270107622936208/5 {:time 1})
+(defunit upquarkcharge 267029439/2500000000000000000000000000 {:current 1, :time 1})
 (defunit uranium 2380289/10000000 {:mass 1, :amount_of_substance -1})
 (defunit uranusday 38807694/625 {:time 1})
+(defunit uranusdist 2870990000000N {:length 1})
 (defunit uranusmass 86625000000000000000000000N {:mass 1})
+(defunit uranusradius 25559000 {:length 1})
 (defunit uranusyear 207121911326928261/78125000 {:time 1})
 (defunit vac 100N {:mass 1, :length -1, :time -2})
 (defunit vanadium 101883/2000000 {:mass 1, :amount_of_substance -1})
@@ -3054,7 +3258,9 @@
 (defunit venusday
   "retrograde"
   20996064N {:time 1})
+(defunit venusdist 108200000000N {:length 1})
 (defunit venusmass 4869000000000000000000000N {:mass 1})
+(defunit venusradius 6052000 {:length 1})
 (defunit venusyear 19412352N {:time 1})
 (defunit vigintillion 1000000000000000000000000000000000000000000000000000000000000000N {})
 (defunit violle
@@ -3091,11 +3297,24 @@
 (defunit wiendisplacement
   "Wien's Displacement Law gives the frequency at which the the Planck spectrum has maximum intensity. The relation is lambda T = b where lambda is wavelength, T is temperature and b is the Wien displacement. This relation is used to determine the temperature of stars. This is the 2022 CODATA value. NIST claims this is exact, but they give an equation with a random unexplained, inexact, divisor, b = (h c / k) / 4.965114231... https://physics.nist.gov/cgi-bin/cuu/Value?bwien"
   579554391/200000000000 {:length 1, :temperature 1})
+(defunit winebarrel 33687500000000000/282518652564874809 {:length 3})
 (defunit winebottle
   "US industry standard, 1979"
   3/4000 {:length 3})
+(defunit winebutt 134750000000000000/282518652564874809 {:length 3})
+(defunit winegallon
+  "Sometimes called the Winchester Wine Gallon, it was legalized in 1707 by Queen Anne, and given the definition of 231 cubic inches. It had been in use for a while as 8 pounds of wine using a merchant's pound of 7200 grains or 15 troy ounces. (The old mercantile pound had been 15 tower ounces.)"
+  9625000000000000/2542667873083873281 {:length 3})
 (defunit wineglass 473176473/4000000000000 {:length 3})
+(defunit winehogshead 67375000000000000/282518652564874809 {:length 3})
+(defunit winepint 1203125000000000/2542667873083873281 {:length 3})
+(defunit winepipe 134750000000000000/282518652564874809 {:length 3})
+(defunit winepuncheon 269500000000000000/847555957694624427 {:length 3})
+(defunit winequart 2406250000000000/2542667873083873281 {:length 3})
+(defunit winerundlet 19250000000000000/282518652564874809 {:length 3})
 (defunit winesplit 3/16000 {:length 3})
+(defunit winetierce 134750000000000000/847555957694624427 {:length 3})
+(defunit winetun 269500000000000000/282518652564874809 {:length 3})
 (defunit wire0000gauge 2921/250000 {:length 1})
 (defunit wire000gauge 4064/390625 {:length 1})
 (defunit wire00gauge 7239/781250 {:length 1})
@@ -3394,6 +3613,11 @@
 (def agates agate)
 (def akainas akaina)
 (def alcohols alcohol)
+(def alebarrels alebarrel)
+(def alegallons alegallon)
+(def alehogsheads alehogshead)
+(def alepints alepint)
+(def alequarts alequart)
 (def alphas alpha)
 (def aluminiums aluminium)
 (def aluminums aluminum)
@@ -3472,6 +3696,7 @@
 (def barads barad)
 (def bariums barium)
 (def barleybushels barleybushel)
+(def barleycorns barleycorn)
 (def barns barn)
 (def barrels barrel)
 (def barrelbulks barrelbulk)
@@ -3551,6 +3776,8 @@
 (def broctillions broctillion)
 (def broctodecillions broctodecillion)
 (def bromines bromine)
+(def brownsugar_darks brownsugar_dark)
+(def brownsugar_lights brownsugar_light)
 (def brpecks brpeck)
 (def brpints brpint)
 (def brquadrilliards brquadrilliard)
@@ -3646,6 +3873,7 @@
 (def buckets bucket)
 (def bundles bundle)
 (def bushels bushel)
+(def butters butter)
 (def butter_clarifieds butter_clarified)
 (def buttonlines buttonline)
 (def bytes byte)
@@ -3659,6 +3887,7 @@
 (def cadmiums cadmium)
 (def cakeflour_scoopeds cakeflour_scooped)
 (def cakeflour_sifteds cakeflour_sifted)
+(def cakeflour_spooneds cakeflour_spooned)
 (def cals cal)
 (def cal_ITs cal_IT)
 (def cal_fifteens cal_fifteen)
@@ -3670,6 +3899,7 @@
 (def calendaryears calendaryear)
 (def calibers caliber)
 (def californiums californium)
+(def callistodists callistodist)
 (def calories calorie)
 (def calorie_ITs calorie_IT)
 (def calorie_ths calorie_th)
@@ -3705,6 +3935,8 @@
 (def cfms cfm)
 (def chs ch)
 (def chains chain)
+(def charondists charondist)
+(def chenices chenice)
 (def cheonixs cheonix)
 (def chinesecattys chinesecatty)
 (def chinesemaces chinesemace)
@@ -3713,6 +3945,7 @@
 (def chlorines chlorine)
 (def choinixs choinix)
 (def chomers chomer)
+(def choppins choppin)
 (def chromiums chromium)
 (def ciceros cicero)
 (def circles circle)
@@ -3727,6 +3960,10 @@
 (def coals coal)
 (def cobalts cobalt)
 (def cochlearias cochlearia)
+(def cocoa_butters cocoa_butter)
+(def cocoa_scoopeds cocoa_scooped)
+(def cocoa_sifteds cocoa_sifted)
+(def cocoa_spooneds cocoa_spooned)
 (def columbians columbian)
 (def commonyears commonyear)
 (def computerpicas computerpica)
@@ -3738,6 +3975,7 @@
 (def cordfeets cordfeet)
 (def cordfoots cordfoot)
 (def cornbushels cornbushel)
+(def cornstarchs cornstarch)
 (def cornsyrups cornsyrup)
 (def cottonbolts cottonbolt)
 (def cottonyarncounts cottonyarncount)
@@ -3785,6 +4023,7 @@
 (def degreerankines degreerankine)
 (def degreesRankines degreesRankine)
 (def degreesrankines degreesrankine)
+(def deimosdists deimosdist)
 (def deniers denier)
 (def dessertspoons dessertspoon)
 (def deunxs deunx)
@@ -3800,6 +4039,7 @@
 (def doricfoots doricfoot)
 (def doubles double)
 (def doubleremens doubleremen)
+(def downquarkcharges downquarkcharge)
 (def dozens dozen)
 (def drs dr)
 (def draconicmonths draconicmonth)
@@ -3814,6 +4054,9 @@
 (def dryquarts dryquart)
 (def dsps dsp)
 (def duodecillions duodecillion)
+(def dutchcocoa_scoopeds dutchcocoa_scooped)
+(def dutchcocoa_sifteds dutchcocoa_sifted)
+(def dutchcocoa_spooneds dutchcocoa_spooned)
 (def dutys duty)
 (def dwts dwt)
 (def dyns dyn)
@@ -3822,10 +4065,17 @@
 (def es e)
 (def eVs eV)
 (def earlyromanfoots earlyromanfoot)
+(def earth_flattenings earth_flattening)
 (def earthdays earthday)
 (def earthdists earthdist)
+(def earthradius_equatorials earthradius_equatorial)
 (def earthradius_polars earthradius_polar)
+(def earthvolumes earthvolume)
 (def earthyears earthyear)
+(def eggs egg)
+(def eggvolumes eggvolume)
+(def eggwhites eggwhite)
+(def eggwhitevolumes eggwhitevolume)
 (def eggyolks eggyolk)
 (def eggyolkvolumes eggyolkvolume)
 (def egyptianpalms egyptianpalm)
@@ -3837,16 +4087,24 @@
 (def electricconstants electricconstant)
 (def electrichorsepowers electrichorsepower)
 (def electroncharges electroncharge)
+(def electronmagneticmoments electronmagneticmoment)
 (def electronvolts electronvolt)
 (def electronwavelengths electronwavelength)
 (def elementarycharges elementarycharge)
+(def ells ell)
 (def emans eman)
 (def emeralds emerald)
 (def energys energy)
 (def engineerschains engineerschain)
 (def engineerslinks engineerslink)
 (def englishs english)
+(def englishbeerbarrels englishbeerbarrel)
+(def englishbeergallons englishbeergallon)
+(def englishbeerhogsheads englishbeerhogshead)
+(def englishbeerpints englishbeerpint)
+(def englishbeerquarts englishbeerquart)
 (def englishcarats englishcarat)
+(def englishells englishell)
 (def ephahs ephah)
 (def epsilon0s epsilon0)
 (def epyptiandigits epyptiandigit)
@@ -3856,6 +4114,7 @@
 (def ergs erg)
 (def esus esu)
 (def ethanols ethanol)
+(def europadists europadist)
 (def europeanUvalues europeanUvalue)
 (def europeanpoints europeanpoint)
 (def europiums europium)
@@ -3917,7 +4176,10 @@
 (def fives five)
 (def flags flag)
 (def fldrs fldr)
+(def flemishells flemishell)
 (def flocks flock)
+(def flour_scoopeds flour_scooped)
+(def flour_sifteds flour_sifted)
 (def flour_spooneds flour_spooned)
 (def flozs floz)
 (def fluiddrams fluiddram)
@@ -3962,6 +4224,7 @@
 (def galvats galvat)
 (def gammas gamma)
 (def gammils gammil)
+(def ganymededists ganymededist)
 (def garamonds garamond)
 (def gasconstants gasconstant)
 (def gasolines gasoline)
@@ -3976,6 +4239,7 @@
 (def gills gill)
 (def glugs glug)
 (def gms gm)
+(def goads goad)
 (def golds gold)
 (def gomers gomer)
 (def gons gon)
@@ -4011,6 +4275,7 @@
 (def hashimicubits hashimicubit)
 (def hawserlaidcables hawserlaidcable)
 (def hbars hbar)
+(def heavycreams heavycream)
 (def hebrewcubits hebrewcubit)
 (def hectares hectare)
 (def heers heer)
@@ -4070,8 +4335,43 @@
 (def intvolts intvolt)
 (def invcms invcm)
 (def iodines iodine)
+(def iodists iodist)
 (def ionicfoots ionicfoot)
 (def iridiums iridium)
+(def irishacres irishacre)
+(def irishbarrels irishbarrel)
+(def irishbushels irishbushel)
+(def irishchains irishchain)
+(def irishcubits irishcubit)
+(def irishdrybarrels irishdrybarrel)
+(def irishfathoms irishfathom)
+(def irishfeets irishfeet)
+(def irishfoots irishfoot)
+(def irishfurlongs irishfurlong)
+(def irishgallons irishgallon)
+(def irishhogsheads irishhogshead)
+(def irishinchs irishinch)
+(def irishlinks irishlink)
+(def irishmiles irishmile)
+(def irishnoggins irishnoggin)
+(def irishpaces irishpace)
+(def irishpalms irishpalm)
+(def irishpecks irishpeck)
+(def irishperchs irishperch)
+(def irishpints irishpint)
+(def irishpipes irishpipe)
+(def irishpoles irishpole)
+(def irishpottles irishpottle)
+(def irishpuncheons irishpuncheon)
+(def irishquarts irishquart)
+(def irishquarters irishquarter)
+(def irishroods irishrood)
+(def irishrundlets irishrundlet)
+(def irishspans irishspan)
+(def irishstrikes irishstrike)
+(def irishtierces irishtierce)
+(def irishtuns irishtun)
+(def irishyards irishyard)
 (def irons iron)
 (def islamicleapyears islamicleapyear)
 (def islamicmonths islamicmonth)
@@ -4127,6 +4427,8 @@
 (def julianyears julianyear)
 (def jupiterdays jupiterday)
 (def jupiterdists jupiterdist)
+(def jupiterradius_equatorials jupiterradius_equatorial)
+(def jupiterradius_polars jupiterradius_polar)
 (def jupiteryears jupiteryear)
 (def ks k)
 (def kHzs kHz)
@@ -4210,6 +4512,7 @@
 (def leads lead)
 (def leadstones leadstone)
 (def leadweys leadwey)
+(def leagues league)
 (def leapyears leapyear)
 (def ledgersizes ledgersize)
 (def legalsizes legalsize)
@@ -4283,6 +4586,7 @@
 (def marathons marathon)
 (def marineleagues marineleague)
 (def marsdays marsday)
+(def marsdists marsdist)
 (def marssiderealdays marssiderealday)
 (def marssolardays marssolarday)
 (def marsyears marsyear)
@@ -4302,6 +4606,7 @@
 (def mercurys mercury)
 (def mercurydays mercuryday)
 (def mercurydensitys mercurydensity)
+(def mercurydists mercurydist)
 (def mercuryyears mercuryyear)
 (def meridians meridian)
 (def meters meter)
@@ -4331,6 +4636,7 @@
 (def mils mil)
 (def milangles milangle)
 (def miles mile)
+(def milks milk)
 (def millennias millennia)
 (def millenniums millennium)
 (def milliards milliard)
@@ -4375,6 +4681,7 @@
 (def molybdenums molybdenum)
 (def months month)
 (def monthlys monthly)
+(def moondists moondist)
 (def moongravitys moongravity)
 (def moonlums moonlum)
 (def mounces mounce)
@@ -4385,9 +4692,15 @@
 (def mu_Bs mu_B)
 (def mu_Ns mu_N)
 (def mu_ds mu_d)
+(def mu_es mu_e)
+(def mu_mus mu_mu)
+(def mu_ns mu_n)
 (def mu_ps mu_p)
+(def muonmagneticmoments muonmagneticmoment)
 (def musicalfifths musicalfifth)
 (def musicalfourths musicalfourth)
+(def mutchkins mutchkin)
+(def nails nail)
 (def nats nat)
 (def nauticalmiles nauticalmile)
 (def navycablelengths navycablelength)
@@ -4395,10 +4708,12 @@
 (def neodymiums neodymium)
 (def neons neon)
 (def neptunedays neptuneday)
+(def neptunedists neptunedist)
 (def neptuneyears neptuneyear)
 (def neptuniums neptunium)
 (def nests nest)
 (def neutroncharges neutroncharge)
+(def neutronmagneticmoments neutronmagneticmoment)
 (def neutronwavelengths neutronwavelength)
 (def newhayloads newhayload)
 (def newtons newton)
@@ -4571,12 +4886,14 @@
 (def plethrons plethron)
 (def plis pli)
 (def plutodays plutoday)
+(def plutodists plutodist)
 (def plutoniums plutonium)
 (def plutoyears plutoyear)
 (def points point)
 (def pointangles pointangle)
 (def poises poise)
 (def poiseuilles poiseuille)
+(def poles pole)
 (def poloniums polonium)
 (def poncelets poncelet)
 (def ponds pond)
@@ -4614,6 +4931,7 @@
 (def poundweddingbristols poundweddingbristol)
 (def poundwrappingpapers poundwrappingpaper)
 (def poundwritingpapers poundwritingpaper)
+(def powdered_sugars powdered_sugar)
 (def ppbs ppb)
 (def ppms ppm)
 (def ppts ppt)
@@ -4698,6 +5016,7 @@
 (def romanpounds romanpound)
 (def rontgens rontgen)
 (def roods rood)
+(def ropes rope)
 (def rpms rpm)
 (def rubidiums rubidium)
 (def rubys ruby)
@@ -4710,6 +5029,7 @@
 (def salts salt)
 (def samariums samarium)
 (def saturndays saturnday)
+(def saturndists saturndist)
 (def saturnyears saturnyear)
 (def sawbucks sawbuck)
 (def sbs sb)
@@ -4719,6 +5039,32 @@
 (def scfms scfm)
 (def scoopnumbers scoopnumber)
 (def scores score)
+(def scotsacres scotsacre)
+(def scotsbarrels scotsbarrel)
+(def scotschains scotschain)
+(def scotsells scotsell)
+(def scotsfalls scotsfall)
+(def scotsfeets scotsfeet)
+(def scotsfoots scotsfoot)
+(def scotsfurlongs scotsfurlong)
+(def scotsgallons scotsgallon)
+(def scotsgills scotsgill)
+(def scotsinchs scotsinch)
+(def scotslinks scotslink)
+(def scotsmiles scotsmile)
+(def scotsoatbolls scotsoatboll)
+(def scotsoatchalders scotsoatchalder)
+(def scotsoatfirlots scotsoatfirlot)
+(def scotsoatlippys scotsoatlippy)
+(def scotsoatpecks scotsoatpeck)
+(def scotspints scotspint)
+(def scotsquarts scotsquart)
+(def scotsroods scotsrood)
+(def scotswheatbolls scotswheatboll)
+(def scotswheatchalders scotswheatchalder)
+(def scotswheatfirlots scotswheatfirlot)
+(def scotswheatlippys scotswheatlippy)
+(def scotswheatpecks scotswheatpeck)
 (def scriptulums scriptulum)
 (def scruples scruple)
 (def scrupulas scrupula)
@@ -4850,7 +5196,9 @@
 (def sodiums sodium)
 (def solardays solarday)
 (def solaryears solaryear)
+(def sourcreams sourcream)
 (def soybeanbushels soybeanbushel)
+(def spans span)
 (def spats spat)
 (def spheres sphere)
 (def sphericalrightangles sphericalrightangle)
@@ -4879,6 +5227,7 @@
 (def statmaxwells statmaxwell)
 (def statmhos statmho)
 (def statohms statohm)
+(def statutemiles statutemile)
 (def statvolts statvolt)
 (def stdtemps stdtemp)
 (def stefanboltzmanns stefanboltzmann)
@@ -4892,6 +5241,7 @@
 (def strikes strike)
 (def strontiums strontium)
 (def sturgeons sturgeon)
+(def sugars sugar)
 (def sulfurs sulfur)
 (def sulphurs sulphur)
 (def sumeriancubits sumeriancubit)
@@ -4968,6 +5318,7 @@
 (def timepoints timepoint)
 (def timers timer)
 (def tins tin)
+(def titandists titandist)
 (def titaniums titanium)
 (def toises toise)
 (def tons ton)
@@ -5017,13 +5368,16 @@
 (def unitpoles unitpole)
 (def unitys unity)
 (def universeages universeage)
+(def upquarkcharges upquarkcharge)
 (def uraniums uranium)
 (def uranusdays uranusday)
+(def uranusdists uranusdist)
 (def uranusyears uranusyear)
 (def vacs vac)
 (def vanadiums vanadium)
 (def vegetable_oils vegetable_oil)
 (def venusdays venusday)
+(def venusdists venusdist)
 (def venusyears venusyear)
 (def vigintillions vigintillion)
 (def violles violle)
@@ -5042,8 +5396,19 @@
 (def wheatbushels wheatbushel)
 (def wholedeals wholedeal)
 (def wiendisplacements wiendisplacement)
+(def winebarrels winebarrel)
 (def winebottles winebottle)
+(def winebutts winebutt)
+(def winegallons winegallon)
+(def winehogsheads winehogshead)
+(def winepints winepint)
+(def winepipes winepipe)
+(def winepuncheons winepuncheon)
+(def winequarts winequart)
+(def winerundlets winerundlet)
 (def winesplits winesplit)
+(def winetierces winetierce)
+(def winetuns winetun)
 (def wire0000gauges wire0000gauge)
 (def wire000gauges wire000gauge)
 (def wire00gauges wire00gauge)
