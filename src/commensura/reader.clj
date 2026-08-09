@@ -13,10 +13,11 @@
   an anonymous Quantity from its display formula; a unit literal resolves the named
   Unit through the registry (so user `defunit`s reify too).
 
-  The EXACT value in the literal is the source of truth. The printed approximation
-  is re-derived from that exact value and checked against the literal's — throwing
-  if they disagree beyond `*approx-tolerance*`. This rules out junk data and values
-  that would come out differently under JVM/library drift."
+  A leading `≈` in the payload marks an *approximate* value: for those, the BigDecimal
+  in the literal is the source of truth (no re-check). For an *exact* quantity the exact
+  value is the source of truth — its printed approximation is re-derived and checked
+  against the literal's, throwing if they disagree beyond `*approx-tolerance*` (ruling
+  out junk data or values that would come out differently under JVM/library drift)."
   (:require [clojure.string :as str]
             [commensura.quantity :as q]
             [commensura.registry :as registry]
@@ -84,50 +85,47 @@
        :unit-str (when sp (str/trim (subs lhs (inc sp))))
        :approx   (Double/parseDouble (if i (subs rhs 0 i) rhs))})))
 
-(defn read-quantity
-  "Data-reader for `#commensura/quantity \"<printed form>\"` → an anonymous
-  Quantity, rebuilt from its display formula (empty formula ⇒ dimensionless)."
+(defn- read-precise
+  "`<exact> <formula> ≈ <approx> [dim]` → a PreciseQuantity, rebuilt from its display
+  formula; the printed approximation is re-checked against the exact value."
   [s]
   (let [{:keys [exact unit-str approx]} (parse-literal s)
         qty (if (seq unit-str) (reconstruct exact unit-str) (q/scalar exact))]
     (verify-approx! (q/display-value qty) approx s)
     qty))
 
-(defn- parse-unit-name
-  "Pull the unit name out of a unit literal, tolerating both the exact form
-  (`1 foot ≈ 1.0 [length]`) and the approximate form (`1 planckmass [mass]`, no ≈):
-  the name is the token(s) after the leading value, up to ` ≈ ` or ` [`."
-  [s]
-  (let [end (or (str/index-of s " ≈ ") (str/index-of s " [") (count s))
-        lhs (str/trim (subs s 0 end))
-        sp  (str/index-of lhs " ")]
-    (when sp (str/trim (subs lhs (inc sp))))))
-
-(defn read-unit
-  "Data-reader for `#commensura/unit \"<printed form>\"` → the named Unit (precise
-  or approximate), resolved through the registry (its defining `defunit` must have
-  run). Approximate units carry no `≈`, so the consistency check runs only when the
-  literal has one."
-  [s]
-  (let [nm (parse-unit-name s)
-        u  (or (and nm (registry/lookup nm))
-               (throw (ex-info "unknown unit in #commensura/unit literal"
-                               {:unit nm :literal s})))]
-    (when-let [[_ a] (re-find #" ≈ ([-+.\deE]+)" s)] ; a Unit is one of itself (1)
-      (verify-approx! (q/display-value u) (Double/parseDouble a) s))
-    u))
-
-(defn read-approx
-  "Data-reader for `#commensura/approx \"<bigdecimal> <unit> [dim]\"` → an
-  ApproxQuantity, rebuilt from its display formula scaled by the inexact value.
-  (No ≈-check: the value is already approximate — it *is* the source of truth.)"
+(defn- read-approx
+  "`<bigdecimal> <formula> [dim]` (leading `≈` already stripped) → an ApproxQuantity.
+  The value is parsed with `bigdec` from its string — not `read-string`, which would
+  read a bare decimal as a lossy Double — and multiplied by the reconstructed compound;
+  the approx operand promotes the product. No re-check: the value *is* the truth."
   [s]
   (let [i        (str/index-of s " [")               ; trailing [dim] is decorative
         lhs      (str/trim (if i (subs s 0 i) s))
         sp       (str/index-of lhs " ")
-        value    (bigdec (read-string (if sp (subs lhs 0 sp) lhs)))
+        value    (bigdec (if sp (subs lhs 0 sp) lhs))
         unit-str (when sp (str/trim (subs lhs (inc sp))))
         compound (if (seq unit-str) (reconstruct 1 unit-str) (q/scalar 1))]
-    ;; multiply an approximate dimensionless scalar by the (exact) compound: the
-    ;; approx operand promotes the product to an ApproxQuantity carrying its formula.
     (q/qmul (q/quantity value []) compound)))
+
+(defn read-quantity
+  "Data-reader for `#commensura/quantity \"…\"` → an anonymous Quantity. A leading `≈`
+  marks an approximate value (an ApproxQuantity from the literal's BigDecimal); else the
+  exact value is the source of truth (a PreciseQuantity rebuilt from its display formula)."
+  [s]
+  (let [s (str/trim s)]
+    (if (str/starts-with? s "≈ ")
+      (read-approx (subs s 2))
+      (read-precise s))))
+
+(defn read-unit
+  "Data-reader for `#commensura/unit \"[≈ ]<name> [dim]\"` → the named Unit (precise or
+  approximate), resolved through the registry (its defining `defunit` must have run).
+  The leading `≈` marker and trailing `[dim]` are decorative — only the name matters."
+  [s]
+  (let [s   (str/trim s)
+        s   (if (str/starts-with? s "≈ ") (str/trim (subs s 2)) s)
+        end (or (str/index-of s " [") (count s))
+        nm  (str/trim (subs s 0 end))]
+    (or (registry/lookup nm)
+        (throw (ex-info "unknown unit in #commensura/unit literal" {:unit nm :literal s})))))

@@ -55,16 +55,19 @@
       (is (q/approx? octave))
       (is (< (Math/abs (- 2.0 (double (q/magnitude octave)))) 1e-12)))))
 
-(deftest prints-with-distinct-tag
-  (is (str/starts-with? (pr-str (approx 1.5)) "#commensura/approx "))
-  (is (str/starts-with? (pr-str (by u/foot u/foot)) "#commensura/quantity ")))  ; exact unaffected
+(deftest prints-with-approx-marker
+  (testing "both quantities use the #commensura/quantity tag; a leading ≈ marks approximate"
+    (is (str/starts-with? (pr-str (approx 1.5)) "#commensura/quantity \"≈ "))
+    (let [exact (pr-str (by u/foot u/foot))]                          ; exact: same tag, no leading ≈
+      (is (str/starts-with? exact "#commensura/quantity \""))
+      (is (not (str/starts-with? exact "#commensura/quantity \"≈"))))))
 
 (deftest literal-round-trips
   (testing "approx literals reify to an equivalent printed form"
     (doseq [a [(approx 1.0594630943592953)                 ; dimensionless
                (by (approx 2.176434) u/kilogram)            ; dimensioned
                (per (approx 6.674) u/meter u/second)]]       ; compound
-      (is (str/starts-with? (pr-str a) "#commensura/approx "))
+      (is (str/starts-with? (pr-str a) "#commensura/quantity \"≈ "))
       (is (= (pr-str a) (pr-str (read-string (pr-str a))))))))
 
 (deftest builtin-irrational-units
