@@ -13,14 +13,14 @@
 
 (defn convert
   "Regenerate resources/commensura/units.edn from dev-resources/frink/units.txt.
-  Run with: clojure -T:build convert"
+  Run with: clojure -X:build convert"
   [opts]
   (c-convert/convert!)
   opts)
 
 (defn gen-units
   "Regenerate src/commensura/units.clj from resources/commensura/units.edn.
-  Run with: clojure -T:build gen-units"
+  Run with: clojure -X:build gen-units"
   [opts]
   (c-gen/generate!)
   opts)

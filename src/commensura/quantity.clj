@@ -33,7 +33,8 @@
   (:require [commensura.registry :as registry]
             [clojure.string :as str]
             [clojure.pprint :as pp])
-  (:import [java.math MathContext]))
+  (:import [ch.obermuhlner.math.big BigDecimalMath]
+           [java.math MathContext]))
 
 ;; ---- protocols ----
 (defprotocol Dimensionable
@@ -217,6 +218,24 @@
         (.divide 1M (.pow a (- n) c) c)
         (.pow a n c)))
     (expt a n)))
+
+;; ---- transcendental BigDecimal helpers (exp / ln) ------------------------
+;; For genuinely irrational log/exp-scale units (e.g. Richter). The JDK's BigDecimal
+;; has no exp/ln, so we defer to big-math (ch.obermuhlner), which evaluates them with
+;; adaptive-precision Newton at a given MathContext. We coerce the argument under the
+;; caller's `*math-context*` (default DECIMAL128) and compute at the same context.
+(defn bexp
+  "e^x as a BigDecimal at the caller's `*math-context*` (default DECIMAL128); x is
+  any number, coerced to BigDecimal under that context."
+  [x]
+  (let [mc (ctx)]
+    (BigDecimalMath/exp (binding [*math-context* mc] (bigdec x)) mc)))
+
+(defn bln
+  "Natural log of a positive number as a BigDecimal at the caller's `*math-context*`."
+  [x]
+  (let [mc (ctx)]
+    (BigDecimalMath/log (binding [*math-context* mc] (bigdec x)) mc)))
 
 ;; ---- constructors ----
 (defn unit

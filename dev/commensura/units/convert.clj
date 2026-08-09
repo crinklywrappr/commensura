@@ -20,7 +20,9 @@
   EDN is a derived work — resolve redistribution before publishing."
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
-            [clojure.pprint :as pp]))
+            [clojure.pprint :as pp]
+            [commensura.units.manifest :as manifest])
+  (:import [ch.obermuhlner.math.big BigDecimalMath]))
 
 ;; ---------------------------------------------------------------- numbers
 (defn- pow10 [e]
@@ -79,25 +81,10 @@
                   (< p m)  (recur (inc mid) hi)
                   :else    (recur lo (dec mid)))))))))
 
-(defn- bd-nth-root
-  "The q-th root of a positive BigDecimal a via Newton's method at MathContext mc."
-  [^java.math.BigDecimal a q ^java.math.MathContext mc]
-  (if (== q 1)
-    a
-    (let [qbd (java.math.BigDecimal/valueOf (long q))
-          qm1 (int (dec q))
-          x0  (java.math.BigDecimal/valueOf (Math/pow (.doubleValue a) (/ 1.0 (double q))))]
-      (loop [x x0, i 0]                           ; x' = ((q-1)x + a/x^(q-1)) / q
-        (let [x' (.divide (.add (.multiply (java.math.BigDecimal/valueOf (long qm1)) x mc)
-                                (.divide a (.pow x qm1 mc) mc) mc)
-                          qbd mc)]
-          (if (or (>= i 100) (zero? (.compareTo x' x)))
-            x'
-            (recur x' (inc i))))))))
-
 (defn- ratpow
   "base^n for an exact-rational base and rational exponent n: an exact rational when
-  the result is a perfect root, else a build-precision BigDecimal (irrational)."
+  the result is a perfect root, else a build-precision BigDecimal (irrational, via
+  big-math's nth root)."
   [base n]
   (binding [*math-context* build-mc]
     (let [p (long (numer* n)), q (long (denom* n))
@@ -105,13 +92,12 @@
       (if (== q 1)
         b
         (if (decimal? b)
-          (bd-nth-root b q build-mc)               ; already approximate
+          (BigDecimalMath/root b (bigdec q) build-mc)   ; already approximate
           (let [bn (bigint (numer* b)), bd (bigint (denom* b))
                 rn (exact-int-root bn q), rd (exact-int-root bd q)]
             (if (and rn rd)
               (/ rn rd)                            ; perfect q-th root of both ⇒ exact
-              (.divide (bd-nth-root (bigdec bn) q build-mc)
-                       (bd-nth-root (bigdec bd) q build-mc) build-mc))))))))
+              (BigDecimalMath/root (bigdec b) (bigdec q) build-mc))))))))
 
 (def ^:private one {:factor 1 :dims {}})
 (defn- v* [a b] {:factor (* (:factor a) (:factor b)) :dims (merge* (:dims a) (:dims b))})
@@ -380,6 +366,15 @@
      (spit out (with-out-str (pp/pprint (dissoc result :skipped))))
      (println (format "units: %d   dimension-names: %d   base-dims: %d   skipped: %d"
                       (count units) (count dimension-names) (count base-dimensions) (count skipped)))
+     (let [names (map :name (:functions result))
+           cov   (manifest/classify names)]
+       (println (format "functions: %d   (implemented %d, affine %d, deferred %d, unhandled %d)"
+                        (count (set names))
+                        (count (:implemented cov)) (count (:affine cov))
+                        (count (:deferred cov)) (count (:unhandled cov))))
+       (when (seq (:unhandled cov))
+         (println "  unhandled (classify in commensura.units.manifest):"
+                  (str/join ", " (sort (:unhandled cov))))))
      (println "wrote" out)
      result)))
 

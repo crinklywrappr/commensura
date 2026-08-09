@@ -62,12 +62,52 @@ are planned for later milestones.
 
 The unit data is generated from Frink's `units.txt` (pinned in `dev-resources/`):
 
-    clojure -T:build convert     # units.txt  -> resources/commensura/units.edn
-    clojure -T:build gen-units   # units.edn   -> src/commensura/units.clj
+    clojure -X:build convert     # units.txt  -> resources/commensura/units.edn
+    clojure -X:build gen-units   # units.edn   -> src/commensura/units.clj
 
 Run the tests (example/oracle + generative):
 
-    clojure -T:build test
+    clojure -X:build test
+
+### Nonlinear-function drift
+
+A few Frink units are *functions*, not values — `Richter`, the affine temperatures
+(`Fahrenheit`/`Celsius`/…) — so they're hand-translated in Clojure. `drift-test`
+pins the SHA-256 of each function's `units.txt` body next to its translation and fails
+if they diverge. After re-pinning `units.txt`, run `clojure -X:build test`; if the
+drift test fails, follow the case it names. In both cases the failing assertion prints
+`(pinned <old>, now <new>)` — `<new>` is the value you paste.
+
+**Case 1 — a pinned body changed** (`implemented-…`/`affine-…-match-units-txt`):
+
+1. Open `dev-resources/frink/units.txt`, find the `<Name>[…] :=` block, read the new body.
+2. Look up `<Name>` in `functions` in `dev/commensura/units/manifest.clj` — that map is
+   the index of where each nonlinear function is handled. Correct the translation there
+   if the formula (not just whitespace) changed:
+   - `:implemented` → the fully-qualified `:vars` are the function(s) to rewrite.
+   - `:affine` → the converter's `affine-temps` table (see the manifest docstring).
+3. Paste the failure's `now <new>` SHA into the fingerprint co-located with that code:
+   - `:implemented` → the `:frink/sha` on each `:vars` var.
+   - `:affine` → the `:sha` in the manifest entry itself.
+4. Re-run `clojure -X:build test`. Drift goes green; the function's own tests
+   (e.g. `richter-test`) confirm the rewritten formula still gives the right numbers.
+
+**Case 2 — a function was added or removed** (`every-catalogued-function-is-classified`):
+
+1. Read the listed `<Name>[…] :=` block in `units.txt` (or, if removed upstream,
+   delete its entry from `commensura.units.manifest` and you're done).
+2. Add an entry to `functions` in `dev/commensura/units/manifest.clj`:
+   - out of scope → `"<Name>" {:status :deferred}` — done, no SHA.
+   - an affine temp → `"<Name>" {:status :affine :sha ""}`.
+   - implementable → write the translation, tag its var(s) with
+     `{:frink/fn "<Name>" :frink/sha ""}`, and add
+     `"<Name>" {:status :implemented :vars '[the.ns/the-fn …]}`.
+3. Re-run `clojure -X:build test`. For `:affine`/`:implemented`, the SHA check now
+   fails with `now <new>` — paste `<new>` into the `:sha` / `:frink/sha` you left `""`.
+   Re-run once more for green.
+
+`commensura.units.manifest` is the index of which nonlinear functions exist and where
+each is handled.
 
 ## License
 
