@@ -66,3 +66,23 @@
                (per (approx 6.674) u/meter u/second)]]       ; compound
       (is (str/starts-with? (pr-str a) "#commensura/approx "))
       (is (= (pr-str a) (pr-str (read-string (pr-str a))))))))
+
+(deftest builtin-irrational-units
+  (testing "fractional-exponent units (planckmass = (ℏc/G)^(1/2)) are ApproxUnits with integer dims"
+    (is (q/approx? u/planckmass))
+    (is (= {:mass 1} (q/dims u/planckmass)))
+    (is (instance? BigDecimal (q/magnitude u/planckmass)))
+    (is (< (Math/abs (- 2.176434e-8 (double (q/magnitude u/planckmass)))) 1e-13)))  ; CODATA
+  (testing "planck aliases equal their long-named units exactly"
+    (doseq [[a b] [[u/m_P u/planckmass] [u/l_P u/plancklength]
+                   [u/t_P u/plancktime] [u/T_P u/plancktemperature]]]
+      (is (== (q/magnitude a) (q/magnitude b)))
+      (is (= (q/dims a) (q/dims b)))))
+  (testing "semitone is a dimensionless 2^(1/12); twelve of them make an octave, to build precision"
+    (is (q/approx? u/semitone))
+    (is (q/dimensionless? u/semitone))
+    (is (> 1e-30 (.doubleValue (.abs (.subtract (q/magnitude (pow u/semitone 12)) 2M))))))
+  (testing "an irrational unit prints and reifies through #commensura/unit"
+    (is (str/starts-with? (pr-str u/planckmass) "#commensura/unit "))
+    (is (== (q/magnitude u/planckmass)
+            (q/magnitude (read-string (pr-str u/planckmass)))))))

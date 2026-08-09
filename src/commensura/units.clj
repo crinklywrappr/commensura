@@ -185,6 +185,7 @@
 (defunit TNT
   "So you can write tons TNT, this is a defined, not measured, value"
   209340000000000/45359237 {:length 2, :time -2})
+(defunit T_P 141678416215734254629891331289224.1M {:temperature 1})
 (defunit Tbsp 473176473/32000000000000 {:length 3})
 (defunit ThomsonCrossSection
   "2022 CODATA value https://physics.nist.gov/cgi-bin/cuu/Value?sigmae The \"classical\" cross-section of an electron when illuminated by radiation. Uncertainty is +/- 62 in the last 2 digits."
@@ -1696,6 +1697,7 @@
 (defunit l
   "the temperature of its maximum density under a pressure of 1 atm. This was supposed to be 1000 cubic cm, but it was discovered that the original measurement was off. In 1964, the liter was redefined to be exactly 1000 cubic centimeters."
   1/1000 {:length 3})
+(defunit l_P 1.616255024423705286619055757044630E-35M {:length 1})
 (defunit lac 100000 {})
 (defunit lakh 100000 {})
 (defunit lambda 1/1000000000 {:length 3})
@@ -1848,6 +1850,7 @@
 (defunit m
   "The 2019 SI definition of the meter is:"
   1 {:length 1})
+(defunit m_P 2.176434342717898214088170091929862E-8M {:mass 1})
 (defunit m_alpha 1328931469/200000000000000000000000000000000000 {:mass 1})
 (defunit m_d 4179479721/1250000000000000000000000000000000000 {:mass 1})
 (defunit m_e 91093837139/100000000000000000000000000000000000000000 {:mass 1})
@@ -2305,7 +2308,11 @@
 (defunit planck
   "action of one joule over one second"
   1 {:mass 1, :length 2, :time -1})
+(defunit plancklength 1.616255024423705286619055757044630E-35M {:length 1})
+(defunit planckmass 2.176434342717898214088170091929862E-8M {:mass 1})
 (defunit plancksconstant 132521403/200000000000000000000000000000000000000000 {:mass 1, :length 2, :time -1})
+(defunit plancktemperature 141678416215734254629891331289224.1M {:temperature 1})
+(defunit plancktime 5.391246448313603962041819467802056E-44M {:time 1})
 (defunit plate000000gauge
   "300 oz / ft^2"
   381/32000 {:length 1})
@@ -2760,6 +2767,7 @@
 (defunit selenium 987/12500 {:mass 1, :amount_of_substance -1})
 (defunit semis 8184102333/50000000000 {:mass 1})
 (defunit semisextula 2728034111/1200000000000 {:mass 1})
+(defunit semitone 1.059463094359295264561825294946342M {})
 (defunit semodii 362563791/78125000000 {:length 3})
 (defunit semodius 362563791/78125000000 {:length 3})
 (defunit semuncia 2728034111/200000000000 {:mass 1})
@@ -3073,6 +3081,7 @@
   1594649997/625 {:time 1})
 (defunit syntoniccomma 81/80 {})
 (defunit t 1000 {:mass 1})
+(defunit t_P 5.391246448313603962041819467802056E-44M {:time 1})
 (defunit tablespoon 473176473/32000000000000 {:length 3})
 (defunit talbot
   "Luminous energy"
@@ -3569,6 +3578,7 @@
 (def Svs Sv)
 (def Ts T)
 (def TNTs TNT)
+(def T_Ps T_P)
 (def Tbsps Tbsp)
 (def ThomsonCrossSections ThomsonCrossSection)
 (def Torrs Torr)
@@ -4467,6 +4477,7 @@
 (def kryptons krypton)
 (def kvalues kvalue)
 (def ls l)
+(def l_Ps l_P)
 (def lacs lac)
 (def lakhs lakh)
 (def lambdas lambda)
@@ -4563,6 +4574,7 @@
 (def mLs mL)
 (def mVs mV)
 (def mWs mW)
+(def m_Ps m_P)
 (def m_alphas m_alpha)
 (def m_ds m_d)
 (def m_es m_e)
@@ -4837,7 +4849,10 @@
 (def pints pint)
 (def pks pk)
 (def plancks planck)
+(def plancklengths plancklength)
 (def plancksconstants plancksconstant)
+(def plancktemperatures plancktemperature)
+(def plancktimes plancktime)
 (def plate000000gauges plate000000gauge)
 (def plate00000gauges plate00000gauge)
 (def plate0000gauges plate0000gauge)
@@ -5076,6 +5091,7 @@
 (def sections section)
 (def seleniums selenium)
 (def semisextulas semisextula)
+(def semitones semitone)
 (def semodiis semodii)
 (def semuncias semuncia)
 (def sennights sennight)
@@ -5264,6 +5280,7 @@
 (def synodicmonths synodicmonth)
 (def syntoniccommas syntoniccomma)
 (def ts t)
+(def t_Ps t_P)
 (def tablespoons tablespoon)
 (def talbots talbot)
 (def tantalums tantalum)

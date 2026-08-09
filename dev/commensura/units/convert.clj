@@ -56,11 +56,74 @@
 (defn- expt [base n]
   (cond (zero? n) 1, (pos? n) (reduce * (repeat n base)), :else (/ 1 (reduce * (repeat (- n) base)))))
 
+;; ---------------------------------------------------------------- irrational (fractional-exponent) factors
+;; A fractional exponent (planckmass = (…)^(1/2), semitone = octave^(1/12)) leaves the
+;; dimensions integer but usually makes the *factor* irrational. We compute it exactly
+;; when it's a perfect root, else as a BigDecimal at build precision — its BigDecimal
+;; *type* is the "approximate" marker the runtime keys on (BigDecimal factor ⇒ ApproxUnit).
+(def ^:private build-mc java.math.MathContext/DECIMAL128)   ; 34-digit, matches runtime default
+(defn- numer* [x] (if (ratio? x) (numerator x) x))
+(defn- denom* [x] (if (ratio? x) (denominator x) 1))
+
+(defn- exact-int-root
+  "The q-th root of non-negative integer m if m is a perfect q-th power, else nil."
+  [m q]
+  (let [m (bigint m)]
+    (if (zero? m)
+      0
+      (loop [lo (bigint 1), hi m]                 ; binary search — m may exceed a double
+        (when (<= lo hi)
+          (let [mid (bigint (quot (+ lo hi) 2))
+                p   (expt mid (int q))]
+            (cond (== p m) mid
+                  (< p m)  (recur (inc mid) hi)
+                  :else    (recur lo (dec mid)))))))))
+
+(defn- bd-nth-root
+  "The q-th root of a positive BigDecimal a via Newton's method at MathContext mc."
+  [^java.math.BigDecimal a q ^java.math.MathContext mc]
+  (if (== q 1)
+    a
+    (let [qbd (java.math.BigDecimal/valueOf (long q))
+          qm1 (int (dec q))
+          x0  (java.math.BigDecimal/valueOf (Math/pow (.doubleValue a) (/ 1.0 (double q))))]
+      (loop [x x0, i 0]                           ; x' = ((q-1)x + a/x^(q-1)) / q
+        (let [x' (.divide (.add (.multiply (java.math.BigDecimal/valueOf (long qm1)) x mc)
+                                (.divide a (.pow x qm1 mc) mc) mc)
+                          qbd mc)]
+          (if (or (>= i 100) (zero? (.compareTo x' x)))
+            x'
+            (recur x' (inc i))))))))
+
+(defn- ratpow
+  "base^n for an exact-rational base and rational exponent n: an exact rational when
+  the result is a perfect root, else a build-precision BigDecimal (irrational)."
+  [base n]
+  (binding [*math-context* build-mc]
+    (let [p (long (numer* n)), q (long (denom* n))
+          b (expt base p)]                        ; base^numerator (exact, or BigDecimal if base is)
+      (if (== q 1)
+        b
+        (if (decimal? b)
+          (bd-nth-root b q build-mc)               ; already approximate
+          (let [bn (bigint (numer* b)), bd (bigint (denom* b))
+                rn (exact-int-root bn q), rd (exact-int-root bd q)]
+            (if (and rn rd)
+              (/ rn rd)                            ; perfect q-th root of both ⇒ exact
+              (.divide (bd-nth-root (bigdec bn) q build-mc)
+                       (bd-nth-root (bigdec bd) q build-mc) build-mc))))))))
+
 (def ^:private one {:factor 1 :dims {}})
 (defn- v* [a b] {:factor (* (:factor a) (:factor b)) :dims (merge* (:dims a) (:dims b))})
 (defn- vdiv [a b] {:factor (/ (:factor a) (:factor b)) :dims (merge* (:dims a) (negate (:dims b)))})
-(defn- vpow [a n] {:factor (expt (:factor a) n)
-                   :dims   (clean (into {} (map (fn [[k e]] [k (* e n)])) (:dims a)))})
+(defn- vpow [a n]
+  (let [dims' (into {} (map (fn [[k e]] [k (* e n)])) (:dims a))]
+    (when-not (every? integer? (vals dims'))       ; V/√Hz &c. — rational dims are out of scope
+      (throw (ex-info "fractional dimension (out of scope)" {:dims dims' :exp n})))
+    ;; a rational exponent can reduce an exponent to BigInt (`(* 2 1/2)` ⇒ 1N); keep
+    ;; dims Long-valued like the rest of the file
+    {:factor (ratpow (:factor a) n)
+     :dims   (into {} (keep (fn [[k e]] (when-not (zero? e) [k (normalize-int (bigint e))]))) dims')}))
 
 ;; ---------------------------------------------------------------- resolve names (+ prefixes + plurals)
 (defn- prefix-decompose [env prefixes id]
@@ -108,10 +171,10 @@
               (let [base (factor*)]
                 (if (= (peek*) "^")
                   (do (next*)
-                      (let [neg (when (= (peek*) "-") (next*) true)
-                            et  (next*)
-                            e   (long (parse-number et))]
-                        (vpow base (if neg (- e) e))))
+                      (let [ev (factor*)]          ; exponent: a number or a parenthesized (p/q)
+                        (when (seq (:dims ev))
+                          (throw (ex-info "non-scalar exponent" {:expr s :exp ev})))
+                        (vpow base (:factor ev))))
                   base)))
             (sequence* []
               (loop [acc one, op :mul]
@@ -122,10 +185,14 @@
                     (= t "*") (do (next*) (recur acc :mul))
                     :else (let [v (power*)]
                             (recur (if (= op :div) (vdiv acc v) (v* acc v)) :mul))))))]
-      (let [v (sequence*)]
-        (when (< @pos (count tokens))
-          (throw (ex-info "trailing tokens" {:expr s :rest (subvec tokens @pos)})))
-        v))))
+      ;; bind the build context so a BigDecimal (irrational) factor combining with a
+      ;; Ratio (e.g. plancktemperature = planckmass c^2 / k) coerces/rounds instead of
+      ;; throwing "non-terminating decimal"; exact Ratio/int arithmetic ignores it.
+      (binding [*math-context* build-mc]
+        (let [v (sequence*)]
+          (when (< @pos (count tokens))
+            (throw (ex-info "trailing tokens" {:expr s :rest (subvec tokens @pos)})))
+          v)))))
 
 ;; ---------------------------------------------------------------- line prep
 (defn- unescape-unicode
