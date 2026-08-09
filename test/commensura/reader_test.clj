@@ -26,8 +26,8 @@
 
 (deftest multi-divisor-renders-with-a-slash-each
   (testing "each divisor gets its own /, matching (per a b c)"
-    (let [s    (str (c/per u/meter u/second u/kelvin))          ; "<exact> <unit> ≈ …"
-          unit (subs s (inc (.indexOf s " ")) (.indexOf s " ≈ "))]
+    (let [s    (str (c/per u/meter u/second u/kelvin))          ; "1 meter/second/kelvin [dim]" (value 1 ⇒ no ≈)
+          unit (subs s (inc (.indexOf s " ")) (.indexOf s " ["))]
       (is (= "meter/second/kelvin" unit)))))
 
 (deftest rejects-inconsistent-approximation

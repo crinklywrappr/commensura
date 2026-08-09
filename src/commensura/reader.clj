@@ -71,27 +71,30 @@
     (q/scale compound exact)))
 
 (defn- parse-literal
-  "Split \"<exact> <unit> ≈ <approx> [dim]\" into {:exact :unit-str :approx}. The
-  trailing `[dim]` label is decorative (dims are carried by the formula) and not
-  used for reconstruction."
+  "Split `<exact> <unit> [≈ <approx>] [dim]` into {:exact :unit-str :approx}. The
+  ` ≈ <approx>` eyeball is present only for non-integer values; the trailing `[dim]`
+  is decorative. `:approx` is nil when the literal carries no `≈`."
   [s]
-  (let [[lhs rhs] (str/split s #" ≈ " 2)]
-    (when (nil? rhs) (throw (ex-info "malformed commensura literal" {:literal s})))
-    (let [lhs      (str/trim lhs)
-          sp       (str/index-of lhs " ")
-          rhs      (str/trim rhs)
-          i        (str/index-of rhs " ")]
-      {:exact    (read-string (if sp (subs lhs 0 sp) lhs))
-       :unit-str (when sp (str/trim (subs lhs (inc sp))))
-       :approx   (Double/parseDouble (if i (subs rhs 0 i) rhs))})))
+  (let [[lhs rhs] (str/split s #" ≈ " 2)                ; rhs = \"<approx> [dim]\" | nil
+        lhs       (str/trim (if rhs
+                              lhs                        ; ≈ present: [dim] rides on rhs
+                              (let [i (str/index-of lhs " [")]   ; no ≈: strip the [dim] here
+                                (if i (subs lhs 0 i) lhs))))
+        sp        (str/index-of lhs " ")]
+    {:exact    (read-string (if sp (subs lhs 0 sp) lhs))
+     :unit-str (when sp (str/trim (subs lhs (inc sp))))
+     :approx   (when rhs
+                 (let [rhs (str/trim rhs), i (str/index-of rhs " ")]
+                   (Double/parseDouble (if i (subs rhs 0 i) rhs))))}))
 
 (defn- read-precise
-  "`<exact> <formula> ≈ <approx> [dim]` → a PreciseQuantity, rebuilt from its display
-  formula; the printed approximation is re-checked against the exact value."
+  "`<exact> <formula> [≈ <approx>] [dim]` → a PreciseQuantity, rebuilt from its display
+  formula. When the literal carries a `≈ <approx>` eyeball (non-integer values) it is
+  re-checked against the exact value; a whole number omits it, and skips the check."
   [s]
   (let [{:keys [exact unit-str approx]} (parse-literal s)
         qty (if (seq unit-str) (reconstruct exact unit-str) (q/scalar exact))]
-    (verify-approx! (q/display-value qty) approx s)
+    (when approx (verify-approx! (q/display-value qty) approx s))
     qty))
 
 (defn- read-approx

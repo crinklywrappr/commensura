@@ -438,9 +438,10 @@
   PreciseQuantity
   (display-value  [q] (let [m (magnitude q), f (formula-factor (:formula q))]
                         (if (zero? f) m (/ m f))))
-  (display-string [q] (let [dv (display-value q), us (format-formula (:formula q))] ; `str`, not
-                        (str dv (when (seq us) (str " " us))            ; `pr-str`: no BigInt `N`
-                             " ≈ " (double dv) " " (dim-bracket (dims q)))))
+  (display-string [q] (let [dv (display-value q), us (format-formula (:formula q))] ; `str`, not `pr-str`:
+                        (str dv (when (seq us) (str " " us))            ; no BigInt `N`. A whole number
+                             (when-not (integer? dv) (str " ≈ " (double dv)))  ; needs no ≈<double> eyeball
+                             " " (dim-bracket (dims q)))))
 
   ApproxQuantity
   (display-value  [q] (let [m (magnitude q), f (formula-factor (:formula q))]
