@@ -62,7 +62,7 @@
   resolving each unit name through the registry (so user `defunit`s reify too)."
   [exact unit-str]
   (let [compound (reduce (fn [acc [nm e]]
-                           (let [u (or (registry/lookup nm)
+                           (let [u (or (registry/lookup-unit nm)
                                        (throw (ex-info "unknown unit in #commensura/quantity literal"
                                                        {:unit nm :literal unit-str})))]
                              (q/qmul acc (q/qpow u e))))
@@ -127,5 +127,5 @@
         s   (if (str/starts-with? s "≈ ") (str/trim (subs s 2)) s)
         end (or (str/index-of s " [") (count s))
         nm  (str/trim (subs s 0 end))]
-    (or (registry/lookup nm)
+    (or (registry/lookup-unit nm)
         (throw (ex-info "unknown unit in #commensura/unit literal" {:unit nm :literal s})))))

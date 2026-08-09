@@ -396,7 +396,7 @@
   user `register-dimension!`), else a single-base-dimension expression, else nil
   (a compound with no registered name)."
   [d]
-  (or (registry/dimension-name d)
+  (or (registry/lookup-dimension d)
       (base-dim-name d)))
 
 (defn- term-str [nm e] (if (== e 1) nm (str nm "^" e)))

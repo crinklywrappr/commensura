@@ -100,10 +100,10 @@
   ([sym expr] `(defunit ~sym nil ~expr))
   ([sym a b]
    (if (number? a)                                    ; (defunit sym magnitude dims)
-     `(def ~sym (registry/register! ~(str sym) (q/unit ~(str sym) ~a ~b)))
+     `(def ~sym (registry/register-unit! ~(str sym) (q/unit ~(str sym) ~a ~b)))
      `(def ~sym ~@(when (string? a) [a])              ; (defunit sym [doc] expr)
         (let [v# (q/scalar ~b)]
-          (registry/register! ~(str sym)
+          (registry/register-unit! ~(str sym)
             (q/unit ~(str sym) (q/magnitude v#) (q/dims v#)))))))
   ([sym doc mag dims]                                 ; (defunit sym doc magnitude dims)
-   `(def ~sym ~doc (registry/register! ~(str sym) (q/unit ~(str sym) ~mag ~dims)))))
+   `(def ~sym ~doc (registry/register-unit! ~(str sym) (q/unit ~(str sym) ~mag ~dims)))))

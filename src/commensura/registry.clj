@@ -7,13 +7,6 @@
 ;;;; any later version.  Distributed WITHOUT ANY WARRANTY; see the GNU General
 ;;;; Public License <https://www.gnu.org/licenses/> for details.
 
-;; TODO: [PLAN] bring the dimension registry feature-set to parity with the unit registry
-;;       this requires warning messages for overwriting and similar function names
-;;       e.g. register-unit!, lookup-unit, all-units, clear-units! &
-;;            regist-dimension!, lookup-dimension, all-dimensions, clear-dimensions!
-;;       OR just expose the two registry atoms publicly, with register-xxx! functions
-;;       for appropriate logging.
-
 (ns commensura.registry
   "Global tables, in the spirit of Frink's single global namespace:
 
@@ -24,6 +17,10 @@
       `commensura.dimensions/names` (the `|||` labels) and extended at runtime
       via `register-dimension!`, so users can name their own dimensions.
 
+  The two tables share a symmetric API — `register-{unit,dimension}!` (last-writer-
+  wins, warning when a name is redefined to a *different* value), `lookup-{unit,
+  dimension}`, `all-{units,dimensions}`, `clear-{units,dimensions}!`.
+
   Trade-off (documented): this is global mutable state. Unit *vars* remain
   lexically namespaced and unaffected — only the string-keyed lookup / literal
   reification path is global, and redefining a name warns (last writer wins).
@@ -32,50 +29,72 @@
   (:require [commensura.dimensions :as dimensions]   ; seed only
             [taoensso.trove :as trove]))
 
+;; ---- shared register-with-warn ----
+(defn- register*
+  "Atomically assoc `k`→`v` into registry atom `a` (last writer wins); warn if it
+  replaced an existing, *different* value. `kind` (\"unit\"/\"dimension\") labels the
+  log id and message. Returns `v`."
+  [a kind k v]
+  (let [[snapshot _] (swap-vals! a assoc k v)
+        old          (get snapshot k)]
+    (when (and (some? old) (not= old v))
+      (trove/log! {:level :warn
+                   :id   (keyword "commensura.registry" (str kind "-redefined"))
+                   :msg  (str "commensura " kind " " (pr-str k) " redefined")
+                   :data {:kind kind :key k :old old :new v}}))
+    v))
+
+;; ---- unit table (name -> unit) ----
 (defonce ^:private units (atom {}))
 
-(defn register!
-  "Register the unit `qty` under string `nm`; returns `qty`. The swap is atomic
-  (last writer wins, matching Frink); when it replaces an existing name with a
-  *different* value it warns afterward, including the old and new values."
+(defn register-unit!
+  "Register unit `qty` under string `nm` (last writer wins; warns on a differing
+  redefine). Returns `qty`. What `defunit` calls."
   [nm qty]
-  (let [[snapshot _] (swap-vals! units assoc nm qty)
-        old          (get snapshot nm)]
-    (when (and (some? old) (not= old qty))
-      (trove/log! {:level :warn
-                   :id ::unit-redefined
-                   :msg (str "commensura unit \"" nm "\" redefined")
-                   :data {:unit nm :old (into {} old) :new (into {} qty)}}))
-    qty))
+  (register* units "unit" nm qty))
 
-(defn lookup
-  "The unit Quantity registered under string `nm`, or nil. Also a handy
-  string-keyed unit API: `(lookup \"gallon\")`."
+(defn lookup-unit
+  "The unit registered under string `nm`, or nil. A handy string-keyed unit API:
+  `(lookup-unit \"gallon\")`."
   [nm]
   (@units nm))
 
-(defn all
+(defn all-units
   "The whole name -> unit map (for introspection)."
   []
   @units)
 
-(defn clear!
+(defn clear-units!
   "Empty the unit registry (for test isolation)."
   []
   (reset! units {}))
 
-;; ---- dimension-name table (seeded from the generated ||| labels) ----
+;; ---- dimension-name table (dims-map -> human name; seeded from the ||| labels) ----
 (defonce ^:private dim-names (atom dimensions/names))
+
+(defn- normalize-dims [d]
+  (into {} (remove (comp zero? val)) d))   ; drop zero exponents to match canonical dims
 
 (defn register-dimension!
   "Register (or override) the human name for a dimension map — e.g.
-  `(register-dimension! {:length 4} \"quaternary space\")`. Zero exponents are
-  dropped so the key matches a quantity's canonical dimensions. Returns `nm`."
+  `(register-dimension! {:length 4} \"quaternary space\")`. Zero exponents are dropped
+  so the key matches a quantity's canonical dimensions (last writer wins; warns on a
+  differing redefine). Returns `nm`."
   [dims nm]
-  (swap! dim-names assoc (into {} (remove (comp zero? val)) dims) nm)
-  nm)
+  (register* dim-names "dimension" (normalize-dims dims) nm))
 
-(defn dimension-name
+(defn lookup-dimension
   "Human name registered for dimension map `d` (builtin or user), or nil."
   [d]
   (@dim-names d))
+
+(defn all-dimensions
+  "The whole dims-map -> name table (for introspection)."
+  []
+  @dim-names)
+
+(defn clear-dimensions!
+  "Reset the dimension-name table to the builtin `|||` seed, dropping user
+  registrations (for test isolation)."
+  []
+  (reset! dim-names dimensions/names))
