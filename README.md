@@ -98,7 +98,9 @@ drift test fails, follow the case it names. In both cases the failing assertion 
    delete its entry from `commensura.units.manifest` and you're done).
 2. Add an entry to `functions` in `dev/commensura/units/manifest.clj`:
    - out of scope → `"<Name>" {:status :deferred}` — done, no SHA.
-   - an affine temp → `"<Name>" {:status :affine :sha ""}`.
+   - an affine temperature → implement it as a var in `commensura.temperature`
+     (like `celsius`), i.e. the `:implemented` path below; `:affine` is now only for
+     the redundant single-letter aliases (`F`/`C`).
    - implementable → write the translation, tag its var(s) with
      `{:frink/fn "<Name>" :frink/sha ""}`, and add
      `"<Name>" {:status :implemented :vars '[the.ns/the-fn …]}`.

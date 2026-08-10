@@ -20,8 +20,9 @@
     :implemented — translated by the named runtime var(s); each var carries
                    {:frink/fn :frink/sha} metadata pinning the exact body (see the
                    fingerprint on the var, not here).
-    :affine      — reduced by the converter's `affine-temps` table; its body SHA is
-                   pinned here (no runtime var yet — see M2.7 in the plan).
+    :affine      — a redundant single-letter alias (F/C) of an :implemented affine
+                   temperature; still reduced by the converter's `affine-temps` table,
+                   with its body SHA pinned in the entry here (no separate runtime var).
     :deferred    — composite time/angle sugar (DMS/DM/HMS/DHMS), deliberately not built."
   (:import [java.security MessageDigest]))
 
@@ -37,11 +38,11 @@
   {"Richter"    {:status :implemented
                  :vars  '[commensura.richter/magnitude->energy
                           commensura.richter/energy->magnitude]}
-   "Fahrenheit" {:status :affine :sha "1552fcb3bc05bd472ed6efc67aa079c92e391707e2d0db8310eba2560af92eff"}
-   "F"          {:status :affine :sha "1441af9995b5dae61ab61866bdb6a9932f557e5365773f5bed600dd7cde93eaa"}
-   "Celsius"    {:status :affine :sha "e98a6b6a6b3b5efa3c07d1b90aaae42b02466171301029eab1eae10e103f9a22"}
-   "C"          {:status :affine :sha "2d272634710a18169d2b8a7b58a5ac184049d98308a6e10dc99027ac938cc722"}
-   "Reaumur"    {:status :affine :sha "87ebc650c24d2133ce4399713e903f5a0d61d2d85592f7eb3373db6c5e7c8580"}
+   "Fahrenheit" {:status :implemented :vars '[commensura.temperature/fahrenheit]}
+   "F"          {:status :affine :sha "1441af9995b5dae61ab61866bdb6a9932f557e5365773f5bed600dd7cde93eaa"}  ; alias, not separately exposed
+   "Celsius"    {:status :implemented :vars '[commensura.temperature/celsius]}
+   "C"          {:status :affine :sha "2d272634710a18169d2b8a7b58a5ac184049d98308a6e10dc99027ac938cc722"}  ; alias
+   "Reaumur"    {:status :implemented :vars '[commensura.temperature/reaumur]}
    "DMS"        {:status :deferred}
    "DM"         {:status :deferred}
    "HMS"        {:status :deferred}
