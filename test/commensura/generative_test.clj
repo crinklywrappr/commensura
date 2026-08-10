@@ -103,6 +103,10 @@
     (not (instance? Double (q/magnitude (c/by d u/meter))))))
 
 ;; ---- interval inclusion theorem ----
+(defn- within?                          ; membership by magnitude (iv comparison ops deferred to M3.2)
+  [iv x]
+  (<= (q/magnitude (iv/lo iv)) (q/magnitude x) (q/magnitude (iv/hi iv))))
+
 (defspec interval-inclusion-by 200
   (prop/for-all [x gen-iv-point y gen-iv-point]
-    (iv/within? (c/by (:iv x) (:iv y)) (c/by (:pt x) (:pt y)))))
+    (within? (c/by (:iv x) (:iv y)) (c/by (:pt x) (:pt y)))))
