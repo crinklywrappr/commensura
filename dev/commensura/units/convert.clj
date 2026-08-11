@@ -69,12 +69,12 @@
 (defn- vdiv [a b] {:factor (/ (:factor a) (:factor b)) :dims (merge* (:dims a) (negate (:dims b)))})
 (defn- vpow [a n]
   (let [dims' (into {} (map (fn [[k e]] [k (* e n)])) (:dims a))]
-    (when-not (every? integer? (vals dims'))       ; V/√Hz &c. — rational dims are out of scope
-      (throw (ex-info "fractional dimension (out of scope)" {:dims dims' :exp n})))
-    ;; a rational exponent can reduce an exponent to BigInt (`(* 2 1/2)` ⇒ 1N); keep
-    ;; dims Long-valued like the rest of the file
+    ;; a rational exponent keeps dims exact: an integer (kept Long-valued like the rest of the
+    ;; file) or a proper Ratio (V/√Hz &c. — no unit in the current file produces one).
     {:factor (binding [*math-context* build-mc] (q/ratpow (:factor a) n))
-     :dims   (into {} (keep (fn [[k e]] (when-not (zero? e) [k (normalize-int (bigint e))]))) dims')}))
+     :dims   (into {} (keep (fn [[k e]]
+                              (when-not (zero? e) [k (if (ratio? e) e (normalize-int (bigint e)))])))
+                   dims')}))
 
 ;; ---------------------------------------------------------------- resolve names (+ prefixes + plurals)
 (defn- prefix-decompose [env prefixes id]

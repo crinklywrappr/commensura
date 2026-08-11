@@ -39,11 +39,25 @@
                        :tolerance *approx-tolerance*})))))
 
 (defn- parse-term
-  "\"foot\" or \"foot^3\" -> [name exponent]."
+  "\"foot\", \"foot^3\", or \"foot^(1/2)\" -> [name exponent] (exponent an integer or Ratio)."
   [t]
-  (if-let [[_ nm e] (re-matches #"(.+)\^(-?\d+)" t)]
-    [nm (Long/parseLong e)]
+  (if-let [[_ nm e] (re-matches #"(.+?)\^\(?(-?\d+(?:/\d+)?)\)?" t)]
+    [nm (read-string e)]
     [t 1]))
+
+(defn- split-top-level
+  "Split on `/` that is not inside parentheses, so a `foot^(1/2)` exponent stays one segment."
+  [s]
+  (loop [cs (seq s), depth 0, cur (StringBuilder.), acc []]
+    (if-let [c (first cs)]
+      (case c
+        \( (recur (rest cs) (inc depth) (.append cur c) acc)
+        \) (recur (rest cs) (dec depth) (.append cur c) acc)
+        \/ (if (zero? depth)
+             (recur (rest cs) depth (StringBuilder.) (conj acc (.toString cur)))
+             (recur (rest cs) depth (.append cur c) acc))
+        (recur (rest cs) depth (.append cur c) acc))
+      (conj acc (.toString cur)))))
 
 (defn- parse-formula
   "A display formula string (`meter celsius/minute/second`) -> seq of
@@ -51,7 +65,7 @@
   is the numerator product (space-separated), each remaining segment is one
   divisor (its exponent negated)."
   [unit-str]
-  (let [[numer & dens] (str/split unit-str #"/")
+  (let [[numer & dens] (split-top-level unit-str)
         num-terms (when (and (seq (str/trim numer)) (not= (str/trim numer) "1"))
                     (map parse-term (str/split (str/trim numer) #"\s+")))
         den-terms (map (fn [d] (let [[nm e] (parse-term (str/trim d))] [nm (- e)])) dens)]

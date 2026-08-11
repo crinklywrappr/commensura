@@ -22,9 +22,11 @@
     (let [r (m/sqrt 2)]
       (is (q/approx? r))
       (is (< (Math/abs (- 1.4142135 (double (dv r)))) 1e-6))))
-  (testing "a root that would leave a fractional dimension is out of scope"
-    (is (thrown? clojure.lang.ExceptionInfo (m/sqrt (u/meter 2))))
-    (is (thrown? clojure.lang.ExceptionInfo (m/sqrt -4)))))    ; even root of negative
+  (testing "an odd-dimensioned root yields a fractional dimension (M3.4)"
+    (let [r (m/sqrt (u/meter 2))]                             ; sqrt of 2 metres
+      (is (= {:length 1/2} (q/dims r)))
+      (is (q/approx? r)))
+    (is (thrown? clojure.lang.ExceptionInfo (m/sqrt -4)))))   ; even root of negative — complex, still throws
 
 ;; ---- value functions (scalar) ----
 (deftest value-functions

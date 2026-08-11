@@ -170,3 +170,8 @@
 (defspec abs-interval-includes-abs-point 200
   (prop/for-all [x gen-iv-point]
     (within? (m/abs (:iv x)) (m/abs (:pt x)))))
+
+(defspec sqrt-then-square-restores-dims 200        ; M3.4: √ halves dims (maybe fractional), ² restores
+  (prop/for-all [x gen-quantity]
+    (let [ax (m/abs x)]                             ; non-negative, so the real √ never throws
+      (= (q/dims (c/pow (m/sqrt ax) 2)) (q/dims ax)))))

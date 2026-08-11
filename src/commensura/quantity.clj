@@ -58,7 +58,13 @@
     unit/quantity's `toString` and the body of its `#commensura/…` tagged literal."))
 
 ;; ---- dimension-map helpers ----
-(def ^:private clean-xf (remove (comp zero? second)))
+;; Dimension/formula exponents are exact: an integer (Long) or a proper Ratio (V/√Hz &c.).
+;; `normalize-exp` keeps integer-valued exponents as Long — so a Ratio that reduces to a whole
+;; number (`(* 2 1/2)` ⇒ 1N) doesn't leak a BigInt `N` into display or split `=` from a Long.
+(defn- normalize-exp [e] (if (ratio? e) e (long e)))
+(def ^:private clean-xf
+  (comp (remove (comp zero? second))
+        (map (fn [[k v]] [k (normalize-exp v)]))))
 
 (defn- scale-dims [d n]
   (let [mult (fn [[k v]] [k (* v n)])
@@ -344,7 +350,7 @@
                         (let [ts (by-name nm)
                               e  (transduce (map :exp) + ts)]
                           (when-not (zero? e)
-                            (assoc (first ts) :exp e))))
+                            (assoc (first ts) :exp (normalize-exp e)))))
                       order)]
     (into (filterv (comp pos? :exp) merged)
           (filterv (comp neg? :exp) merged))))
@@ -355,13 +361,7 @@
 (defn- formula-pow [formula n]
   (if (zero? n)
     []
-    (mapv (fn [t]
-            (let [e (* (:exp t) n)]                          ; a rational n can leave a fractional dim
-              (when-not (integer? e)
-                (throw (ex-info "fractional dimension (out of scope)"
-                                {:unit (:unit-name t) :exp n})))
-              (assoc t :exp (long e))))
-          formula)))
+    (mapv (fn [t] (update t :exp #(normalize-exp (* % n)))) formula)))   ; :exp may become a Ratio
 
 ;; ---- arithmetic (yields an anonymous Quantity, promoting to ApproxQuantity) ----
 ;; In the precise branch every operand's magnitude is already exact: precise records
@@ -448,20 +448,27 @@
   "Base magnitude of the compound display unit: the product of each term's factor raised to its
   exponent (so `display-value = magnitude / formula-factor`). 1 for a bare/dimensionless value."
   [formula]
-  (reduce (fn [acc t] (* acc (expt (:factor t) (:exp t)))) 1 formula))
+  (reduce (fn [acc t] (* acc (ratpow (:factor t) (:exp t)))) 1 formula))   ; ratpow handles a Ratio exp
+
+(defn- exp-str
+  "Render an exponent for display: a Ratio is parenthesized so the `/` isn't read as division
+  (`1/2` -> \"(1/2)\"); an integer is bare (`2` -> \"2\")."
+  [e]
+  (if (ratio? e) (str "(" e ")") (str e)))
 
 (defn- base-dim-name
   "A *single* base dimension rendered unambiguously — {:length 4} -> \"length^4\",
-  {:length -1} -> \"1/length\", {:length 1} -> \"length\" — or nil for compounds."
+  {:length 1/2} -> \"length^(1/2)\", {:length -1} -> \"1/length\", {:length 1} -> \"length\" —
+  or nil for compounds."
   [d]
   (when (== 1 (count d))
     (let [[k e] (first d)
           nm    (str/replace (clojure.core/name k) "_" " ")]
       (cond
         (== e 1)  nm
-        (pos? e)  (str nm "^" e)
+        (pos? e)  (str nm "^" (exp-str e))
         (== e -1) (str "1/" nm)
-        :else     (str "1/" nm "^" (- e))))))
+        :else     (str "1/" nm "^" (exp-str (- e)))))))
 
 (defn- dimension-name
   "Human name for a dimension map: a registered name (builtin `|||` label or a
@@ -471,7 +478,7 @@
   (or (registry/lookup-dimension d)
       (base-dim-name d)))
 
-(defn- term-str [nm e] (if (== e 1) nm (str nm "^" e)))
+(defn- term-str [nm e] (if (== e 1) nm (str nm "^" (exp-str e))))
 
 (defn- format-formula
   "Render a formula as `foot^3`, `mile/hour`, `meter/minute/celsius`, `kg m/s^3`,
