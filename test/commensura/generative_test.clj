@@ -110,3 +110,43 @@
 (defspec interval-inclusion-by 200
   (prop/for-all [x gen-iv-point y gen-iv-point]
     (within? (c/by (:iv x) (:iv y)) (c/by (:pt x) (:pt y)))))
+
+;; ---- comparison laws (M3.2): certainly/possibly + qcompare consistency ----
+(def gen-conforming-ivs                 ; two intervals sharing a unit (⇒ same dimension)
+  (gen/let [uu gen-unit, a gen-exact, b gen-exact, c gen-exact, d gen-exact]
+    [(iv/interval (uu a) (uu b)) (iv/interval (uu c) (uu d))]))
+
+(defspec possibly-is-negation-of-opposite-certainly 300
+  (prop/for-all [[x y] gen-conforming-ivs]
+    (and (= (c/possibly-lt? x y) (not (c/certainly-ge? x y)))
+         (= (c/possibly-le? x y) (not (c/certainly-gt? x y)))
+         (= (c/possibly-gt? x y) (not (c/certainly-le? x y)))
+         (= (c/possibly-ge? x y) (not (c/certainly-lt? x y)))
+         (= (c/possibly-eq? x y) (not (c/certainly-ne? x y)))
+         (= (c/possibly-ne? x y) (not (c/certainly-eq? x y))))))
+
+(defspec certainly-implies-possibly 300
+  (prop/for-all [[x y] gen-conforming-ivs]
+    (and (or (not (c/certainly-lt? x y)) (c/possibly-lt? x y))
+         (or (not (c/certainly-le? x y)) (c/possibly-le? x y))
+         (or (not (c/certainly-gt? x y)) (c/possibly-gt? x y))
+         (or (not (c/certainly-ge? x y)) (c/possibly-ge? x y))
+         (or (not (c/certainly-eq? x y)) (c/possibly-eq? x y))
+         (or (not (c/certainly-ne? x y)) (c/possibly-ne? x y)))))
+
+(defspec scalar-trichotomy-matches-qcompare 300
+  (prop/for-all [[x y] gen-conforming-two]
+    (let [s (q/qcompare x y)]              ; scalars: certainly = plain, and never throw
+      (cond
+        (neg? s)  (and (c/certainly-lt? x y) (c/lt? x y) (not (c/eq? x y)))
+        (zero? s) (and (c/certainly-eq? x y) (c/eq? x y) (not (c/lt? x y)) (not (c/gt? x y)))
+        :else     (and (c/certainly-gt? x y) (c/gt? x y) (not (c/eq? x y)))))))
+
+(defspec plain-op-certainly-pairs-are-mutually-exclusive 300
+  ;; Each plain relational op decides via two certainly-* predicates — a claim and its strict
+  ;; opposite. They must never both hold, or the op's `:else` (the ambiguous-overlap throw) would
+  ;; be masked. This pins that invariant so the plain ops stay unambiguous.
+  (prop/for-all [[x y] gen-conforming-ivs]
+    (and (not (and (c/certainly-lt? x y) (c/certainly-ge? x y)))    ; lt? / ge?
+         (not (and (c/certainly-le? x y) (c/certainly-gt? x y)))    ; le? / gt?
+         (not (and (c/certainly-eq? x y) (c/certainly-ne? x y)))))) ; eq? / ne?

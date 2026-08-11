@@ -19,9 +19,10 @@
       same op applied to the operands' mains) and is dropped the moment any operand lacks one,
       so `[2,2.5,3] * [7,8.2,9.4] = [14, 20.5, 28.2]`.
 
-  Per Frink, a bare number/Quantity is *not* an interval, but the accessors treat it as a
-  degenerate one (`mainValue[5]=5`) — so the protocol extends to any value and the arithmetic
-  needs no scalar 'promotion'. `interval?` is false for a scalar.
+  Per Frink, a bare number/Quantity is *not* an interval. Only the two records implement
+  `IInterval`; the `*-or-identity` accessors add the degenerate case (`mainValue[5]=5`) by
+  returning a non-interval unchanged (its own bound), which is why the arithmetic and the
+  comparison operators need no scalar 'promotion'. `interval?` is false for a scalar.
 
   An interval prints as its raw record (endpoints as their own `#commensura/quantity`
   literals) — no bespoke tagged literal — which is readable and round-trips losslessly.
@@ -36,15 +37,38 @@
   (hi [x] "Upper bound.")
   (main-value [x] "Best-known estimate (Frink's `mainValue`), or nil for a plain interval."))
 
-(defrecord Interval2 [lo hi])
-(defrecord Interval3 [lo main hi])
+(defrecord Interval2 [lo hi]
+  IInterval
+  (lo [_] lo)
+  (hi [_] hi)
+  (main-value [_] nil))
 
-(extend-protocol IInterval
-  Interval2 (lo [i] (:lo i)) (hi [i] (:hi i)) (main-value [_] nil)
-  Interval3 (lo [i] (:lo i)) (hi [i] (:hi i)) (main-value [i] (:main i))
-  Object    (lo [x] x)       (hi [x] x)       (main-value [x] x))   ; a scalar is degenerate
+(defrecord Interval3 [lo main hi]
+  IInterval
+  (lo [_] lo)
+  (hi [_] hi)
+  (main-value [_] main))
 
-(defn interval? [x] (or (instance? Interval2 x) (instance? Interval3 x)))
+(defn interval? [x] (satisfies? IInterval x))
+
+;; Scalar-tolerant accessors. Only the two records implement `IInterval`; a non-interval (a
+;; quantity or plain number) is a single point, so it is its own bound and is returned
+;; unchanged. The arithmetic and comparison operators read operands through these, so a scalar
+;; needs no 'promotion' to a degenerate interval.
+(defn lo-or-identity
+  "An interval's lower bound; any other value is returned as-is (a point is its own bound)."
+  [x]
+  (if (interval? x) (lo x) x))
+
+(defn hi-or-identity
+  "An interval's upper bound; any other value is returned as-is."
+  [x]
+  (if (interval? x) (hi x) x))
+
+(defn main-value-or-identity
+  "An interval's main value (nil for a plain Interval2); any other value is returned as-is."
+  [x]
+  (if (interval? x) (main-value x) x))
 
 ;; ---- construction ----
 (defn- conform! [what a b]
@@ -73,7 +97,10 @@
        (->Interval3 lo m hi)))))
 
 ;; ---- internals ----
-(defn- spans-zero? [x] (<= (q/magnitude (lo x)) 0 (q/magnitude (hi x))))
+;; The arithmetic reads each operand's endpoints through the `*-or-identity` accessors, so a
+;; scalar operand acts as the degenerate interval [x, x] with no promotion.
+(defn- spans-zero? [x]
+  (<= (q/magnitude (lo-or-identity x)) 0 (q/magnitude (hi-or-identity x))))
 
 (defn- build
   "Assemble a result from corner values — lo/hi are the min/max by magnitude — with an
@@ -87,36 +114,40 @@
   "The result's main value from applying scalar `op` to the operands' mains — dropped (nil)
   unless *both* operands carry one (a scalar carries itself; a plain interval carries nil)."
   [op a b]
-  (let [ma (main-value a), mb (main-value b)]
+  (let [ma (main-value-or-identity a), mb (main-value-or-identity b)]
     (when (and ma mb) (op ma mb))))
 
 ;; ---- arithmetic (interval-inclusion; endpoints exact; main value propagates) ----
 (defn inegate [x]
   (let [neg1 (q/scalar -1)]
-    (build [(q/qmul neg1 (lo x)) (q/qmul neg1 (hi x))]
-           (when-let [m (main-value x)] (q/qmul neg1 m)))))
+    (build [(q/qmul neg1 (lo-or-identity x)) (q/qmul neg1 (hi-or-identity x))]
+           (when-let [m (main-value-or-identity x)] (q/qmul neg1 m)))))
 
 (defn iplus [x y]
-  (build [(q/qadd (lo x) (lo y)) (q/qadd (hi x) (hi y))]
+  (build [(q/qadd (lo-or-identity x) (lo-or-identity y))
+          (q/qadd (hi-or-identity x) (hi-or-identity y))]
          (main-op q/qadd x y)))
 
 (defn iminus [x y]
   ;; [a b] - [c d] = [a-d, b-c]
-  (build [(q/qsub (lo x) (hi y)) (q/qsub (hi x) (lo y))]
+  (build [(q/qsub (lo-or-identity x) (hi-or-identity y))
+          (q/qsub (hi-or-identity x) (lo-or-identity y))]
          (main-op q/qsub x y)))
 
 (defn iby [x y]
   ;; endpoints are the min/max over the four corner products
-  (build [(q/qmul (lo x) (lo y)) (q/qmul (lo x) (hi y))
-          (q/qmul (hi x) (lo y)) (q/qmul (hi x) (hi y))]
-         (main-op q/qmul x y)))
+  (let [xl (lo-or-identity x), xh (hi-or-identity x)
+        yl (lo-or-identity y), yh (hi-or-identity y)]
+    (build [(q/qmul xl yl) (q/qmul xl yh) (q/qmul xh yl) (q/qmul xh yh)]
+           (main-op q/qmul x y))))
 
 (defn iper [x y]
   (when (spans-zero? y)
     (throw (ex-info "interval division by a value spanning zero" {:divisor y})))
   ;; x / [c d] = x * [1/d, 1/c]; iby then multiplies the mains
-  (iby x (build [(q/qdiv (q/scalar 1) (lo y)) (q/qdiv (q/scalar 1) (hi y))]
-                (when-let [m (main-value y)] (q/qdiv (q/scalar 1) m)))))
+  (iby x (build [(q/qdiv (q/scalar 1) (lo-or-identity y))
+                 (q/qdiv (q/scalar 1) (hi-or-identity y))]
+                (when-let [m (main-value-or-identity y)] (q/qdiv (q/scalar 1) m)))))
 
 (defn ipow [x n]
   ;; correct even/odd handling: x^even reaches 0 when the interval spans zero
@@ -125,17 +156,17 @@
     (and (neg? n) (spans-zero? x))
     (throw (ex-info "interval negative power spans zero" {:interval x}))
     :else
-    (let [e1    (q/qpow (lo x) n)
-          e2    (q/qpow (hi x) n)
+    (let [e1    (q/qpow (lo-or-identity x) n)
+          e2    (q/qpow (hi-or-identity x) n)
           cands (if (and (even? n) (spans-zero? x))
                   [e1 e2 (assoc e1 :mag 0)]
                   [e1 e2])]
-      (build cands (when-let [m (main-value x)] (q/qpow m n))))))
+      (build cands (when-let [m (main-value-or-identity x)] (q/qpow m n))))))
 
 (defn ito [x target]
-  (build [(q/to (lo x) target) (q/to (hi x) target)]
-         (when-let [m (main-value x)] (q/to m target))))
+  (build [(q/to (lo-or-identity x) target) (q/to (hi-or-identity x) target)]
+         (when-let [m (main-value-or-identity x)] (q/to m target))))
 
 (defn iratio [x target]
-  (build [(q/ratio (lo x) target) (q/ratio (hi x) target)]
-         (when-let [m (main-value x)] (q/ratio m target))))
+  (build [(q/ratio (lo-or-identity x) target) (q/ratio (hi-or-identity x) target)]
+         (when-let [m (main-value-or-identity x)] (q/ratio m target))))

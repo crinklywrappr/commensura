@@ -353,6 +353,24 @@
     (quantity (nsub (magnitude x) (magnitude y)) (formula x))
     (->PreciseQuantity (- (magnitude x) (magnitude y)) (formula x))))
 
+(defn qcompare
+  "Three-way compare of two conforming units/quantities/numbers by base-SI `magnitude`,
+  returning -1 / 0 / 1 (like `clojure.core/compare`). This is a *physical* comparison:
+  `(qcompare (unit \"inch\" …) (unit \"foot\" …))` orders by base magnitude, so 12 inch and
+  1 foot compare **equal** even though they are not structurally `=` (which also compares
+  the display formula). Non-conforming dimensions throw, as with `qadd`/`qsub`.
+
+  Exact when both operands are precise (compared in the rational tower); when either is
+  approximate, both magnitudes are coerced to BigDecimal under `*math-context*` and compared
+  by value — so equality of irrationals is precision-sensitive, the same boundary as approx
+  arithmetic."
+  [x y]
+  (assert-conforms "compare" x y)
+  (if (or (approx? x) (approx? y))
+    (binding [*math-context* (ctx)]
+      (.compareTo ^BigDecimal (bigdec (magnitude x)) (bigdec (magnitude y))))
+    (compare (magnitude x) (magnitude y))))
+
 (defn to
   "Re-express q over the target unit basis (dimension-preserving). The physical
   magnitude is unchanged — only the display formula becomes the target's, so the

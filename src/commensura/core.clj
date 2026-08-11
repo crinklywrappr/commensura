@@ -19,49 +19,173 @@
     ;=> 552960/77 gallon ≈ 7181.30 [volume]   ; str/println form; prn wraps it in a
     ;                                            #commensura/quantity tagged literal
 
-  The verbs also accept Intervals (see commensura.interval), promoting scalars to
-  degenerate intervals as needed."
+  Comparison verbs — the everyday `lt?`/`le?`/`gt?`/`ge?`/`eq?`/`ne?` (a physical,
+  dimension-checked order that throws on overlapping intervals) plus the interval-aware
+  `certainly-…?`/`possibly-…?` operators — order quantities by base magnitude, so
+  `(eq? (u/inch 12) (u/foot 1))` is true.
+
+  The verbs also accept Intervals (see commensura.interval); an interval accessor treats a
+  bare quantity/number as a degenerate interval, so no scalar promotion is needed."
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
             [commensura.registry :as registry]))
 
-(defn- iv? [x] (iv/interval? x))
-
 (defn by
   "Product of quantities/numbers/intervals (dimensions add). Variadic."
   ([x] x)
-  ([x y] (if (or (iv? x) (iv? y)) (iv/iby x y) (q/qmul x y)))
+  ([x y] (if (or (iv/interval? x) (iv/interval? y)) (iv/iby x y) (q/qmul x y)))
   ([x y & more] (reduce by (by x y) more)))
 
 (defn per
   "Quotient, left-associative: (per a b c) = a/b/c (dimensions subtract)."
   ([x] x)
-  ([x y] (if (or (iv? x) (iv? y)) (iv/iper x y) (q/qdiv x y)))
+  ([x y] (if (or (iv/interval? x) (iv/interval? y)) (iv/iper x y) (q/qdiv x y)))
   ([x y & more] (reduce per (per x y) more)))
 
 (defn plus
   "Sum of same-dimension quantities/intervals. Variadic."
   ([x] x)
-  ([x y] (if (or (iv? x) (iv? y)) (iv/iplus x y) (q/qadd x y)))
+  ([x y] (if (or (iv/interval? x) (iv/interval? y)) (iv/iplus x y) (q/qadd x y)))
   ([x y & more] (reduce plus (plus x y) more)))
 
 (defn minus
   "Difference of same-dimension quantities/intervals; unary form negates."
-  ([x] (if (iv? x) (iv/inegate x) (q/qmul (q/scalar -1) x)))
-  ([x y] (if (or (iv? x) (iv? y)) (iv/iminus x y) (q/qsub x y)))
+  ([x] (if (iv/interval? x) (iv/inegate x) (q/qmul (q/scalar -1) x)))
+  ([x y] (if (or (iv/interval? x) (iv/interval? y)) (iv/iminus x y) (q/qsub x y)))
   ([x y & more] (reduce minus (minus x y) more)))
 
 (defn pow
   "Raise a quantity/interval to an integer power."
-  [x n] (if (iv? x) (iv/ipow x n) (q/qpow x n)))
+  [x n] (if (iv/interval? x) (iv/ipow x n) (q/qpow x n)))
 
 (defn to
   "Re-express a quantity/interval in a target unit (dimension-preserving)."
-  [x target] (if (iv? x) (iv/ito x target) (q/to x target)))
+  [x target] (if (iv/interval? x) (iv/ito x target) (q/to x target)))
 
 (defn ratio
   "Dimensionless count: how many of target fit in x (quantity or interval)."
-  [x target] (if (iv? x) (iv/iratio x target) (q/ratio x target)))
+  [x target] (if (iv/interval? x) (iv/iratio x target) (q/ratio x target)))
+
+;; ---- comparison ----
+;; A comparison orders values by the *range* each one spans. An interval spans [lo, hi]; a plain
+;; quantity or number is a single point — its own low and high bound. `iv/lo-or-identity` /
+;; `iv/hi-or-identity` read that range (an interval's bound, or the value itself), so the
+;; operators below read as ordinary bound comparisons and handle a scalar with no special case.
+;; `q/qcompare` does the ordering (conformance-checked, by base magnitude, approx-aware), so
+;; every operator works on quantities, plain numbers, and intervals uniformly.
+
+;; Certainly-* : the relation holds for *every* pair of values, one from x and one from y.
+(defn certainly-lt?
+  "x's high bound is below y's low bound: every value of x < every value of y."
+  [x y]
+  (neg? (q/qcompare (iv/hi-or-identity x) (iv/lo-or-identity y))))
+
+(defn certainly-le?
+  "x's high bound <= y's low bound: every value of x <= every value of y."
+  [x y]
+  (<= (q/qcompare (iv/hi-or-identity x) (iv/lo-or-identity y)) 0))
+
+(defn certainly-gt?
+  "x's low bound is above y's high bound: every value of x > every value of y."
+  [x y]
+  (pos? (q/qcompare (iv/lo-or-identity x) (iv/hi-or-identity y))))
+
+(defn certainly-ge?
+  "x's low bound >= y's high bound: every value of x >= every value of y."
+  [x y]
+  (>= (q/qcompare (iv/lo-or-identity x) (iv/hi-or-identity y)) 0))
+
+(defn certainly-eq?
+  "x and y are the same single point (both collapse to one shared value)."
+  [x y]
+  (and (zero? (q/qcompare (iv/lo-or-identity x) (iv/lo-or-identity y)))  ; cross-compare: enforces conformance
+       (zero? (q/qcompare (iv/hi-or-identity x) (iv/hi-or-identity y)))
+       (zero? (q/qcompare (iv/lo-or-identity x) (iv/hi-or-identity x))))) ; …and x is a point (so, with the above, is y)
+
+(defn certainly-ne?
+  "x and y are disjoint: their ranges share no value."
+  [x y]
+  (or (neg? (q/qcompare (iv/hi-or-identity x) (iv/lo-or-identity y)))
+      (neg? (q/qcompare (iv/hi-or-identity y) (iv/lo-or-identity x)))))
+
+;; Possibly-* : the relation holds for *some* pair. Frink's property — the possibly operator is
+;; the negation of the opposite certainly operator — so each is correct by construction.
+(defn possibly-lt?
+  "Some value of x < some value of y."
+  [x y]
+  (not (certainly-ge? x y)))
+
+(defn possibly-le?
+  "Some value of x <= some value of y."
+  [x y]
+  (not (certainly-gt? x y)))
+
+(defn possibly-gt?
+  "Some value of x > some value of y."
+  [x y]
+  (not (certainly-le? x y)))
+
+(defn possibly-ge?
+  "Some value of x >= some value of y."
+  [x y]
+  (not (certainly-lt? x y)))
+
+(defn possibly-eq?
+  "x and y overlap: their ranges share a value."
+  [x y]
+  (not (certainly-ne? x y)))
+
+(defn possibly-ne?
+  "x and y are not a single shared point."
+  [x y]
+  (not (certainly-eq? x y)))
+
+;; Plain relational : the everyday operators. They return the unambiguous answer, and throw on
+;; overlapping intervals (Frink's rule). On quantities/numbers they never throw — a total order.
+(defn- ambiguous! [op x y]
+  (throw (ex-info (str "ambiguous " op " on overlapping intervals; use the certainly-/possibly- "
+                       "comparison operators instead")
+                  {:op op :x x :y y})))
+
+(defn lt?
+  "Less than; throws on overlapping intervals."
+  [x y]
+  (cond (certainly-lt? x y) true
+        (certainly-ge? x y) false
+        :else (ambiguous! "<" x y)))
+
+(defn le?
+  "Less-or-equal; throws on overlap."
+  [x y]
+  (cond (certainly-le? x y) true
+        (certainly-gt? x y) false
+        :else (ambiguous! "<=" x y)))
+
+(defn gt?
+  "Greater than; throws on overlap."
+  [x y]
+  (cond (certainly-gt? x y) true
+        (certainly-le? x y) false
+        :else (ambiguous! ">" x y)))
+
+(defn ge?
+  "Greater-or-equal; throws on overlap."
+  [x y]
+  (cond (certainly-ge? x y) true
+        (certainly-lt? x y) false
+        :else (ambiguous! ">=" x y)))
+
+(defn eq?
+  "Physical equality; throws on overlap."
+  [x y]
+  (cond (certainly-eq? x y) true
+        (certainly-ne? x y) false
+        :else (ambiguous! "=" x y)))
+
+(defn ne?
+  "Physical inequality; throws on overlap."
+  [x y]
+  (not (eq? x y)))
 
 (defn register-dimension!
   "Give a human name to a dimension map, so quantities of that dimension print it
