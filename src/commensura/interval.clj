@@ -150,11 +150,22 @@
                 (when-let [m (main-value-or-identity y)] (q/qdiv (q/scalar 1) m)))))
 
 (defn ipow [x n]
-  ;; correct even/odd handling: x^even reaches 0 when the interval spans zero
+  ;; integer n: correct even/odd handling (x^even reaches 0 when the interval spans zero).
+  ;; rational n: monotone on a non-negative base — map the endpoints; a negative base would be
+  ;; complex, so it's rejected.
   (cond
     (zero? n) (->Interval2 1 1)
+
+    (not (integer? n))
+    (do (when (neg? (q/magnitude (lo-or-identity x)))
+          (throw (ex-info "interval fractional power of a negative base (complex, out of scope)"
+                          {:interval x :exp n})))
+        (build [(q/qpow (lo-or-identity x) n) (q/qpow (hi-or-identity x) n)]
+               (when-let [m (main-value-or-identity x)] (q/qpow m n))))
+
     (and (neg? n) (spans-zero? x))
     (throw (ex-info "interval negative power spans zero" {:interval x}))
+
     :else
     (let [e1    (q/qpow (lo-or-identity x) n)
           e2    (q/qpow (hi-or-identity x) n)

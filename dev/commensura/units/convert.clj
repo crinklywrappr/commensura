@@ -21,7 +21,8 @@
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
             [clojure.pprint :as pp]
-            [commensura.units.manifest :as manifest])
+            [commensura.units.manifest :as manifest]
+            [commensura.quantity :as q])
   (:import [ch.obermuhlner.math.big BigDecimalMath]))
 
 ;; ---------------------------------------------------------------- numbers
@@ -55,49 +56,13 @@
 (defn- merge* [a b] (clean (merge-with + a b)))
 (defn- negate [d] (into {} (map (fn [[k v]] [k (- v)])) d))
 
-(defn- expt [base n]
-  (cond (zero? n) 1, (pos? n) (reduce * (repeat n base)), :else (/ 1 (reduce * (repeat (- n) base)))))
-
 ;; ---------------------------------------------------------------- irrational (fractional-exponent) factors
 ;; A fractional exponent (planckmass = (…)^(1/2), semitone = octave^(1/12)) leaves the
-;; dimensions integer but usually makes the *factor* irrational. We compute it exactly
-;; when it's a perfect root, else as a BigDecimal at build precision — its BigDecimal
-;; *type* is the "approximate" marker the runtime keys on (BigDecimal factor ⇒ ApproxUnit).
+;; dimensions integer but usually makes the *factor* irrational. `commensura.quantity/ratpow`
+;; (shared with the runtime) computes it exactly when it's a perfect root, else as a BigDecimal
+;; at build precision — its BigDecimal *type* is the "approximate" marker the runtime keys on
+;; (BigDecimal factor ⇒ ApproxUnit). We bind `*math-context*` to build precision at the call site.
 (def ^:private build-mc java.math.MathContext/DECIMAL128)   ; 34-digit, matches runtime default
-(defn- numer* [x] (if (ratio? x) (numerator x) x))
-(defn- denom* [x] (if (ratio? x) (denominator x) 1))
-
-(defn- exact-int-root
-  "The q-th root of non-negative integer m if m is a perfect q-th power, else nil."
-  [m q]
-  (let [m (bigint m)]
-    (if (zero? m)
-      0
-      (loop [lo (bigint 1), hi m]                 ; binary search — m may exceed a double
-        (when (<= lo hi)
-          (let [mid (bigint (quot (+ lo hi) 2))
-                p   (expt mid (int q))]
-            (cond (== p m) mid
-                  (< p m)  (recur (inc mid) hi)
-                  :else    (recur lo (dec mid)))))))))
-
-(defn- ratpow
-  "base^n for an exact-rational base and rational exponent n: an exact rational when
-  the result is a perfect root, else a build-precision BigDecimal (irrational, via
-  big-math's nth root)."
-  [base n]
-  (binding [*math-context* build-mc]
-    (let [p (long (numer* n)), q (long (denom* n))
-          b (expt base p)]                        ; base^numerator (exact, or BigDecimal if base is)
-      (if (== q 1)
-        b
-        (if (decimal? b)
-          (BigDecimalMath/root b (bigdec q) build-mc)   ; already approximate
-          (let [bn (bigint (numer* b)), bd (bigint (denom* b))
-                rn (exact-int-root bn q), rd (exact-int-root bd q)]
-            (if (and rn rd)
-              (/ rn rd)                            ; perfect q-th root of both ⇒ exact
-              (BigDecimalMath/root (bigdec b) (bigdec q) build-mc))))))))
 
 (def ^:private one {:factor 1 :dims {}})
 (defn- v* [a b] {:factor (* (:factor a) (:factor b)) :dims (merge* (:dims a) (:dims b))})
@@ -108,7 +73,7 @@
       (throw (ex-info "fractional dimension (out of scope)" {:dims dims' :exp n})))
     ;; a rational exponent can reduce an exponent to BigInt (`(* 2 1/2)` ⇒ 1N); keep
     ;; dims Long-valued like the rest of the file
-    {:factor (ratpow (:factor a) n)
+    {:factor (binding [*math-context* build-mc] (q/ratpow (:factor a) n))
      :dims   (into {} (keep (fn [[k e]] (when-not (zero? e) [k (normalize-int (bigint e))]))) dims')}))
 
 ;; ---------------------------------------------------------------- resolve names (+ prefixes + plurals)

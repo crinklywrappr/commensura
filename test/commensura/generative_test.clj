@@ -7,6 +7,7 @@
             [commensura.units :as u]
             [commensura.core :as c]
             [commensura.interval :as iv]
+            [commensura.math :as m]
             [commensura.quantity :as q]))
 
 ;; ---- helpers ----
@@ -150,3 +151,22 @@
     (and (not (and (c/certainly-lt? x y) (c/certainly-ge? x y)))    ; lt? / ge?
          (not (and (c/certainly-le? x y) (c/certainly-gt? x y)))    ; le? / gt?
          (not (and (c/certainly-eq? x y) (c/certainly-ne? x y)))))) ; eq? / ne?
+
+;; ---- math functions (M3.3) ----
+(defspec sqrt-of-square-is-abs 200
+  (prop/for-all [x gen-quantity]
+    (q= (m/sqrt (c/pow x 2)) (m/abs x))))         ; exact on the perfect square √(x²) = |x|
+
+(defspec abs-nonneg-and-idempotent 200
+  (prop/for-all [x gen-quantity]
+    (and (not (neg? (q/magnitude (m/abs x))))
+         (q= (m/abs (m/abs x)) (m/abs x)))))
+
+(defspec min-max-bound-both-operands 200
+  (prop/for-all [[x y] gen-conforming-two]
+    (and (<= (q/qcompare (m/min x y) x) 0) (<= (q/qcompare (m/min x y) y) 0)
+         (>= (q/qcompare (m/max x y) x) 0) (>= (q/qcompare (m/max x y) y) 0))))
+
+(defspec abs-interval-includes-abs-point 200
+  (prop/for-all [x gen-iv-point]
+    (within? (m/abs (:iv x)) (m/abs (:pt x)))))

@@ -228,6 +228,50 @@
         (.pow a n c)))
     (expt a n)))
 
+;; ---- roots / rational powers (exact when a perfect root, else big-math) ----
+;; base^(p/q): raise to the integer numerator, then take the q-th root — exact when both
+;; steps land on exact rationals, else a BigDecimal at *math-context* via big-math. `ratpow`
+;; is shared with the dev converter (commensura.units.convert) so the two agree byte-for-byte.
+(defn- numerator*   [x] (if (ratio? x) (numerator x) x))
+(defn- denominator* [x] (if (ratio? x) (denominator x) 1))
+
+(defn exact-int-root
+  "The q-th root of non-negative integer m if m is a perfect q-th power, else nil."
+  [m q]
+  (let [m (bigint m)]
+    (if (zero? m)
+      0
+      (loop [lo (bigint 1), hi m]                 ; binary search — m may exceed a double
+        (when (<= lo hi)
+          (let [mid (bigint (quot (+ lo hi) 2))
+                p   (expt mid (int q))]
+            (cond (== p m) mid
+                  (< p m)  (recur (inc mid) hi)
+                  :else    (recur lo (dec mid)))))))))
+
+(defn- nth-root
+  "The q-th root of magnitude b: exact when a perfect rational root, else a BigDecimal at
+  *math-context*. A real odd root of a negative is handled; an even root of a negative throws."
+  [b q]
+  (cond
+    (== q 1) b
+    (neg? b) (if (odd? q)
+               (- (nth-root (- b) q))
+               (throw (ex-info "even root of a negative value (complex, out of scope)"
+                               {:base b :root q})))
+    (decimal? b) (BigDecimalMath/root b (bigdec q) (ctx))
+    :else (let [bn (bigint (numerator* b)), bd (bigint (denominator* b))
+                rn (exact-int-root bn q),   rd (exact-int-root bd q)]
+            (if (and rn rd)
+              (/ rn rd)                                       ; perfect q-th root of both ⇒ exact
+              (BigDecimalMath/root (binding [*math-context* (ctx)] (bigdec b)) (bigdec q) (ctx))))))
+
+(defn ratpow
+  "base^n for a magnitude base and rational exponent n: an exact rational when the result is a
+  perfect root, else a BigDecimal at *math-context*."
+  [base n]
+  (nth-root (npow base (long (numerator* n))) (long (denominator* n))))
+
 ;; ---- transcendental BigDecimal helpers (exp / ln) ------------------------
 ;; For genuinely irrational log/exp-scale units (e.g. Richter). The JDK's BigDecimal
 ;; has no exp/ln, so we defer to big-math (ch.obermuhlner), which evaluates them with
@@ -311,7 +355,13 @@
 (defn- formula-pow [formula n]
   (if (zero? n)
     []
-    (mapv #(update % :exp * n) formula)))
+    (mapv (fn [t]
+            (let [e (* (:exp t) n)]                          ; a rational n can leave a fractional dim
+              (when-not (integer? e)
+                (throw (ex-info "fractional dimension (out of scope)"
+                                {:unit (:unit-name t) :exp n})))
+              (assoc t :exp (long e))))
+          formula)))
 
 ;; ---- arithmetic (yields an anonymous Quantity, promoting to ApproxQuantity) ----
 ;; In the precise branch every operand's magnitude is already exact: precise records
@@ -329,11 +379,15 @@
       (quantity (ndiv (magnitude x) (magnitude y)) formula')
       (->PreciseQuantity (/ (magnitude x) (magnitude y)) formula'))))
 
-(defn qpow [x n]
-  (let [formula' (formula-pow (formula x) n)]
-    (if (approx? x)
-      (quantity (npow (magnitude x) n) formula')
-      (->PreciseQuantity (npow (magnitude x) n) formula'))))
+(defn qpow
+  "Raise to an integer or rational exponent. A rational exponent scales the dimensions (which
+  must stay integer) and takes the root of the magnitude — exact when a perfect root, else an
+  ApproxQuantity. `quantity` picks Precise vs Approx from the resulting magnitude, since an exact
+  base can go irrational under a fractional exponent."
+  [x n]
+  (let [formula' (formula-pow (formula x) n)
+        mag      (if (integer? n) (npow (magnitude x) n) (ratpow (magnitude x) n))]
+    (quantity mag formula')))
 
 (defn- assert-conforms [op x y]
   (when-not (conforms? x y)
@@ -390,9 +444,9 @@
     (->PreciseQuantity (/ (magnitude q) (magnitude target)) [])))
 
 ;; ---- display ----
-(defn- formula-factor
-  "Base magnitude of one of the compound display unit: the product of each term's
-  factor raised to its exponent."
+(defn formula-factor
+  "Base magnitude of the compound display unit: the product of each term's factor raised to its
+  exponent (so `display-value = magnitude / formula-factor`). 1 for a bare/dimensionless value."
   [formula]
   (reduce (fn [acc t] (* acc (expt (:factor t) (:exp t)))) 1 formula))
 
