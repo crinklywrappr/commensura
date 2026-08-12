@@ -8,39 +8,49 @@
 ;;;; Public License <https://www.gnu.org/licenses/> for details.
 
 (ns commensura.cpi.frink
-  "DEV-ONLY. Pipeline (2): parse the pinned Frink CPIAUCNS HTML into the committed oracle fixture
-  `test/commensura/frink_cpi.edn`. Also bootstraps `resources/commensura/cpi.edn` from the same
-  file so the feature is testable offline — but that copy is only as complete as Frink's backup
-  (FRED's 1000-row default view = 1913-01 → 1996-04); run `cpi-fetch` (FRED) for current data."
-  (:require [commensura.cpi.parse :as p]
-            [clojure.pprint :as pp]))
+  "DEV-ONLY. Pipeline (2): parse the pinned Frink CPIAUCNS HTML (jsoup) into the committed oracle
+  fixture `test/commensura/frink_cpi.edn`. Reuses `commensura.cpi.fred` for `value->ratio`/`build-cpi`.
+  `bootstrap-cpi!` is an OFFLINE FALLBACK for `cpi.edn` (only as recent as Frink's backup, 1996);
+  normally `cpi-fetch` (FRED) owns `cpi.edn`."
+  (:require [commensura.cpi.fred :as fred]
+            [clojure.string :as str]
+            [clojure.pprint :as pp])
+  (:import [org.jsoup Jsoup]))
 
 (def ^:private default-html "dev-resources/frink/CPIAUCNS")
 (def ^:private fixture-path "test/commensura/frink_cpi.edn")
 (def ^:private cpi-path     "resources/commensura/cpi.edn")
+
+(defn parse-html
+  "The FRED 'Table Data' HTML -> seq of `[[year month] rational]`; rows are
+  `<tr><th>YYYY-MM-01</th><td>value</td></tr>`, selected by tag."
+  [html]
+  (for [row  (.select (Jsoup/parse html) "tr")
+        :let [period (some-> (.selectFirst row "th") .text str/trim fred/date->period)
+              value  (some-> (.selectFirst row "td") .text fred/value->ratio)]
+        :when (and period value)]
+    [period value]))
 
 (defn- pp-spit [path x] (spit path (with-out-str (pp/pprint x))))
 
 (defn gen-fixture!
   "Write the oracle fixture — the raw monthly `{[y m] rational}` from Frink's HTML."
   [& [html-path]]
-  (let [monthly (into (sorted-map) (p/parse-html (slurp (or html-path default-html))))]
+  (let [monthly (into (sorted-map) (parse-html (slurp (or html-path default-html))))]
     (pp-spit fixture-path monthly)
     (println "wrote" fixture-path "-" (count monthly) "months,"
              (first (keys monthly)) "->" (last (keys monthly)))
     monthly))
 
 (defn bootstrap-cpi!
-  "OFFLINE FALLBACK ONLY: bootstrap the shipped `cpi.edn` from Frink's HTML when you can't reach
-  FRED. It's only as recent as the backup (1996). Normally `cpi-fetch` (FRED) owns `cpi.edn`."
+  "OFFLINE FALLBACK ONLY: bootstrap `cpi.edn` from Frink's HTML when you can't reach FRED."
   [& [html-path]]
-  (let [cpi (p/build-cpi (p/parse-html (slurp (or html-path default-html))))]
+  (let [cpi (fred/build-cpi (parse-html (slurp (or html-path default-html))))]
     (pp-spit cpi-path cpi)
     (println "wrote" cpi-path "(offline bootstrap) -" (count (:monthly cpi)) "months, current" (:current cpi))
     cpi))
 
 (defn frink!
-  "Build task entry (clojure -X:build cpi-frink): regenerate the oracle fixture from Frink's HTML.
-  (`cpi.edn` is owned by `cpi-fetch`; see `bootstrap-cpi!` for the offline fallback.)"
+  "Build task entry (clojure -X:build cpi-frink): regenerate the oracle fixture from Frink's HTML."
   [& _]
   (gen-fixture!))

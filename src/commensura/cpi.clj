@@ -22,36 +22,54 @@
   rationals; `:current` is the latest shipped period. `dev/commensura/cpi/{fetch,frink}.clj`
   regenerate it (FRED API) / a Frink-parity oracle fixture. Live refresh is M4.2."
   (:require [commensura.quantity :as q]
-            [commensura.registry :as registry]
+            [commensura.cpi.fred :as fred]
             [clojure.string :as str]
             [clojure.edn :as edn]
             [clojure.java.io :as io]))
 
-(def ^:private data (delay (edn/read-string (slurp (io/resource "commensura/cpi.edn")))))
+;; ---- data source (injectable; default = the shipped cpi.edn) ----
+(def ^:private shipped
+  (delay (edn/read-string (slurp (io/resource "commensura/cpi.edn")))))
 
-(defn- cpi-current [] (get-in @data [:monthly (:current @data)]))
+(defn shipped-source
+  "The default CPI source: the data shipped in `resources/commensura/cpi.edn`."
+  []
+  @shipped)
+
+(def ^:dynamic *cpi-source*
+  "The active CPI data source — a 0-arg fn returning the cpi data map. Defaults to the shipped
+  snapshot; `use-live!` / `with-live` swap in live FRED data."
+  shipped-source)
+
+(defn- cpi-data
+  "The active source's data map — falling back to the shipped snapshot if a live source errors."
+  []
+  (try (*cpi-source*)
+       (catch clojure.lang.ExceptionInfo e
+         (if (:cpi/source-error (ex-data e)) @shipped (throw e)))))
 
 (defn- cpi-at
-  "CPI index for a period: [year] → annual average, [year month] → that month; throws if absent."
-  [period]
+  "CPI index in `d` for a period: [year] → annual average, [year month] → that month; throws if absent."
+  [d period]
   (or (case (count period)
-        1 (get-in @data [:annual (first period)])
-        2 (get-in @data [:monthly period]))
+        1 (get-in d [:annual (first period)])
+        2 (get-in d [:monthly period]))
       (throw (ex-info "no CPI data for that period"
-                      {:period period
-                       :range [(first (keys (:annual @data))) (:current @data)]}))))
+                      {:period period :range [(first (keys (:annual d))) (:current d)]}))))
 
 (defn- factor
-  "Base magnitude of a period dollar (in current dollars): CPI_current / CPI_period."
+  "Base magnitude of a period dollar (in current dollars): CPI_current / CPI_period, taken from
+  one consistent snapshot of the active source."
   [period]
-  (/ (cpi-current) (cpi-at period)))
+  (let [d (cpi-data)]
+    (/ (get-in d [:monthly (:current d)]) (cpi-at d period))))
 
 (defn- mint
-  "The period unit named `nm`, reusing the registry as the cache: return it if already registered,
-  else create and register it once (so it also round-trips from its `#commensura/unit` literal)."
+  "Create the period unit named `nm` from the *active* source. Deliberately uncached — the source
+  (and its `:current`) can change, so each call reflects the current data. Cheap, transient, and
+  round-trips via structural `=`."
   [nm period scale]
-  (or (registry/lookup-unit nm)
-      (registry/register-unit! nm (q/unit nm (* scale (factor period)) {:currency 1}))))
+  (q/unit nm (* scale (factor period)) {:currency 1}))
 
 (defn usd
   "A historical U.S. dollar as a callable unit: `(usd 1960)` (annual average) or
@@ -81,3 +99,24 @@
           y (parse-long y)]
       (if m (f y (parse-long m)) (f y)))
     (throw (ex-info "not a historical-currency name" {:name s}))))
+
+;; ---- live source control ----
+(defn use-live!
+  "Globally switch to a cached live FRED source (their key; defaults to the `FRED_API_KEY` env var).
+  A fetch failure falls back to the shipped snapshot. Historical months never change — only the
+  latest available month (and thus `:current`) advances beyond what shipped."
+  ([] (use-live! (System/getenv "FRED_API_KEY")))
+  ([api-key]
+   (when (str/blank? api-key)
+     (throw (ex-info "no FRED API key (set FRED_API_KEY, or pass one)" {})))
+   (alter-var-root #'*cpi-source* (constantly (fred/source api-key)))))
+
+(defn use-shipped!
+  "Revert to the shipped `cpi.edn` source (undo `use-live!`)."
+  []
+  (alter-var-root #'*cpi-source* (constantly shipped-source)))
+
+(defmacro with-live
+  "Evaluate `body` with a live FRED source bound for the current thread."
+  [api-key & body]
+  `(binding [*cpi-source* (fred/source ~api-key)] ~@body))

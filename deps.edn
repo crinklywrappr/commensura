@@ -1,7 +1,9 @@
 {:paths ["src" "resources"]
  :deps {org.clojure/clojure {:mvn/version "1.12.5"}
         com.taoensso/trove {:mvn/version "1.2.0"}
-        ch.obermuhlner/big-math {:mvn/version "2.3.2"}}   ; BigDecimal exp/log/root (MIT)
+        ch.obermuhlner/big-math {:mvn/version "2.3.2"}    ; BigDecimal exp/log/root (MIT)
+        org.clojure/data.json {:mvn/version "2.5.1"}      ; parse the FRED API JSON (live CPI source)
+        http-kit/http-kit {:mvn/version "2.8.0"}}         ; HTTP client for the live CPI source
  :aliases
  {:test
   {:extra-paths ["test" "dev"]        ; "dev" so the drift test can load the converter + manifest
@@ -12,6 +14,5 @@
   :build {:extra-paths ["." "dev"]    ; "." for build.clj (‑X, unlike ‑T, won't add it); dev-only, NOT jarred
           :extra-deps {io.github.clojure/tools.build {:mvn/version "0.10.14"}
                        slipset/deps-deploy {:mvn/version "0.2.5"}
-                       org.clojure/data.json {:mvn/version "2.5.1"}   ; CPI: parse the FRED API JSON
-                       org.jsoup/jsoup {:mvn/version "1.18.3"}}       ; CPI: parse Frink's FRED HTML backup
+                       org.jsoup/jsoup {:mvn/version "1.18.3"}}       ; CPI (dev): parse Frink's FRED HTML backup
           :ns-default build}}}

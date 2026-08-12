@@ -8,35 +8,15 @@
 ;;;; Public License <https://www.gnu.org/licenses/> for details.
 
 (ns commensura.cpi.fetch
-  "DEV-ONLY. Pipeline (1): fetch the full CPIAUCNS series from the FRED API and (re)generate the
-  shipped `resources/commensura/cpi.edn`. This is a MAINTAINER action — it needs network and a
-  free FRED API key from the `FRED_API_KEY` env var (never committed). The FRED API returns the
-  whole series (unlike Frink's 1000-row HTML backup), so this is what produces current data.
-
-  Uses only JDK `java.net.http` + regex (no HTTP/JSON deps). The GET below uses the classic
-  `?api_key=` form (which the 32-hex key uses); FRED v2's `Authorization: Bearer <key>` is an
-  equivalent alternative — swap `auth` if you use it."
-  (:require [commensura.cpi.parse :as p]
+  "DEV-ONLY. Pipeline (1): (re)generate `resources/commensura/cpi.edn` from the FRED API. This is a
+  MAINTAINER action — it needs network and a free FRED key from the `FRED_API_KEY` env var (never
+  committed). It reuses `commensura.cpi.fred` (the same fetch/parse the runtime live source uses),
+  so the FRED numerics live in exactly one place."
+  (:require [commensura.cpi.fred :as fred]
             [clojure.string :as str]
-            [clojure.pprint :as pp])
-  (:import [java.net URI]
-           [java.net.http HttpClient HttpRequest HttpResponse$BodyHandlers]))
+            [clojure.pprint :as pp]))
 
 (def ^:private cpi-path "resources/commensura/cpi.edn")
-
-(defn- get! [^String url]
-  (let [req  (-> (HttpRequest/newBuilder (URI/create url)) (.GET) (.build))
-        resp (.send (HttpClient/newHttpClient) req (HttpResponse$BodyHandlers/ofString))]
-    (when-not (= 200 (.statusCode resp))
-      (throw (ex-info "FRED request failed" {:status (.statusCode resp) :body (subs (.body resp) 0 (min 300 (count (.body resp))))})))
-    (.body resp)))
-
-(defn fetch-observations
-  "The FRED CPIAUCNS observations JSON body (full series from 1913)."
-  [api-key]
-  (get! (str "https://api.stlouisfed.org/fred/series/observations"
-             "?series_id=CPIAUCNS&file_type=json&observation_start=1913-01-01"
-             "&api_key=" api-key)))
 
 (defn fetch!
   "Build task entry (FRED_API_KEY=… clojure -X:build cpi-fetch): regenerate cpi.edn from FRED."
@@ -44,7 +24,7 @@
   (let [key (System/getenv "FRED_API_KEY")]
     (when (str/blank? key)
       (throw (ex-info "FRED_API_KEY is not set (get a free key at fredaccount.stlouisfed.org)" {})))
-    (let [cpi (p/build-cpi (p/parse-fred-json (fetch-observations key)))]
+    (let [cpi (fred/fetch-cpi key)]
       (spit cpi-path (with-out-str (pp/pprint cpi)))
       (println "wrote" cpi-path "from FRED -" (count (:monthly cpi)) "months, current" (:current cpi))
       cpi)))

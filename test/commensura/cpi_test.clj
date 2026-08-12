@@ -54,3 +54,30 @@
   (testing "a genuinely unknown unit still errors; pre-1913 surfaces the CPI-range error"
     (is (thrown? clojure.lang.ExceptionInfo (read-string "#commensura/unit \"blorp [length]\"")))
     (is (thrown? clojure.lang.ExceptionInfo (read-string "#commensura/unit \"dollar_1800 [currency]\"")))))
+
+;; ---- M4.2: injectable source ----
+(deftest injectable-source
+  (testing "binding *cpi-source* to a stub drives the computed factors"
+    (let [stub {:current [2000 1]
+                :monthly {[2000 1] 100 [1950 1] 25}
+                :annual  {2000 100 1950 25}}]
+      (binding [cpi/*cpi-source* (constantly stub)]
+        (is (= 4    (q/magnitude (cpi/usd 1950))))    ; CPI_2000/CPI_1950 = 100/25
+        (is (= 1    (q/magnitude (cpi/usd 2000))))
+        (is (= 1/25 (q/magnitude (cpi/cent 1950)))))))) ; 1/100 · 4
+
+(deftest source-error-falls-back-to-shipped
+  (testing "a live-source error (tagged :cpi/source-error) falls back to the shipped snapshot"
+    (binding [cpi/*cpi-source* (fn [] (throw (ex-info "boom" {:cpi/source-error true})))]
+      (is (= {:currency 1} (q/dims (cpi/usd 1960))))
+      (is (ratio? (q/magnitude (cpi/usd 1960))))))     ; still works, via shipped cpi.edn
+  (testing "an unrelated error is NOT swallowed"
+    (binding [cpi/*cpi-source* (fn [] (throw (RuntimeException. "unrelated")))]
+      (is (thrown? RuntimeException (cpi/usd 1960))))))
+
+(deftest ^:live live-fred-refresh   ; runs only when FRED_API_KEY is set (skipped in CI)
+  (when-let [key (System/getenv "FRED_API_KEY")]
+    (testing "live FRED: historical months are unchanged (year-to-year oracle still exact)"
+      (cpi/with-live key
+        (is (= 1087/538
+               (q/display-value (c/to (c/by 50 (cpi/cent 1955 11)) (cpi/usd 1985 10)))))))))
