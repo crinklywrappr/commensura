@@ -3,7 +3,9 @@
   (:require [clojure.tools.build.api :as b]
             [deps-deploy.deps-deploy :as dd]
             [commensura.units.convert :as c-convert]
-            [commensura.units.gen :as c-gen]))
+            [commensura.units.gen :as c-gen]
+            [commensura.cpi.fetch :as fetch]
+            [commensura.cpi.frink :as frink]))
 
 (def lib 'com.github.crinklywrappr/commensura)
 (def version "0.1.0-SNAPSHOT")
@@ -23,6 +25,20 @@
   Run with: clojure -X:build gen-units"
   [opts]
   (c-gen/generate!)
+  opts)
+
+(defn cpi-fetch
+  "Regenerate resources/commensura/cpi.edn from the FRED API (needs FRED_API_KEY + network).
+  Run with: FRED_API_KEY=… clojure -X:build cpi-fetch"
+  [opts]
+  (fetch/fetch!)
+  opts)
+
+(defn cpi-frink
+  "Regenerate the Frink oracle fixture (test/commensura/frink_cpi.edn) and bootstrap cpi.edn from
+  the pinned dev-resources/frink/CPIAUCNS. Run with: clojure -X:build cpi-frink"
+  [opts]
+  (frink/frink!)
   opts)
 
 (defn test "Run all the tests." [opts]

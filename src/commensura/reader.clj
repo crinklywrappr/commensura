@@ -21,7 +21,17 @@
   (:require [clojure.string :as str]
             [commensura.quantity :as q]
             [commensura.registry :as registry]
+            [commensura.cpi :as cpi]   ; commensura-provided historical currencies, minted on demand
             [commensura.units]))   ; load so builtin units are registered
+
+(defn- resolve-unit
+  "Resolve a unit name from a literal: a registered unit, else a commensura-provided historical
+  currency (`dollar_1960`…) minted on demand, else an error. Reusable across the unit and quantity
+  readers so both reify historical currencies cross-session."
+  [nm]
+  (or (registry/lookup-unit nm)
+      (when (cpi/historical-name? nm) (cpi/unit nm))
+      (throw (ex-info "unknown unit in commensura literal" {:unit nm}))))
 
 (def ^:dynamic *approx-tolerance*
   "Maximum *relative* difference tolerated between the literal's printed
@@ -72,14 +82,10 @@
     (concat num-terms den-terms)))
 
 (defn- reconstruct
-  "Rebuild the quantity: `exact` copies of the compound unit named by `unit-str`,
-  resolving each unit name through the registry (so user `defunit`s reify too)."
+  "Rebuild the quantity: `exact` copies of the compound unit named by `unit-str`, resolving each
+  unit name via `resolve-unit` (so user `defunit`s and historical currencies reify too)."
   [exact unit-str]
-  (let [compound (reduce (fn [acc [nm e]]
-                           (let [u (or (registry/lookup-unit nm)
-                                       (throw (ex-info "unknown unit in #commensura/quantity literal"
-                                                       {:unit nm :literal unit-str})))]
-                             (q/qmul acc (q/qpow u e))))
+  (let [compound (reduce (fn [acc [nm e]] (q/qmul acc (q/qpow (resolve-unit nm) e)))
                          (q/scalar 1)
                          (parse-formula unit-str))]
     (q/scale compound exact)))
@@ -137,12 +143,12 @@
 
 (defn read-unit
   "Data-reader for `#commensura/unit \"[≈ ]<name> [dim]\"` → the named Unit (precise or
-  approximate), resolved through the registry (its defining `defunit` must have run).
-  The leading `≈` marker and trailing `[dim]` are decorative — only the name matters."
+  approximate), resolved via `resolve-unit` — a registered unit (builtin or user `defunit`), or a
+  commensura-provided historical currency (`dollar_1960`…) minted on demand. The leading `≈` marker
+  and trailing `[dim]` are decorative — only the name matters."
   [s]
   (let [s   (str/trim s)
         s   (if (str/starts-with? s "≈ ") (str/trim (subs s 2)) s)
         end (or (str/index-of s " [") (count s))
         nm  (str/trim (subs s 0 end))]
-    (or (registry/lookup-unit nm)
-        (throw (ex-info "unknown unit in #commensura/unit literal" {:unit nm :literal s})))))
+    (resolve-unit nm)))
