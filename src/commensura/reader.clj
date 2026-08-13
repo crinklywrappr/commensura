@@ -21,7 +21,8 @@
   (:require [clojure.string :as str]
             [commensura.quantity :as q]
             [commensura.registry :as registry]
-            [commensura.cpi]     ; load so its historical-currency resolver is installed
+            [commensura.cpi]              ; load so its historical-currency resolver is installed
+            [commensura.currency.rates]   ; load so the currency-code resolver is installed
             [commensura.units]))   ; load so builtin units are registered
 
 (defn- resolve-unit

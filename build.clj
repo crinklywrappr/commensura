@@ -5,7 +5,9 @@
             [commensura.units.convert :as c-convert]
             [commensura.units.gen :as c-gen]
             [commensura.cpi.fetch :as fetch]
-            [commensura.cpi.frink :as frink]))
+            [commensura.cpi.frink :as frink]
+            [commensura.currency.codes :as cur-codes]
+            [commensura.currency.gen :as cur-gen]))
 
 (def lib 'com.github.crinklywrappr/commensura)
 (def version "0.1.0-SNAPSHOT")
@@ -39,6 +41,20 @@
   the pinned dev-resources/frink/CPIAUCNS. Run with: clojure -X:build cpi-frink"
   [opts]
   (frink/frink!)
+  opts)
+
+(defn currency-codes
+  "Regenerate resources/commensura/currency-codes.edn from CurrencyFreaks supported-currencies (no
+  key). Run with: clojure -X:build currency-codes"
+  [opts]
+  (cur-codes/codes!)
+  opts)
+
+(defn gen-currency
+  "Regenerate src/commensura/currency.clj from currency-codes.edn.
+  Run with: clojure -X:build gen-currency"
+  [opts]
+  (cur-gen/generate!)
   opts)
 
 (defn test "Run all the tests." [opts]

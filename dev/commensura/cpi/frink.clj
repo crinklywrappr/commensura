@@ -13,6 +13,7 @@
   `bootstrap-cpi!` is an OFFLINE FALLBACK for `cpi.edn` (only as recent as Frink's backup, 1996);
   normally `cpi-fetch` (FRED) owns `cpi.edn`."
   (:require [commensura.cpi.fred :as fred]
+            [commensura.http :as http]
             [clojure.string :as str]
             [clojure.pprint :as pp])
   (:import [org.jsoup Jsoup]))
@@ -27,7 +28,7 @@
   [html]
   (for [row  (.select (Jsoup/parse html) "tr")
         :let [period (some-> (.selectFirst row "th") .text str/trim fred/date->period)
-              value  (some-> (.selectFirst row "td") .text fred/value->ratio)]
+              value  (some-> (.selectFirst row "td") .text http/decimal->ratio)]
         :when (and period value)]
     [period value]))
 
