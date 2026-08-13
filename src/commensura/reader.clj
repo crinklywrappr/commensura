@@ -21,16 +21,15 @@
   (:require [clojure.string :as str]
             [commensura.quantity :as q]
             [commensura.registry :as registry]
-            [commensura.cpi :as cpi]   ; commensura-provided historical currencies, minted on demand
+            [commensura.cpi]     ; load so its historical-currency resolver is installed
             [commensura.units]))   ; load so builtin units are registered
 
 (defn- resolve-unit
-  "Resolve a unit name from a literal: a registered unit, else a commensura-provided historical
-  currency (`dollar_1960`…) minted on demand, else an error. Reusable across the unit and quantity
-  readers so both reify historical currencies cross-session."
+  "Resolve a unit name from a literal via `registry/resolve-unit` — a registered unit (builtin or
+  user `defunit`), or a resolver family (e.g. commensura's historical currencies, or a user's own
+  `register-unit-resolver!`). Reused across the unit and quantity readers. Throws if nothing resolves."
   [nm]
-  (or (registry/lookup-unit nm)
-      (when (cpi/historical-name? nm) (cpi/unit nm))
+  (or (registry/resolve-unit nm)
       (throw (ex-info "unknown unit in commensura literal" {:unit nm}))))
 
 (def ^:dynamic *approx-tolerance*

@@ -1,19 +1,23 @@
 (ns commensura.registry-test
   (:require [clojure.test :refer [deftest is testing use-fixtures]]
             [commensura.registry :as reg]
+            [commensura.quantity :as q]
             [commensura.dimensions :as dims]
             [commensura.units]                 ; load so builtin units are registered
+            commensura.reader                  ; the #commensura/unit reader (resolves via resolvers)
             [taoensso.trove :as trove]))
 
-;; clear-* mutate global state the rest of the suite relies on — snapshot and restore
-;; both tables around each test.
+;; clear-* mutate global state the rest of the suite relies on — snapshot and restore the
+;; unit/dimension tables and the resolver list around each test.
 (use-fixtures :each
   (fn [f]
-    (let [u (reg/all-units), d (reg/all-dimensions)]
+    (let [u (reg/all-units), d (reg/all-dimensions), r (reg/all-unit-resolvers)]
       (try (f)
         (finally
           (reg/clear-units!)      (doseq [[k v] u] (reg/register-unit! k v))
-          (reg/clear-dimensions!) (doseq [[k v] d] (reg/register-dimension! k v)))))))
+          (reg/clear-dimensions!) (doseq [[k v] d] (reg/register-dimension! k v))
+          (reg/clear-unit-resolvers!) (doseq [{:keys [pred dispatch]} r]
+                                        (reg/register-unit-resolver! pred dispatch)))))))
 
 (deftest unit-registry
   (testing "register / lookup / all"
@@ -37,6 +41,21 @@
     (is (nil? (reg/lookup-dimension {:widget 3})))          ; user registration gone
     (is (= dims/names (reg/all-dimensions)))                ; exactly the seed
     (is (seq dims/names))))                                 ; and the seed is non-empty
+
+(deftest user-unit-resolver
+  (testing "a user resolver builds a whole name family on demand; the reader reifies it"
+    (reg/register-unit-resolver!
+     (fn [nm] (boolean (re-matches #"\d+dozen" nm)))
+     (fn [nm] (q/unit nm (* (parse-long (re-find #"\d+" nm)) 12) {})))   ; Ndozen = N·12 (dimensionless)
+    (testing "direct resolution builds the member"
+      (is (= 36 (q/magnitude (reg/resolve-unit "3dozen"))))
+      (is (= {} (q/dims (reg/resolve-unit "3dozen")))))
+    (testing "the #commensura/unit reader reifies a member never registered"
+      (is (= 60 (q/magnitude (read-string "#commensura/unit \"5dozen [dimensionless]\"")))))
+    (testing "a name no resolver claims still misses / errors"
+      (is (nil? (reg/resolve-unit "7bogus")))
+      (is (thrown? clojure.lang.ExceptionInfo
+                   (read-string "#commensura/unit \"7bogus [dimensionless]\""))))))
 
 (deftest redefine-warns
   (testing "re-registering a name to a *different* value warns (both tables); same value doesn't"

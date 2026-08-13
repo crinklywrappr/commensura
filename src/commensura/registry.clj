@@ -13,6 +13,10 @@
     * a name -> unit table — `defunit` registers every unit here (builtins
       auto-register when `commensura.units` loads); the `#commensura/quantity`
       reader resolves unit names here, so *user*-defined units reify too.
+    * unit *resolvers* — `register-unit-resolver!` installs a `pred`/`dispatch` pair
+      that builds a whole *family* of names on demand (e.g. `dollar_1960`); `resolve-unit`
+      tries the table first, then resolvers, so families reify from the reader without
+      being registered one-by-one.
     * a dimension-map -> human-name table — seeded from the generated
       `commensura.dimensions/names` (the `|||` labels) and extended at runtime
       via `register-dimension!`, so users can name their own dimensions.
@@ -68,6 +72,39 @@
   "Empty the unit registry (for test isolation)."
   []
   (reset! units {}))
+
+;; ---- unit resolvers (on-demand families: a pred + a dispatch) ----
+(defonce ^:private unit-resolvers (atom []))
+
+(defn register-unit-resolver!
+  "Install a resolver for a *family* of units whose members are derivable from their name rather
+  than registered one-by-one (e.g. the historical `dollar_1960`). `pred` is `name -> boolean`;
+  `dispatch` is `name -> unit`, invoked when a name isn't in the unit table and `pred` matches.
+  Resolvers are tried in registration order; the first whose `pred` matches wins, and its `dispatch`
+  result — or exception — is the answer (so a matched-but-unbuildable name surfaces its own error,
+  not a generic \"unknown unit\"). Complements `register-unit!`/`defunit` (a single fixed unit)."
+  [pred dispatch]
+  (swap! unit-resolvers conj {:pred pred :dispatch dispatch})
+  nil)
+
+(defn resolve-unit
+  "Resolve a unit by name: the registered unit, else the first matching resolver's `dispatch`, else
+  nil. The `#commensura/…` reader resolves through this, so builtins, user `defunit`s, and resolver
+  families all reify."
+  [nm]
+  (or (lookup-unit nm)
+      (when-let [{:keys [dispatch]} (first (filter #((:pred %) nm) @unit-resolvers))]
+        (dispatch nm))))
+
+(defn all-unit-resolvers
+  "The installed resolvers, in registration order (for introspection)."
+  []
+  @unit-resolvers)
+
+(defn clear-unit-resolvers!
+  "Remove all installed unit resolvers (for test isolation)."
+  []
+  (reset! unit-resolvers []))
 
 ;; ---- dimension-name table (dims-map -> human name; seeded from the ||| labels) ----
 (defonce ^:private dim-names (atom dimensions/names))

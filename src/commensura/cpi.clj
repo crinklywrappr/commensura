@@ -22,6 +22,7 @@
   rationals; `:current` is the latest shipped period. `dev/commensura/cpi/{fetch,frink}.clj`
   regenerate it (FRED API) / a Frink-parity oracle fixture. Live refresh is M4.2."
   (:require [commensura.quantity :as q]
+            [commensura.registry :as registry]
             [commensura.cpi.fred :as fred]
             [clojure.string :as str]
             [clojure.edn :as edn]
@@ -120,3 +121,7 @@
   "Evaluate `body` with a live FRED source bound for the current thread."
   [api-key & body]
   `(binding [*cpi-source* (fred/source ~api-key)] ~@body))
+
+;; commensura ships these historical units, so register them as a resolver family: the
+;; `#commensura/unit`/`#commensura/quantity` reader reifies `dollar_1960`/`cent_1910`… on demand.
+(registry/register-unit-resolver! historical-name? unit)
