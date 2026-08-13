@@ -25,10 +25,16 @@
   wins, warning when a name is redefined to a *different* value), `lookup-{unit,
   dimension}`, `all-{units,dimensions}`, `clear-{units,dimensions}!`.
 
-  Trade-off (documented): this is global mutable state. Unit *vars* remain
-  lexically namespaced and unaffected — only the string-keyed lookup / literal
-  reification path is global, and redefining a name warns (last writer wins).
-  For cold deserialization, the defining `defunit` must have run before a literal
+  The backing atoms (`units`, `dim-names`, `unit-resolvers`) are **public** — reach for
+  them directly when you want bulk / `swap!` / `add-watch` / reordering access. The
+  functions above are the ergonomic path that also applies the invariants (redefine
+  warnings, dimension-key normalization, reseed-on-clear); the atoms trust you to know
+  what you're doing.
+
+  Trade-off (documented): this is global mutable state. Unit *vars* remain lexically
+  namespaced and unaffected — only the string-keyed lookup / literal reification path is
+  global, and redefining a name via `register-*!` warns (last writer wins). For cold
+  deserialization, the defining `defunit` (or a resolver) must be loaded before a literal
   that names its unit is read."
   (:require [commensura.dimensions :as dimensions]   ; seed only
             [taoensso.trove :as trove]))
@@ -49,7 +55,7 @@
     v))
 
 ;; ---- unit table (name -> unit) ----
-(defonce ^:private units (atom {}))
+(defonce units (atom {}))
 
 (defn register-unit!
   "Register unit `qty` under string `nm` (last writer wins; warns on a differing
@@ -74,7 +80,7 @@
   (reset! units {}))
 
 ;; ---- unit resolvers (on-demand families: a pred + a dispatch) ----
-(defonce ^:private unit-resolvers (atom []))
+(defonce unit-resolvers (atom []))
 
 (defn register-unit-resolver!
   "Install a resolver for a *family* of units whose members are derivable from their name rather
@@ -107,7 +113,7 @@
   (reset! unit-resolvers []))
 
 ;; ---- dimension-name table (dims-map -> human name; seeded from the ||| labels) ----
-(defonce ^:private dim-names (atom dimensions/names))
+(defonce dim-names (atom dimensions/names))
 
 (defn- normalize-dims [d]
   (into {} (remove (comp zero? val)) d))   ; drop zero exponents to match canonical dims
