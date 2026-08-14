@@ -45,11 +45,16 @@
     (is (= -2 (dv (m/floor -3/2)))))
   (testing "mod/rem — conforming, dimension-preserving"
     (is (= [1 {:time 1}] [(dv (m/mod (u/hour 25) (u/hour 24))) (q/dims (m/mod (u/hour 25) (u/hour 24)))]))
-    (is (thrown? clojure.lang.ExceptionInfo (m/mod (u/meter 1) (u/second 1)))))
+    (is (thrown? clojure.lang.ExceptionInfo (m/mod (u/meter 1) (u/second 1))))
+    (is (= [1 {:time 1}] [(dv (m/rem (u/hour 25) (u/hour 24))) (q/dims (m/rem (u/hour 25) (u/hour 24)))]))
+    (is (thrown? clojure.lang.ExceptionInfo (m/rem (u/meter 1) (u/second 1)))))
   (testing "min/max — physical order, keep the winner's unit"
     (is (= "6 inch [length]" (str (m/min (u/foot 1) (u/inch 6)))))
     (is (= "1 foot [length]" (str (m/max (u/foot 1) (u/inch 6)))))
-    (is (= "2 meter [length]" (str (m/min (u/meter 5) (u/meter 2) (u/meter 9)))))))
+    (is (= "2 meter [length]" (str (m/min (u/meter 5) (u/meter 2) (u/meter 9)))))
+    (is (= "9 meter [length]" (str (m/max (u/meter 5) (u/meter 2) (u/meter 9)))))   ; max & more
+    (is (= (u/meter 5) (m/min (u/meter 5))) )                                        ; single-arg identity
+    (is (= (u/meter 5) (m/max (u/meter 5))))))
 
 ;; ---- interval versions (the monotone ones) ----
 (deftest interval-math

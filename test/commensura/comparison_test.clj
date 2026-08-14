@@ -58,6 +58,23 @@
     (is (true?  (c/ne? (u/inch 13) (u/foot 1))))
     (is (true?  (c/gt? (u/km 1) (u/meter 999))))))
 
+;; ---- the remaining plain relationals (le?/gt?/ge?): true / false / throw-on-overlap ----
+(deftest plain-le-gt-ge
+  (testing "scalars are a total order (never throw)"
+    (is (true?  (c/le? 2 2))) (is (true?  (c/le? 2 3))) (is (false? (c/le? 3 2)))
+    (is (true?  (c/gt? 3 2))) (is (false? (c/gt? 2 3))) (is (false? (c/gt? 2 2)))
+    (is (true?  (c/ge? 2 2))) (is (true?  (c/ge? 3 2))) (is (false? (c/ge? 1 2)))
+    (is (true?  (c/le? (u/inch 12) (u/foot 1)))))          ; physical, across units
+  (testing "unambiguous on disjoint intervals; touching bounds resolve for le?/ge?"
+    (is (true?  (c/le? (iv/interval 1 2) (iv/interval 2 4))))  ; hi(A)=lo(B)=2
+    (is (true?  (c/ge? (iv/interval 2 4) (iv/interval 1 2))))
+    (is (true?  (c/gt? (iv/interval 5 6) (iv/interval 1 2))))
+    (is (false? (c/gt? (iv/interval 1 2) (iv/interval 5 6)))))
+  (testing "throw on genuine overlap"
+    (is (thrown? clojure.lang.ExceptionInfo (c/le? (iv/interval 1 3) (iv/interval 2 4))))
+    (is (thrown? clojure.lang.ExceptionInfo (c/gt? (iv/interval 1 3) (iv/interval 2 4))))
+    (is (thrown? clojure.lang.ExceptionInfo (c/ge? (iv/interval 1 3) (iv/interval 2 4))))))
+
 ;; ---- dimensioned intervals + conformance ----
 (deftest dimensioned-intervals
   (let [A (iv/interval (u/meter 1) (u/meter 3))

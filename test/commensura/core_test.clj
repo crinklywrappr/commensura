@@ -48,3 +48,19 @@
     (let [m (q/magnitude (to (by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons))]
       (is (not (instance? Double m)))
       (is (ratio? (dv (to (by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons)))))))
+
+(deftest verb-arities
+  (testing "single-arg verbs are identity (the arithmetic-neutral edge)"
+    (is (= (u/foot 3) (by (u/foot 3))))
+    (is (= (u/foot 3) (per (u/foot 3))))
+    (is (= (u/foot 3) (plus (u/foot 3)))))
+  (testing "3+-arg by/per/plus/minus fold left"
+    (is (= 24 (dv (by (u/foot 2) 3 4))))                    ; 2·3·4 ft
+    (is (= 1  (dv (per (u/foot 24) 4 6))))                  ; 24/4/6 ft
+    (is (= 6  (dv (plus (u/foot 1) (u/foot 2) (u/foot 3)))))
+    (is (= 5  (dv (minus (u/foot 10) (u/foot 2) (u/foot 3)))))))  ; 10-2-3
+
+(deftest register-dimension-verb
+  (testing "the core verb names a dimension map so quantities print it"
+    (is (= "quaternary space" (c/register-dimension! {:length 4} "quaternary space")))
+    (is (= "quaternary space" (last (re-find #"\[(.*)\]" (str (pow u/meter 4))))))))

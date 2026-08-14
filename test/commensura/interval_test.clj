@@ -43,7 +43,15 @@
 (deftest power
   (is (= [0 4] (ends (c/pow (iv/interval -2 2) 2))))        ; even, spans zero → reaches 0
   (is (= [1 8] (ends (c/pow (iv/interval 1 2) 3))))
-  (is (= [1 1] (ends (c/pow (iv/interval 3 7) 0)))))
+  (is (= [1 1] (ends (c/pow (iv/interval 3 7) 0))))
+  (testing "a negative integer power of a zero-spanning interval throws (1/0 in the hull)"
+    (is (thrown? clojure.lang.ExceptionInfo (c/pow (iv/interval -2 2) -1)))))
+
+(deftest conversion-carries-main-value
+  (testing "converting a 3-arg interval re-expresses lo, hi, AND the main value"
+    (let [r (c/to (iv/interval (u/meter 1) (u/meter 2) (u/meter 3)) u/cm)]
+      (is (= [100 300] (ends r)))
+      (is (= 200 (dv (iv/main-value r)))))))
 
 (deftest scalar-interaction
   (testing "scalars act as degenerate intervals via the accessors — no promotion needed"

@@ -66,6 +66,34 @@
     (when-not (zero? exit) (throw (ex-info "Tests failed" {}))))
   opts)
 
+;; Namespaces excluded from the coverage denominator (regexes, matched against the ns name):
+;; the two GENERATED namespaces (one mechanical shape repeated thousands of times) and the
+;; LIVE-only fetch code (unreachable offline, so the default suite can never cover it). The
+;; dev/ tooling is excluded structurally — cloverage instruments only `-p src`.
+(def ^:private coverage-ns-excludes
+  ["commensura\\.units$"            ; generated unit vars (~2,186)
+   "commensura\\.currency$"         ; generated currency fns (~1,015)
+   "commensura\\.http"              ; shared HTTP client — get-json is network-only
+   "commensura\\.cpi\\.fred"        ; live FRED source (network)
+   "commensura\\.currency\\.rates"]) ; live CurrencyFreaks source (network)
+
+(defn coverage
+  "Measure test coverage with cloverage (text + HTML in target/coverage/), instrumenting only
+  `src` and skipping the generated + live-only namespaces. Run: clojure -X:build coverage"
+  [opts]
+  (let [basis (b/create-basis {:aliases [:test :coverage]})
+        cmds  (b/java-command
+               {:basis     basis
+                :main      'clojure.main
+                :main-args (into ["-m" "cloverage.coverage"
+                                  "-p" "src" "-s" "test"
+                                  "--output" "target/coverage"
+                                  "--text" "--html"]
+                                 (mapcat (fn [re] ["--ns-exclude-regex" re]) coverage-ns-excludes))})
+        {:keys [exit]} (b/process cmds)]
+    (when-not (zero? exit) (throw (ex-info "Coverage run failed" {:exit exit}))))
+  opts)
+
 (defn- pom-template [version]
   [[:description "Frink-inspired exact unit conversion and dimensional arithmetic for Clojure."]
    [:url "https://github.com/crinklywrappr/commensura"]

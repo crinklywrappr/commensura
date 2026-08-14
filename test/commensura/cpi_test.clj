@@ -75,6 +75,17 @@
     (binding [cpi/*cpi-source* (fn [] (throw (RuntimeException. "unrelated")))]
       (is (thrown? RuntimeException (cpi/usd 1960))))))
 
+(deftest live-source-switch   ; offline: exercises the source-switching plumbing without any fetch
+  (testing "use-live! rejects a blank/nil key (before any network call)"
+    (is (thrown? clojure.lang.ExceptionInfo (cpi/use-live! "")))
+    (is (thrown? clojure.lang.ExceptionInfo (cpi/use-live! nil))))
+  (testing "use-live! installs a live source; use-shipped! restores the shipped snapshot"
+    (try
+      (cpi/use-live! "dummy-key")                 ; installs a live source — no fetch until used
+      (finally (cpi/use-shipped!)))               ; always restore global state for the rest of the suite
+    (is (= {:currency 1} (q/dims (cpi/usd 1960)))) ; shipped source works again
+    (is (ratio? (q/magnitude (cpi/usd 1960))))))
+
 (deftest ^:live live-fred-refresh   ; runs only when FRED_API_KEY is set (skipped in CI)
   (when-let [key (System/getenv "FRED_API_KEY")]
     (testing "live FRED: historical months are unchanged (year-to-year oracle still exact)"
