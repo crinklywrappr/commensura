@@ -10,8 +10,7 @@
             [commensura.currency.gen :as cur-gen]))
 
 (def lib 'com.github.crinklywrappr/commensura)
-(def version "0.1.0-SNAPSHOT")
-#_ ; alternatively, use MAJOR.MINOR.COMMITS:
+; alternatively, use MAJOR.MINOR.COMMITS:
 (def version (format "1.0.%s" (b/git-count-revs nil)))
 (def class-dir "target/classes")
 
