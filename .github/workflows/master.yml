@@ -1,0 +1,86 @@
+name: master
+
+# Post-merge side effects: refresh CPI data, run the live integration tests, publish the docs.
+# (Tests + oracle already gated the PR; see ci.yml.)
+on:
+  push:
+    branches: [master]
+
+# Serialize master runs so the CPI auto-commit can't race another run.
+concurrency:
+  group: master
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  cpi-refresh:
+    name: cpi-refresh
+    runs-on: ubuntu-latest
+    steps:
+      # Mint a commensura-ci App token: it's in the ruleset bypass list, so its push to the
+      # protected master branch is allowed (the default GITHUB_TOKEN is not bypass-eligible).
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}   # so `git push` authenticates as the App
+      - uses: ./.github/actions/clojure
+      - name: Refresh CPI from FRED
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: clojure -X:build cpi-fetch
+      - name: Verify the refreshed data still passes
+        run: clojure -X:build test
+      - name: Commit cpi.edn if it changed
+        run: |
+          if git diff --quiet -- resources/commensura/cpi.edn; then
+            echo "cpi.edn unchanged — nothing to commit."
+            exit 0
+          fi
+          slug='${{ steps.app-token.outputs.app-slug }}'
+          git config user.name  "${slug}[bot]"
+          git config user.email "${slug}[bot]@users.noreply.github.com"
+          git add resources/commensura/cpi.edn
+          git commit -m "chore: refresh CPI data from FRED [skip ci]"
+          git push
+
+  live:
+    name: live
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/clojure
+      - name: Live integration tests (FRED + CurrencyFreaks)
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          CURRENCYFREAKS_API_KEY: ${{ secrets.CURRENCYFREAKS_API_KEY }}
+        run: clojure -X:build test    # the ^:live tests run themselves when the keys are present
+
+  deploy-docs:
+    name: deploy-docs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/clojure
+      - name: Build docs (live)
+        env:
+          CURRENCYFREAKS_API_KEY: ${{ secrets.CURRENCYFREAKS_API_KEY }}
+        run: clojure -X:build docs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: target/doc
+      - uses: actions/deploy-pages@v4
+        id: deployment
