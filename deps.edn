@@ -15,6 +15,13 @@
   ;; `coverage` task in build.clj. Run: clojure -X:build coverage
   :coverage
   {:extra-deps {cloverage/cloverage {:mvn/version "1.2.4"}}}
+  ;; Opt-in Frink oracle (dev/CI only). Frink is proprietary and NOT redistributed — provide the jar
+  ;; via a local path (default ../frink.jar) or FRINK_JAR. Combine with :test, e.g.
+  ;;   clojure -M:test:frink -m cognitect.test-runner
+  ;; The oracle namespace loads fine without it (it resolves the class reflectively); its tests
+  ;; self-skip when Frink is absent, so the default suite is unaffected.
+  :frink
+  {:extra-deps {us.futureboy/frink {:local/root "../frink.jar"}}}
   ;; invoked with -X:build (not -T), so it inherits the root :deps — big-math (used
   ;; by the converter's nth-root) is declared once, up top, and need not be repeated.
   :build {:extra-paths ["." "dev"]    ; "." for build.clj (‑X, unlike ‑T, won't add it); dev-only, NOT jarred

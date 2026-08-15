@@ -56,14 +56,24 @@
   (cur-gen/generate!)
   opts)
 
-(defn test "Run all the tests." [opts]
-  (let [basis    (b/create-basis {:aliases [:test]})
-        cmds     (b/java-command
-                  {:basis      basis
-                    :main      'clojure.main
-                    :main-args ["-m" "cognitect.test-runner"]})
+(defn- run-tests [aliases]
+  (let [basis (b/create-basis {:aliases aliases})
+        cmds  (b/java-command
+               {:basis     basis
+                :main      'clojure.main
+                :main-args ["-m" "cognitect.test-runner"]})
         {:keys [exit]} (b/process cmds)]
-    (when-not (zero? exit) (throw (ex-info "Tests failed" {}))))
+    (when-not (zero? exit) (throw (ex-info "Tests failed" {})))))
+
+(defn test "Run all the tests (offline; the oracle/live tests self-skip)." [opts]
+  (run-tests [:test])
+  opts)
+
+(defn test-oracle
+  "Run the full suite WITH the opt-in Frink oracle (needs frink.jar via the :frink alias — Frink is
+  proprietary and not redistributed). Run: clojure -X:build test-oracle"
+  [opts]
+  (run-tests [:test :frink])
   opts)
 
 ;; Namespaces excluded from the coverage denominator (regexes, matched against the ns name):
