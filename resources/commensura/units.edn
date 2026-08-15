@@ -136,7 +136,7 @@
   "Bq" {:factor 1, :dims {:time -1}},
   "kor" {:factor 18453882447/50000000000, :dims {:length 3}},
   "lightyear"
-  {:factor 2363563738872000N,
+  {:factor 9460730472580800N,
    :dims {:length 1},
    :doc "The 365.25 day year is specified in NIST publication 811"},
   "T" {:factor 1, :dims {:mass 1, :time -2, :current -1}},
@@ -284,14 +284,14 @@
    :doc
    "Suggested by Richard Terrett You can of course write kJ_mol."},
   "mercpound" {:factor 174957057/400000000, :dims {:mass 1}},
-  "marathon" {:factor 230164959024/15625, :dims {:length 2}},
+  "marathon" {:factor 10548747/250, :dims {:length 1}},
   "excelsior" {:factor 5271897/5000000000, :dims {:length 1}},
   "ct" {:factor 1/5000, :dims {:mass 1}},
   "earthradius"
   {:factor 6371010N, :dims {:length 1}, :doc "mean +/- 0.02 km"},
   "siderealsecond"
-  {:factor 658575464113/50000000,
-   :dims {:time 3},
+  {:factor 86164090530833/86400000000000,
+   :dims {:time 1},
    :doc
    "or the time required for the earth to make one rotation relative to the stars. The more usual solar day is the time required to make a rotation relative to the sun. Because the earth moves in its orbit, it has to turn a bit extra to face the sun again, hence the solar day is slightly longer."},
   "millennium" {:factor 19723078734174/625, :dims {:time 1}},
@@ -847,7 +847,7 @@
   "thermalfarad"
   {:factor 1, :dims {:mass 1, :length 2, :time -2, :temperature -2}},
   "blanc" {:factor 6479891/23040000000000000, :dims {:mass 1}},
-  "earthday" {:factor 17781537531051/15625, :dims {:time 3}},
+  "earthday" {:factor 86164090530833/1000000000, :dims {:time 1}},
   "wooltod" {:factor 317514659/25000000, :dims {:mass 1}},
   "radium"
   {:factor 1130127/5000000, :dims {:mass 1, :amount_of_substance -1}},
@@ -1024,7 +1024,7 @@
   "scotsrood"
   {:factor 3459566516361018001/2690985978506250, :dims {:length 2}},
   "irishinch" {:factor 50000/1968507, :dims {:length 1}},
-  "marssolarday" {:factor 178137728496/25, :dims {:time 3}},
+  "marssolarday" {:factor 8877524409/100000, :dims {:time 1}},
   "trit"
   {:factor 19812031259/12500000000,
    :dims {:information 1},
@@ -1806,7 +1806,7 @@
   {:factor
    1000000000000000000000000000000000000000000000000000000000000N,
    :dims {}},
-  "marssiderealday" {:factor 4346944704N, :dims {:time 3}},
+  "marssiderealday" {:factor 88642663/1000, :dims {:time 1}},
   "coulomb" {:factor 1, :dims {:current 1, :time 1}, :doc "charge"},
   "paragon" {:factor 1757299/250000000, :dims {:length 1}},
   "brhogshead" {:factor 28640367/100000000, :dims {:length 3}},
@@ -1861,8 +1861,8 @@
   "tablespoon" {:factor 473176473/32000000000000, :dims {:length 3}},
   "zinc3gauge" {:factor 381/2500000, :dims {:length 1}},
   "siderealminute"
-  {:factor 1975726392339/2500000,
-   :dims {:time 3},
+  {:factor 86164090530833/1440000000000,
+   :dims {:time 1},
    :doc "of a star over the meridian,"},
   "apdram" {:factor 19439673/5000000000, :dims {:mass 1}},
   "scotsell" {:factor 1859990999/1968507000, :dims {:length 1}},
@@ -2034,8 +2034,8 @@
    :dims {:temperature 1},
    :doc "Single Unicode codepoint for DEGREE FAHRENHEIT"},
   "marsday"
-  {:factor 178137728496/25,
-   :dims {:time 3},
+  {:factor 8877524409/100000,
+   :dims {:time 1},
    :doc "The common \"sol\" definition."},
   "woolbolt" {:factor 8001/125, :dims {:length 1}},
   "dickers" {:factor 10, :dims {}},
@@ -2135,7 +2135,7 @@
   "arabicinch" {:factor 16891/750000, :dims {:length 1}},
   "lambda_C_p"
   {:factor 18931629/14326841099578413860000, :dims {:length 1}},
-  "ly" {:factor 2363563738872000N, :dims {:length 1}},
+  "ly" {:factor 9460730472580800N, :dims {:length 1}},
   "cableslength" {:factor 864000/3937, :dims {:length 1}},
   "jupitermass"
   {:factor 1898190000000000000000000000N, :dims {:mass 1}},
@@ -2165,8 +2165,8 @@
    :dims {:time 1},
    :doc "time a sentry stands watch or a ship's crew is on duty."},
   "siderealhour"
-  {:factor 5927179177017/125000,
-   :dims {:time 3},
+  {:factor 86164090530833/24000000000,
+   :dims {:time 1},
    :doc "between two successive transits"},
   "tonsrefrigeration"
   {:factor 52752792631/15000000,
@@ -2352,8 +2352,8 @@
   "selenium"
   {:factor 987/12500, :dims {:mass 1, :amount_of_substance -1}},
   "smoot"
-  {:factor 338709/1250000,
-   :dims {:length 2},
+  {:factor 8509/5000,
+   :dims {:length 1},
    :doc
    "Height of Oliver R. Smoot Jr. see: http://aether.lbl.gov/www/personnel/smoot/smoot-measure.html"},
   "dutchcocoa_spooned"
@@ -3149,7 +3149,7 @@
   "kine" {:factor 1/100, :dims {:length 1, :time -1}, :doc "velocity"},
   "seventy" {:factor 70, :dims {}},
   "aeginadrachmae" {:factor 19439673/3125000000, :dims {:mass 1}},
-  "earth_flattening" {:factor -31783761571/5000, :dims {:length 1}},
+  "earth_flattening" {:factor 106923429/31890685000, :dims {}},
   "sizeOring" {:factor 11/200, :dims {:length 1}},
   "plate33gauge"
   {:factor 381/1600000, :dims {:length 1}, :doc "6 oz / ft^2"},
@@ -3887,7 +3887,7 @@
   "apostilb"
   {:factor 500000000000000000/1570796326794896619,
    :dims {:luminous_intensity 1, :length -2}},
-  "siderealday" {:factor 17781537531051/15625, :dims {:time 3}},
+  "siderealday" {:factor 86164090530833/1000000000, :dims {:time 1}},
   "calorie_th" {:factor 523/125, :dims {:mass 1, :length 2, :time -2}},
   "mercounce" {:factor 58319019/2000000000, :dims {:mass 1}},
   "pint" {:factor 473176473/1000000000000, :dims {:length 3}},
@@ -4409,8 +4409,8 @@
   {:factor 25335373954874887567851/50000000000000000000000000000,
    :dims {:length 2}},
   "standardgauge"
-  {:factor 822579/3125000,
-   :dims {:length 2},
+  {:factor 14351/10000,
+   :dims {:length 1},
    :doc "Standard width between railroad track"},
   "mas"
   {:factor 523598775598298873/108000000000000000000000000, :dims {}},
@@ -4480,9 +4480,7 @@
   {:factor 127/1250,
    :dims {:length 1},
    :doc "The palm is a unit defined as either the width"},
-  "eggvolume"
-  {:factor 223895974600719729/2048000000000000000000000000,
-   :dims {:length 6}},
+  "eggvolume" {:factor 2996784329/64000000000000, :dims {:length 3}},
   "jpsize1ring"
   {:factor 20420352248333656047/500000000000000000000,
    :dims {:length 1}},

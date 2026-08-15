@@ -1019,8 +1019,8 @@
   "Energy acquired by a particle with charge e"
   801088317/5000000000000000000000000000 {:time -2, :mass 1, :length 2})
 (defunit earlyromanfoot 2973/10000 {:length 1})
-(defunit earth_flattening -31783761571/5000 {:length 1})
-(defunit earthday 17781537531051/15625 {:time 3})
+(defunit earth_flattening 106923429/31890685000 {})
+(defunit earthday 86164090530833/1000000000 {:time 1})
 (defunit earthdist 7479901148035639923/50000000 {:length 1})
 (defunit earthmass 5974200000000000000000000N {:mass 1})
 (defunit earthradius
@@ -1031,7 +1031,7 @@
 (defunit earthvolume 677004574871068454996882195966401845262427/625000000000000000000 {:length 3})
 (defunit earthyear 9861921731259/312500 {:time 1})
 (defunit egg 1/20 {:mass 1})
-(defunit eggvolume 223895974600719729/2048000000000000000000000000 {:length 6})
+(defunit eggvolume 2996784329/64000000000000 {:length 3})
 (defunit eggwhite 3/100 {:mass 1})
 (defunit eggwhitevolume 473176473/16000000000000 {:length 3})
 (defunit eggyolk 93/5000 {:mass 1})
@@ -1787,7 +1787,7 @@
   299792458 {:length 1, :time -1})
 (defunit lightyear
   "The 365.25 day year is specified in NIST publication 811"
-  2363563738872000N {:length 1})
+  9460730472580800N {:length 1})
 (defunit ligne
   "of the average barleycorn"
   125/55412 {:length 1})
@@ -1846,7 +1846,7 @@
 (defunit lx
   "flux incident on or coming from"
   1 {:luminous_intensity 1, :length -2})
-(defunit ly 2363563738872000N {:length 1})
+(defunit ly 9460730472580800N {:length 1})
 (defunit m
   "The 2019 SI definition of the meter is:"
   1 {:length 1})
@@ -1878,16 +1878,16 @@
   45359237/23408640000000 {:mass 1, :length -1})
 (defunit mancus 45359237/800000000 {:mass 1})
 (defunit manganese 1098761/20000000 {:mass 1, :amount_of_substance -1})
-(defunit marathon 230164959024/15625 {:length 2})
+(defunit marathon 10548747/250 {:length 1})
 (defunit marineleague 5556 {:length 1})
 (defunit marsday
   "The common \"sol\" definition."
-  178137728496/25 {:time 3})
+  8877524409/100000 {:time 1})
 (defunit marsdist 227940000000N {:length 1})
 (defunit marsmass 641910000000000000000000N {:mass 1})
 (defunit marsradius 3397000 {:length 1})
-(defunit marssiderealday 4346944704N {:time 3})
-(defunit marssolarday 178137728496/25 {:time 3})
+(defunit marssiderealday 88642663/1000 {:time 1})
+(defunit marssolarday 8877524409/100000 {:time 1})
 (defunit marsyear 59352480N {:time 1})
 (defunit mas 523598775598298873/108000000000000000000000000 {})
 (defunit mast 45359237/40000000 {:mass 1})
@@ -2824,19 +2824,19 @@
 (defunit shot
   "Sometimes 1 floz"
   1419529419/32000000000000 {:length 3})
-(defunit siderealday 17781537531051/15625 {:time 3})
+(defunit siderealday 86164090530833/1000000000 {:time 1})
 (defunit siderealhour
   "between two successive transits"
-  5927179177017/125000 {:time 3})
+  86164090530833/24000000000 {:time 1})
 (defunit siderealminute
   "of a star over the meridian,"
-  1975726392339/2500000 {:time 3})
+  86164090530833/1440000000000 {:time 1})
 (defunit siderealmonth
   "Time required for the moon to orbit the earth"
   1475369694/625 {:time 1})
 (defunit siderealsecond
   "or the time required for the earth to make one rotation relative to the stars. The more usual solar day is the time required to make a rotation relative to the sun. Because the earth moves in its orbit, it has to turn a bit extra to face the sun again, hence the solar day is slightly longer."
-  658575464113/50000000 {:time 3})
+  86164090530833/86400000000000 {:time 1})
 (defunit siderealyear
   "The time for the earth to make one revolution around the sun relative to the stars."
   9861921731259/312500 {:time 1})
@@ -2949,7 +2949,7 @@
 (defunit smallpica 19330289/5000000000 {:length 1})
 (defunit smoot
   "Height of Oliver R. Smoot Jr. see: http://aether.lbl.gov/www/personnel/smoot/smoot-measure.html"
-  338709/1250000 {:length 2})
+  8509/5000 {:length 1})
 (defunit sodium 2873721/125000000 {:mass 1, :amount_of_substance -1})
 (defunit solarday
   "The time for the earth to rotate on its axis relative to the sun."
@@ -2993,7 +2993,7 @@
   1825109253/390625000 {:length 3})
 (defunit standardgauge
   "Standard width between railroad track"
-  822579/3125000 {:length 2})
+  14351/10000 {:length 1})
 (defunit standardtemp
   "standard temperature, exactly defined"
   5463/20 {:temperature 1})

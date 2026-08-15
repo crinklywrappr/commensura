@@ -67,6 +67,14 @@
 (def ^:private one {:factor 1 :dims {}})
 (defn- v* [a b] {:factor (* (:factor a) (:factor b)) :dims (merge* (:dims a) (:dims b))})
 (defn- vdiv [a b] {:factor (/ (:factor a) (:factor b)) :dims (merge* (:dims a) (negate (:dims b)))})
+(defn- vadd [a b]                         ; sum of conforming terms (5 feet + 7 inches, c (365 + 1/4) day)
+  (when (not= (:dims a) (:dims b))
+    (throw (ex-info "adding non-conforming terms" {:a a :b b})))
+  {:factor (+ (:factor a) (:factor b)) :dims (:dims a)})
+(defn- vsub [a b]
+  (when (not= (:dims a) (:dims b))
+    (throw (ex-info "subtracting non-conforming terms" {:a a :b b})))
+  {:factor (- (:factor a) (:factor b)) :dims (:dims a)})
 (defn- vpow [a n]
   (let [dims' (into {} (map (fn [[k e]] [k (* e n)])) (:dims a))]
     ;; a rational exponent keeps dims exact: an integer (kept Long-valued like the rest of the
@@ -114,7 +122,7 @@
                 (cond
                   (= t "-")          (let [v (factor*)] {:factor (- (:factor v)) :dims (:dims v)})
                   (= t "+")          (factor*)
-                  (= t "(")          (let [v (sequence*)] (when (= (peek*) ")") (next*)) v)
+                  (= t "(")          (let [v (sum*)] (when (= (peek*) ")") (next*)) v)
                   (number-token? t)  {:factor (parse-number t) :dims {}}
                   :else (or (resolve-id env prefixes t)
                             (throw (ex-info "unresolved identifier" {:id t :expr s}))))))
@@ -127,20 +135,28 @@
                           (throw (ex-info "non-scalar exponent" {:expr s :exp ev})))
                         (vpow base (:factor ev))))
                   base)))
-            (sequence* []
-              (loop [acc one, op :mul]
+            ;; product level: `*`, `/`, and juxtaposition (implicit `*`); stops at a binary `+`/`-`
+            ;; so `sum*` can consume it. The first `power*` still absorbs a leading unary sign.
+            (product* []
+              (loop [acc (power*)]
                 (let [t (peek*)]
                   (cond
-                    (or (nil? t) (= t ")")) acc
-                    (= t "/") (do (next*) (recur acc :div))
-                    (= t "*") (do (next*) (recur acc :mul))
-                    :else (let [v (power*)]
-                            (recur (if (= op :div) (vdiv acc v) (v* acc v)) :mul))))))]
+                    (or (nil? t) (= t ")") (= t "+") (= t "-")) acc
+                    (= t "/") (do (next*) (recur (vdiv acc (power*))))
+                    (= t "*") (do (next*) (recur (v* acc (power*))))
+                    :else     (recur (v* acc (power*)))))))   ; juxtaposition
+            ;; sum level (lowest precedence): binary `+`/`-` between products.
+            (sum* []
+              (loop [acc (product*)]
+                (case (peek*)
+                  "+" (do (next*) (recur (vadd acc (product*))))
+                  "-" (do (next*) (recur (vsub acc (product*))))
+                  acc)))]
       ;; bind the build context so a BigDecimal (irrational) factor combining with a
       ;; Ratio (e.g. plancktemperature = planckmass c^2 / k) coerces/rounds instead of
       ;; throwing "non-terminating decimal"; exact Ratio/int arithmetic ignores it.
       (binding [*math-context* build-mc]
-        (let [v (sequence*)]
+        (let [v (sum*)]
           (when (< @pos (count tokens))
             (throw (ex-info "trailing tokens" {:expr s :rest (subvec tokens @pos)})))
           v)))))
