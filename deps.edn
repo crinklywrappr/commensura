@@ -22,6 +22,11 @@
   ;; self-skip when Frink is absent, so the default suite is unaffected.
   :frink
   {:extra-deps {us.futureboy/frink {:local/root "../frink.jar"}}}
+  ;; Clerk documentation notebook (dev-only). Renders notebooks/commensura.clj to static HTML.
+  ;; Run via the build task: clojure -X:build docs
+  :clerk
+  {:extra-paths ["notebooks"]
+   :extra-deps {io.github.nextjournal/clerk {:mvn/version "0.17.1102"}}}
   ;; invoked with -X:build (not -T), so it inherits the root :deps — big-math (used
   ;; by the converter's nth-root) is declared once, up top, and need not be repeated.
   :build {:extra-paths ["." "dev"]    ; "." for build.clj (‑X, unlike ‑T, won't add it); dev-only, NOT jarred

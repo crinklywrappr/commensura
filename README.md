@@ -125,5 +125,5 @@ The bundled unit data (`resources/commensura/units.edn`) is derived from
 the **GNU units** database by Adrian Mariano, descended from the Bell Labs UNIX
 `units` program. Values trace to NIST SP 811, CODATA, the SI Brochure, and the CRC
 Handbook. See [`NOTICE`](NOTICE) for full attribution — this lineage is why
-commensura is GPL. (Note: a few constants — e.g. gasoline energy, TNT, G — differ
-slightly from frinj's 2013 snapshot because `units.txt` has since been updated.)
+commensura is GPL. (Note: a few constants — e.g. gasoline energy, TNT, G — track the
+current `units.txt`, which has been updated over the years.)

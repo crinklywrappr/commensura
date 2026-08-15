@@ -76,6 +76,25 @@
   (run-tests [:test :frink])
   opts)
 
+(defn docs
+  "Render the Clerk documentation notebook to static HTML in target/doc/.
+  Run: clojure -X:build docs"
+  [opts]
+  (b/delete {:path "target/doc"})                          ; drop any stale output (e.g. a prior index.edn)
+  (b/delete {:path ".clerk"})                              ; clear Clerk's cache so live (network/env) cells re-run
+  (let [basis (b/create-basis {:aliases [:clerk]})
+        cmds  (b/java-command
+               {:basis     basis
+                :main      'clojure.main
+                :main-args ["-e" (pr-str '(do (require '[nextjournal.clerk :as clerk])
+                                              (clerk/build! {:paths ["notebooks/commensura.clj"]
+                                                             :package :single-file
+                                                             :out-path "target/doc"})
+                                              (shutdown-agents)))]})
+        {:keys [exit]} (b/process cmds)]
+    (when-not (zero? exit) (throw (ex-info "Docs build failed" {:exit exit}))))
+  opts)
+
 ;; Namespaces excluded from the coverage denominator (regexes, matched against the ns name):
 ;; the two GENERATED namespaces (one mechanical shape repeated thousands of times) and the
 ;; LIVE-only fetch code (unreachable offline, so the default suite can never cover it). The

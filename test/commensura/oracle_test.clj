@@ -40,7 +40,7 @@
 
 (defn- rel-diff [a b] (/ (Math/abs (- a b)) (max 1.0 (Math/abs b))))
 
-;; ---- fixed oracle cases (the archived frinj examples; commensura computed, compared to Frink) ----
+;; ---- fixed oracle cases (archived worked examples; commensura computed, compared to Frink) ----
 (deftest fixed-oracle-cases
   (when (o/available?)
     (doseq [[label c-val frink]

@@ -90,7 +90,7 @@
     ;; (ratio q b)·b has the same magnitude+dims as q
     (q= (c/by (c/ratio qty b) b) qty)))
 
-;; ---- exactness invariant (the core promise over frinj) ----
+;; ---- exactness invariant (commensura's core promise) ----
 (defspec arithmetic-stays-exact 300
   (prop/for-all [x gen-quantity y gen-quantity]
     (not (instance? Double (q/magnitude (c/by x y))))))

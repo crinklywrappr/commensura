@@ -196,6 +196,15 @@
   [dims nm]
   (registry/register-dimension! dims nm))
 
+(defn register-unit-resolver!
+  "Install a resolver for a *family* of units derivable from their name rather than registered one by
+  one (the extension seam behind commensura's own historical currencies). `pred` is `name -> boolean`;
+  `dispatch` is `name -> unit`, invoked when a name isn't in the unit table and `pred` matches. So a
+  `#commensura/unit \"…\"` literal (and `to`/`ratio`) reify the whole family on demand. Resolvers are
+  tried in registration order, first match wins. Complements `defunit` (a single fixed unit)."
+  [pred dispatch]
+  (registry/register-unit-resolver! pred dispatch))
+
 (defmacro defunit
   "Define a callable `Unit` var. The bound value is the new unit name: it prints
   under its own name, scales when called, and serves as a `to`/`ratio` target.
