@@ -5,6 +5,7 @@ name: master
 on:
   push:
     branches: [master]
+  workflow_dispatch:        # allow a manual run (e.g. to publish docs or refresh CPI on demand)
 
 # Serialize master runs so the CPI auto-commit can't race another run.
 concurrency:
