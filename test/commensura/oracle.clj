@@ -65,10 +65,12 @@
 
 (defn aligned-unit-names
   "Commensura unit names whose exact base-SI magnitude Frink reproduces EXACTLY — the vetted pool the
-  generators draw from. This intersection self-maintains as units.txt evolves."
+  generators draw from. This intersection self-maintains as units.txt evolves. Zero-magnitude units
+  (`zero`, `neutroncharge`) are excluded so the generators can safely raise any drawn unit to a
+  negative power without a divide-by-zero."
   []
   (->> (registry/all-units)
        (keep (fn [[nm unit]]
                (let [m (q/magnitude unit)]
-                 (when (and (exact? m) (= m (frink-base-factor nm))) nm))))
+                 (when (and (exact? m) (not (zero? m)) (= m (frink-base-factor nm))) nm))))
        sort))
