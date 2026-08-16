@@ -54,9 +54,9 @@ relevant key (`FRED_API_KEY`, `CURRENCYFREAKS_API_KEY`) is in the environment.
 
 `test/commensura/oracle_test.clj` cross-checks commensura against the **real Frink** engine in-process:
 for the exact (rational) subset, commensura's base-SI magnitude must be bit-identical to Frink's.
-Frink is proprietary and **not redistributed**; provide `frink.jar` via the `:frink` alias
-(`:local/root`, default `../frink.jar`, or a `FRINK_JAR` path). The oracle namespace loads fine without
-the jar and its tests self-skip, so the default suite is unaffected.
+Frink is proprietary and **not redistributed**; drop `frink.jar` in the project root (gitignored by
+`*.jar`; the `:frink` alias picks it up). The oracle namespace loads fine without the jar and its
+tests self-skip, so the default suite is unaffected.
 
     clojure -M:test:frink -m cognitect.test-runner    # or: clojure -X:build test-oracle
 

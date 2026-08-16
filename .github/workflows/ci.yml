@@ -35,8 +35,8 @@ jobs:
           git clone --depth 1 \
             "https://x-access-token:${FRINK_REPO_TOKEN}@github.com/crinklywrappr/frink.git" \
             "${RUNNER_TEMP}/frink"
-          # the :frink alias resolves :local/root "../frink.jar" relative to the project dir
-          cp "${RUNNER_TEMP}/frink/frink.jar" "${GITHUB_WORKSPACE}/../frink.jar"
+          # the :frink alias resolves :local/root "frink.jar" in the project root (gitignored by *.jar)
+          cp "${RUNNER_TEMP}/frink/frink.jar" "${GITHUB_WORKSPACE}/frink.jar"
       # No FRED/CurrencyFreaks keys here on purpose: the Frink oracle only covers units + dimensional
       # arithmetic, and the ^:live tests self-skip without keys — so PRs never spend live API quota.
       - name: Full suite + Frink oracle
