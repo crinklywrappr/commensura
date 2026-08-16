@@ -15,13 +15,13 @@
   ;; `coverage` task in build.clj. Run: clojure -X:build coverage
   :coverage
   {:extra-deps {cloverage/cloverage {:mvn/version "1.2.4"}}}
-  ;; Opt-in Frink oracle (dev/CI only). Frink is proprietary and NOT redistributed — provide the jar
-  ;; via a local path (default ../frink.jar) or FRINK_JAR. Combine with :test, e.g.
+  ;; Opt-in Frink oracle (dev/CI only). Frink is proprietary and NOT redistributed — drop `frink.jar`
+  ;; in the project root (gitignored by *.jar) and combine with :test, e.g.
   ;;   clojure -M:test:frink -m cognitect.test-runner
   ;; The oracle namespace loads fine without it (it resolves the class reflectively); its tests
   ;; self-skip when Frink is absent, so the default suite is unaffected.
   :frink
-  {:extra-deps {us.futureboy/frink {:local/root "../frink.jar"}}}
+  {:extra-deps {us.futureboy/frink {:local/root "frink.jar"}}}
   ;; Clerk documentation notebook (dev-only). Renders notebooks/commensura.clj to static HTML.
   ;; Run via the build task: clojure -X:build docs
   :clerk

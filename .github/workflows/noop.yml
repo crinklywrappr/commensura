@@ -1,0 +1,18 @@
+name: noop
+
+# Bootstrap workflow: a repository that has never run Actions won't trigger a `pull_request` workflow
+# that lives only on a feature branch — the first workflow has to reach the default branch to activate
+# Actions. Merging this trivial job to master does that; afterwards, real workflows run on PRs normally.
+# Safe to delete once CI is live.
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Actions is alive. 🎉"
