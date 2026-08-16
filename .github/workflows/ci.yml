@@ -1,0 +1,52 @@
+name: CI
+
+# Gates every PR must pass (the ruleset requires `test` / `oracle` / `docs`). Also runs on master so
+# the badge reflects the default branch and the *merged* result is verified — not just the pre-merge PR.
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/clojure
+      - name: Offline test suite
+        run: clojure -X:build test
+
+  oracle:
+    name: oracle
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/clojure
+      - name: Provide frink.jar for the oracle
+        env:
+          FRINK_REPO_TOKEN: ${{ secrets.FRINK_REPO_TOKEN }}
+        run: |
+          git clone --depth 1 \
+            "https://x-access-token:${FRINK_REPO_TOKEN}@github.com/crinklywrappr/frink.git" \
+            "${RUNNER_TEMP}/frink"
+          # the :frink alias resolves :local/root "../frink.jar" relative to the project dir
+          cp "${RUNNER_TEMP}/frink/frink.jar" "${GITHUB_WORKSPACE}/../frink.jar"
+      # No FRED/CurrencyFreaks keys here on purpose: the Frink oracle only covers units + dimensional
+      # arithmetic, and the ^:live tests self-skip without keys — so PRs never spend live API quota.
+      - name: Full suite + Frink oracle
+        run: clojure -X:build test-oracle
+
+  docs:
+    name: docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/clojure
+      - name: Build the Clerk notebook (verify it renders; no key → live cells degrade gracefully)
+        run: clojure -X:build docs

@@ -1,0 +1,21 @@
+name: Clojure toolchain
+description: Java (Temurin) + Clojure CLI + a cached ~/.m2 / ~/.gitlibs. Assumes the repo is already checked out.
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: "21"
+    - uses: DeLaGuardo/setup-clojure@13.4
+      with:
+        cli: latest
+    - uses: actions/cache@v4
+      with:
+        path: |
+          ~/.m2/repository
+          ~/.gitlibs
+          ~/.deps.clj
+        key: ${{ runner.os }}-clj-${{ hashFiles('deps.edn') }}
+        restore-keys: ${{ runner.os }}-clj-
