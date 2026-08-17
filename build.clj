@@ -149,17 +149,22 @@
           :src-dirs  ["src"]
           :pom-data  (pom-template version)))
 
-(defn ci "Run the CI pipeline of tests (and build the JAR)." [opts]
-  (test opts)
+(defn jar "Build the library JAR (pom + jar) into target/." [opts]
   (b/delete {:path "target"})
   (let [opts (jar-opts opts)]
     (println "\nWriting pom.xml...")
     (b/write-pom opts)
     (println "\nCopying source...")
     (b/copy-dir {:src-dirs ["resources" "src"] :target-dir class-dir})
+    ;; Ship the full GPL text with the artifact (the pom carries only the license name + URL).
+    (b/copy-file {:src "LICENSE" :target (str class-dir "/META-INF/LICENSE")})
     (println "\nBuilding JAR..." (:jar-file opts))
     (b/jar opts))
   opts)
+
+(defn ci "Run the tests, then build the JAR." [opts]
+  (test opts)
+  (jar opts))
 
 (defn install "Install the JAR locally." [opts]
   (let [opts (jar-opts opts)]

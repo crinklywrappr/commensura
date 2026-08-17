@@ -1,6 +1,7 @@
 # commensura
 
 [![CI](https://github.com/crinklywrappr/commensura/actions/workflows/ci.yml/badge.svg)](https://github.com/crinklywrappr/commensura/actions/workflows/ci.yml)
+[![Clojars Project](https://img.shields.io/clojars/v/com.github.crinklywrappr/commensura.svg)](https://clojars.org/com.github.crinklywrappr/commensura)
 
 **Exact** unit conversion and dimensional arithmetic for Clojure, inspired by
 [Frink](https://frinklang.org). Over 2,000 of Frink's units are reduced to base dimensions in a
