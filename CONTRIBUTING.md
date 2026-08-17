@@ -58,6 +58,12 @@ Frink is proprietary and **not redistributed**; drop `frink.jar` in the project 
 `*.jar`; the `:frink` alias picks it up). The oracle namespace loads fine without the jar and its
 tests self-skip, so the default suite is unaffected.
 
+The oracle feeds Frink commensura's **own** pinned `dev-resources/frink/units.txt` (via
+`parseFilename`, which overrides the jar's auto-loaded embedded copy — `setUnitsFile` is a no-op after
+construction). So the comparison is like-for-like on the exact unit data commensura is built from, and
+the jar serves only as the *engine* — its bundled units may lag the live upstream without weakening the
+oracle. The monthly `frink-sync` workflow keeps `units.txt` current from `frinklang.org/frinkdata`.
+
     clojure -M:test:frink -m cognitect.test-runner    # or: clojure -X:build test-oracle
 
 ## Nonlinear-function drift

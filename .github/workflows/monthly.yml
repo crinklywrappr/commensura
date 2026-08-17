@@ -1,0 +1,126 @@
+name: monthly
+
+# Monthly maintenance:
+#  - refresh the shipped CPI data from FRED (commit cpi.edn if it changed), and
+#  - track upstream Frink. Two independent sources:
+#      * unit data  — https://frinklang.org/frinkdata/units.txt (the live file; fresher than any jar's
+#        embedded copy). On drift vs commensura's committed dev-resources/frink/units.txt, regenerate the
+#        unit data and open a PR for review. The oracle feeds Frink this same units.txt (parseFilename),
+#        so its CI validates the change against Frink's engine regardless of the jar's bundled units.
+#      * engine      — the official frink.jar from futureboy.us (updated only for engine currency; the
+#        oracle no longer relies on its embedded units). On drift, update the pinned jar in the private repo.
+on:
+  schedule:
+    - cron: "0 8 15 * *" # 15th, 08:00 UTC — after BLS posts the prior month's CPI-U
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: monthly
+  cancel-in-progress: false
+
+jobs:
+  cpi-refresh:
+    name: cpi-refresh
+    runs-on: ubuntu-latest
+    steps:
+      # The commensura-ci App token is in the ruleset bypass list, so its push to protected master is
+      # allowed (the default GITHUB_TOKEN is not bypass-eligible).
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}   # so `git push` authenticates as the App
+      - uses: ./.github/actions/clojure
+      - name: Refresh CPI from FRED
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: clojure -X:build cpi-fetch
+      - name: Verify the refreshed data still passes
+        run: clojure -X:build test
+      - name: Commit cpi.edn if it changed
+        run: |
+          if git diff --quiet -- resources/commensura/cpi.edn; then
+            echo "cpi.edn unchanged — nothing to commit."
+            exit 0
+          fi
+          slug='${{ steps.app-token.outputs.app-slug }}'
+          git config user.name  "${slug}[bot]"
+          git config user.email "${slug}[bot]@users.noreply.github.com"
+          git add resources/commensura/cpi.edn
+          git commit -m "chore: refresh CPI data from FRED [skip ci]"
+          git push
+
+  frink-sync:
+    name: frink-sync
+    runs-on: ubuntu-latest
+    steps:
+      # The commensura-ci App opens the units-sync PR: it has contents + pull-requests write, and
+      # App-authored PRs (unlike GITHUB_TOKEN ones) do trigger CI.
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+      - uses: ./.github/actions/clojure
+      - name: Detect upstream drift (frinklang.org units.txt · futureboy frink.jar)
+        id: sync
+        env:
+          FRINK_REPO_TOKEN: ${{ secrets.FRINK_REPO_TOKEN }}
+        run: |
+          # The clone is only for the jar (the engine); unit data is diffed against commensura's own
+          # committed units.txt — the single source of truth for what the library is built from.
+          git clone --depth 1 \
+            "https://x-access-token:${FRINK_REPO_TOKEN}@github.com/crinklywrappr/frink.git" \
+            "${RUNNER_TEMP}/frinkrepo"
+          curl -fsSL https://frinklang.org/frinkdata/units.txt -o "${RUNNER_TEMP}/upstream-units.txt"
+          curl -fsSL https://futureboy.us/frinkjar/frink.jar    -o "${RUNNER_TEMP}/frink-latest.jar"
+          jar=false; units=false
+          cmp -s "${RUNNER_TEMP}/frink-latest.jar"   "${RUNNER_TEMP}/frinkrepo/frink.jar" || jar=true
+          cmp -s "${RUNNER_TEMP}/upstream-units.txt" dev-resources/frink/units.txt        || units=true
+          echo "jar=${jar}"     >> "$GITHUB_OUTPUT"
+          echo "units=${units}" >> "$GITHUB_OUTPUT"
+          echo "jar changed: ${jar} · units.txt changed: ${units}"
+      - name: Update the pinned frink.jar in crinklywrappr/frink (engine currency)
+        if: steps.sync.outputs.jar == 'true'
+        run: |
+          cp "${RUNNER_TEMP}/frink-latest.jar" "${RUNNER_TEMP}/frinkrepo/frink.jar"
+          cd "${RUNNER_TEMP}/frinkrepo"
+          git config user.name  "commensura-monthly"
+          git config user.email "actions@users.noreply.github.com"
+          git add frink.jar
+          git commit -m "chore: update frink.jar from futureboy.us"
+          git push
+      - name: Sync unit data from frinklang.org and open a PR
+        if: steps.sync.outputs.units == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          # Regenerate commensura from the new upstream. If the converter can't handle the change this
+          # step fails (no PR opened), so next month retries and a maintainer is paged by the failed run
+          # rather than getting a broken PR.
+          cp "${RUNNER_TEMP}/upstream-units.txt" dev-resources/frink/units.txt
+          clojure -X:build convert
+          clojure -X:build gen-units
+          slug='${{ steps.app-token.outputs.app-slug }}'
+          git config user.name  "${slug}[bot]"
+          git config user.email "${slug}[bot]@users.noreply.github.com"
+          git checkout -b frink-sync
+          git add dev-resources/frink/units.txt resources/commensura/units.edn \
+                  src/commensura/units.clj src/commensura/dimensions.clj
+          git commit -m "chore: sync Frink unit data from frinklang.org"
+          # Idempotent: until the PR merges, dev-resources/frink/units.txt stays behind, so a later run
+          # simply force-updates this same branch with the newest upstream. Merging clears the drift.
+          git push -f -u origin frink-sync
+          gh pr create --base master --head frink-sync \
+            --title "Sync Frink unit data from frinklang.org" \
+            --body "\`frinklang.org/frinkdata/units.txt\` drifted from commensura's committed copy. This regenerates the unit data (\`dev-resources/frink/units.txt\`, \`resources/commensura/units.edn\`, \`src/commensura/units.clj\` + \`dimensions.clj\`) from the new upstream. The oracle here feeds Frink this same units.txt (via \`parseFilename\`), so it validates the change against Frink's engine regardless of the pinned jar's embedded version. Review the diffs; if the SHA drift test flags a nonlinear function, follow CONTRIBUTING.md." \
+            || echo "A frink-sync PR is already open — its branch was force-updated."

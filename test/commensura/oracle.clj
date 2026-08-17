@@ -10,7 +10,8 @@
     \"2 meter + 3 meter\"  => \"5 m (length)\"
     \"sqrt[2] meter\"      => \"1.4142135623730951 m (length)\"
   so the leading token is the source of truth: a rational ⇒ exact, a bare decimal ⇒ irrational/approx."
-  (:require [clojure.string :as str]
+  (:require [clojure.java.io :as io]
+            [clojure.string :as str]
             [commensura.registry :as registry]
             [commensura.quantity :as q]
             [commensura.units]))                 ; load so builtin units are registered
@@ -21,8 +22,28 @@
 
 (defn available? [] (some? @frink-class))
 
+;; commensura's runtime is built from a pinned Frink units.txt (dev-resources/frink/units.txt). We feed
+;; Frink that SAME file so the oracle compares like-for-like, independent of how old the jar's *embedded*
+;; units are: the constructor auto-loads the embedded copy, then `parseFilename` overrides it with ours.
+;; (`setUnitsFile` is a no-op after construction — verified — so parseFilename is the mechanism.) If the
+;; file is absent (odd CWD) we fall back to the jar's embedded units.
+(def ^:private pinned-units-file
+  (delay (let [f (io/file "dev-resources" "frink" "units.txt")]
+           (when (.isFile f) (.getAbsolutePath f)))))
+
 (def ^:private engine
-  (delay (clojure.lang.Reflector/invokeConstructor @frink-class (object-array 0))))
+  (delay
+    (let [e (clojure.lang.Reflector/invokeConstructor @frink-class (object-array 0))]
+      (when-let [uf @pinned-units-file]
+        ;; parseFilename echoes "Combination exists for …" notices to stdout/stderr; mute them.
+        (let [null (java.io.PrintStream. (java.io.OutputStream/nullOutputStream))
+              out  System/out
+              err  System/err]
+          (try
+            (System/setOut null) (System/setErr null)
+            (clojure.lang.Reflector/invokeInstanceMethod e "parseFilename" (object-array [uf]))
+            (finally (System/setOut out) (System/setErr err)))))
+      e)))
 
 (defn eval-raw
   "Evaluate a Frink expression, returning Frink's raw result string."
