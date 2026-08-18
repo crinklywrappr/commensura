@@ -71,11 +71,6 @@
   (testing "a non-value (e.g. a keyword) is rejected"
     (is (thrown? clojure.lang.ExceptionInfo (d/describe :foo)))))
 
-(deftest dimensions-lists-named-pairs
-  (let [dims (d/dimensions)]
-    (is (some (fn [[_ nm]] (= nm "velocity")) dims))
-    (is (every? (fn [[dm nm]] (and (map? dm) (string? nm))) dims))))
-
 (deftest reflects-live-registrations
   (testing "a freshly defunit'd unit shows up in both views (a live query, not a snapshot)"
     (is (some #{"zorptron"} (d/search-units "zorp")))

@@ -107,11 +107,3 @@
            :dimensions     dims
            :dimension-name (registry/lookup-dimension dims)
            :doc            (:doc (meta u))})))
-
-(defn dimensions
-  "All registered dimension → human-name entries as `[dims-map name]` pairs, sorted by name.
-  Base dimensions may be unnamed and simply don't appear here."
-  []
-  (->> (registry/all-dimensions)
-       (sort-by val)
-       (mapv (fn [[dm nm]] [dm nm]))))
