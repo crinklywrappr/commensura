@@ -18,6 +18,7 @@
             [commensura.cpi :as cpi]
             [commensura.currency :as cur]
             [commensura.currency.rates :as rates]
+            [commensura.registry :as registry]
             [commensura.reader]
             [clojure.edn :as edn]
             [clojure.java.io :as io]))
@@ -240,6 +241,23 @@ fuel-cost
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (demo (to (cur/BTC 1) (satoshi)))
+
+;; The other case is a **family**: one resolver mints *many* units by parsing their names — you never
+;; define each member (this is exactly how the `dollar_YYYY` CPI units work). Say a lumber yard sells
+;; planks by length, so `plank_<n>` should be an *n*-foot unit. A single pred/dispatch pair covers every
+;; one of them — the `pred` matches the shape, the `dispatch` parses `n` out of the name:
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(register-unit-resolver!
+ (fn [nm] (re-matches #"plank_\d+" nm))                       ; pred: any plank_<n>
+ (fn [nm] (q/unit nm                                          ; dispatch: build an n-foot unit
+                  (q/magnitude (u/feet (parse-long (re-find #"\d+" nm))))
+                  {:length 1})))
+
+;; `plank_12` was never defined, yet the name resolves to a real unit on demand — and it's exact
+;; (4 yards is exactly one 12-foot plank):
+
+(to (u/yards 4) (registry/resolve-unit "plank_12"))
 
 ;; ## Under the hood — everything reduces to base dimensions
 ;;
