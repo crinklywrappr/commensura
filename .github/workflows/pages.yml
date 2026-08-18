@@ -1,33 +1,22 @@
-name: master
+name: pages
 
-# Post-merge side effects: run the live integration tests and publish the docs.
-# (Tests + oracle already gated the PR; see ci.yml. CPI refresh lives in monthly.yml.)
+# Build the Clerk notebook and deploy it to GitHub Pages on every master push. All correctness gates —
+# offline suite, Frink oracle, docs render, and the live integration tests — live in ci.yml (which also
+# runs on master push); the release + Clojars publish is release.yml. CPI refresh lives in monthly.yml.
 on:
   push:
     branches: [master]
   workflow_dispatch:        # allow a manual run (e.g. to re-publish the docs)
 
-# Serialize master runs (one Pages deploy at a time).
+# Serialize Pages deploys (one at a time).
 concurrency:
-  group: master
+  group: pages
   cancel-in-progress: false
 
 permissions:
   contents: read
 
 jobs:
-  live:
-    name: live
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/clojure
-      - name: Live integration tests (FRED + CurrencyFreaks)
-        env:
-          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-          CURRENCYFREAKS_API_KEY: ${{ secrets.CURRENCYFREAKS_API_KEY }}
-        run: clojure -X:build test    # the ^:live tests run themselves when the keys are present
-
   deploy-docs:
     name: deploy-docs
     runs-on: ubuntu-latest

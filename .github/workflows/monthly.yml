@@ -1,7 +1,8 @@
 name: monthly
 
 # Monthly maintenance:
-#  - refresh the shipped CPI data from FRED (commit cpi.edn if it changed), and
+#  - refresh the shipped CPI data from FRED (commit cpi.edn if it changed; the App-authored push runs CI
+#    and, if green, cuts a release carrying the fresh data — so no [skip ci]), and
 #  - track upstream Frink. Two independent sources:
 #      * unit data  — https://frinklang.org/frinkdata/units.txt (the live file; fresher than any jar's
 #        embedded copy). On drift vs commensura's committed dev-resources/frink/units.txt, regenerate the
@@ -53,7 +54,8 @@ jobs:
           git config user.name  "${slug}[bot]"
           git config user.email "${slug}[bot]@users.noreply.github.com"
           git add resources/commensura/cpi.edn
-          git commit -m "chore: refresh CPI data from FRED [skip ci]"
+          # No [skip ci]: this App-authored push to master runs CI + release, publishing the fresh data.
+          git commit -m "chore: refresh CPI data from FRED"
           git push
 
   frink-sync:
