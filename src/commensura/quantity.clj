@@ -92,13 +92,27 @@
 
 (declare scale apply-scaled)
 
+(defmacro ^:private def-callable
+  "`defrecord` for a callable value: the supplied protocol impls, plus the full `IFn` — an `invoke`
+  for every arity 0..20 and `applyTo`, each delegating to `apply-scaled`. So a unit/quantity is a
+  first-class fn across Clojure's whole positional-arity range; past 20, `apply` routes through
+  `applyTo`."
+  [rname fields & impls]
+  `(defrecord ~rname ~fields
+     ~@impls
+     clojure.lang.IFn
+     ~@(for [n (range 0 21)]
+         (let [as (repeatedly n gensym)]
+           `(~'invoke [~'this ~@as] (apply-scaled ~'this [~@as]))))
+     (~'applyTo [~'this ~'args] (apply-scaled ~'this (seq ~'args)))))
+
 ;; one term of a display formula, e.g. foot^3 — a Unit raised to a power
 (defrecord UnitTerm [unit-name exp factor base-dims]
   Dimensionable
   (dims [_] (scale-dims base-dims exp)))          ; this term's dimensional contribution
 
 ;; a named registered unit: name + base magnitude + stored dimensions
-(defrecord PreciseUnit [name mag dims]
+(def-callable PreciseUnit [name mag dims]
   Dimensionable
   (dims [_] dims)
 
@@ -107,24 +121,12 @@
 
   Formulaic
   (formula [_] [(->UnitTerm name 1 mag dims)])
-
-  clojure.lang.IFn
-  (invoke [this]                 (apply-scaled this []))
-  (invoke [this a]               (apply-scaled this [a]))
-  (invoke [this a b]             (apply-scaled this [a b]))
-  (invoke [this a b c]           (apply-scaled this [a b c]))
-  (invoke [this a b c d]         (apply-scaled this [a b c d]))
-  (invoke [this a b c d e]       (apply-scaled this [a b c d e]))
-  (invoke [this a b c d e f]     (apply-scaled this [a b c d e f]))
-  (invoke [this a b c d e f g]   (apply-scaled this [a b c d e f g]))
-  (invoke [this a b c d e f g h] (apply-scaled this [a b c d e f g h]))
-  (applyTo [this args]           (apply-scaled this (seq args)))
 
   Object
   (toString [this] (display-string this)))
 
 ;; an anonymous computed value: exact magnitude + ordered display formula
-(defrecord PreciseQuantity [mag formula]
+(def-callable PreciseQuantity [mag formula]
   Dimensionable
   (dims [_] (formula-dims formula))
 
@@ -134,23 +136,11 @@
   Formulaic
   (formula [_] formula)
 
-  clojure.lang.IFn
-  (invoke [this]                 (apply-scaled this []))
-  (invoke [this a]               (apply-scaled this [a]))
-  (invoke [this a b]             (apply-scaled this [a b]))
-  (invoke [this a b c]           (apply-scaled this [a b c]))
-  (invoke [this a b c d]         (apply-scaled this [a b c d]))
-  (invoke [this a b c d e]       (apply-scaled this [a b c d e]))
-  (invoke [this a b c d e f]     (apply-scaled this [a b c d e f]))
-  (invoke [this a b c d e f g]   (apply-scaled this [a b c d e f g]))
-  (invoke [this a b c d e f g h] (apply-scaled this [a b c d e f g h]))
-  (applyTo [this args]           (apply-scaled this (seq args)))
-
   Object
   (toString [this] (display-string this)))
 
 ;; like Unit, but the magnitude is an approximate BigDecimal (irrational value)
-(defrecord ApproxUnit [name mag dims]
+(def-callable ApproxUnit [name mag dims]
   Dimensionable
   (dims [_] dims)
 
@@ -160,23 +150,11 @@
   Formulaic
   (formula [_] [(->UnitTerm name 1 mag dims)])
 
-  clojure.lang.IFn
-  (invoke [this]                 (apply-scaled this []))
-  (invoke [this a]               (apply-scaled this [a]))
-  (invoke [this a b]             (apply-scaled this [a b]))
-  (invoke [this a b c]           (apply-scaled this [a b c]))
-  (invoke [this a b c d]         (apply-scaled this [a b c d]))
-  (invoke [this a b c d e]       (apply-scaled this [a b c d e]))
-  (invoke [this a b c d e f]     (apply-scaled this [a b c d e f]))
-  (invoke [this a b c d e f g]   (apply-scaled this [a b c d e f g]))
-  (invoke [this a b c d e f g h] (apply-scaled this [a b c d e f g h]))
-  (applyTo [this args]           (apply-scaled this (seq args)))
-
   Object
   (toString [this] (display-string this)))
 
 ;; like Quantity, but the magnitude is an approximate BigDecimal (irrational value)
-(defrecord ApproxQuantity [mag formula]
+(def-callable ApproxQuantity [mag formula]
   Dimensionable
   (dims [_] (formula-dims formula))
 
@@ -185,18 +163,6 @@
 
   Formulaic
   (formula [_] formula)
-
-  clojure.lang.IFn
-  (invoke [this]                 (apply-scaled this []))
-  (invoke [this a]               (apply-scaled this [a]))
-  (invoke [this a b]             (apply-scaled this [a b]))
-  (invoke [this a b c]           (apply-scaled this [a b c]))
-  (invoke [this a b c d]         (apply-scaled this [a b c d]))
-  (invoke [this a b c d e]       (apply-scaled this [a b c d e]))
-  (invoke [this a b c d e f]     (apply-scaled this [a b c d e f]))
-  (invoke [this a b c d e f g]   (apply-scaled this [a b c d e f g]))
-  (invoke [this a b c d e f g h] (apply-scaled this [a b c d e f g h]))
-  (applyTo [this args]           (apply-scaled this (seq args)))
 
   Object
   (toString [this] (display-string this)))

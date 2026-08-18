@@ -28,7 +28,7 @@
        "  (" code " a b …) => a·b·… " code "^n (arity → exponent, like a unit).\"\n"
        "  ([]           (r/of \"" code "\"))\n"
        "  ([amount]     (r/of \"" code "\" amount))\n"
-       "  ([a b & more] (reduce q/qmul (r/of \"" code "\" a) (map #(r/of \"" code "\" %) (cons b more)))))\n"))
+       "  ([a b & more] (apply r/of \"" code "\" a b more)))\n"))
 
 (def ^:private header
   (str ";;;; commensura — Frink-inspired exact unit conversion for Clojure.\n"
@@ -41,8 +41,7 @@
        "  One fn per code: `(EUR)` => 1 EUR, `(EUR 600)` => 600 EUR, `(EUR 3 5)` => 15 EUR^2 (arity ->\n"
        "  exponent, as for a unit); compose with the core verbs, e.g. `(c/to (EUR 600) u/dollar)`. Codes\n"
        "  without a legal symbol name, and dynamic use, go through `commensura.currency.rates/of`.\"\n"
-       "  (:require [commensura.currency.rates :as r]\n"
-       "            [commensura.quantity :as q]))\n\n"))
+       "  (:require [commensura.currency.rates :as r]))\n\n"))
 
 (defn generate!
   "Build task entry (clojure -X:build gen-currency): regenerate src/commensura/currency.clj."

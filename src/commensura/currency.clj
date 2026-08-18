@@ -9,7110 +9,7109 @@
   One fn per code: `(EUR)` => 1 EUR, `(EUR 600)` => 600 EUR, `(EUR 3 5)` => 15 EUR^2 (arity ->
   exponent, as for a unit); compose with the core verbs, e.g. `(c/to (EUR 600) u/dollar)`. Codes
   without a legal symbol name, and dynamic use, go through `commensura.currency.rates/of`."
-  (:require [commensura.currency.rates :as r]
-            [commensura.quantity :as q]))
+  (:require [commensura.currency.rates :as r]))
 
 (defn A8
   "A8 (live rate): (A8) => 1 A8; (A8 amount) => that many A8;
   (A8 a b …) => a·b·… A8^n (arity → exponent, like a unit)."
   ([]           (r/of "A8"))
   ([amount]     (r/of "A8" amount))
-  ([a b & more] (reduce q/qmul (r/of "A8" a) (map #(r/of "A8" %) (cons b more)))))
+  ([a b & more] (apply r/of "A8" a b more)))
 
 (defn AAVE
   "AAVE (live rate): (AAVE) => 1 AAVE; (AAVE amount) => that many AAVE;
   (AAVE a b …) => a·b·… AAVE^n (arity → exponent, like a unit)."
   ([]           (r/of "AAVE"))
   ([amount]     (r/of "AAVE" amount))
-  ([a b & more] (reduce q/qmul (r/of "AAVE" a) (map #(r/of "AAVE" %) (cons b more)))))
+  ([a b & more] (apply r/of "AAVE" a b more)))
 
 (defn AB
   "AB (live rate): (AB) => 1 AB; (AB amount) => that many AB;
   (AB a b …) => a·b·… AB^n (arity → exponent, like a unit)."
   ([]           (r/of "AB"))
   ([amount]     (r/of "AB" amount))
-  ([a b & more] (reduce q/qmul (r/of "AB" a) (map #(r/of "AB" %) (cons b more)))))
+  ([a b & more] (apply r/of "AB" a b more)))
 
 (defn ABT
   "ABT (live rate): (ABT) => 1 ABT; (ABT amount) => that many ABT;
   (ABT a b …) => a·b·… ABT^n (arity → exponent, like a unit)."
   ([]           (r/of "ABT"))
   ([amount]     (r/of "ABT" amount))
-  ([a b & more] (reduce q/qmul (r/of "ABT" a) (map #(r/of "ABT" %) (cons b more)))))
+  ([a b & more] (apply r/of "ABT" a b more)))
 
 (defn ABTC
   "ABTC (live rate): (ABTC) => 1 ABTC; (ABTC amount) => that many ABTC;
   (ABTC a b …) => a·b·… ABTC^n (arity → exponent, like a unit)."
   ([]           (r/of "ABTC"))
   ([amount]     (r/of "ABTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "ABTC" a) (map #(r/of "ABTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "ABTC" a b more)))
 
 (defn ACH
   "ACH (live rate): (ACH) => 1 ACH; (ACH amount) => that many ACH;
   (ACH a b …) => a·b·… ACH^n (arity → exponent, like a unit)."
   ([]           (r/of "ACH"))
   ([amount]     (r/of "ACH" amount))
-  ([a b & more] (reduce q/qmul (r/of "ACH" a) (map #(r/of "ACH" %) (cons b more)))))
+  ([a b & more] (apply r/of "ACH" a b more)))
 
 (defn ACS
   "ACS (live rate): (ACS) => 1 ACS; (ACS amount) => that many ACS;
   (ACS a b …) => a·b·… ACS^n (arity → exponent, like a unit)."
   ([]           (r/of "ACS"))
   ([amount]     (r/of "ACS" amount))
-  ([a b & more] (reduce q/qmul (r/of "ACS" a) (map #(r/of "ACS" %) (cons b more)))))
+  ([a b & more] (apply r/of "ACS" a b more)))
 
 (defn ACT
   "ACT (live rate): (ACT) => 1 ACT; (ACT amount) => that many ACT;
   (ACT a b …) => a·b·… ACT^n (arity → exponent, like a unit)."
   ([]           (r/of "ACT"))
   ([amount]     (r/of "ACT" amount))
-  ([a b & more] (reduce q/qmul (r/of "ACT" a) (map #(r/of "ACT" %) (cons b more)))))
+  ([a b & more] (apply r/of "ACT" a b more)))
 
 (defn ACX
   "ACX (live rate): (ACX) => 1 ACX; (ACX amount) => that many ACX;
   (ACX a b …) => a·b·… ACX^n (arity → exponent, like a unit)."
   ([]           (r/of "ACX"))
   ([amount]     (r/of "ACX" amount))
-  ([a b & more] (reduce q/qmul (r/of "ACX" a) (map #(r/of "ACX" %) (cons b more)))))
+  ([a b & more] (apply r/of "ACX" a b more)))
 
 (defn ADA
   "ADA (live rate): (ADA) => 1 ADA; (ADA amount) => that many ADA;
   (ADA a b …) => a·b·… ADA^n (arity → exponent, like a unit)."
   ([]           (r/of "ADA"))
   ([amount]     (r/of "ADA" amount))
-  ([a b & more] (reduce q/qmul (r/of "ADA" a) (map #(r/of "ADA" %) (cons b more)))))
+  ([a b & more] (apply r/of "ADA" a b more)))
 
 (defn AED
   "AED (live rate): (AED) => 1 AED; (AED amount) => that many AED;
   (AED a b …) => a·b·… AED^n (arity → exponent, like a unit)."
   ([]           (r/of "AED"))
   ([amount]     (r/of "AED" amount))
-  ([a b & more] (reduce q/qmul (r/of "AED" a) (map #(r/of "AED" %) (cons b more)))))
+  ([a b & more] (apply r/of "AED" a b more)))
 
 (defn AERGO
   "AERGO (live rate): (AERGO) => 1 AERGO; (AERGO amount) => that many AERGO;
   (AERGO a b …) => a·b·… AERGO^n (arity → exponent, like a unit)."
   ([]           (r/of "AERGO"))
   ([amount]     (r/of "AERGO" amount))
-  ([a b & more] (reduce q/qmul (r/of "AERGO" a) (map #(r/of "AERGO" %) (cons b more)))))
+  ([a b & more] (apply r/of "AERGO" a b more)))
 
 (defn AERO
   "AERO (live rate): (AERO) => 1 AERO; (AERO amount) => that many AERO;
   (AERO a b …) => a·b·… AERO^n (arity → exponent, like a unit)."
   ([]           (r/of "AERO"))
   ([amount]     (r/of "AERO" amount))
-  ([a b & more] (reduce q/qmul (r/of "AERO" a) (map #(r/of "AERO" %) (cons b more)))))
+  ([a b & more] (apply r/of "AERO" a b more)))
 
 (defn AEVO
   "AEVO (live rate): (AEVO) => 1 AEVO; (AEVO amount) => that many AEVO;
   (AEVO a b …) => a·b·… AEVO^n (arity → exponent, like a unit)."
   ([]           (r/of "AEVO"))
   ([amount]     (r/of "AEVO" amount))
-  ([a b & more] (reduce q/qmul (r/of "AEVO" a) (map #(r/of "AEVO" %) (cons b more)))))
+  ([a b & more] (apply r/of "AEVO" a b more)))
 
 (defn AFN
   "AFN (live rate): (AFN) => 1 AFN; (AFN amount) => that many AFN;
   (AFN a b …) => a·b·… AFN^n (arity → exponent, like a unit)."
   ([]           (r/of "AFN"))
   ([amount]     (r/of "AFN" amount))
-  ([a b & more] (reduce q/qmul (r/of "AFN" a) (map #(r/of "AFN" %) (cons b more)))))
+  ([a b & more] (apply r/of "AFN" a b more)))
 
 (defn AGENTFUN
   "AGENTFUN (live rate): (AGENTFUN) => 1 AGENTFUN; (AGENTFUN amount) => that many AGENTFUN;
   (AGENTFUN a b …) => a·b·… AGENTFUN^n (arity → exponent, like a unit)."
   ([]           (r/of "AGENTFUN"))
   ([amount]     (r/of "AGENTFUN" amount))
-  ([a b & more] (reduce q/qmul (r/of "AGENTFUN" a) (map #(r/of "AGENTFUN" %) (cons b more)))))
+  ([a b & more] (apply r/of "AGENTFUN" a b more)))
 
 (defn AGI
   "AGI (live rate): (AGI) => 1 AGI; (AGI amount) => that many AGI;
   (AGI a b …) => a·b·… AGI^n (arity → exponent, like a unit)."
   ([]           (r/of "AGI"))
   ([amount]     (r/of "AGI" amount))
-  ([a b & more] (reduce q/qmul (r/of "AGI" a) (map #(r/of "AGI" %) (cons b more)))))
+  ([a b & more] (apply r/of "AGI" a b more)))
 
 (defn AGIX
   "AGIX (live rate): (AGIX) => 1 AGIX; (AGIX amount) => that many AGIX;
   (AGIX a b …) => a·b·… AGIX^n (arity → exponent, like a unit)."
   ([]           (r/of "AGIX"))
   ([amount]     (r/of "AGIX" amount))
-  ([a b & more] (reduce q/qmul (r/of "AGIX" a) (map #(r/of "AGIX" %) (cons b more)))))
+  ([a b & more] (apply r/of "AGIX" a b more)))
 
 (defn AGLD
   "AGLD (live rate): (AGLD) => 1 AGLD; (AGLD amount) => that many AGLD;
   (AGLD a b …) => a·b·… AGLD^n (arity → exponent, like a unit)."
   ([]           (r/of "AGLD"))
   ([amount]     (r/of "AGLD" amount))
-  ([a b & more] (reduce q/qmul (r/of "AGLD" a) (map #(r/of "AGLD" %) (cons b more)))))
+  ([a b & more] (apply r/of "AGLD" a b more)))
 
 (defn AI
   "AI (live rate): (AI) => 1 AI; (AI amount) => that many AI;
   (AI a b …) => a·b·… AI^n (arity → exponent, like a unit)."
   ([]           (r/of "AI"))
   ([amount]     (r/of "AI" amount))
-  ([a b & more] (reduce q/qmul (r/of "AI" a) (map #(r/of "AI" %) (cons b more)))))
+  ([a b & more] (apply r/of "AI" a b more)))
 
 (defn AI16Z
   "AI16Z (live rate): (AI16Z) => 1 AI16Z; (AI16Z amount) => that many AI16Z;
   (AI16Z a b …) => a·b·… AI16Z^n (arity → exponent, like a unit)."
   ([]           (r/of "AI16Z"))
   ([amount]     (r/of "AI16Z" amount))
-  ([a b & more] (reduce q/qmul (r/of "AI16Z" a) (map #(r/of "AI16Z" %) (cons b more)))))
+  ([a b & more] (apply r/of "AI16Z" a b more)))
 
 (defn AIC
   "AIC (live rate): (AIC) => 1 AIC; (AIC amount) => that many AIC;
   (AIC a b …) => a·b·… AIC^n (arity → exponent, like a unit)."
   ([]           (r/of "AIC"))
   ([amount]     (r/of "AIC" amount))
-  ([a b & more] (reduce q/qmul (r/of "AIC" a) (map #(r/of "AIC" %) (cons b more)))))
+  ([a b & more] (apply r/of "AIC" a b more)))
 
 (defn AIOZ
   "AIOZ (live rate): (AIOZ) => 1 AIOZ; (AIOZ amount) => that many AIOZ;
   (AIOZ a b …) => a·b·… AIOZ^n (arity → exponent, like a unit)."
   ([]           (r/of "AIOZ"))
   ([amount]     (r/of "AIOZ" amount))
-  ([a b & more] (reduce q/qmul (r/of "AIOZ" a) (map #(r/of "AIOZ" %) (cons b more)))))
+  ([a b & more] (apply r/of "AIOZ" a b more)))
 
 (defn AIXBT
   "AIXBT (live rate): (AIXBT) => 1 AIXBT; (AIXBT amount) => that many AIXBT;
   (AIXBT a b …) => a·b·… AIXBT^n (arity → exponent, like a unit)."
   ([]           (r/of "AIXBT"))
   ([amount]     (r/of "AIXBT" amount))
-  ([a b & more] (reduce q/qmul (r/of "AIXBT" a) (map #(r/of "AIXBT" %) (cons b more)))))
+  ([a b & more] (apply r/of "AIXBT" a b more)))
 
 (defn AKT
   "AKT (live rate): (AKT) => 1 AKT; (AKT amount) => that many AKT;
   (AKT a b …) => a·b·… AKT^n (arity → exponent, like a unit)."
   ([]           (r/of "AKT"))
   ([amount]     (r/of "AKT" amount))
-  ([a b & more] (reduce q/qmul (r/of "AKT" a) (map #(r/of "AKT" %) (cons b more)))))
+  ([a b & more] (apply r/of "AKT" a b more)))
 
 (defn AKUMA
   "AKUMA (live rate): (AKUMA) => 1 AKUMA; (AKUMA amount) => that many AKUMA;
   (AKUMA a b …) => a·b·… AKUMA^n (arity → exponent, like a unit)."
   ([]           (r/of "AKUMA"))
   ([amount]     (r/of "AKUMA" amount))
-  ([a b & more] (reduce q/qmul (r/of "AKUMA" a) (map #(r/of "AKUMA" %) (cons b more)))))
+  ([a b & more] (apply r/of "AKUMA" a b more)))
 
 (defn ALCX
   "ALCX (live rate): (ALCX) => 1 ALCX; (ALCX amount) => that many ALCX;
   (ALCX a b …) => a·b·… ALCX^n (arity → exponent, like a unit)."
   ([]           (r/of "ALCX"))
   ([amount]     (r/of "ALCX" amount))
-  ([a b & more] (reduce q/qmul (r/of "ALCX" a) (map #(r/of "ALCX" %) (cons b more)))))
+  ([a b & more] (apply r/of "ALCX" a b more)))
 
 (defn ALEO
   "ALEO (live rate): (ALEO) => 1 ALEO; (ALEO amount) => that many ALEO;
   (ALEO a b …) => a·b·… ALEO^n (arity → exponent, like a unit)."
   ([]           (r/of "ALEO"))
   ([amount]     (r/of "ALEO" amount))
-  ([a b & more] (reduce q/qmul (r/of "ALEO" a) (map #(r/of "ALEO" %) (cons b more)))))
+  ([a b & more] (apply r/of "ALEO" a b more)))
 
 (defn ALEPH
   "ALEPH (live rate): (ALEPH) => 1 ALEPH; (ALEPH amount) => that many ALEPH;
   (ALEPH a b …) => a·b·… ALEPH^n (arity → exponent, like a unit)."
   ([]           (r/of "ALEPH"))
   ([amount]     (r/of "ALEPH" amount))
-  ([a b & more] (reduce q/qmul (r/of "ALEPH" a) (map #(r/of "ALEPH" %) (cons b more)))))
+  ([a b & more] (apply r/of "ALEPH" a b more)))
 
 (defn ALEX
   "ALEX (live rate): (ALEX) => 1 ALEX; (ALEX amount) => that many ALEX;
   (ALEX a b …) => a·b·… ALEX^n (arity → exponent, like a unit)."
   ([]           (r/of "ALEX"))
   ([amount]     (r/of "ALEX" amount))
-  ([a b & more] (reduce q/qmul (r/of "ALEX" a) (map #(r/of "ALEX" %) (cons b more)))))
+  ([a b & more] (apply r/of "ALEX" a b more)))
 
 (defn ALGO
   "ALGO (live rate): (ALGO) => 1 ALGO; (ALGO amount) => that many ALGO;
   (ALGO a b …) => a·b·… ALGO^n (arity → exponent, like a unit)."
   ([]           (r/of "ALGO"))
   ([amount]     (r/of "ALGO" amount))
-  ([a b & more] (reduce q/qmul (r/of "ALGO" a) (map #(r/of "ALGO" %) (cons b more)))))
+  ([a b & more] (apply r/of "ALGO" a b more)))
 
 (defn ALICE
   "ALICE (live rate): (ALICE) => 1 ALICE; (ALICE amount) => that many ALICE;
   (ALICE a b …) => a·b·… ALICE^n (arity → exponent, like a unit)."
   ([]           (r/of "ALICE"))
   ([amount]     (r/of "ALICE" amount))
-  ([a b & more] (reduce q/qmul (r/of "ALICE" a) (map #(r/of "ALICE" %) (cons b more)))))
+  ([a b & more] (apply r/of "ALICE" a b more)))
 
 (defn ALL
   "ALL (live rate): (ALL) => 1 ALL; (ALL amount) => that many ALL;
   (ALL a b …) => a·b·… ALL^n (arity → exponent, like a unit)."
   ([]           (r/of "ALL"))
   ([amount]     (r/of "ALL" amount))
-  ([a b & more] (reduce q/qmul (r/of "ALL" a) (map #(r/of "ALL" %) (cons b more)))))
+  ([a b & more] (apply r/of "ALL" a b more)))
 
 (defn ALLO
   "ALLO (live rate): (ALLO) => 1 ALLO; (ALLO amount) => that many ALLO;
   (ALLO a b …) => a·b·… ALLO^n (arity → exponent, like a unit)."
   ([]           (r/of "ALLO"))
   ([amount]     (r/of "ALLO" amount))
-  ([a b & more] (reduce q/qmul (r/of "ALLO" a) (map #(r/of "ALLO" %) (cons b more)))))
+  ([a b & more] (apply r/of "ALLO" a b more)))
 
 (defn ALPH
   "ALPH (live rate): (ALPH) => 1 ALPH; (ALPH amount) => that many ALPH;
   (ALPH a b …) => a·b·… ALPH^n (arity → exponent, like a unit)."
   ([]           (r/of "ALPH"))
   ([amount]     (r/of "ALPH" amount))
-  ([a b & more] (reduce q/qmul (r/of "ALPH" a) (map #(r/of "ALPH" %) (cons b more)))))
+  ([a b & more] (apply r/of "ALPH" a b more)))
 
 (defn ALT
   "ALT (live rate): (ALT) => 1 ALT; (ALT amount) => that many ALT;
   (ALT a b …) => a·b·… ALT^n (arity → exponent, like a unit)."
   ([]           (r/of "ALT"))
   ([amount]     (r/of "ALT" amount))
-  ([a b & more] (reduce q/qmul (r/of "ALT" a) (map #(r/of "ALT" %) (cons b more)))))
+  ([a b & more] (apply r/of "ALT" a b more)))
 
 (defn ALUSD
   "ALUSD (live rate): (ALUSD) => 1 ALUSD; (ALUSD amount) => that many ALUSD;
   (ALUSD a b …) => a·b·… ALUSD^n (arity → exponent, like a unit)."
   ([]           (r/of "ALUSD"))
   ([amount]     (r/of "ALUSD" amount))
-  ([a b & more] (reduce q/qmul (r/of "ALUSD" a) (map #(r/of "ALUSD" %) (cons b more)))))
+  ([a b & more] (apply r/of "ALUSD" a b more)))
 
 (defn AMAPT
   "AMAPT (live rate): (AMAPT) => 1 AMAPT; (AMAPT amount) => that many AMAPT;
   (AMAPT a b …) => a·b·… AMAPT^n (arity → exponent, like a unit)."
   ([]           (r/of "AMAPT"))
   ([amount]     (r/of "AMAPT" amount))
-  ([a b & more] (reduce q/qmul (r/of "AMAPT" a) (map #(r/of "AMAPT" %) (cons b more)))))
+  ([a b & more] (apply r/of "AMAPT" a b more)))
 
 (defn AMD
   "AMD (live rate): (AMD) => 1 AMD; (AMD amount) => that many AMD;
   (AMD a b …) => a·b·… AMD^n (arity → exponent, like a unit)."
   ([]           (r/of "AMD"))
   ([amount]     (r/of "AMD" amount))
-  ([a b & more] (reduce q/qmul (r/of "AMD" a) (map #(r/of "AMD" %) (cons b more)))))
+  ([a b & more] (apply r/of "AMD" a b more)))
 
 (defn AMP
   "AMP (live rate): (AMP) => 1 AMP; (AMP amount) => that many AMP;
   (AMP a b …) => a·b·… AMP^n (arity → exponent, like a unit)."
   ([]           (r/of "AMP"))
   ([amount]     (r/of "AMP" amount))
-  ([a b & more] (reduce q/qmul (r/of "AMP" a) (map #(r/of "AMP" %) (cons b more)))))
+  ([a b & more] (apply r/of "AMP" a b more)))
 
 (defn AMPL
   "AMPL (live rate): (AMPL) => 1 AMPL; (AMPL amount) => that many AMPL;
   (AMPL a b …) => a·b·… AMPL^n (arity → exponent, like a unit)."
   ([]           (r/of "AMPL"))
   ([amount]     (r/of "AMPL" amount))
-  ([a b & more] (reduce q/qmul (r/of "AMPL" a) (map #(r/of "AMPL" %) (cons b more)))))
+  ([a b & more] (apply r/of "AMPL" a b more)))
 
 (defn ANDY
   "ANDY (live rate): (ANDY) => 1 ANDY; (ANDY amount) => that many ANDY;
   (ANDY a b …) => a·b·… ANDY^n (arity → exponent, like a unit)."
   ([]           (r/of "ANDY"))
   ([amount]     (r/of "ANDY" amount))
-  ([a b & more] (reduce q/qmul (r/of "ANDY" a) (map #(r/of "ANDY" %) (cons b more)))))
+  ([a b & more] (apply r/of "ANDY" a b more)))
 
 (defn ANG
   "ANG (live rate): (ANG) => 1 ANG; (ANG amount) => that many ANG;
   (ANG a b …) => a·b·… ANG^n (arity → exponent, like a unit)."
   ([]           (r/of "ANG"))
   ([amount]     (r/of "ANG" amount))
-  ([a b & more] (reduce q/qmul (r/of "ANG" a) (map #(r/of "ANG" %) (cons b more)))))
+  ([a b & more] (apply r/of "ANG" a b more)))
 
 (defn ANIME
   "ANIME (live rate): (ANIME) => 1 ANIME; (ANIME amount) => that many ANIME;
   (ANIME a b …) => a·b·… ANIME^n (arity → exponent, like a unit)."
   ([]           (r/of "ANIME"))
   ([amount]     (r/of "ANIME" amount))
-  ([a b & more] (reduce q/qmul (r/of "ANIME" a) (map #(r/of "ANIME" %) (cons b more)))))
+  ([a b & more] (apply r/of "ANIME" a b more)))
 
 (defn ANKR
   "ANKR (live rate): (ANKR) => 1 ANKR; (ANKR amount) => that many ANKR;
   (ANKR a b …) => a·b·… ANKR^n (arity → exponent, like a unit)."
   ([]           (r/of "ANKR"))
   ([amount]     (r/of "ANKR" amount))
-  ([a b & more] (reduce q/qmul (r/of "ANKR" a) (map #(r/of "ANKR" %) (cons b more)))))
+  ([a b & more] (apply r/of "ANKR" a b more)))
 
 (defn ANT
   "ANT (live rate): (ANT) => 1 ANT; (ANT amount) => that many ANT;
   (ANT a b …) => a·b·… ANT^n (arity → exponent, like a unit)."
   ([]           (r/of "ANT"))
   ([amount]     (r/of "ANT" amount))
-  ([a b & more] (reduce q/qmul (r/of "ANT" a) (map #(r/of "ANT" %) (cons b more)))))
+  ([a b & more] (apply r/of "ANT" a b more)))
 
 (defn AO
   "AO (live rate): (AO) => 1 AO; (AO amount) => that many AO;
   (AO a b …) => a·b·… AO^n (arity → exponent, like a unit)."
   ([]           (r/of "AO"))
   ([amount]     (r/of "AO" amount))
-  ([a b & more] (reduce q/qmul (r/of "AO" a) (map #(r/of "AO" %) (cons b more)))))
+  ([a b & more] (apply r/of "AO" a b more)))
 
 (defn AOA
   "AOA (live rate): (AOA) => 1 AOA; (AOA amount) => that many AOA;
   (AOA a b …) => a·b·… AOA^n (arity → exponent, like a unit)."
   ([]           (r/of "AOA"))
   ([amount]     (r/of "AOA" amount))
-  ([a b & more] (reduce q/qmul (r/of "AOA" a) (map #(r/of "AOA" %) (cons b more)))))
+  ([a b & more] (apply r/of "AOA" a b more)))
 
 (defn APE
   "APE (live rate): (APE) => 1 APE; (APE amount) => that many APE;
   (APE a b …) => a·b·… APE^n (arity → exponent, like a unit)."
   ([]           (r/of "APE"))
   ([amount]     (r/of "APE" amount))
-  ([a b & more] (reduce q/qmul (r/of "APE" a) (map #(r/of "APE" %) (cons b more)))))
+  ([a b & more] (apply r/of "APE" a b more)))
 
 (defn APEX
   "APEX (live rate): (APEX) => 1 APEX; (APEX amount) => that many APEX;
   (APEX a b …) => a·b·… APEX^n (arity → exponent, like a unit)."
   ([]           (r/of "APEX"))
   ([amount]     (r/of "APEX" amount))
-  ([a b & more] (reduce q/qmul (r/of "APEX" a) (map #(r/of "APEX" %) (cons b more)))))
+  ([a b & more] (apply r/of "APEX" a b more)))
 
 (defn API3
   "API3 (live rate): (API3) => 1 API3; (API3 amount) => that many API3;
   (API3 a b …) => a·b·… API3^n (arity → exponent, like a unit)."
   ([]           (r/of "API3"))
   ([amount]     (r/of "API3" amount))
-  ([a b & more] (reduce q/qmul (r/of "API3" a) (map #(r/of "API3" %) (cons b more)))))
+  ([a b & more] (apply r/of "API3" a b more)))
 
 (defn APR
   "APR (live rate): (APR) => 1 APR; (APR amount) => that many APR;
   (APR a b …) => a·b·… APR^n (arity → exponent, like a unit)."
   ([]           (r/of "APR"))
   ([amount]     (r/of "APR" amount))
-  ([a b & more] (reduce q/qmul (r/of "APR" a) (map #(r/of "APR" %) (cons b more)))))
+  ([a b & more] (apply r/of "APR" a b more)))
 
 (defn APT
   "APT (live rate): (APT) => 1 APT; (APT amount) => that many APT;
   (APT a b …) => a·b·… APT^n (arity → exponent, like a unit)."
   ([]           (r/of "APT"))
   ([amount]     (r/of "APT" amount))
-  ([a b & more] (reduce q/qmul (r/of "APT" a) (map #(r/of "APT" %) (cons b more)))))
+  ([a b & more] (apply r/of "APT" a b more)))
 
 (defn APU
   "APU (live rate): (APU) => 1 APU; (APU amount) => that many APU;
   (APU a b …) => a·b·… APU^n (arity → exponent, like a unit)."
   ([]           (r/of "APU"))
   ([amount]     (r/of "APU" amount))
-  ([a b & more] (reduce q/qmul (r/of "APU" a) (map #(r/of "APU" %) (cons b more)))))
+  ([a b & more] (apply r/of "APU" a b more)))
 
 (defn AR
   "AR (live rate): (AR) => 1 AR; (AR amount) => that many AR;
   (AR a b …) => a·b·… AR^n (arity → exponent, like a unit)."
   ([]           (r/of "AR"))
   ([amount]     (r/of "AR" amount))
-  ([a b & more] (reduce q/qmul (r/of "AR" a) (map #(r/of "AR" %) (cons b more)))))
+  ([a b & more] (apply r/of "AR" a b more)))
 
 (defn ARB
   "ARB (live rate): (ARB) => 1 ARB; (ARB amount) => that many ARB;
   (ARB a b …) => a·b·… ARB^n (arity → exponent, like a unit)."
   ([]           (r/of "ARB"))
   ([amount]     (r/of "ARB" amount))
-  ([a b & more] (reduce q/qmul (r/of "ARB" a) (map #(r/of "ARB" %) (cons b more)))))
+  ([a b & more] (apply r/of "ARB" a b more)))
 
 (defn ARC
   "ARC (live rate): (ARC) => 1 ARC; (ARC amount) => that many ARC;
   (ARC a b …) => a·b·… ARC^n (arity → exponent, like a unit)."
   ([]           (r/of "ARC"))
   ([amount]     (r/of "ARC" amount))
-  ([a b & more] (reduce q/qmul (r/of "ARC" a) (map #(r/of "ARC" %) (cons b more)))))
+  ([a b & more] (apply r/of "ARC" a b more)))
 
 (defn ARK
   "ARK (live rate): (ARK) => 1 ARK; (ARK amount) => that many ARK;
   (ARK a b …) => a·b·… ARK^n (arity → exponent, like a unit)."
   ([]           (r/of "ARK"))
   ([amount]     (r/of "ARK" amount))
-  ([a b & more] (reduce q/qmul (r/of "ARK" a) (map #(r/of "ARK" %) (cons b more)))))
+  ([a b & more] (apply r/of "ARK" a b more)))
 
 (defn ARKM
   "ARKM (live rate): (ARKM) => 1 ARKM; (ARKM amount) => that many ARKM;
   (ARKM a b …) => a·b·… ARKM^n (arity → exponent, like a unit)."
   ([]           (r/of "ARKM"))
   ([amount]     (r/of "ARKM" amount))
-  ([a b & more] (reduce q/qmul (r/of "ARKM" a) (map #(r/of "ARKM" %) (cons b more)))))
+  ([a b & more] (apply r/of "ARKM" a b more)))
 
 (defn ARPA
   "ARPA (live rate): (ARPA) => 1 ARPA; (ARPA amount) => that many ARPA;
   (ARPA a b …) => a·b·… ARPA^n (arity → exponent, like a unit)."
   ([]           (r/of "ARPA"))
   ([amount]     (r/of "ARPA" amount))
-  ([a b & more] (reduce q/qmul (r/of "ARPA" a) (map #(r/of "ARPA" %) (cons b more)))))
+  ([a b & more] (apply r/of "ARPA" a b more)))
 
 (defn ARS
   "ARS (live rate): (ARS) => 1 ARS; (ARS amount) => that many ARS;
   (ARS a b …) => a·b·… ARS^n (arity → exponent, like a unit)."
   ([]           (r/of "ARS"))
   ([amount]     (r/of "ARS" amount))
-  ([a b & more] (reduce q/qmul (r/of "ARS" a) (map #(r/of "ARS" %) (cons b more)))))
+  ([a b & more] (apply r/of "ARS" a b more)))
 
 (defn ARX
   "ARX (live rate): (ARX) => 1 ARX; (ARX amount) => that many ARX;
   (ARX a b …) => a·b·… ARX^n (arity → exponent, like a unit)."
   ([]           (r/of "ARX"))
   ([amount]     (r/of "ARX" amount))
-  ([a b & more] (reduce q/qmul (r/of "ARX" a) (map #(r/of "ARX" %) (cons b more)))))
+  ([a b & more] (apply r/of "ARX" a b more)))
 
 (defn ASM
   "ASM (live rate): (ASM) => 1 ASM; (ASM amount) => that many ASM;
   (ASM a b …) => a·b·… ASM^n (arity → exponent, like a unit)."
   ([]           (r/of "ASM"))
   ([amount]     (r/of "ASM" amount))
-  ([a b & more] (reduce q/qmul (r/of "ASM" a) (map #(r/of "ASM" %) (cons b more)))))
+  ([a b & more] (apply r/of "ASM" a b more)))
 
 (defn AST
   "AST (live rate): (AST) => 1 AST; (AST amount) => that many AST;
   (AST a b …) => a·b·… AST^n (arity → exponent, like a unit)."
   ([]           (r/of "AST"))
   ([amount]     (r/of "AST" amount))
-  ([a b & more] (reduce q/qmul (r/of "AST" a) (map #(r/of "AST" %) (cons b more)))))
+  ([a b & more] (apply r/of "AST" a b more)))
 
 (defn ASTER
   "ASTER (live rate): (ASTER) => 1 ASTER; (ASTER amount) => that many ASTER;
   (ASTER a b …) => a·b·… ASTER^n (arity → exponent, like a unit)."
   ([]           (r/of "ASTER"))
   ([amount]     (r/of "ASTER" amount))
-  ([a b & more] (reduce q/qmul (r/of "ASTER" a) (map #(r/of "ASTER" %) (cons b more)))))
+  ([a b & more] (apply r/of "ASTER" a b more)))
 
 (defn ASTR
   "ASTR (live rate): (ASTR) => 1 ASTR; (ASTR amount) => that many ASTR;
   (ASTR a b …) => a·b·… ASTR^n (arity → exponent, like a unit)."
   ([]           (r/of "ASTR"))
   ([amount]     (r/of "ASTR" amount))
-  ([a b & more] (reduce q/qmul (r/of "ASTR" a) (map #(r/of "ASTR" %) (cons b more)))))
+  ([a b & more] (apply r/of "ASTR" a b more)))
 
 (defn ATA
   "ATA (live rate): (ATA) => 1 ATA; (ATA amount) => that many ATA;
   (ATA a b …) => a·b·… ATA^n (arity → exponent, like a unit)."
   ([]           (r/of "ATA"))
   ([amount]     (r/of "ATA" amount))
-  ([a b & more] (reduce q/qmul (r/of "ATA" a) (map #(r/of "ATA" %) (cons b more)))))
+  ([a b & more] (apply r/of "ATA" a b more)))
 
 (defn ATH
   "ATH (live rate): (ATH) => 1 ATH; (ATH amount) => that many ATH;
   (ATH a b …) => a·b·… ATH^n (arity → exponent, like a unit)."
   ([]           (r/of "ATH"))
   ([amount]     (r/of "ATH" amount))
-  ([a b & more] (reduce q/qmul (r/of "ATH" a) (map #(r/of "ATH" %) (cons b more)))))
+  ([a b & more] (apply r/of "ATH" a b more)))
 
 (defn ATOM
   "ATOM (live rate): (ATOM) => 1 ATOM; (ATOM amount) => that many ATOM;
   (ATOM a b …) => a·b·… ATOM^n (arity → exponent, like a unit)."
   ([]           (r/of "ATOM"))
   ([amount]     (r/of "ATOM" amount))
-  ([a b & more] (reduce q/qmul (r/of "ATOM" a) (map #(r/of "ATOM" %) (cons b more)))))
+  ([a b & more] (apply r/of "ATOM" a b more)))
 
 (defn AUCTION
   "AUCTION (live rate): (AUCTION) => 1 AUCTION; (AUCTION amount) => that many AUCTION;
   (AUCTION a b …) => a·b·… AUCTION^n (arity → exponent, like a unit)."
   ([]           (r/of "AUCTION"))
   ([amount]     (r/of "AUCTION" amount))
-  ([a b & more] (reduce q/qmul (r/of "AUCTION" a) (map #(r/of "AUCTION" %) (cons b more)))))
+  ([a b & more] (apply r/of "AUCTION" a b more)))
 
 (defn AUD
   "AUD (live rate): (AUD) => 1 AUD; (AUD amount) => that many AUD;
   (AUD a b …) => a·b·… AUD^n (arity → exponent, like a unit)."
   ([]           (r/of "AUD"))
   ([amount]     (r/of "AUD" amount))
-  ([a b & more] (reduce q/qmul (r/of "AUD" a) (map #(r/of "AUD" %) (cons b more)))))
+  ([a b & more] (apply r/of "AUD" a b more)))
 
 (defn AUDD
   "AUDD (live rate): (AUDD) => 1 AUDD; (AUDD amount) => that many AUDD;
   (AUDD a b …) => a·b·… AUDD^n (arity → exponent, like a unit)."
   ([]           (r/of "AUDD"))
   ([amount]     (r/of "AUDD" amount))
-  ([a b & more] (reduce q/qmul (r/of "AUDD" a) (map #(r/of "AUDD" %) (cons b more)))))
+  ([a b & more] (apply r/of "AUDD" a b more)))
 
 (defn AUDIO
   "AUDIO (live rate): (AUDIO) => 1 AUDIO; (AUDIO amount) => that many AUDIO;
   (AUDIO a b …) => a·b·… AUDIO^n (arity → exponent, like a unit)."
   ([]           (r/of "AUDIO"))
   ([amount]     (r/of "AUDIO" amount))
-  ([a b & more] (reduce q/qmul (r/of "AUDIO" a) (map #(r/of "AUDIO" %) (cons b more)))))
+  ([a b & more] (apply r/of "AUDIO" a b more)))
 
 (defn AURORA
   "AURORA (live rate): (AURORA) => 1 AURORA; (AURORA amount) => that many AURORA;
   (AURORA a b …) => a·b·… AURORA^n (arity → exponent, like a unit)."
   ([]           (r/of "AURORA"))
   ([amount]     (r/of "AURORA" amount))
-  ([a b & more] (reduce q/qmul (r/of "AURORA" a) (map #(r/of "AURORA" %) (cons b more)))))
+  ([a b & more] (apply r/of "AURORA" a b more)))
 
 (defn AVAIL
   "AVAIL (live rate): (AVAIL) => 1 AVAIL; (AVAIL amount) => that many AVAIL;
   (AVAIL a b …) => a·b·… AVAIL^n (arity → exponent, like a unit)."
   ([]           (r/of "AVAIL"))
   ([amount]     (r/of "AVAIL" amount))
-  ([a b & more] (reduce q/qmul (r/of "AVAIL" a) (map #(r/of "AVAIL" %) (cons b more)))))
+  ([a b & more] (apply r/of "AVAIL" a b more)))
 
 (defn AVAX
   "AVAX (live rate): (AVAX) => 1 AVAX; (AVAX amount) => that many AVAX;
   (AVAX a b …) => a·b·… AVAX^n (arity → exponent, like a unit)."
   ([]           (r/of "AVAX"))
   ([amount]     (r/of "AVAX" amount))
-  ([a b & more] (reduce q/qmul (r/of "AVAX" a) (map #(r/of "AVAX" %) (cons b more)))))
+  ([a b & more] (apply r/of "AVAX" a b more)))
 
 (defn AVNT
   "AVNT (live rate): (AVNT) => 1 AVNT; (AVNT amount) => that many AVNT;
   (AVNT a b …) => a·b·… AVNT^n (arity → exponent, like a unit)."
   ([]           (r/of "AVNT"))
   ([amount]     (r/of "AVNT" amount))
-  ([a b & more] (reduce q/qmul (r/of "AVNT" a) (map #(r/of "AVNT" %) (cons b more)))))
+  ([a b & more] (apply r/of "AVNT" a b more)))
 
 (defn AVT
   "AVT (live rate): (AVT) => 1 AVT; (AVT amount) => that many AVT;
   (AVT a b …) => a·b·… AVT^n (arity → exponent, like a unit)."
   ([]           (r/of "AVT"))
   ([amount]     (r/of "AVT" amount))
-  ([a b & more] (reduce q/qmul (r/of "AVT" a) (map #(r/of "AVT" %) (cons b more)))))
+  ([a b & more] (apply r/of "AVT" a b more)))
 
 (defn AWE
   "AWE (live rate): (AWE) => 1 AWE; (AWE amount) => that many AWE;
   (AWE a b …) => a·b·… AWE^n (arity → exponent, like a unit)."
   ([]           (r/of "AWE"))
   ([amount]     (r/of "AWE" amount))
-  ([a b & more] (reduce q/qmul (r/of "AWE" a) (map #(r/of "AWE" %) (cons b more)))))
+  ([a b & more] (apply r/of "AWE" a b more)))
 
 (defn AWG
   "AWG (live rate): (AWG) => 1 AWG; (AWG amount) => that many AWG;
   (AWG a b …) => a·b·… AWG^n (arity → exponent, like a unit)."
   ([]           (r/of "AWG"))
   ([amount]     (r/of "AWG" amount))
-  ([a b & more] (reduce q/qmul (r/of "AWG" a) (map #(r/of "AWG" %) (cons b more)))))
+  ([a b & more] (apply r/of "AWG" a b more)))
 
 (defn AXL
   "AXL (live rate): (AXL) => 1 AXL; (AXL amount) => that many AXL;
   (AXL a b …) => a·b·… AXL^n (arity → exponent, like a unit)."
   ([]           (r/of "AXL"))
   ([amount]     (r/of "AXL" amount))
-  ([a b & more] (reduce q/qmul (r/of "AXL" a) (map #(r/of "AXL" %) (cons b more)))))
+  ([a b & more] (apply r/of "AXL" a b more)))
 
 (defn AXS
   "AXS (live rate): (AXS) => 1 AXS; (AXS amount) => that many AXS;
   (AXS a b …) => a·b·… AXS^n (arity → exponent, like a unit)."
   ([]           (r/of "AXS"))
   ([amount]     (r/of "AXS" amount))
-  ([a b & more] (reduce q/qmul (r/of "AXS" a) (map #(r/of "AXS" %) (cons b more)))))
+  ([a b & more] (apply r/of "AXS" a b more)))
 
 (defn AZERO
   "AZERO (live rate): (AZERO) => 1 AZERO; (AZERO amount) => that many AZERO;
   (AZERO a b …) => a·b·… AZERO^n (arity → exponent, like a unit)."
   ([]           (r/of "AZERO"))
   ([amount]     (r/of "AZERO" amount))
-  ([a b & more] (reduce q/qmul (r/of "AZERO" a) (map #(r/of "AZERO" %) (cons b more)))))
+  ([a b & more] (apply r/of "AZERO" a b more)))
 
 (defn AZN
   "AZN (live rate): (AZN) => 1 AZN; (AZN amount) => that many AZN;
   (AZN a b …) => a·b·… AZN^n (arity → exponent, like a unit)."
   ([]           (r/of "AZN"))
   ([amount]     (r/of "AZN" amount))
-  ([a b & more] (reduce q/qmul (r/of "AZN" a) (map #(r/of "AZN" %) (cons b more)))))
+  ([a b & more] (apply r/of "AZN" a b more)))
 
 (defn AZTEC
   "AZTEC (live rate): (AZTEC) => 1 AZTEC; (AZTEC amount) => that many AZTEC;
   (AZTEC a b …) => a·b·… AZTEC^n (arity → exponent, like a unit)."
   ([]           (r/of "AZTEC"))
   ([amount]     (r/of "AZTEC" amount))
-  ([a b & more] (reduce q/qmul (r/of "AZTEC" a) (map #(r/of "AZTEC" %) (cons b more)))))
+  ([a b & more] (apply r/of "AZTEC" a b more)))
 
 (defn B3
   "B3 (live rate): (B3) => 1 B3; (B3 amount) => that many B3;
   (B3 a b …) => a·b·… B3^n (arity → exponent, like a unit)."
   ([]           (r/of "B3"))
   ([amount]     (r/of "B3" amount))
-  ([a b & more] (reduce q/qmul (r/of "B3" a) (map #(r/of "B3" %) (cons b more)))))
+  ([a b & more] (apply r/of "B3" a b more)))
 
 (defn BABYDOGE
   "BABYDOGE (live rate): (BABYDOGE) => 1 BABYDOGE; (BABYDOGE amount) => that many BABYDOGE;
   (BABYDOGE a b …) => a·b·… BABYDOGE^n (arity → exponent, like a unit)."
   ([]           (r/of "BABYDOGE"))
   ([amount]     (r/of "BABYDOGE" amount))
-  ([a b & more] (reduce q/qmul (r/of "BABYDOGE" a) (map #(r/of "BABYDOGE" %) (cons b more)))))
+  ([a b & more] (apply r/of "BABYDOGE" a b more)))
 
 (defn BADGER
   "BADGER (live rate): (BADGER) => 1 BADGER; (BADGER amount) => that many BADGER;
   (BADGER a b …) => a·b·… BADGER^n (arity → exponent, like a unit)."
   ([]           (r/of "BADGER"))
   ([amount]     (r/of "BADGER" amount))
-  ([a b & more] (reduce q/qmul (r/of "BADGER" a) (map #(r/of "BADGER" %) (cons b more)))))
+  ([a b & more] (apply r/of "BADGER" a b more)))
 
 (defn BAKE
   "BAKE (live rate): (BAKE) => 1 BAKE; (BAKE amount) => that many BAKE;
   (BAKE a b …) => a·b·… BAKE^n (arity → exponent, like a unit)."
   ([]           (r/of "BAKE"))
   ([amount]     (r/of "BAKE" amount))
-  ([a b & more] (reduce q/qmul (r/of "BAKE" a) (map #(r/of "BAKE" %) (cons b more)))))
+  ([a b & more] (apply r/of "BAKE" a b more)))
 
 (defn BAL
   "BAL (live rate): (BAL) => 1 BAL; (BAL amount) => that many BAL;
   (BAL a b …) => a·b·… BAL^n (arity → exponent, like a unit)."
   ([]           (r/of "BAL"))
   ([amount]     (r/of "BAL" amount))
-  ([a b & more] (reduce q/qmul (r/of "BAL" a) (map #(r/of "BAL" %) (cons b more)))))
+  ([a b & more] (apply r/of "BAL" a b more)))
 
 (defn BAM
   "BAM (live rate): (BAM) => 1 BAM; (BAM amount) => that many BAM;
   (BAM a b …) => a·b·… BAM^n (arity → exponent, like a unit)."
   ([]           (r/of "BAM"))
   ([amount]     (r/of "BAM" amount))
-  ([a b & more] (reduce q/qmul (r/of "BAM" a) (map #(r/of "BAM" %) (cons b more)))))
+  ([a b & more] (apply r/of "BAM" a b more)))
 
 (defn BAN
   "BAN (live rate): (BAN) => 1 BAN; (BAN amount) => that many BAN;
   (BAN a b …) => a·b·… BAN^n (arity → exponent, like a unit)."
   ([]           (r/of "BAN"))
   ([amount]     (r/of "BAN" amount))
-  ([a b & more] (reduce q/qmul (r/of "BAN" a) (map #(r/of "BAN" %) (cons b more)))))
+  ([a b & more] (apply r/of "BAN" a b more)))
 
 (defn BANANA
   "BANANA (live rate): (BANANA) => 1 BANANA; (BANANA amount) => that many BANANA;
   (BANANA a b …) => a·b·… BANANA^n (arity → exponent, like a unit)."
   ([]           (r/of "BANANA"))
   ([amount]     (r/of "BANANA" amount))
-  ([a b & more] (reduce q/qmul (r/of "BANANA" a) (map #(r/of "BANANA" %) (cons b more)))))
+  ([a b & more] (apply r/of "BANANA" a b more)))
 
 (defn BAND
   "BAND (live rate): (BAND) => 1 BAND; (BAND amount) => that many BAND;
   (BAND a b …) => a·b·… BAND^n (arity → exponent, like a unit)."
   ([]           (r/of "BAND"))
   ([amount]     (r/of "BAND" amount))
-  ([a b & more] (reduce q/qmul (r/of "BAND" a) (map #(r/of "BAND" %) (cons b more)))))
+  ([a b & more] (apply r/of "BAND" a b more)))
 
 (defn BARD
   "BARD (live rate): (BARD) => 1 BARD; (BARD amount) => that many BARD;
   (BARD a b …) => a·b·… BARD^n (arity → exponent, like a unit)."
   ([]           (r/of "BARD"))
   ([amount]     (r/of "BARD" amount))
-  ([a b & more] (reduce q/qmul (r/of "BARD" a) (map #(r/of "BARD" %) (cons b more)))))
+  ([a b & more] (apply r/of "BARD" a b more)))
 
 (defn BARSIK
   "BARSIK (live rate): (BARSIK) => 1 BARSIK; (BARSIK amount) => that many BARSIK;
   (BARSIK a b …) => a·b·… BARSIK^n (arity → exponent, like a unit)."
   ([]           (r/of "BARSIK"))
   ([amount]     (r/of "BARSIK" amount))
-  ([a b & more] (reduce q/qmul (r/of "BARSIK" a) (map #(r/of "BARSIK" %) (cons b more)))))
+  ([a b & more] (apply r/of "BARSIK" a b more)))
 
 (defn BASED1
   "BASED1 (live rate): (BASED1) => 1 BASED1; (BASED1 amount) => that many BASED1;
   (BASED1 a b …) => a·b·… BASED1^n (arity → exponent, like a unit)."
   ([]           (r/of "BASED1"))
   ([amount]     (r/of "BASED1" amount))
-  ([a b & more] (reduce q/qmul (r/of "BASED1" a) (map #(r/of "BASED1" %) (cons b more)))))
+  ([a b & more] (apply r/of "BASED1" a b more)))
 
 (defn BAT
   "BAT (live rate): (BAT) => 1 BAT; (BAT amount) => that many BAT;
   (BAT a b …) => a·b·… BAT^n (arity → exponent, like a unit)."
   ([]           (r/of "BAT"))
   ([amount]     (r/of "BAT" amount))
-  ([a b & more] (reduce q/qmul (r/of "BAT" a) (map #(r/of "BAT" %) (cons b more)))))
+  ([a b & more] (apply r/of "BAT" a b more)))
 
 (defn BB
   "BB (live rate): (BB) => 1 BB; (BB amount) => that many BB;
   (BB a b …) => a·b·… BB^n (arity → exponent, like a unit)."
   ([]           (r/of "BB"))
   ([amount]     (r/of "BB" amount))
-  ([a b & more] (reduce q/qmul (r/of "BB" a) (map #(r/of "BB" %) (cons b more)))))
+  ([a b & more] (apply r/of "BB" a b more)))
 
 (defn BBD
   "BBD (live rate): (BBD) => 1 BBD; (BBD amount) => that many BBD;
   (BBD a b …) => a·b·… BBD^n (arity → exponent, like a unit)."
   ([]           (r/of "BBD"))
   ([amount]     (r/of "BBD" amount))
-  ([a b & more] (reduce q/qmul (r/of "BBD" a) (map #(r/of "BBD" %) (cons b more)))))
+  ([a b & more] (apply r/of "BBD" a b more)))
 
 (defn BBSOL
   "BBSOL (live rate): (BBSOL) => 1 BBSOL; (BBSOL amount) => that many BBSOL;
   (BBSOL a b …) => a·b·… BBSOL^n (arity → exponent, like a unit)."
   ([]           (r/of "BBSOL"))
   ([amount]     (r/of "BBSOL" amount))
-  ([a b & more] (reduce q/qmul (r/of "BBSOL" a) (map #(r/of "BBSOL" %) (cons b more)))))
+  ([a b & more] (apply r/of "BBSOL" a b more)))
 
 (defn BCH
   "BCH (live rate): (BCH) => 1 BCH; (BCH amount) => that many BCH;
   (BCH a b …) => a·b·… BCH^n (arity → exponent, like a unit)."
   ([]           (r/of "BCH"))
   ([amount]     (r/of "BCH" amount))
-  ([a b & more] (reduce q/qmul (r/of "BCH" a) (map #(r/of "BCH" %) (cons b more)))))
+  ([a b & more] (apply r/of "BCH" a b more)))
 
 (defn BDT
   "BDT (live rate): (BDT) => 1 BDT; (BDT amount) => that many BDT;
   (BDT a b …) => a·b·… BDT^n (arity → exponent, like a unit)."
   ([]           (r/of "BDT"))
   ([amount]     (r/of "BDT" amount))
-  ([a b & more] (reduce q/qmul (r/of "BDT" a) (map #(r/of "BDT" %) (cons b more)))))
+  ([a b & more] (apply r/of "BDT" a b more)))
 
 (defn BDX
   "BDX (live rate): (BDX) => 1 BDX; (BDX amount) => that many BDX;
   (BDX a b …) => a·b·… BDX^n (arity → exponent, like a unit)."
   ([]           (r/of "BDX"))
   ([amount]     (r/of "BDX" amount))
-  ([a b & more] (reduce q/qmul (r/of "BDX" a) (map #(r/of "BDX" %) (cons b more)))))
+  ([a b & more] (apply r/of "BDX" a b more)))
 
 (defn BEAM
   "BEAM (live rate): (BEAM) => 1 BEAM; (BEAM amount) => that many BEAM;
   (BEAM a b …) => a·b·… BEAM^n (arity → exponent, like a unit)."
   ([]           (r/of "BEAM"))
   ([amount]     (r/of "BEAM" amount))
-  ([a b & more] (reduce q/qmul (r/of "BEAM" a) (map #(r/of "BEAM" %) (cons b more)))))
+  ([a b & more] (apply r/of "BEAM" a b more)))
 
 (defn BEER
   "BEER (live rate): (BEER) => 1 BEER; (BEER amount) => that many BEER;
   (BEER a b …) => a·b·… BEER^n (arity → exponent, like a unit)."
   ([]           (r/of "BEER"))
   ([amount]     (r/of "BEER" amount))
-  ([a b & more] (reduce q/qmul (r/of "BEER" a) (map #(r/of "BEER" %) (cons b more)))))
+  ([a b & more] (apply r/of "BEER" a b more)))
 
 (defn BERA
   "BERA (live rate): (BERA) => 1 BERA; (BERA amount) => that many BERA;
   (BERA a b …) => a·b·… BERA^n (arity → exponent, like a unit)."
   ([]           (r/of "BERA"))
   ([amount]     (r/of "BERA" amount))
-  ([a b & more] (reduce q/qmul (r/of "BERA" a) (map #(r/of "BERA" %) (cons b more)))))
+  ([a b & more] (apply r/of "BERA" a b more)))
 
 (defn BERASTONE
   "BERASTONE (live rate): (BERASTONE) => 1 BERASTONE; (BERASTONE amount) => that many BERASTONE;
   (BERASTONE a b …) => a·b·… BERASTONE^n (arity → exponent, like a unit)."
   ([]           (r/of "BERASTONE"))
   ([amount]     (r/of "BERASTONE" amount))
-  ([a b & more] (reduce q/qmul (r/of "BERASTONE" a) (map #(r/of "BERASTONE" %) (cons b more)))))
+  ([a b & more] (apply r/of "BERASTONE" a b more)))
 
 (defn BGB
   "BGB (live rate): (BGB) => 1 BGB; (BGB amount) => that many BGB;
   (BGB a b …) => a·b·… BGB^n (arity → exponent, like a unit)."
   ([]           (r/of "BGB"))
   ([amount]     (r/of "BGB" amount))
-  ([a b & more] (reduce q/qmul (r/of "BGB" a) (map #(r/of "BGB" %) (cons b more)))))
+  ([a b & more] (apply r/of "BGB" a b more)))
 
 (defn BGN
   "BGN (live rate): (BGN) => 1 BGN; (BGN amount) => that many BGN;
   (BGN a b …) => a·b·… BGN^n (arity → exponent, like a unit)."
   ([]           (r/of "BGN"))
   ([amount]     (r/of "BGN" amount))
-  ([a b & more] (reduce q/qmul (r/of "BGN" a) (map #(r/of "BGN" %) (cons b more)))))
+  ([a b & more] (apply r/of "BGN" a b more)))
 
 (defn BHD
   "BHD (live rate): (BHD) => 1 BHD; (BHD amount) => that many BHD;
   (BHD a b …) => a·b·… BHD^n (arity → exponent, like a unit)."
   ([]           (r/of "BHD"))
   ([amount]     (r/of "BHD" amount))
-  ([a b & more] (reduce q/qmul (r/of "BHD" a) (map #(r/of "BHD" %) (cons b more)))))
+  ([a b & more] (apply r/of "BHD" a b more)))
 
 (defn BICO
   "BICO (live rate): (BICO) => 1 BICO; (BICO amount) => that many BICO;
   (BICO a b …) => a·b·… BICO^n (arity → exponent, like a unit)."
   ([]           (r/of "BICO"))
   ([amount]     (r/of "BICO" amount))
-  ([a b & more] (reduce q/qmul (r/of "BICO" a) (map #(r/of "BICO" %) (cons b more)))))
+  ([a b & more] (apply r/of "BICO" a b more)))
 
 (defn BIF
   "BIF (live rate): (BIF) => 1 BIF; (BIF amount) => that many BIF;
   (BIF a b …) => a·b·… BIF^n (arity → exponent, like a unit)."
   ([]           (r/of "BIF"))
   ([amount]     (r/of "BIF" amount))
-  ([a b & more] (reduce q/qmul (r/of "BIF" a) (map #(r/of "BIF" %) (cons b more)))))
+  ([a b & more] (apply r/of "BIF" a b more)))
 
 (defn BIGTIME
   "BIGTIME (live rate): (BIGTIME) => 1 BIGTIME; (BIGTIME amount) => that many BIGTIME;
   (BIGTIME a b …) => a·b·… BIGTIME^n (arity → exponent, like a unit)."
   ([]           (r/of "BIGTIME"))
   ([amount]     (r/of "BIGTIME" amount))
-  ([a b & more] (reduce q/qmul (r/of "BIGTIME" a) (map #(r/of "BIGTIME" %) (cons b more)))))
+  ([a b & more] (apply r/of "BIGTIME" a b more)))
 
 (defn BILL
   "BILL (live rate): (BILL) => 1 BILL; (BILL amount) => that many BILL;
   (BILL a b …) => a·b·… BILL^n (arity → exponent, like a unit)."
   ([]           (r/of "BILL"))
   ([amount]     (r/of "BILL" amount))
-  ([a b & more] (reduce q/qmul (r/of "BILL" a) (map #(r/of "BILL" %) (cons b more)))))
+  ([a b & more] (apply r/of "BILL" a b more)))
 
 (defn BILLY
   "BILLY (live rate): (BILLY) => 1 BILLY; (BILLY amount) => that many BILLY;
   (BILLY a b …) => a·b·… BILLY^n (arity → exponent, like a unit)."
   ([]           (r/of "BILLY"))
   ([amount]     (r/of "BILLY" amount))
-  ([a b & more] (reduce q/qmul (r/of "BILLY" a) (map #(r/of "BILLY" %) (cons b more)))))
+  ([a b & more] (apply r/of "BILLY" a b more)))
 
 (defn BINK
   "BINK (live rate): (BINK) => 1 BINK; (BINK amount) => that many BINK;
   (BINK a b …) => a·b·… BINK^n (arity → exponent, like a unit)."
   ([]           (r/of "BINK"))
   ([amount]     (r/of "BINK" amount))
-  ([a b & more] (reduce q/qmul (r/of "BINK" a) (map #(r/of "BINK" %) (cons b more)))))
+  ([a b & more] (apply r/of "BINK" a b more)))
 
 (defn BIO
   "BIO (live rate): (BIO) => 1 BIO; (BIO amount) => that many BIO;
   (BIO a b …) => a·b·… BIO^n (arity → exponent, like a unit)."
   ([]           (r/of "BIO"))
   ([amount]     (r/of "BIO" amount))
-  ([a b & more] (reduce q/qmul (r/of "BIO" a) (map #(r/of "BIO" %) (cons b more)))))
+  ([a b & more] (apply r/of "BIO" a b more)))
 
 (defn BIRB
   "BIRB (live rate): (BIRB) => 1 BIRB; (BIRB amount) => that many BIRB;
   (BIRB a b …) => a·b·… BIRB^n (arity → exponent, like a unit)."
   ([]           (r/of "BIRB"))
   ([amount]     (r/of "BIRB" amount))
-  ([a b & more] (reduce q/qmul (r/of "BIRB" a) (map #(r/of "BIRB" %) (cons b more)))))
+  ([a b & more] (apply r/of "BIRB" a b more)))
 
 (defn BIT
   "BIT (live rate): (BIT) => 1 BIT; (BIT amount) => that many BIT;
   (BIT a b …) => a·b·… BIT^n (arity → exponent, like a unit)."
   ([]           (r/of "BIT"))
   ([amount]     (r/of "BIT" amount))
-  ([a b & more] (reduce q/qmul (r/of "BIT" a) (map #(r/of "BIT" %) (cons b more)))))
+  ([a b & more] (apply r/of "BIT" a b more)))
 
 (defn BITCOIN
   "BITCOIN (live rate): (BITCOIN) => 1 BITCOIN; (BITCOIN amount) => that many BITCOIN;
   (BITCOIN a b …) => a·b·… BITCOIN^n (arity → exponent, like a unit)."
   ([]           (r/of "BITCOIN"))
   ([amount]     (r/of "BITCOIN" amount))
-  ([a b & more] (reduce q/qmul (r/of "BITCOIN" a) (map #(r/of "BITCOIN" %) (cons b more)))))
+  ([a b & more] (apply r/of "BITCOIN" a b more)))
 
 (defn BLAST
   "BLAST (live rate): (BLAST) => 1 BLAST; (BLAST amount) => that many BLAST;
   (BLAST a b …) => a·b·… BLAST^n (arity → exponent, like a unit)."
   ([]           (r/of "BLAST"))
   ([amount]     (r/of "BLAST" amount))
-  ([a b & more] (reduce q/qmul (r/of "BLAST" a) (map #(r/of "BLAST" %) (cons b more)))))
+  ([a b & more] (apply r/of "BLAST" a b more)))
 
 (defn BLD
   "BLD (live rate): (BLD) => 1 BLD; (BLD amount) => that many BLD;
   (BLD a b …) => a·b·… BLD^n (arity → exponent, like a unit)."
   ([]           (r/of "BLD"))
   ([amount]     (r/of "BLD" amount))
-  ([a b & more] (reduce q/qmul (r/of "BLD" a) (map #(r/of "BLD" %) (cons b more)))))
+  ([a b & more] (apply r/of "BLD" a b more)))
 
 (defn BLEND
   "BLEND (live rate): (BLEND) => 1 BLEND; (BLEND amount) => that many BLEND;
   (BLEND a b …) => a·b·… BLEND^n (arity → exponent, like a unit)."
   ([]           (r/of "BLEND"))
   ([amount]     (r/of "BLEND" amount))
-  ([a b & more] (reduce q/qmul (r/of "BLEND" a) (map #(r/of "BLEND" %) (cons b more)))))
+  ([a b & more] (apply r/of "BLEND" a b more)))
 
 (defn BLUR
   "BLUR (live rate): (BLUR) => 1 BLUR; (BLUR amount) => that many BLUR;
   (BLUR a b …) => a·b·… BLUR^n (arity → exponent, like a unit)."
   ([]           (r/of "BLUR"))
   ([amount]     (r/of "BLUR" amount))
-  ([a b & more] (reduce q/qmul (r/of "BLUR" a) (map #(r/of "BLUR" %) (cons b more)))))
+  ([a b & more] (apply r/of "BLUR" a b more)))
 
 (defn BLZ
   "BLZ (live rate): (BLZ) => 1 BLZ; (BLZ amount) => that many BLZ;
   (BLZ a b …) => a·b·… BLZ^n (arity → exponent, like a unit)."
   ([]           (r/of "BLZ"))
   ([amount]     (r/of "BLZ" amount))
-  ([a b & more] (reduce q/qmul (r/of "BLZ" a) (map #(r/of "BLZ" %) (cons b more)))))
+  ([a b & more] (apply r/of "BLZ" a b more)))
 
 (defn BMD
   "BMD (live rate): (BMD) => 1 BMD; (BMD amount) => that many BMD;
   (BMD a b …) => a·b·… BMD^n (arity → exponent, like a unit)."
   ([]           (r/of "BMD"))
   ([amount]     (r/of "BMD" amount))
-  ([a b & more] (reduce q/qmul (r/of "BMD" a) (map #(r/of "BMD" %) (cons b more)))))
+  ([a b & more] (apply r/of "BMD" a b more)))
 
 (defn BNB
   "BNB (live rate): (BNB) => 1 BNB; (BNB amount) => that many BNB;
   (BNB a b …) => a·b·… BNB^n (arity → exponent, like a unit)."
   ([]           (r/of "BNB"))
   ([amount]     (r/of "BNB" amount))
-  ([a b & more] (reduce q/qmul (r/of "BNB" a) (map #(r/of "BNB" %) (cons b more)))))
+  ([a b & more] (apply r/of "BNB" a b more)))
 
 (defn BND
   "BND (live rate): (BND) => 1 BND; (BND amount) => that many BND;
   (BND a b …) => a·b·… BND^n (arity → exponent, like a unit)."
   ([]           (r/of "BND"))
   ([amount]     (r/of "BND" amount))
-  ([a b & more] (reduce q/qmul (r/of "BND" a) (map #(r/of "BND" %) (cons b more)))))
+  ([a b & more] (apply r/of "BND" a b more)))
 
 (defn BNKR
   "BNKR (live rate): (BNKR) => 1 BNKR; (BNKR amount) => that many BNKR;
   (BNKR a b …) => a·b·… BNKR^n (arity → exponent, like a unit)."
   ([]           (r/of "BNKR"))
   ([amount]     (r/of "BNKR" amount))
-  ([a b & more] (reduce q/qmul (r/of "BNKR" a) (map #(r/of "BNKR" %) (cons b more)))))
+  ([a b & more] (apply r/of "BNKR" a b more)))
 
 (defn BNSOL
   "BNSOL (live rate): (BNSOL) => 1 BNSOL; (BNSOL amount) => that many BNSOL;
   (BNSOL a b …) => a·b·… BNSOL^n (arity → exponent, like a unit)."
   ([]           (r/of "BNSOL"))
   ([amount]     (r/of "BNSOL" amount))
-  ([a b & more] (reduce q/qmul (r/of "BNSOL" a) (map #(r/of "BNSOL" %) (cons b more)))))
+  ([a b & more] (apply r/of "BNSOL" a b more)))
 
 (defn BNT
   "BNT (live rate): (BNT) => 1 BNT; (BNT amount) => that many BNT;
   (BNT a b …) => a·b·… BNT^n (arity → exponent, like a unit)."
   ([]           (r/of "BNT"))
   ([amount]     (r/of "BNT" amount))
-  ([a b & more] (reduce q/qmul (r/of "BNT" a) (map #(r/of "BNT" %) (cons b more)))))
+  ([a b & more] (apply r/of "BNT" a b more)))
 
 (defn BOB
   "BOB (live rate): (BOB) => 1 BOB; (BOB amount) => that many BOB;
   (BOB a b …) => a·b·… BOB^n (arity → exponent, like a unit)."
   ([]           (r/of "BOB"))
   ([amount]     (r/of "BOB" amount))
-  ([a b & more] (reduce q/qmul (r/of "BOB" a) (map #(r/of "BOB" %) (cons b more)))))
+  ([a b & more] (apply r/of "BOB" a b more)))
 
 (defn BOBA
   "BOBA (live rate): (BOBA) => 1 BOBA; (BOBA amount) => that many BOBA;
   (BOBA a b …) => a·b·… BOBA^n (arity → exponent, like a unit)."
   ([]           (r/of "BOBA"))
   ([amount]     (r/of "BOBA" amount))
-  ([a b & more] (reduce q/qmul (r/of "BOBA" a) (map #(r/of "BOBA" %) (cons b more)))))
+  ([a b & more] (apply r/of "BOBA" a b more)))
 
 (defn BOBBOB
   "BOBBOB (live rate): (BOBBOB) => 1 BOBBOB; (BOBBOB amount) => that many BOBBOB;
   (BOBBOB a b …) => a·b·… BOBBOB^n (arity → exponent, like a unit)."
   ([]           (r/of "BOBBOB"))
   ([amount]     (r/of "BOBBOB" amount))
-  ([a b & more] (reduce q/qmul (r/of "BOBBOB" a) (map #(r/of "BOBBOB" %) (cons b more)))))
+  ([a b & more] (apply r/of "BOBBOB" a b more)))
 
 (defn BODEN
   "BODEN (live rate): (BODEN) => 1 BODEN; (BODEN amount) => that many BODEN;
   (BODEN a b …) => a·b·… BODEN^n (arity → exponent, like a unit)."
   ([]           (r/of "BODEN"))
   ([amount]     (r/of "BODEN" amount))
-  ([a b & more] (reduce q/qmul (r/of "BODEN" a) (map #(r/of "BODEN" %) (cons b more)))))
+  ([a b & more] (apply r/of "BODEN" a b more)))
 
 (defn BOME
   "BOME (live rate): (BOME) => 1 BOME; (BOME amount) => that many BOME;
   (BOME a b …) => a·b·… BOME^n (arity → exponent, like a unit)."
   ([]           (r/of "BOME"))
   ([amount]     (r/of "BOME" amount))
-  ([a b & more] (reduce q/qmul (r/of "BOME" a) (map #(r/of "BOME" %) (cons b more)))))
+  ([a b & more] (apply r/of "BOME" a b more)))
 
 (defn BOND
   "BOND (live rate): (BOND) => 1 BOND; (BOND amount) => that many BOND;
   (BOND a b …) => a·b·… BOND^n (arity → exponent, like a unit)."
   ([]           (r/of "BOND"))
   ([amount]     (r/of "BOND" amount))
-  ([a b & more] (reduce q/qmul (r/of "BOND" a) (map #(r/of "BOND" %) (cons b more)))))
+  ([a b & more] (apply r/of "BOND" a b more)))
 
 (defn BONE
   "BONE (live rate): (BONE) => 1 BONE; (BONE amount) => that many BONE;
   (BONE a b …) => a·b·… BONE^n (arity → exponent, like a unit)."
   ([]           (r/of "BONE"))
   ([amount]     (r/of "BONE" amount))
-  ([a b & more] (reduce q/qmul (r/of "BONE" a) (map #(r/of "BONE" %) (cons b more)))))
+  ([a b & more] (apply r/of "BONE" a b more)))
 
 (defn BONK
   "BONK (live rate): (BONK) => 1 BONK; (BONK amount) => that many BONK;
   (BONK a b …) => a·b·… BONK^n (arity → exponent, like a unit)."
   ([]           (r/of "BONK"))
   ([amount]     (r/of "BONK" amount))
-  ([a b & more] (reduce q/qmul (r/of "BONK" a) (map #(r/of "BONK" %) (cons b more)))))
+  ([a b & more] (apply r/of "BONK" a b more)))
 
 (defn BORA
   "BORA (live rate): (BORA) => 1 BORA; (BORA amount) => that many BORA;
   (BORA a b …) => a·b·… BORA^n (arity → exponent, like a unit)."
   ([]           (r/of "BORA"))
   ([amount]     (r/of "BORA" amount))
-  ([a b & more] (reduce q/qmul (r/of "BORA" a) (map #(r/of "BORA" %) (cons b more)))))
+  ([a b & more] (apply r/of "BORA" a b more)))
 
 (defn BORG
   "BORG (live rate): (BORG) => 1 BORG; (BORG amount) => that many BORG;
   (BORG a b …) => a·b·… BORG^n (arity → exponent, like a unit)."
   ([]           (r/of "BORG"))
   ([amount]     (r/of "BORG" amount))
-  ([a b & more] (reduce q/qmul (r/of "BORG" a) (map #(r/of "BORG" %) (cons b more)))))
+  ([a b & more] (apply r/of "BORG" a b more)))
 
 (defn BPX
   "BPX (live rate): (BPX) => 1 BPX; (BPX amount) => that many BPX;
   (BPX a b …) => a·b·… BPX^n (arity → exponent, like a unit)."
   ([]           (r/of "BPX"))
   ([amount]     (r/of "BPX" amount))
-  ([a b & more] (reduce q/qmul (r/of "BPX" a) (map #(r/of "BPX" %) (cons b more)))))
+  ([a b & more] (apply r/of "BPX" a b more)))
 
 (defn BRETT
   "BRETT (live rate): (BRETT) => 1 BRETT; (BRETT amount) => that many BRETT;
   (BRETT a b …) => a·b·… BRETT^n (arity → exponent, like a unit)."
   ([]           (r/of "BRETT"))
   ([amount]     (r/of "BRETT" amount))
-  ([a b & more] (reduce q/qmul (r/of "BRETT" a) (map #(r/of "BRETT" %) (cons b more)))))
+  ([a b & more] (apply r/of "BRETT" a b more)))
 
 (defn BREV
   "BREV (live rate): (BREV) => 1 BREV; (BREV amount) => that many BREV;
   (BREV a b …) => a·b·… BREV^n (arity → exponent, like a unit)."
   ([]           (r/of "BREV"))
   ([amount]     (r/of "BREV" amount))
-  ([a b & more] (reduce q/qmul (r/of "BREV" a) (map #(r/of "BREV" %) (cons b more)))))
+  ([a b & more] (apply r/of "BREV" a b more)))
 
 (defn BRL
   "BRL (live rate): (BRL) => 1 BRL; (BRL amount) => that many BRL;
   (BRL a b …) => a·b·… BRL^n (arity → exponent, like a unit)."
   ([]           (r/of "BRL"))
   ([amount]     (r/of "BRL" amount))
-  ([a b & more] (reduce q/qmul (r/of "BRL" a) (map #(r/of "BRL" %) (cons b more)))))
+  ([a b & more] (apply r/of "BRL" a b more)))
 
 (defn BSD
   "BSD (live rate): (BSD) => 1 BSD; (BSD amount) => that many BSD;
   (BSD a b …) => a·b·… BSD^n (arity → exponent, like a unit)."
   ([]           (r/of "BSD"))
   ([amount]     (r/of "BSD" amount))
-  ([a b & more] (reduce q/qmul (r/of "BSD" a) (map #(r/of "BSD" %) (cons b more)))))
+  ([a b & more] (apply r/of "BSD" a b more)))
 
 (defn BSV
   "BSV (live rate): (BSV) => 1 BSV; (BSV amount) => that many BSV;
   (BSV a b …) => a·b·… BSV^n (arity → exponent, like a unit)."
   ([]           (r/of "BSV"))
   ([amount]     (r/of "BSV" amount))
-  ([a b & more] (reduce q/qmul (r/of "BSV" a) (map #(r/of "BSV" %) (cons b more)))))
+  ([a b & more] (apply r/of "BSV" a b more)))
 
 (defn BTC
   "BTC (live rate): (BTC) => 1 BTC; (BTC amount) => that many BTC;
   (BTC a b …) => a·b·… BTC^n (arity → exponent, like a unit)."
   ([]           (r/of "BTC"))
   ([amount]     (r/of "BTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "BTC" a) (map #(r/of "BTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "BTC" a b more)))
 
 (defn BTG
   "BTG (live rate): (BTG) => 1 BTG; (BTG amount) => that many BTG;
   (BTG a b …) => a·b·… BTG^n (arity → exponent, like a unit)."
   ([]           (r/of "BTG"))
   ([amount]     (r/of "BTG" amount))
-  ([a b & more] (reduce q/qmul (r/of "BTG" a) (map #(r/of "BTG" %) (cons b more)))))
+  ([a b & more] (apply r/of "BTG" a b more)))
 
 (defn BTN
   "BTN (live rate): (BTN) => 1 BTN; (BTN amount) => that many BTN;
   (BTN a b …) => a·b·… BTN^n (arity → exponent, like a unit)."
   ([]           (r/of "BTN"))
   ([amount]     (r/of "BTN" amount))
-  ([a b & more] (reduce q/qmul (r/of "BTN" a) (map #(r/of "BTN" %) (cons b more)))))
+  ([a b & more] (apply r/of "BTN" a b more)))
 
 (defn BTRST
   "BTRST (live rate): (BTRST) => 1 BTRST; (BTRST amount) => that many BTRST;
   (BTRST a b …) => a·b·… BTRST^n (arity → exponent, like a unit)."
   ([]           (r/of "BTRST"))
   ([amount]     (r/of "BTRST" amount))
-  ([a b & more] (reduce q/qmul (r/of "BTRST" a) (map #(r/of "BTRST" %) (cons b more)))))
+  ([a b & more] (apply r/of "BTRST" a b more)))
 
 (defn BTSE
   "BTSE (live rate): (BTSE) => 1 BTSE; (BTSE amount) => that many BTSE;
   (BTSE a b …) => a·b·… BTSE^n (arity → exponent, like a unit)."
   ([]           (r/of "BTSE"))
   ([amount]     (r/of "BTSE" amount))
-  ([a b & more] (reduce q/qmul (r/of "BTSE" a) (map #(r/of "BTSE" %) (cons b more)))))
+  ([a b & more] (apply r/of "BTSE" a b more)))
 
 (defn BTT
   "BTT (live rate): (BTT) => 1 BTT; (BTT amount) => that many BTT;
   (BTT a b …) => a·b·… BTT^n (arity → exponent, like a unit)."
   ([]           (r/of "BTT"))
   ([amount]     (r/of "BTT" amount))
-  ([a b & more] (reduce q/qmul (r/of "BTT" a) (map #(r/of "BTT" %) (cons b more)))))
+  ([a b & more] (apply r/of "BTT" a b more)))
 
 (defn BUIDL
   "BUIDL (live rate): (BUIDL) => 1 BUIDL; (BUIDL amount) => that many BUIDL;
   (BUIDL a b …) => a·b·… BUIDL^n (arity → exponent, like a unit)."
   ([]           (r/of "BUIDL"))
   ([amount]     (r/of "BUIDL" amount))
-  ([a b & more] (reduce q/qmul (r/of "BUIDL" a) (map #(r/of "BUIDL" %) (cons b more)))))
+  ([a b & more] (apply r/of "BUIDL" a b more)))
 
 (defn BUSD
   "BUSD (live rate): (BUSD) => 1 BUSD; (BUSD amount) => that many BUSD;
   (BUSD a b …) => a·b·… BUSD^n (arity → exponent, like a unit)."
   ([]           (r/of "BUSD"))
   ([amount]     (r/of "BUSD" amount))
-  ([a b & more] (reduce q/qmul (r/of "BUSD" a) (map #(r/of "BUSD" %) (cons b more)))))
+  ([a b & more] (apply r/of "BUSD" a b more)))
 
 (defn BWP
   "BWP (live rate): (BWP) => 1 BWP; (BWP amount) => that many BWP;
   (BWP a b …) => a·b·… BWP^n (arity → exponent, like a unit)."
   ([]           (r/of "BWP"))
   ([amount]     (r/of "BWP" amount))
-  ([a b & more] (reduce q/qmul (r/of "BWP" a) (map #(r/of "BWP" %) (cons b more)))))
+  ([a b & more] (apply r/of "BWP" a b more)))
 
 (defn BYN
   "BYN (live rate): (BYN) => 1 BYN; (BYN amount) => that many BYN;
   (BYN a b …) => a·b·… BYN^n (arity → exponent, like a unit)."
   ([]           (r/of "BYN"))
   ([amount]     (r/of "BYN" amount))
-  ([a b & more] (reduce q/qmul (r/of "BYN" a) (map #(r/of "BYN" %) (cons b more)))))
+  ([a b & more] (apply r/of "BYN" a b more)))
 
 (defn BZD
   "BZD (live rate): (BZD) => 1 BZD; (BZD amount) => that many BZD;
   (BZD a b …) => a·b·… BZD^n (arity → exponent, like a unit)."
   ([]           (r/of "BZD"))
   ([amount]     (r/of "BZD" amount))
-  ([a b & more] (reduce q/qmul (r/of "BZD" a) (map #(r/of "BZD" %) (cons b more)))))
+  ([a b & more] (apply r/of "BZD" a b more)))
 
 (defn BZR
   "BZR (live rate): (BZR) => 1 BZR; (BZR amount) => that many BZR;
   (BZR a b …) => a·b·… BZR^n (arity → exponent, like a unit)."
   ([]           (r/of "BZR"))
   ([amount]     (r/of "BZR" amount))
-  ([a b & more] (reduce q/qmul (r/of "BZR" a) (map #(r/of "BZR" %) (cons b more)))))
+  ([a b & more] (apply r/of "BZR" a b more)))
 
 (defn C98
   "C98 (live rate): (C98) => 1 C98; (C98 amount) => that many C98;
   (C98 a b …) => a·b·… C98^n (arity → exponent, like a unit)."
   ([]           (r/of "C98"))
   ([amount]     (r/of "C98" amount))
-  ([a b & more] (reduce q/qmul (r/of "C98" a) (map #(r/of "C98" %) (cons b more)))))
+  ([a b & more] (apply r/of "C98" a b more)))
 
 (defn CAD
   "CAD (live rate): (CAD) => 1 CAD; (CAD amount) => that many CAD;
   (CAD a b …) => a·b·… CAD^n (arity → exponent, like a unit)."
   ([]           (r/of "CAD"))
   ([amount]     (r/of "CAD" amount))
-  ([a b & more] (reduce q/qmul (r/of "CAD" a) (map #(r/of "CAD" %) (cons b more)))))
+  ([a b & more] (apply r/of "CAD" a b more)))
 
 (defn CAKE
   "CAKE (live rate): (CAKE) => 1 CAKE; (CAKE amount) => that many CAKE;
   (CAKE a b …) => a·b·… CAKE^n (arity → exponent, like a unit)."
   ([]           (r/of "CAKE"))
   ([amount]     (r/of "CAKE" amount))
-  ([a b & more] (reduce q/qmul (r/of "CAKE" a) (map #(r/of "CAKE" %) (cons b more)))))
+  ([a b & more] (apply r/of "CAKE" a b more)))
 
 (defn CANTO
   "CANTO (live rate): (CANTO) => 1 CANTO; (CANTO amount) => that many CANTO;
   (CANTO a b …) => a·b·… CANTO^n (arity → exponent, like a unit)."
   ([]           (r/of "CANTO"))
   ([amount]     (r/of "CANTO" amount))
-  ([a b & more] (reduce q/qmul (r/of "CANTO" a) (map #(r/of "CANTO" %) (cons b more)))))
+  ([a b & more] (apply r/of "CANTO" a b more)))
 
 (defn CAP
   "CAP (live rate): (CAP) => 1 CAP; (CAP amount) => that many CAP;
   (CAP a b …) => a·b·… CAP^n (arity → exponent, like a unit)."
   ([]           (r/of "CAP"))
   ([amount]     (r/of "CAP" amount))
-  ([a b & more] (reduce q/qmul (r/of "CAP" a) (map #(r/of "CAP" %) (cons b more)))))
+  ([a b & more] (apply r/of "CAP" a b more)))
 
 (defn CAR
   "CAR (live rate): (CAR) => 1 CAR; (CAR amount) => that many CAR;
   (CAR a b …) => a·b·… CAR^n (arity → exponent, like a unit)."
   ([]           (r/of "CAR"))
   ([amount]     (r/of "CAR" amount))
-  ([a b & more] (reduce q/qmul (r/of "CAR" a) (map #(r/of "CAR" %) (cons b more)))))
+  ([a b & more] (apply r/of "CAR" a b more)))
 
 (defn CAT
   "CAT (live rate): (CAT) => 1 CAT; (CAT amount) => that many CAT;
   (CAT a b …) => a·b·… CAT^n (arity → exponent, like a unit)."
   ([]           (r/of "CAT"))
   ([amount]     (r/of "CAT" amount))
-  ([a b & more] (reduce q/qmul (r/of "CAT" a) (map #(r/of "CAT" %) (cons b more)))))
+  ([a b & more] (apply r/of "CAT" a b more)))
 
 (defn CBBTC
   "CBBTC (live rate): (CBBTC) => 1 CBBTC; (CBBTC amount) => that many CBBTC;
   (CBBTC a b …) => a·b·… CBBTC^n (arity → exponent, like a unit)."
   ([]           (r/of "CBBTC"))
   ([amount]     (r/of "CBBTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "CBBTC" a) (map #(r/of "CBBTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "CBBTC" a b more)))
 
 (defn CBETH
   "CBETH (live rate): (CBETH) => 1 CBETH; (CBETH amount) => that many CBETH;
   (CBETH a b …) => a·b·… CBETH^n (arity → exponent, like a unit)."
   ([]           (r/of "CBETH"))
   ([amount]     (r/of "CBETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "CBETH" a) (map #(r/of "CBETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "CBETH" a b more)))
 
 (defn CDAI
   "CDAI (live rate): (CDAI) => 1 CDAI; (CDAI amount) => that many CDAI;
   (CDAI a b …) => a·b·… CDAI^n (arity → exponent, like a unit)."
   ([]           (r/of "CDAI"))
   ([amount]     (r/of "CDAI" amount))
-  ([a b & more] (reduce q/qmul (r/of "CDAI" a) (map #(r/of "CDAI" %) (cons b more)))))
+  ([a b & more] (apply r/of "CDAI" a b more)))
 
 (defn CDF
   "CDF (live rate): (CDF) => 1 CDF; (CDF amount) => that many CDF;
   (CDF a b …) => a·b·… CDF^n (arity → exponent, like a unit)."
   ([]           (r/of "CDF"))
   ([amount]     (r/of "CDF" amount))
-  ([a b & more] (reduce q/qmul (r/of "CDF" a) (map #(r/of "CDF" %) (cons b more)))))
+  ([a b & more] (apply r/of "CDF" a b more)))
 
 (defn CEL
   "CEL (live rate): (CEL) => 1 CEL; (CEL amount) => that many CEL;
   (CEL a b …) => a·b·… CEL^n (arity → exponent, like a unit)."
   ([]           (r/of "CEL"))
   ([amount]     (r/of "CEL" amount))
-  ([a b & more] (reduce q/qmul (r/of "CEL" a) (map #(r/of "CEL" %) (cons b more)))))
+  ([a b & more] (apply r/of "CEL" a b more)))
 
 (defn CELO
   "CELO (live rate): (CELO) => 1 CELO; (CELO amount) => that many CELO;
   (CELO a b …) => a·b·… CELO^n (arity → exponent, like a unit)."
   ([]           (r/of "CELO"))
   ([amount]     (r/of "CELO" amount))
-  ([a b & more] (reduce q/qmul (r/of "CELO" a) (map #(r/of "CELO" %) (cons b more)))))
+  ([a b & more] (apply r/of "CELO" a b more)))
 
 (defn CELR
   "CELR (live rate): (CELR) => 1 CELR; (CELR amount) => that many CELR;
   (CELR a b …) => a·b·… CELR^n (arity → exponent, like a unit)."
   ([]           (r/of "CELR"))
   ([amount]     (r/of "CELR" amount))
-  ([a b & more] (reduce q/qmul (r/of "CELR" a) (map #(r/of "CELR" %) (cons b more)))))
+  ([a b & more] (apply r/of "CELR" a b more)))
 
 (defn CET
   "CET (live rate): (CET) => 1 CET; (CET amount) => that many CET;
   (CET a b …) => a·b·… CET^n (arity → exponent, like a unit)."
   ([]           (r/of "CET"))
   ([amount]     (r/of "CET" amount))
-  ([a b & more] (reduce q/qmul (r/of "CET" a) (map #(r/of "CET" %) (cons b more)))))
+  ([a b & more] (apply r/of "CET" a b more)))
 
 (defn CETH
   "CETH (live rate): (CETH) => 1 CETH; (CETH amount) => that many CETH;
   (CETH a b …) => a·b·… CETH^n (arity → exponent, like a unit)."
   ([]           (r/of "CETH"))
   ([amount]     (r/of "CETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "CETH" a) (map #(r/of "CETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "CETH" a b more)))
 
 (defn CETUS
   "CETUS (live rate): (CETUS) => 1 CETUS; (CETUS amount) => that many CETUS;
   (CETUS a b …) => a·b·… CETUS^n (arity → exponent, like a unit)."
   ([]           (r/of "CETUS"))
   ([amount]     (r/of "CETUS" amount))
-  ([a b & more] (reduce q/qmul (r/of "CETUS" a) (map #(r/of "CETUS" %) (cons b more)))))
+  ([a b & more] (apply r/of "CETUS" a b more)))
 
 (defn CFG
   "CFG (live rate): (CFG) => 1 CFG; (CFG amount) => that many CFG;
   (CFG a b …) => a·b·… CFG^n (arity → exponent, like a unit)."
   ([]           (r/of "CFG"))
   ([amount]     (r/of "CFG" amount))
-  ([a b & more] (reduce q/qmul (r/of "CFG" a) (map #(r/of "CFG" %) (cons b more)))))
+  ([a b & more] (apply r/of "CFG" a b more)))
 
 (defn CFX
   "CFX (live rate): (CFX) => 1 CFX; (CFX amount) => that many CFX;
   (CFX a b …) => a·b·… CFX^n (arity → exponent, like a unit)."
   ([]           (r/of "CFX"))
   ([amount]     (r/of "CFX" amount))
-  ([a b & more] (reduce q/qmul (r/of "CFX" a) (map #(r/of "CFX" %) (cons b more)))))
+  ([a b & more] (apply r/of "CFX" a b more)))
 
 (defn CGLD
   "CGLD (live rate): (CGLD) => 1 CGLD; (CGLD amount) => that many CGLD;
   (CGLD a b …) => a·b·… CGLD^n (arity → exponent, like a unit)."
   ([]           (r/of "CGLD"))
   ([amount]     (r/of "CGLD" amount))
-  ([a b & more] (reduce q/qmul (r/of "CGLD" a) (map #(r/of "CGLD" %) (cons b more)))))
+  ([a b & more] (apply r/of "CGLD" a b more)))
 
 (defn CGPT
   "CGPT (live rate): (CGPT) => 1 CGPT; (CGPT amount) => that many CGPT;
   (CGPT a b …) => a·b·… CGPT^n (arity → exponent, like a unit)."
   ([]           (r/of "CGPT"))
   ([amount]     (r/of "CGPT" amount))
-  ([a b & more] (reduce q/qmul (r/of "CGPT" a) (map #(r/of "CGPT" %) (cons b more)))))
+  ([a b & more] (apply r/of "CGPT" a b more)))
 
 (defn CHECK
   "CHECK (live rate): (CHECK) => 1 CHECK; (CHECK amount) => that many CHECK;
   (CHECK a b …) => a·b·… CHECK^n (arity → exponent, like a unit)."
   ([]           (r/of "CHECK"))
   ([amount]     (r/of "CHECK" amount))
-  ([a b & more] (reduce q/qmul (r/of "CHECK" a) (map #(r/of "CHECK" %) (cons b more)))))
+  ([a b & more] (apply r/of "CHECK" a b more)))
 
 (defn CHEEL
   "CHEEL (live rate): (CHEEL) => 1 CHEEL; (CHEEL amount) => that many CHEEL;
   (CHEEL a b …) => a·b·… CHEEL^n (arity → exponent, like a unit)."
   ([]           (r/of "CHEEL"))
   ([amount]     (r/of "CHEEL" amount))
-  ([a b & more] (reduce q/qmul (r/of "CHEEL" a) (map #(r/of "CHEEL" %) (cons b more)))))
+  ([a b & more] (apply r/of "CHEEL" a b more)))
 
 (defn CHEEMS
   "CHEEMS (live rate): (CHEEMS) => 1 CHEEMS; (CHEEMS amount) => that many CHEEMS;
   (CHEEMS a b …) => a·b·… CHEEMS^n (arity → exponent, like a unit)."
   ([]           (r/of "CHEEMS"))
   ([amount]     (r/of "CHEEMS" amount))
-  ([a b & more] (reduce q/qmul (r/of "CHEEMS" a) (map #(r/of "CHEEMS" %) (cons b more)))))
+  ([a b & more] (apply r/of "CHEEMS" a b more)))
 
 (defn CHEX
   "CHEX (live rate): (CHEX) => 1 CHEX; (CHEX amount) => that many CHEX;
   (CHEX a b …) => a·b·… CHEX^n (arity → exponent, like a unit)."
   ([]           (r/of "CHEX"))
   ([amount]     (r/of "CHEX" amount))
-  ([a b & more] (reduce q/qmul (r/of "CHEX" a) (map #(r/of "CHEX" %) (cons b more)))))
+  ([a b & more] (apply r/of "CHEX" a b more)))
 
 (defn CHF
   "CHF (live rate): (CHF) => 1 CHF; (CHF amount) => that many CHF;
   (CHF a b …) => a·b·… CHF^n (arity → exponent, like a unit)."
   ([]           (r/of "CHF"))
   ([amount]     (r/of "CHF" amount))
-  ([a b & more] (reduce q/qmul (r/of "CHF" a) (map #(r/of "CHF" %) (cons b more)))))
+  ([a b & more] (apply r/of "CHF" a b more)))
 
 (defn CHILLGUY
   "CHILLGUY (live rate): (CHILLGUY) => 1 CHILLGUY; (CHILLGUY amount) => that many CHILLGUY;
   (CHILLGUY a b …) => a·b·… CHILLGUY^n (arity → exponent, like a unit)."
   ([]           (r/of "CHILLGUY"))
   ([amount]     (r/of "CHILLGUY" amount))
-  ([a b & more] (reduce q/qmul (r/of "CHILLGUY" a) (map #(r/of "CHILLGUY" %) (cons b more)))))
+  ([a b & more] (apply r/of "CHILLGUY" a b more)))
 
 (defn CHIP
   "CHIP (live rate): (CHIP) => 1 CHIP; (CHIP amount) => that many CHIP;
   (CHIP a b …) => a·b·… CHIP^n (arity → exponent, like a unit)."
   ([]           (r/of "CHIP"))
   ([amount]     (r/of "CHIP" amount))
-  ([a b & more] (reduce q/qmul (r/of "CHIP" a) (map #(r/of "CHIP" %) (cons b more)))))
+  ([a b & more] (apply r/of "CHIP" a b more)))
 
 (defn CHR
   "CHR (live rate): (CHR) => 1 CHR; (CHR amount) => that many CHR;
   (CHR a b …) => a·b·… CHR^n (arity → exponent, like a unit)."
   ([]           (r/of "CHR"))
   ([amount]     (r/of "CHR" amount))
-  ([a b & more] (reduce q/qmul (r/of "CHR" a) (map #(r/of "CHR" %) (cons b more)))))
+  ([a b & more] (apply r/of "CHR" a b more)))
 
 (defn CHZ
   "CHZ (live rate): (CHZ) => 1 CHZ; (CHZ amount) => that many CHZ;
   (CHZ a b …) => a·b·… CHZ^n (arity → exponent, like a unit)."
   ([]           (r/of "CHZ"))
   ([amount]     (r/of "CHZ" amount))
-  ([a b & more] (reduce q/qmul (r/of "CHZ" a) (map #(r/of "CHZ" %) (cons b more)))))
+  ([a b & more] (apply r/of "CHZ" a b more)))
 
 (defn CKB
   "CKB (live rate): (CKB) => 1 CKB; (CKB amount) => that many CKB;
   (CKB a b …) => a·b·… CKB^n (arity → exponent, like a unit)."
   ([]           (r/of "CKB"))
   ([amount]     (r/of "CKB" amount))
-  ([a b & more] (reduce q/qmul (r/of "CKB" a) (map #(r/of "CKB" %) (cons b more)))))
+  ([a b & more] (apply r/of "CKB" a b more)))
 
 (defn CLANKER
   "CLANKER (live rate): (CLANKER) => 1 CLANKER; (CLANKER amount) => that many CLANKER;
   (CLANKER a b …) => a·b·… CLANKER^n (arity → exponent, like a unit)."
   ([]           (r/of "CLANKER"))
   ([amount]     (r/of "CLANKER" amount))
-  ([a b & more] (reduce q/qmul (r/of "CLANKER" a) (map #(r/of "CLANKER" %) (cons b more)))))
+  ([a b & more] (apply r/of "CLANKER" a b more)))
 
 (defn CLBTC
   "CLBTC (live rate): (CLBTC) => 1 CLBTC; (CLBTC amount) => that many CLBTC;
   (CLBTC a b …) => a·b·… CLBTC^n (arity → exponent, like a unit)."
   ([]           (r/of "CLBTC"))
   ([amount]     (r/of "CLBTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "CLBTC" a) (map #(r/of "CLBTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "CLBTC" a b more)))
 
 (defn CLF
   "CLF (live rate): (CLF) => 1 CLF; (CLF amount) => that many CLF;
   (CLF a b …) => a·b·… CLF^n (arity → exponent, like a unit)."
   ([]           (r/of "CLF"))
   ([amount]     (r/of "CLF" amount))
-  ([a b & more] (reduce q/qmul (r/of "CLF" a) (map #(r/of "CLF" %) (cons b more)))))
+  ([a b & more] (apply r/of "CLF" a b more)))
 
 (defn CLP
   "CLP (live rate): (CLP) => 1 CLP; (CLP amount) => that many CLP;
   (CLP a b …) => a·b·… CLP^n (arity → exponent, like a unit)."
   ([]           (r/of "CLP"))
   ([amount]     (r/of "CLP" amount))
-  ([a b & more] (reduce q/qmul (r/of "CLP" a) (map #(r/of "CLP" %) (cons b more)))))
+  ([a b & more] (apply r/of "CLP" a b more)))
 
 (defn CLV
   "CLV (live rate): (CLV) => 1 CLV; (CLV amount) => that many CLV;
   (CLV a b …) => a·b·… CLV^n (arity → exponent, like a unit)."
   ([]           (r/of "CLV"))
   ([amount]     (r/of "CLV" amount))
-  ([a b & more] (reduce q/qmul (r/of "CLV" a) (map #(r/of "CLV" %) (cons b more)))))
+  ([a b & more] (apply r/of "CLV" a b more)))
 
 (defn CMETH
   "CMETH (live rate): (CMETH) => 1 CMETH; (CMETH amount) => that many CMETH;
   (CMETH a b …) => a·b·… CMETH^n (arity → exponent, like a unit)."
   ([]           (r/of "CMETH"))
   ([amount]     (r/of "CMETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "CMETH" a) (map #(r/of "CMETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "CMETH" a b more)))
 
 (defn CNH
   "CNH (live rate): (CNH) => 1 CNH; (CNH amount) => that many CNH;
   (CNH a b …) => a·b·… CNH^n (arity → exponent, like a unit)."
   ([]           (r/of "CNH"))
   ([amount]     (r/of "CNH" amount))
-  ([a b & more] (reduce q/qmul (r/of "CNH" a) (map #(r/of "CNH" %) (cons b more)))))
+  ([a b & more] (apply r/of "CNH" a b more)))
 
 (defn CNY
   "CNY (live rate): (CNY) => 1 CNY; (CNY amount) => that many CNY;
   (CNY a b …) => a·b·… CNY^n (arity → exponent, like a unit)."
   ([]           (r/of "CNY"))
   ([amount]     (r/of "CNY" amount))
-  ([a b & more] (reduce q/qmul (r/of "CNY" a) (map #(r/of "CNY" %) (cons b more)))))
+  ([a b & more] (apply r/of "CNY" a b more)))
 
 (defn COMAI
   "COMAI (live rate): (COMAI) => 1 COMAI; (COMAI amount) => that many COMAI;
   (COMAI a b …) => a·b·… COMAI^n (arity → exponent, like a unit)."
   ([]           (r/of "COMAI"))
   ([amount]     (r/of "COMAI" amount))
-  ([a b & more] (reduce q/qmul (r/of "COMAI" a) (map #(r/of "COMAI" %) (cons b more)))))
+  ([a b & more] (apply r/of "COMAI" a b more)))
 
 (defn COMP
   "COMP (live rate): (COMP) => 1 COMP; (COMP amount) => that many COMP;
   (COMP a b …) => a·b·… COMP^n (arity → exponent, like a unit)."
   ([]           (r/of "COMP"))
   ([amount]     (r/of "COMP" amount))
-  ([a b & more] (reduce q/qmul (r/of "COMP" a) (map #(r/of "COMP" %) (cons b more)))))
+  ([a b & more] (apply r/of "COMP" a b more)))
 
 (defn COOKIE
   "COOKIE (live rate): (COOKIE) => 1 COOKIE; (COOKIE amount) => that many COOKIE;
   (COOKIE a b …) => a·b·… COOKIE^n (arity → exponent, like a unit)."
   ([]           (r/of "COOKIE"))
   ([amount]     (r/of "COOKIE" amount))
-  ([a b & more] (reduce q/qmul (r/of "COOKIE" a) (map #(r/of "COOKIE" %) (cons b more)))))
+  ([a b & more] (apply r/of "COOKIE" a b more)))
 
 (defn COP
   "COP (live rate): (COP) => 1 COP; (COP amount) => that many COP;
   (COP a b …) => a·b·… COP^n (arity → exponent, like a unit)."
   ([]           (r/of "COP"))
   ([amount]     (r/of "COP" amount))
-  ([a b & more] (reduce q/qmul (r/of "COP" a) (map #(r/of "COP" %) (cons b more)))))
+  ([a b & more] (apply r/of "COP" a b more)))
 
 (defn COQ
   "COQ (live rate): (COQ) => 1 COQ; (COQ amount) => that many COQ;
   (COQ a b …) => a·b·… COQ^n (arity → exponent, like a unit)."
   ([]           (r/of "COQ"))
   ([amount]     (r/of "COQ" amount))
-  ([a b & more] (reduce q/qmul (r/of "COQ" a) (map #(r/of "COQ" %) (cons b more)))))
+  ([a b & more] (apply r/of "COQ" a b more)))
 
 (defn CORE
   "CORE (live rate): (CORE) => 1 CORE; (CORE amount) => that many CORE;
   (CORE a b …) => a·b·… CORE^n (arity → exponent, like a unit)."
   ([]           (r/of "CORE"))
   ([amount]     (r/of "CORE" amount))
-  ([a b & more] (reduce q/qmul (r/of "CORE" a) (map #(r/of "CORE" %) (cons b more)))))
+  ([a b & more] (apply r/of "CORE" a b more)))
 
 (defn CORECHAIN
   "CORECHAIN (live rate): (CORECHAIN) => 1 CORECHAIN; (CORECHAIN amount) => that many CORECHAIN;
   (CORECHAIN a b …) => a·b·… CORECHAIN^n (arity → exponent, like a unit)."
   ([]           (r/of "CORECHAIN"))
   ([amount]     (r/of "CORECHAIN" amount))
-  ([a b & more] (reduce q/qmul (r/of "CORECHAIN" a) (map #(r/of "CORECHAIN" %) (cons b more)))))
+  ([a b & more] (apply r/of "CORECHAIN" a b more)))
 
 (defn CORGIAI
   "CORGIAI (live rate): (CORGIAI) => 1 CORGIAI; (CORGIAI amount) => that many CORGIAI;
   (CORGIAI a b …) => a·b·… CORGIAI^n (arity → exponent, like a unit)."
   ([]           (r/of "CORGIAI"))
   ([amount]     (r/of "CORGIAI" amount))
-  ([a b & more] (reduce q/qmul (r/of "CORGIAI" a) (map #(r/of "CORGIAI" %) (cons b more)))))
+  ([a b & more] (apply r/of "CORGIAI" a b more)))
 
 (defn COSMOSDYDX
   "COSMOSDYDX (live rate): (COSMOSDYDX) => 1 COSMOSDYDX; (COSMOSDYDX amount) => that many COSMOSDYDX;
   (COSMOSDYDX a b …) => a·b·… COSMOSDYDX^n (arity → exponent, like a unit)."
   ([]           (r/of "COSMOSDYDX"))
   ([amount]     (r/of "COSMOSDYDX" amount))
-  ([a b & more] (reduce q/qmul (r/of "COSMOSDYDX" a) (map #(r/of "COSMOSDYDX" %) (cons b more)))))
+  ([a b & more] (apply r/of "COSMOSDYDX" a b more)))
 
 (defn COTI
   "COTI (live rate): (COTI) => 1 COTI; (COTI amount) => that many COTI;
   (COTI a b …) => a·b·… COTI^n (arity → exponent, like a unit)."
   ([]           (r/of "COTI"))
   ([amount]     (r/of "COTI" amount))
-  ([a b & more] (reduce q/qmul (r/of "COTI" a) (map #(r/of "COTI" %) (cons b more)))))
+  ([a b & more] (apply r/of "COTI" a b more)))
 
 (defn COVAL
   "COVAL (live rate): (COVAL) => 1 COVAL; (COVAL amount) => that many COVAL;
   (COVAL a b …) => a·b·… COVAL^n (arity → exponent, like a unit)."
   ([]           (r/of "COVAL"))
   ([amount]     (r/of "COVAL" amount))
-  ([a b & more] (reduce q/qmul (r/of "COVAL" a) (map #(r/of "COVAL" %) (cons b more)))))
+  ([a b & more] (apply r/of "COVAL" a b more)))
 
 (defn COW
   "COW (live rate): (COW) => 1 COW; (COW amount) => that many COW;
   (COW a b …) => a·b·… COW^n (arity → exponent, like a unit)."
   ([]           (r/of "COW"))
   ([amount]     (r/of "COW" amount))
-  ([a b & more] (reduce q/qmul (r/of "COW" a) (map #(r/of "COW" %) (cons b more)))))
+  ([a b & more] (apply r/of "COW" a b more)))
 
 (defn CPOOL
   "CPOOL (live rate): (CPOOL) => 1 CPOOL; (CPOOL amount) => that many CPOOL;
   (CPOOL a b …) => a·b·… CPOOL^n (arity → exponent, like a unit)."
   ([]           (r/of "CPOOL"))
   ([amount]     (r/of "CPOOL" amount))
-  ([a b & more] (reduce q/qmul (r/of "CPOOL" a) (map #(r/of "CPOOL" %) (cons b more)))))
+  ([a b & more] (apply r/of "CPOOL" a b more)))
 
 (defn CRC
   "CRC (live rate): (CRC) => 1 CRC; (CRC amount) => that many CRC;
   (CRC a b …) => a·b·… CRC^n (arity → exponent, like a unit)."
   ([]           (r/of "CRC"))
   ([amount]     (r/of "CRC" amount))
-  ([a b & more] (reduce q/qmul (r/of "CRC" a) (map #(r/of "CRC" %) (cons b more)))))
+  ([a b & more] (apply r/of "CRC" a b more)))
 
 (defn CRO
   "CRO (live rate): (CRO) => 1 CRO; (CRO amount) => that many CRO;
   (CRO a b …) => a·b·… CRO^n (arity → exponent, like a unit)."
   ([]           (r/of "CRO"))
   ([amount]     (r/of "CRO" amount))
-  ([a b & more] (reduce q/qmul (r/of "CRO" a) (map #(r/of "CRO" %) (cons b more)))))
+  ([a b & more] (apply r/of "CRO" a b more)))
 
 (defn CRPT
   "CRPT (live rate): (CRPT) => 1 CRPT; (CRPT amount) => that many CRPT;
   (CRPT a b …) => a·b·… CRPT^n (arity → exponent, like a unit)."
   ([]           (r/of "CRPT"))
   ([amount]     (r/of "CRPT" amount))
-  ([a b & more] (reduce q/qmul (r/of "CRPT" a) (map #(r/of "CRPT" %) (cons b more)))))
+  ([a b & more] (apply r/of "CRPT" a b more)))
 
 (defn CRV
   "CRV (live rate): (CRV) => 1 CRV; (CRV amount) => that many CRV;
   (CRV a b …) => a·b·… CRV^n (arity → exponent, like a unit)."
   ([]           (r/of "CRV"))
   ([amount]     (r/of "CRV" amount))
-  ([a b & more] (reduce q/qmul (r/of "CRV" a) (map #(r/of "CRV" %) (cons b more)))))
+  ([a b & more] (apply r/of "CRV" a b more)))
 
 (defn CSPR
   "CSPR (live rate): (CSPR) => 1 CSPR; (CSPR amount) => that many CSPR;
   (CSPR a b …) => a·b·… CSPR^n (arity → exponent, like a unit)."
   ([]           (r/of "CSPR"))
   ([amount]     (r/of "CSPR" amount))
-  ([a b & more] (reduce q/qmul (r/of "CSPR" a) (map #(r/of "CSPR" %) (cons b more)))))
+  ([a b & more] (apply r/of "CSPR" a b more)))
 
 (defn CTB
   "CTB (live rate): (CTB) => 1 CTB; (CTB amount) => that many CTB;
   (CTB a b …) => a·b·… CTB^n (arity → exponent, like a unit)."
   ([]           (r/of "CTB"))
   ([amount]     (r/of "CTB" amount))
-  ([a b & more] (reduce q/qmul (r/of "CTB" a) (map #(r/of "CTB" %) (cons b more)))))
+  ([a b & more] (apply r/of "CTB" a b more)))
 
 (defn CTC
   "CTC (live rate): (CTC) => 1 CTC; (CTC amount) => that many CTC;
   (CTC a b …) => a·b·… CTC^n (arity → exponent, like a unit)."
   ([]           (r/of "CTC"))
   ([amount]     (r/of "CTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "CTC" a) (map #(r/of "CTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "CTC" a b more)))
 
 (defn CTR
   "CTR (live rate): (CTR) => 1 CTR; (CTR amount) => that many CTR;
   (CTR a b …) => a·b·… CTR^n (arity → exponent, like a unit)."
   ([]           (r/of "CTR"))
   ([amount]     (r/of "CTR" amount))
-  ([a b & more] (reduce q/qmul (r/of "CTR" a) (map #(r/of "CTR" %) (cons b more)))))
+  ([a b & more] (apply r/of "CTR" a b more)))
 
 (defn CTSI
   "CTSI (live rate): (CTSI) => 1 CTSI; (CTSI amount) => that many CTSI;
   (CTSI a b …) => a·b·… CTSI^n (arity → exponent, like a unit)."
   ([]           (r/of "CTSI"))
   ([amount]     (r/of "CTSI" amount))
-  ([a b & more] (reduce q/qmul (r/of "CTSI" a) (map #(r/of "CTSI" %) (cons b more)))))
+  ([a b & more] (apply r/of "CTSI" a b more)))
 
 (defn CTX
   "CTX (live rate): (CTX) => 1 CTX; (CTX amount) => that many CTX;
   (CTX a b …) => a·b·… CTX^n (arity → exponent, like a unit)."
   ([]           (r/of "CTX"))
   ([amount]     (r/of "CTX" amount))
-  ([a b & more] (reduce q/qmul (r/of "CTX" a) (map #(r/of "CTX" %) (cons b more)))))
+  ([a b & more] (apply r/of "CTX" a b more)))
 
 (defn CUC
   "CUC (live rate): (CUC) => 1 CUC; (CUC amount) => that many CUC;
   (CUC a b …) => a·b·… CUC^n (arity → exponent, like a unit)."
   ([]           (r/of "CUC"))
   ([amount]     (r/of "CUC" amount))
-  ([a b & more] (reduce q/qmul (r/of "CUC" a) (map #(r/of "CUC" %) (cons b more)))))
+  ([a b & more] (apply r/of "CUC" a b more)))
 
 (defn CUP
   "CUP (live rate): (CUP) => 1 CUP; (CUP amount) => that many CUP;
   (CUP a b …) => a·b·… CUP^n (arity → exponent, like a unit)."
   ([]           (r/of "CUP"))
   ([amount]     (r/of "CUP" amount))
-  ([a b & more] (reduce q/qmul (r/of "CUP" a) (map #(r/of "CUP" %) (cons b more)))))
+  ([a b & more] (apply r/of "CUP" a b more)))
 
 (defn CVC
   "CVC (live rate): (CVC) => 1 CVC; (CVC amount) => that many CVC;
   (CVC a b …) => a·b·… CVC^n (arity → exponent, like a unit)."
   ([]           (r/of "CVC"))
   ([amount]     (r/of "CVC" amount))
-  ([a b & more] (reduce q/qmul (r/of "CVC" a) (map #(r/of "CVC" %) (cons b more)))))
+  ([a b & more] (apply r/of "CVC" a b more)))
 
 (defn CVE
   "CVE (live rate): (CVE) => 1 CVE; (CVE amount) => that many CVE;
   (CVE a b …) => a·b·… CVE^n (arity → exponent, like a unit)."
   ([]           (r/of "CVE"))
   ([amount]     (r/of "CVE" amount))
-  ([a b & more] (reduce q/qmul (r/of "CVE" a) (map #(r/of "CVE" %) (cons b more)))))
+  ([a b & more] (apply r/of "CVE" a b more)))
 
 (defn CVX
   "CVX (live rate): (CVX) => 1 CVX; (CVX amount) => that many CVX;
   (CVX a b …) => a·b·… CVX^n (arity → exponent, like a unit)."
   ([]           (r/of "CVX"))
   ([amount]     (r/of "CVX" amount))
-  ([a b & more] (reduce q/qmul (r/of "CVX" a) (map #(r/of "CVX" %) (cons b more)))))
+  ([a b & more] (apply r/of "CVX" a b more)))
 
 (defn CWBTC
   "CWBTC (live rate): (CWBTC) => 1 CWBTC; (CWBTC amount) => that many CWBTC;
   (CWBTC a b …) => a·b·… CWBTC^n (arity → exponent, like a unit)."
   ([]           (r/of "CWBTC"))
   ([amount]     (r/of "CWBTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "CWBTC" a) (map #(r/of "CWBTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "CWBTC" a b more)))
 
 (defn CZK
   "CZK (live rate): (CZK) => 1 CZK; (CZK amount) => that many CZK;
   (CZK a b …) => a·b·… CZK^n (arity → exponent, like a unit)."
   ([]           (r/of "CZK"))
   ([amount]     (r/of "CZK" amount))
-  ([a b & more] (reduce q/qmul (r/of "CZK" a) (map #(r/of "CZK" %) (cons b more)))))
+  ([a b & more] (apply r/of "CZK" a b more)))
 
 (defn DADDYCHILL
   "DADDYCHILL (live rate): (DADDYCHILL) => 1 DADDYCHILL; (DADDYCHILL amount) => that many DADDYCHILL;
   (DADDYCHILL a b …) => a·b·… DADDYCHILL^n (arity → exponent, like a unit)."
   ([]           (r/of "DADDYCHILL"))
   ([amount]     (r/of "DADDYCHILL" amount))
-  ([a b & more] (reduce q/qmul (r/of "DADDYCHILL" a) (map #(r/of "DADDYCHILL" %) (cons b more)))))
+  ([a b & more] (apply r/of "DADDYCHILL" a b more)))
 
 (defn DAG
   "DAG (live rate): (DAG) => 1 DAG; (DAG amount) => that many DAG;
   (DAG a b …) => a·b·… DAG^n (arity → exponent, like a unit)."
   ([]           (r/of "DAG"))
   ([amount]     (r/of "DAG" amount))
-  ([a b & more] (reduce q/qmul (r/of "DAG" a) (map #(r/of "DAG" %) (cons b more)))))
+  ([a b & more] (apply r/of "DAG" a b more)))
 
 (defn DAI
   "DAI (live rate): (DAI) => 1 DAI; (DAI amount) => that many DAI;
   (DAI a b …) => a·b·… DAI^n (arity → exponent, like a unit)."
   ([]           (r/of "DAI"))
   ([amount]     (r/of "DAI" amount))
-  ([a b & more] (reduce q/qmul (r/of "DAI" a) (map #(r/of "DAI" %) (cons b more)))))
+  ([a b & more] (apply r/of "DAI" a b more)))
 
 (defn DAO
   "DAO (live rate): (DAO) => 1 DAO; (DAO amount) => that many DAO;
   (DAO a b …) => a·b·… DAO^n (arity → exponent, like a unit)."
   ([]           (r/of "DAO"))
   ([amount]     (r/of "DAO" amount))
-  ([a b & more] (reduce q/qmul (r/of "DAO" a) (map #(r/of "DAO" %) (cons b more)))))
+  ([a b & more] (apply r/of "DAO" a b more)))
 
 (defn DAR
   "DAR (live rate): (DAR) => 1 DAR; (DAR amount) => that many DAR;
   (DAR a b …) => a·b·… DAR^n (arity → exponent, like a unit)."
   ([]           (r/of "DAR"))
   ([amount]     (r/of "DAR" amount))
-  ([a b & more] (reduce q/qmul (r/of "DAR" a) (map #(r/of "DAR" %) (cons b more)))))
+  ([a b & more] (apply r/of "DAR" a b more)))
 
 (defn DASH
   "DASH (live rate): (DASH) => 1 DASH; (DASH amount) => that many DASH;
   (DASH a b …) => a·b·… DASH^n (arity → exponent, like a unit)."
   ([]           (r/of "DASH"))
   ([amount]     (r/of "DASH" amount))
-  ([a b & more] (reduce q/qmul (r/of "DASH" a) (map #(r/of "DASH" %) (cons b more)))))
+  ([a b & more] (apply r/of "DASH" a b more)))
 
 (defn DATA
   "DATA (live rate): (DATA) => 1 DATA; (DATA amount) => that many DATA;
   (DATA a b …) => a·b·… DATA^n (arity → exponent, like a unit)."
   ([]           (r/of "DATA"))
   ([amount]     (r/of "DATA" amount))
-  ([a b & more] (reduce q/qmul (r/of "DATA" a) (map #(r/of "DATA" %) (cons b more)))))
+  ([a b & more] (apply r/of "DATA" a b more)))
 
 (defn DBR
   "DBR (live rate): (DBR) => 1 DBR; (DBR amount) => that many DBR;
   (DBR a b …) => a·b·… DBR^n (arity → exponent, like a unit)."
   ([]           (r/of "DBR"))
   ([amount]     (r/of "DBR" amount))
-  ([a b & more] (reduce q/qmul (r/of "DBR" a) (map #(r/of "DBR" %) (cons b more)))))
+  ([a b & more] (apply r/of "DBR" a b more)))
 
 (defn DCR
   "DCR (live rate): (DCR) => 1 DCR; (DCR amount) => that many DCR;
   (DCR a b …) => a·b·… DCR^n (arity → exponent, like a unit)."
   ([]           (r/of "DCR"))
   ([amount]     (r/of "DCR" amount))
-  ([a b & more] (reduce q/qmul (r/of "DCR" a) (map #(r/of "DCR" %) (cons b more)))))
+  ([a b & more] (apply r/of "DCR" a b more)))
 
 (defn DDX
   "DDX (live rate): (DDX) => 1 DDX; (DDX amount) => that many DDX;
   (DDX a b …) => a·b·… DDX^n (arity → exponent, like a unit)."
   ([]           (r/of "DDX"))
   ([amount]     (r/of "DDX" amount))
-  ([a b & more] (reduce q/qmul (r/of "DDX" a) (map #(r/of "DDX" %) (cons b more)))))
+  ([a b & more] (apply r/of "DDX" a b more)))
 
 (defn DEEP
   "DEEP (live rate): (DEEP) => 1 DEEP; (DEEP amount) => that many DEEP;
   (DEEP a b …) => a·b·… DEEP^n (arity → exponent, like a unit)."
   ([]           (r/of "DEEP"))
   ([amount]     (r/of "DEEP" amount))
-  ([a b & more] (reduce q/qmul (r/of "DEEP" a) (map #(r/of "DEEP" %) (cons b more)))))
+  ([a b & more] (apply r/of "DEEP" a b more)))
 
 (defn DEGEN
   "DEGEN (live rate): (DEGEN) => 1 DEGEN; (DEGEN amount) => that many DEGEN;
   (DEGEN a b …) => a·b·… DEGEN^n (arity → exponent, like a unit)."
   ([]           (r/of "DEGEN"))
   ([amount]     (r/of "DEGEN" amount))
-  ([a b & more] (reduce q/qmul (r/of "DEGEN" a) (map #(r/of "DEGEN" %) (cons b more)))))
+  ([a b & more] (apply r/of "DEGEN" a b more)))
 
 (defn DESO
   "DESO (live rate): (DESO) => 1 DESO; (DESO amount) => that many DESO;
   (DESO a b …) => a·b·… DESO^n (arity → exponent, like a unit)."
   ([]           (r/of "DESO"))
   ([amount]     (r/of "DESO" amount))
-  ([a b & more] (reduce q/qmul (r/of "DESO" a) (map #(r/of "DESO" %) (cons b more)))))
+  ([a b & more] (apply r/of "DESO" a b more)))
 
 (defn DEXE
   "DEXE (live rate): (DEXE) => 1 DEXE; (DEXE amount) => that many DEXE;
   (DEXE a b …) => a·b·… DEXE^n (arity → exponent, like a unit)."
   ([]           (r/of "DEXE"))
   ([amount]     (r/of "DEXE" amount))
-  ([a b & more] (reduce q/qmul (r/of "DEXE" a) (map #(r/of "DEXE" %) (cons b more)))))
+  ([a b & more] (apply r/of "DEXE" a b more)))
 
 (defn DEXT
   "DEXT (live rate): (DEXT) => 1 DEXT; (DEXT amount) => that many DEXT;
   (DEXT a b …) => a·b·… DEXT^n (arity → exponent, like a unit)."
   ([]           (r/of "DEXT"))
   ([amount]     (r/of "DEXT" amount))
-  ([a b & more] (reduce q/qmul (r/of "DEXT" a) (map #(r/of "DEXT" %) (cons b more)))))
+  ([a b & more] (apply r/of "DEXT" a b more)))
 
 (defn DGB
   "DGB (live rate): (DGB) => 1 DGB; (DGB amount) => that many DGB;
   (DGB a b …) => a·b·… DGB^n (arity → exponent, like a unit)."
   ([]           (r/of "DGB"))
   ([amount]     (r/of "DGB" amount))
-  ([a b & more] (reduce q/qmul (r/of "DGB" a) (map #(r/of "DGB" %) (cons b more)))))
+  ([a b & more] (apply r/of "DGB" a b more)))
 
 (defn DHN
   "DHN (live rate): (DHN) => 1 DHN; (DHN amount) => that many DHN;
   (DHN a b …) => a·b·… DHN^n (arity → exponent, like a unit)."
   ([]           (r/of "DHN"))
   ([amount]     (r/of "DHN" amount))
-  ([a b & more] (reduce q/qmul (r/of "DHN" a) (map #(r/of "DHN" %) (cons b more)))))
+  ([a b & more] (apply r/of "DHN" a b more)))
 
 (defn DIA
   "DIA (live rate): (DIA) => 1 DIA; (DIA amount) => that many DIA;
   (DIA a b …) => a·b·… DIA^n (arity → exponent, like a unit)."
   ([]           (r/of "DIA"))
   ([amount]     (r/of "DIA" amount))
-  ([a b & more] (reduce q/qmul (r/of "DIA" a) (map #(r/of "DIA" %) (cons b more)))))
+  ([a b & more] (apply r/of "DIA" a b more)))
 
 (defn DIEM
   "DIEM (live rate): (DIEM) => 1 DIEM; (DIEM amount) => that many DIEM;
   (DIEM a b …) => a·b·… DIEM^n (arity → exponent, like a unit)."
   ([]           (r/of "DIEM"))
   ([amount]     (r/of "DIEM" amount))
-  ([a b & more] (reduce q/qmul (r/of "DIEM" a) (map #(r/of "DIEM" %) (cons b more)))))
+  ([a b & more] (apply r/of "DIEM" a b more)))
 
 (defn DIMO
   "DIMO (live rate): (DIMO) => 1 DIMO; (DIMO amount) => that many DIMO;
   (DIMO a b …) => a·b·… DIMO^n (arity → exponent, like a unit)."
   ([]           (r/of "DIMO"))
   ([amount]     (r/of "DIMO" amount))
-  ([a b & more] (reduce q/qmul (r/of "DIMO" a) (map #(r/of "DIMO" %) (cons b more)))))
+  ([a b & more] (apply r/of "DIMO" a b more)))
 
 (defn DJF
   "DJF (live rate): (DJF) => 1 DJF; (DJF amount) => that many DJF;
   (DJF a b …) => a·b·… DJF^n (arity → exponent, like a unit)."
   ([]           (r/of "DJF"))
   ([amount]     (r/of "DJF" amount))
-  ([a b & more] (reduce q/qmul (r/of "DJF" a) (map #(r/of "DJF" %) (cons b more)))))
+  ([a b & more] (apply r/of "DJF" a b more)))
 
 (defn DKK
   "DKK (live rate): (DKK) => 1 DKK; (DKK amount) => that many DKK;
   (DKK a b …) => a·b·… DKK^n (arity → exponent, like a unit)."
   ([]           (r/of "DKK"))
   ([amount]     (r/of "DKK" amount))
-  ([a b & more] (reduce q/qmul (r/of "DKK" a) (map #(r/of "DKK" %) (cons b more)))))
+  ([a b & more] (apply r/of "DKK" a b more)))
 
 (defn DNT
   "DNT (live rate): (DNT) => 1 DNT; (DNT amount) => that many DNT;
   (DNT a b …) => a·b·… DNT^n (arity → exponent, like a unit)."
   ([]           (r/of "DNT"))
   ([amount]     (r/of "DNT" amount))
-  ([a b & more] (reduce q/qmul (r/of "DNT" a) (map #(r/of "DNT" %) (cons b more)))))
+  ([a b & more] (apply r/of "DNT" a b more)))
 
 (defn DOG
   "DOG (live rate): (DOG) => 1 DOG; (DOG amount) => that many DOG;
   (DOG a b …) => a·b·… DOG^n (arity → exponent, like a unit)."
   ([]           (r/of "DOG"))
   ([amount]     (r/of "DOG" amount))
-  ([a b & more] (reduce q/qmul (r/of "DOG" a) (map #(r/of "DOG" %) (cons b more)))))
+  ([a b & more] (apply r/of "DOG" a b more)))
 
 (defn DOGE
   "DOGE (live rate): (DOGE) => 1 DOGE; (DOGE amount) => that many DOGE;
   (DOGE a b …) => a·b·… DOGE^n (arity → exponent, like a unit)."
   ([]           (r/of "DOGE"))
   ([amount]     (r/of "DOGE" amount))
-  ([a b & more] (reduce q/qmul (r/of "DOGE" a) (map #(r/of "DOGE" %) (cons b more)))))
+  ([a b & more] (apply r/of "DOGE" a b more)))
 
 (defn DOGINME
   "DOGINME (live rate): (DOGINME) => 1 DOGINME; (DOGINME amount) => that many DOGINME;
   (DOGINME a b …) => a·b·… DOGINME^n (arity → exponent, like a unit)."
   ([]           (r/of "DOGINME"))
   ([amount]     (r/of "DOGINME" amount))
-  ([a b & more] (reduce q/qmul (r/of "DOGINME" a) (map #(r/of "DOGINME" %) (cons b more)))))
+  ([a b & more] (apply r/of "DOGINME" a b more)))
 
 (defn DOGS
   "DOGS (live rate): (DOGS) => 1 DOGS; (DOGS amount) => that many DOGS;
   (DOGS a b …) => a·b·… DOGS^n (arity → exponent, like a unit)."
   ([]           (r/of "DOGS"))
   ([amount]     (r/of "DOGS" amount))
-  ([a b & more] (reduce q/qmul (r/of "DOGS" a) (map #(r/of "DOGS" %) (cons b more)))))
+  ([a b & more] (apply r/of "DOGS" a b more)))
 
 (defn DOLO
   "DOLO (live rate): (DOLO) => 1 DOLO; (DOLO amount) => that many DOLO;
   (DOLO a b …) => a·b·… DOLO^n (arity → exponent, like a unit)."
   ([]           (r/of "DOLO"))
   ([amount]     (r/of "DOLO" amount))
-  ([a b & more] (reduce q/qmul (r/of "DOLO" a) (map #(r/of "DOLO" %) (cons b more)))))
+  ([a b & more] (apply r/of "DOLO" a b more)))
 
 (defn DOOD
   "DOOD (live rate): (DOOD) => 1 DOOD; (DOOD amount) => that many DOOD;
   (DOOD a b …) => a·b·… DOOD^n (arity → exponent, like a unit)."
   ([]           (r/of "DOOD"))
   ([amount]     (r/of "DOOD" amount))
-  ([a b & more] (reduce q/qmul (r/of "DOOD" a) (map #(r/of "DOOD" %) (cons b more)))))
+  ([a b & more] (apply r/of "DOOD" a b more)))
 
 (defn DOP
   "DOP (live rate): (DOP) => 1 DOP; (DOP amount) => that many DOP;
   (DOP a b …) => a·b·… DOP^n (arity → exponent, like a unit)."
   ([]           (r/of "DOP"))
   ([amount]     (r/of "DOP" amount))
-  ([a b & more] (reduce q/qmul (r/of "DOP" a) (map #(r/of "DOP" %) (cons b more)))))
+  ([a b & more] (apply r/of "DOP" a b more)))
 
 (defn DORA
   "DORA (live rate): (DORA) => 1 DORA; (DORA amount) => that many DORA;
   (DORA a b …) => a·b·… DORA^n (arity → exponent, like a unit)."
   ([]           (r/of "DORA"))
   ([amount]     (r/of "DORA" amount))
-  ([a b & more] (reduce q/qmul (r/of "DORA" a) (map #(r/of "DORA" %) (cons b more)))))
+  ([a b & more] (apply r/of "DORA" a b more)))
 
 (defn DOT
   "DOT (live rate): (DOT) => 1 DOT; (DOT amount) => that many DOT;
   (DOT a b …) => a·b·… DOT^n (arity → exponent, like a unit)."
   ([]           (r/of "DOT"))
   ([amount]     (r/of "DOT" amount))
-  ([a b & more] (reduce q/qmul (r/of "DOT" a) (map #(r/of "DOT" %) (cons b more)))))
+  ([a b & more] (apply r/of "DOT" a b more)))
 
 (defn DRIFT
   "DRIFT (live rate): (DRIFT) => 1 DRIFT; (DRIFT amount) => that many DRIFT;
   (DRIFT a b …) => a·b·… DRIFT^n (arity → exponent, like a unit)."
   ([]           (r/of "DRIFT"))
   ([amount]     (r/of "DRIFT" amount))
-  ([a b & more] (reduce q/qmul (r/of "DRIFT" a) (map #(r/of "DRIFT" %) (cons b more)))))
+  ([a b & more] (apply r/of "DRIFT" a b more)))
 
 (defn DRV
   "DRV (live rate): (DRV) => 1 DRV; (DRV amount) => that many DRV;
   (DRV a b …) => a·b·… DRV^n (arity → exponent, like a unit)."
   ([]           (r/of "DRV"))
   ([amount]     (r/of "DRV" amount))
-  ([a b & more] (reduce q/qmul (r/of "DRV" a) (map #(r/of "DRV" %) (cons b more)))))
+  ([a b & more] (apply r/of "DRV" a b more)))
 
 (defn DYDX
   "DYDX (live rate): (DYDX) => 1 DYDX; (DYDX amount) => that many DYDX;
   (DYDX a b …) => a·b·… DYDX^n (arity → exponent, like a unit)."
   ([]           (r/of "DYDX"))
   ([amount]     (r/of "DYDX" amount))
-  ([a b & more] (reduce q/qmul (r/of "DYDX" a) (map #(r/of "DYDX" %) (cons b more)))))
+  ([a b & more] (apply r/of "DYDX" a b more)))
 
 (defn DYM
   "DYM (live rate): (DYM) => 1 DYM; (DYM amount) => that many DYM;
   (DYM a b …) => a·b·… DYM^n (arity → exponent, like a unit)."
   ([]           (r/of "DYM"))
   ([amount]     (r/of "DYM" amount))
-  ([a b & more] (reduce q/qmul (r/of "DYM" a) (map #(r/of "DYM" %) (cons b more)))))
+  ([a b & more] (apply r/of "DYM" a b more)))
 
 (defn DYP
   "DYP (live rate): (DYP) => 1 DYP; (DYP amount) => that many DYP;
   (DYP a b …) => a·b·… DYP^n (arity → exponent, like a unit)."
   ([]           (r/of "DYP"))
   ([amount]     (r/of "DYP" amount))
-  ([a b & more] (reduce q/qmul (r/of "DYP" a) (map #(r/of "DYP" %) (cons b more)))))
+  ([a b & more] (apply r/of "DYP" a b more)))
 
 (defn DZD
   "DZD (live rate): (DZD) => 1 DZD; (DZD amount) => that many DZD;
   (DZD a b …) => a·b·… DZD^n (arity → exponent, like a unit)."
   ([]           (r/of "DZD"))
   ([amount]     (r/of "DZD" amount))
-  ([a b & more] (reduce q/qmul (r/of "DZD" a) (map #(r/of "DZD" %) (cons b more)))))
+  ([a b & more] (apply r/of "DZD" a b more)))
 
 (defn EBTC
   "EBTC (live rate): (EBTC) => 1 EBTC; (EBTC amount) => that many EBTC;
   (EBTC a b …) => a·b·… EBTC^n (arity → exponent, like a unit)."
   ([]           (r/of "EBTC"))
   ([amount]     (r/of "EBTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "EBTC" a) (map #(r/of "EBTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "EBTC" a b more)))
 
 (defn EDGE
   "EDGE (live rate): (EDGE) => 1 EDGE; (EDGE amount) => that many EDGE;
   (EDGE a b …) => a·b·… EDGE^n (arity → exponent, like a unit)."
   ([]           (r/of "EDGE"))
   ([amount]     (r/of "EDGE" amount))
-  ([a b & more] (reduce q/qmul (r/of "EDGE" a) (map #(r/of "EDGE" %) (cons b more)))))
+  ([a b & more] (apply r/of "EDGE" a b more)))
 
 (defn EDGEX
   "EDGEX (live rate): (EDGEX) => 1 EDGEX; (EDGEX amount) => that many EDGEX;
   (EDGEX a b …) => a·b·… EDGEX^n (arity → exponent, like a unit)."
   ([]           (r/of "EDGEX"))
   ([amount]     (r/of "EDGEX" amount))
-  ([a b & more] (reduce q/qmul (r/of "EDGEX" a) (map #(r/of "EDGEX" %) (cons b more)))))
+  ([a b & more] (apply r/of "EDGEX" a b more)))
 
 (defn EDU
   "EDU (live rate): (EDU) => 1 EDU; (EDU amount) => that many EDU;
   (EDU a b …) => a·b·… EDU^n (arity → exponent, like a unit)."
   ([]           (r/of "EDU"))
   ([amount]     (r/of "EDU" amount))
-  ([a b & more] (reduce q/qmul (r/of "EDU" a) (map #(r/of "EDU" %) (cons b more)))))
+  ([a b & more] (apply r/of "EDU" a b more)))
 
 (defn EDUM
   "EDUM (live rate): (EDUM) => 1 EDUM; (EDUM amount) => that many EDUM;
   (EDUM a b …) => a·b·… EDUM^n (arity → exponent, like a unit)."
   ([]           (r/of "EDUM"))
   ([amount]     (r/of "EDUM" amount))
-  ([a b & more] (reduce q/qmul (r/of "EDUM" a) (map #(r/of "EDUM" %) (cons b more)))))
+  ([a b & more] (apply r/of "EDUM" a b more)))
 
 (defn EETH
   "EETH (live rate): (EETH) => 1 EETH; (EETH amount) => that many EETH;
   (EETH a b …) => a·b·… EETH^n (arity → exponent, like a unit)."
   ([]           (r/of "EETH"))
   ([amount]     (r/of "EETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "EETH" a) (map #(r/of "EETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "EETH" a b more)))
 
 (defn EGLD
   "EGLD (live rate): (EGLD) => 1 EGLD; (EGLD amount) => that many EGLD;
   (EGLD a b …) => a·b·… EGLD^n (arity → exponent, like a unit)."
   ([]           (r/of "EGLD"))
   ([amount]     (r/of "EGLD" amount))
-  ([a b & more] (reduce q/qmul (r/of "EGLD" a) (map #(r/of "EGLD" %) (cons b more)))))
+  ([a b & more] (apply r/of "EGLD" a b more)))
 
 (defn EGP
   "EGP (live rate): (EGP) => 1 EGP; (EGP amount) => that many EGP;
   (EGP a b …) => a·b·… EGP^n (arity → exponent, like a unit)."
   ([]           (r/of "EGP"))
   ([amount]     (r/of "EGP" amount))
-  ([a b & more] (reduce q/qmul (r/of "EGP" a) (map #(r/of "EGP" %) (cons b more)))))
+  ([a b & more] (apply r/of "EGP" a b more)))
 
 (defn EIGEN
   "EIGEN (live rate): (EIGEN) => 1 EIGEN; (EIGEN amount) => that many EIGEN;
   (EIGEN a b …) => a·b·… EIGEN^n (arity → exponent, like a unit)."
   ([]           (r/of "EIGEN"))
   ([amount]     (r/of "EIGEN" amount))
-  ([a b & more] (reduce q/qmul (r/of "EIGEN" a) (map #(r/of "EIGEN" %) (cons b more)))))
+  ([a b & more] (apply r/of "EIGEN" a b more)))
 
 (defn ELA
   "ELA (live rate): (ELA) => 1 ELA; (ELA amount) => that many ELA;
   (ELA a b …) => a·b·… ELA^n (arity → exponent, like a unit)."
   ([]           (r/of "ELA"))
   ([amount]     (r/of "ELA" amount))
-  ([a b & more] (reduce q/qmul (r/of "ELA" a) (map #(r/of "ELA" %) (cons b more)))))
+  ([a b & more] (apply r/of "ELA" a b more)))
 
 (defn ELF
   "ELF (live rate): (ELF) => 1 ELF; (ELF amount) => that many ELF;
   (ELF a b …) => a·b·… ELF^n (arity → exponent, like a unit)."
   ([]           (r/of "ELF"))
   ([amount]     (r/of "ELF" amount))
-  ([a b & more] (reduce q/qmul (r/of "ELF" a) (map #(r/of "ELF" %) (cons b more)))))
+  ([a b & more] (apply r/of "ELF" a b more)))
 
 (defn ELG
   "ELG (live rate): (ELG) => 1 ELG; (ELG amount) => that many ELG;
   (ELG a b …) => a·b·… ELG^n (arity → exponent, like a unit)."
   ([]           (r/of "ELG"))
   ([amount]     (r/of "ELG" amount))
-  ([a b & more] (reduce q/qmul (r/of "ELG" a) (map #(r/of "ELG" %) (cons b more)))))
+  ([a b & more] (apply r/of "ELG" a b more)))
 
 (defn ELSA
   "ELSA (live rate): (ELSA) => 1 ELSA; (ELSA amount) => that many ELSA;
   (ELSA a b …) => a·b·… ELSA^n (arity → exponent, like a unit)."
   ([]           (r/of "ELSA"))
   ([amount]     (r/of "ELSA" amount))
-  ([a b & more] (reduce q/qmul (r/of "ELSA" a) (map #(r/of "ELSA" %) (cons b more)))))
+  ([a b & more] (apply r/of "ELSA" a b more)))
 
 (defn ENA
   "ENA (live rate): (ENA) => 1 ENA; (ENA amount) => that many ENA;
   (ENA a b …) => a·b·… ENA^n (arity → exponent, like a unit)."
   ([]           (r/of "ENA"))
   ([amount]     (r/of "ENA" amount))
-  ([a b & more] (reduce q/qmul (r/of "ENA" a) (map #(r/of "ENA" %) (cons b more)))))
+  ([a b & more] (apply r/of "ENA" a b more)))
 
 (defn ENJ
   "ENJ (live rate): (ENJ) => 1 ENJ; (ENJ amount) => that many ENJ;
   (ENJ a b …) => a·b·… ENJ^n (arity → exponent, like a unit)."
   ([]           (r/of "ENJ"))
   ([amount]     (r/of "ENJ" amount))
-  ([a b & more] (reduce q/qmul (r/of "ENJ" a) (map #(r/of "ENJ" %) (cons b more)))))
+  ([a b & more] (apply r/of "ENJ" a b more)))
 
 (defn ENS
   "ENS (live rate): (ENS) => 1 ENS; (ENS amount) => that many ENS;
   (ENS a b …) => a·b·… ENS^n (arity → exponent, like a unit)."
   ([]           (r/of "ENS"))
   ([amount]     (r/of "ENS" amount))
-  ([a b & more] (reduce q/qmul (r/of "ENS" a) (map #(r/of "ENS" %) (cons b more)))))
+  ([a b & more] (apply r/of "ENS" a b more)))
 
 (defn EOS
   "EOS (live rate): (EOS) => 1 EOS; (EOS amount) => that many EOS;
   (EOS a b …) => a·b·… EOS^n (arity → exponent, like a unit)."
   ([]           (r/of "EOS"))
   ([amount]     (r/of "EOS" amount))
-  ([a b & more] (reduce q/qmul (r/of "EOS" a) (map #(r/of "EOS" %) (cons b more)))))
+  ([a b & more] (apply r/of "EOS" a b more)))
 
 (defn ERA
   "ERA (live rate): (ERA) => 1 ERA; (ERA amount) => that many ERA;
   (ERA a b …) => a·b·… ERA^n (arity → exponent, like a unit)."
   ([]           (r/of "ERA"))
   ([amount]     (r/of "ERA" amount))
-  ([a b & more] (reduce q/qmul (r/of "ERA" a) (map #(r/of "ERA" %) (cons b more)))))
+  ([a b & more] (apply r/of "ERA" a b more)))
 
 (defn ERN
   "ERN (live rate): (ERN) => 1 ERN; (ERN amount) => that many ERN;
   (ERN a b …) => a·b·… ERN^n (arity → exponent, like a unit)."
   ([]           (r/of "ERN"))
   ([amount]     (r/of "ERN" amount))
-  ([a b & more] (reduce q/qmul (r/of "ERN" a) (map #(r/of "ERN" %) (cons b more)))))
+  ([a b & more] (apply r/of "ERN" a b more)))
 
 (defn ESP
   "ESP (live rate): (ESP) => 1 ESP; (ESP amount) => that many ESP;
   (ESP a b …) => a·b·… ESP^n (arity → exponent, like a unit)."
   ([]           (r/of "ESP"))
   ([amount]     (r/of "ESP" amount))
-  ([a b & more] (reduce q/qmul (r/of "ESP" a) (map #(r/of "ESP" %) (cons b more)))))
+  ([a b & more] (apply r/of "ESP" a b more)))
 
 (defn ETB
   "ETB (live rate): (ETB) => 1 ETB; (ETB amount) => that many ETB;
   (ETB a b …) => a·b·… ETB^n (arity → exponent, like a unit)."
   ([]           (r/of "ETB"))
   ([amount]     (r/of "ETB" amount))
-  ([a b & more] (reduce q/qmul (r/of "ETB" a) (map #(r/of "ETB" %) (cons b more)))))
+  ([a b & more] (apply r/of "ETB" a b more)))
 
 (defn ETC
   "ETC (live rate): (ETC) => 1 ETC; (ETC amount) => that many ETC;
   (ETC a b …) => a·b·… ETC^n (arity → exponent, like a unit)."
   ([]           (r/of "ETC"))
   ([amount]     (r/of "ETC" amount))
-  ([a b & more] (reduce q/qmul (r/of "ETC" a) (map #(r/of "ETC" %) (cons b more)))))
+  ([a b & more] (apply r/of "ETC" a b more)))
 
 (defn ETH
   "ETH (live rate): (ETH) => 1 ETH; (ETH amount) => that many ETH;
   (ETH a b …) => a·b·… ETH^n (arity → exponent, like a unit)."
   ([]           (r/of "ETH"))
   ([amount]     (r/of "ETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "ETH" a) (map #(r/of "ETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "ETH" a b more)))
 
 (defn ETH2
   "ETH2 (live rate): (ETH2) => 1 ETH2; (ETH2 amount) => that many ETH2;
   (ETH2 a b …) => a·b·… ETH2^n (arity → exponent, like a unit)."
   ([]           (r/of "ETH2"))
   ([amount]     (r/of "ETH2" amount))
-  ([a b & more] (reduce q/qmul (r/of "ETH2" a) (map #(r/of "ETH2" %) (cons b more)))))
+  ([a b & more] (apply r/of "ETH2" a b more)))
 
 (defn ETHDYDX
   "ETHDYDX (live rate): (ETHDYDX) => 1 ETHDYDX; (ETHDYDX amount) => that many ETHDYDX;
   (ETHDYDX a b …) => a·b·… ETHDYDX^n (arity → exponent, like a unit)."
   ([]           (r/of "ETHDYDX"))
   ([amount]     (r/of "ETHDYDX" amount))
-  ([a b & more] (reduce q/qmul (r/of "ETHDYDX" a) (map #(r/of "ETHDYDX" %) (cons b more)))))
+  ([a b & more] (apply r/of "ETHDYDX" a b more)))
 
 (defn ETHFI
   "ETHFI (live rate): (ETHFI) => 1 ETHFI; (ETHFI amount) => that many ETHFI;
   (ETHFI a b …) => a·b·… ETHFI^n (arity → exponent, like a unit)."
   ([]           (r/of "ETHFI"))
   ([amount]     (r/of "ETHFI" amount))
-  ([a b & more] (reduce q/qmul (r/of "ETHFI" a) (map #(r/of "ETHFI" %) (cons b more)))))
+  ([a b & more] (apply r/of "ETHFI" a b more)))
 
 (defn ETHW
   "ETHW (live rate): (ETHW) => 1 ETHW; (ETHW amount) => that many ETHW;
   (ETHW a b …) => a·b·… ETHW^n (arity → exponent, like a unit)."
   ([]           (r/of "ETHW"))
   ([amount]     (r/of "ETHW" amount))
-  ([a b & more] (reduce q/qmul (r/of "ETHW" a) (map #(r/of "ETHW" %) (cons b more)))))
+  ([a b & more] (apply r/of "ETHW" a b more)))
 
 (defn ETHX
   "ETHX (live rate): (ETHX) => 1 ETHX; (ETHX amount) => that many ETHX;
   (ETHX a b …) => a·b·… ETHX^n (arity → exponent, like a unit)."
   ([]           (r/of "ETHX"))
   ([amount]     (r/of "ETHX" amount))
-  ([a b & more] (reduce q/qmul (r/of "ETHX" a) (map #(r/of "ETHX" %) (cons b more)))))
+  ([a b & more] (apply r/of "ETHX" a b more)))
 
 (defn EUL
   "EUL (live rate): (EUL) => 1 EUL; (EUL amount) => that many EUL;
   (EUL a b …) => a·b·… EUL^n (arity → exponent, like a unit)."
   ([]           (r/of "EUL"))
   ([amount]     (r/of "EUL" amount))
-  ([a b & more] (reduce q/qmul (r/of "EUL" a) (map #(r/of "EUL" %) (cons b more)))))
+  ([a b & more] (apply r/of "EUL" a b more)))
 
 (defn EUR
   "EUR (live rate): (EUR) => 1 EUR; (EUR amount) => that many EUR;
   (EUR a b …) => a·b·… EUR^n (arity → exponent, like a unit)."
   ([]           (r/of "EUR"))
   ([amount]     (r/of "EUR" amount))
-  ([a b & more] (reduce q/qmul (r/of "EUR" a) (map #(r/of "EUR" %) (cons b more)))))
+  ([a b & more] (apply r/of "EUR" a b more)))
 
 (defn EURC
   "EURC (live rate): (EURC) => 1 EURC; (EURC amount) => that many EURC;
   (EURC a b …) => a·b·… EURC^n (arity → exponent, like a unit)."
   ([]           (r/of "EURC"))
   ([amount]     (r/of "EURC" amount))
-  ([a b & more] (reduce q/qmul (r/of "EURC" a) (map #(r/of "EURC" %) (cons b more)))))
+  ([a b & more] (apply r/of "EURC" a b more)))
 
 (defn EUROC
   "EUROC (live rate): (EUROC) => 1 EUROC; (EUROC amount) => that many EUROC;
   (EUROC a b …) => a·b·… EUROC^n (arity → exponent, like a unit)."
   ([]           (r/of "EUROC"))
   ([amount]     (r/of "EUROC" amount))
-  ([a b & more] (reduce q/qmul (r/of "EUROC" a) (map #(r/of "EUROC" %) (cons b more)))))
+  ([a b & more] (apply r/of "EUROC" a b more)))
 
 (defn EVER
   "EVER (live rate): (EVER) => 1 EVER; (EVER amount) => that many EVER;
   (EVER a b …) => a·b·… EVER^n (arity → exponent, like a unit)."
   ([]           (r/of "EVER"))
   ([amount]     (r/of "EVER" amount))
-  ([a b & more] (reduce q/qmul (r/of "EVER" a) (map #(r/of "EVER" %) (cons b more)))))
+  ([a b & more] (apply r/of "EVER" a b more)))
 
 (defn EZETH
   "EZETH (live rate): (EZETH) => 1 EZETH; (EZETH amount) => that many EZETH;
   (EZETH a b …) => a·b·… EZETH^n (arity → exponent, like a unit)."
   ([]           (r/of "EZETH"))
   ([amount]     (r/of "EZETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "EZETH" a) (map #(r/of "EZETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "EZETH" a b more)))
 
 (defn FAI
   "FAI (live rate): (FAI) => 1 FAI; (FAI amount) => that many FAI;
   (FAI a b …) => a·b·… FAI^n (arity → exponent, like a unit)."
   ([]           (r/of "FAI"))
   ([amount]     (r/of "FAI" amount))
-  ([a b & more] (reduce q/qmul (r/of "FAI" a) (map #(r/of "FAI" %) (cons b more)))))
+  ([a b & more] (apply r/of "FAI" a b more)))
 
 (defn FARM
   "FARM (live rate): (FARM) => 1 FARM; (FARM amount) => that many FARM;
   (FARM a b …) => a·b·… FARM^n (arity → exponent, like a unit)."
   ([]           (r/of "FARM"))
   ([amount]     (r/of "FARM" amount))
-  ([a b & more] (reduce q/qmul (r/of "FARM" a) (map #(r/of "FARM" %) (cons b more)))))
+  ([a b & more] (apply r/of "FARM" a b more)))
 
 (defn FARTCOIN
   "FARTCOIN (live rate): (FARTCOIN) => 1 FARTCOIN; (FARTCOIN amount) => that many FARTCOIN;
   (FARTCOIN a b …) => a·b·… FARTCOIN^n (arity → exponent, like a unit)."
   ([]           (r/of "FARTCOIN"))
   ([amount]     (r/of "FARTCOIN" amount))
-  ([a b & more] (reduce q/qmul (r/of "FARTCOIN" a) (map #(r/of "FARTCOIN" %) (cons b more)))))
+  ([a b & more] (apply r/of "FARTCOIN" a b more)))
 
 (defn FDUSD
   "FDUSD (live rate): (FDUSD) => 1 FDUSD; (FDUSD amount) => that many FDUSD;
   (FDUSD a b …) => a·b·… FDUSD^n (arity → exponent, like a unit)."
   ([]           (r/of "FDUSD"))
   ([amount]     (r/of "FDUSD" amount))
-  ([a b & more] (reduce q/qmul (r/of "FDUSD" a) (map #(r/of "FDUSD" %) (cons b more)))))
+  ([a b & more] (apply r/of "FDUSD" a b more)))
 
 (defn FET
   "FET (live rate): (FET) => 1 FET; (FET amount) => that many FET;
   (FET a b …) => a·b·… FET^n (arity → exponent, like a unit)."
   ([]           (r/of "FET"))
   ([amount]     (r/of "FET" amount))
-  ([a b & more] (reduce q/qmul (r/of "FET" a) (map #(r/of "FET" %) (cons b more)))))
+  ([a b & more] (apply r/of "FET" a b more)))
 
 (defn FIDA
   "FIDA (live rate): (FIDA) => 1 FIDA; (FIDA amount) => that many FIDA;
   (FIDA a b …) => a·b·… FIDA^n (arity → exponent, like a unit)."
   ([]           (r/of "FIDA"))
   ([amount]     (r/of "FIDA" amount))
-  ([a b & more] (reduce q/qmul (r/of "FIDA" a) (map #(r/of "FIDA" %) (cons b more)))))
+  ([a b & more] (apply r/of "FIDA" a b more)))
 
 (defn FIGHT
   "FIGHT (live rate): (FIGHT) => 1 FIGHT; (FIGHT amount) => that many FIGHT;
   (FIGHT a b …) => a·b·… FIGHT^n (arity → exponent, like a unit)."
   ([]           (r/of "FIGHT"))
   ([amount]     (r/of "FIGHT" amount))
-  ([a b & more] (reduce q/qmul (r/of "FIGHT" a) (map #(r/of "FIGHT" %) (cons b more)))))
+  ([a b & more] (apply r/of "FIGHT" a b more)))
 
 (defn FIL
   "FIL (live rate): (FIL) => 1 FIL; (FIL amount) => that many FIL;
   (FIL a b …) => a·b·… FIL^n (arity → exponent, like a unit)."
   ([]           (r/of "FIL"))
   ([amount]     (r/of "FIL" amount))
-  ([a b & more] (reduce q/qmul (r/of "FIL" a) (map #(r/of "FIL" %) (cons b more)))))
+  ([a b & more] (apply r/of "FIL" a b more)))
 
 (defn FIS
   "FIS (live rate): (FIS) => 1 FIS; (FIS amount) => that many FIS;
   (FIS a b …) => a·b·… FIS^n (arity → exponent, like a unit)."
   ([]           (r/of "FIS"))
   ([amount]     (r/of "FIS" amount))
-  ([a b & more] (reduce q/qmul (r/of "FIS" a) (map #(r/of "FIS" %) (cons b more)))))
+  ([a b & more] (apply r/of "FIS" a b more)))
 
 (defn FJD
   "FJD (live rate): (FJD) => 1 FJD; (FJD amount) => that many FJD;
   (FJD a b …) => a·b·… FJD^n (arity → exponent, like a unit)."
   ([]           (r/of "FJD"))
   ([amount]     (r/of "FJD" amount))
-  ([a b & more] (reduce q/qmul (r/of "FJD" a) (map #(r/of "FJD" %) (cons b more)))))
+  ([a b & more] (apply r/of "FJD" a b more)))
 
 (defn FKP
   "FKP (live rate): (FKP) => 1 FKP; (FKP amount) => that many FKP;
   (FKP a b …) => a·b·… FKP^n (arity → exponent, like a unit)."
   ([]           (r/of "FKP"))
   ([amount]     (r/of "FKP" amount))
-  ([a b & more] (reduce q/qmul (r/of "FKP" a) (map #(r/of "FKP" %) (cons b more)))))
+  ([a b & more] (apply r/of "FKP" a b more)))
 
 (defn FLOCK
   "FLOCK (live rate): (FLOCK) => 1 FLOCK; (FLOCK amount) => that many FLOCK;
   (FLOCK a b …) => a·b·… FLOCK^n (arity → exponent, like a unit)."
   ([]           (r/of "FLOCK"))
   ([amount]     (r/of "FLOCK" amount))
-  ([a b & more] (reduce q/qmul (r/of "FLOCK" a) (map #(r/of "FLOCK" %) (cons b more)))))
+  ([a b & more] (apply r/of "FLOCK" a b more)))
 
 (defn FLOKI
   "FLOKI (live rate): (FLOKI) => 1 FLOKI; (FLOKI amount) => that many FLOKI;
   (FLOKI a b …) => a·b·… FLOKI^n (arity → exponent, like a unit)."
   ([]           (r/of "FLOKI"))
   ([amount]     (r/of "FLOKI" amount))
-  ([a b & more] (reduce q/qmul (r/of "FLOKI" a) (map #(r/of "FLOKI" %) (cons b more)))))
+  ([a b & more] (apply r/of "FLOKI" a b more)))
 
 (defn FLOW
   "FLOW (live rate): (FLOW) => 1 FLOW; (FLOW amount) => that many FLOW;
   (FLOW a b …) => a·b·… FLOW^n (arity → exponent, like a unit)."
   ([]           (r/of "FLOW"))
   ([amount]     (r/of "FLOW" amount))
-  ([a b & more] (reduce q/qmul (r/of "FLOW" a) (map #(r/of "FLOW" %) (cons b more)))))
+  ([a b & more] (apply r/of "FLOW" a b more)))
 
 (defn FLR
   "FLR (live rate): (FLR) => 1 FLR; (FLR amount) => that many FLR;
   (FLR a b …) => a·b·… FLR^n (arity → exponent, like a unit)."
   ([]           (r/of "FLR"))
   ([amount]     (r/of "FLR" amount))
-  ([a b & more] (reduce q/qmul (r/of "FLR" a) (map #(r/of "FLR" %) (cons b more)))))
+  ([a b & more] (apply r/of "FLR" a b more)))
 
 (defn FLUID
   "FLUID (live rate): (FLUID) => 1 FLUID; (FLUID amount) => that many FLUID;
   (FLUID a b …) => a·b·… FLUID^n (arity → exponent, like a unit)."
   ([]           (r/of "FLUID"))
   ([amount]     (r/of "FLUID" amount))
-  ([a b & more] (reduce q/qmul (r/of "FLUID" a) (map #(r/of "FLUID" %) (cons b more)))))
+  ([a b & more] (apply r/of "FLUID" a b more)))
 
 (defn FLUX
   "FLUX (live rate): (FLUX) => 1 FLUX; (FLUX amount) => that many FLUX;
   (FLUX a b …) => a·b·… FLUX^n (arity → exponent, like a unit)."
   ([]           (r/of "FLUX"))
   ([amount]     (r/of "FLUX" amount))
-  ([a b & more] (reduce q/qmul (r/of "FLUX" a) (map #(r/of "FLUX" %) (cons b more)))))
+  ([a b & more] (apply r/of "FLUX" a b more)))
 
 (defn FORT
   "FORT (live rate): (FORT) => 1 FORT; (FORT amount) => that many FORT;
   (FORT a b …) => a·b·… FORT^n (arity → exponent, like a unit)."
   ([]           (r/of "FORT"))
   ([amount]     (r/of "FORT" amount))
-  ([a b & more] (reduce q/qmul (r/of "FORT" a) (map #(r/of "FORT" %) (cons b more)))))
+  ([a b & more] (apply r/of "FORT" a b more)))
 
 (defn FORTH
   "FORTH (live rate): (FORTH) => 1 FORTH; (FORTH amount) => that many FORTH;
   (FORTH a b …) => a·b·… FORTH^n (arity → exponent, like a unit)."
   ([]           (r/of "FORTH"))
   ([amount]     (r/of "FORTH" amount))
-  ([a b & more] (reduce q/qmul (r/of "FORTH" a) (map #(r/of "FORTH" %) (cons b more)))))
+  ([a b & more] (apply r/of "FORTH" a b more)))
 
 (defn FOX
   "FOX (live rate): (FOX) => 1 FOX; (FOX amount) => that many FOX;
   (FOX a b …) => a·b·… FOX^n (arity → exponent, like a unit)."
   ([]           (r/of "FOX"))
   ([amount]     (r/of "FOX" amount))
-  ([a b & more] (reduce q/qmul (r/of "FOX" a) (map #(r/of "FOX" %) (cons b more)))))
+  ([a b & more] (apply r/of "FOX" a b more)))
 
 (defn FRAX
   "FRAX (live rate): (FRAX) => 1 FRAX; (FRAX amount) => that many FRAX;
   (FRAX a b …) => a·b·… FRAX^n (arity → exponent, like a unit)."
   ([]           (r/of "FRAX"))
   ([amount]     (r/of "FRAX" amount))
-  ([a b & more] (reduce q/qmul (r/of "FRAX" a) (map #(r/of "FRAX" %) (cons b more)))))
+  ([a b & more] (apply r/of "FRAX" a b more)))
 
 (defn FRIEND
   "FRIEND (live rate): (FRIEND) => 1 FRIEND; (FRIEND amount) => that many FRIEND;
   (FRIEND a b …) => a·b·… FRIEND^n (arity → exponent, like a unit)."
   ([]           (r/of "FRIEND"))
   ([amount]     (r/of "FRIEND" amount))
-  ([a b & more] (reduce q/qmul (r/of "FRIEND" a) (map #(r/of "FRIEND" %) (cons b more)))))
+  ([a b & more] (apply r/of "FRIEND" a b more)))
 
 (defn FRXETH
   "FRXETH (live rate): (FRXETH) => 1 FRXETH; (FRXETH amount) => that many FRXETH;
   (FRXETH a b …) => a·b·… FRXETH^n (arity → exponent, like a unit)."
   ([]           (r/of "FRXETH"))
   ([amount]     (r/of "FRXETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "FRXETH" a) (map #(r/of "FRXETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "FRXETH" a b more)))
 
 (defn FTM
   "FTM (live rate): (FTM) => 1 FTM; (FTM amount) => that many FTM;
   (FTM a b …) => a·b·… FTM^n (arity → exponent, like a unit)."
   ([]           (r/of "FTM"))
   ([amount]     (r/of "FTM" amount))
-  ([a b & more] (reduce q/qmul (r/of "FTM" a) (map #(r/of "FTM" %) (cons b more)))))
+  ([a b & more] (apply r/of "FTM" a b more)))
 
 (defn FTW
   "FTW (live rate): (FTW) => 1 FTW; (FTW amount) => that many FTW;
   (FTW a b …) => a·b·… FTW^n (arity → exponent, like a unit)."
   ([]           (r/of "FTW"))
   ([amount]     (r/of "FTW" amount))
-  ([a b & more] (reduce q/qmul (r/of "FTW" a) (map #(r/of "FTW" %) (cons b more)))))
+  ([a b & more] (apply r/of "FTW" a b more)))
 
 (defn FUN1
   "FUN1 (live rate): (FUN1) => 1 FUN1; (FUN1 amount) => that many FUN1;
   (FUN1 a b …) => a·b·… FUN1^n (arity → exponent, like a unit)."
   ([]           (r/of "FUN1"))
   ([amount]     (r/of "FUN1" amount))
-  ([a b & more] (reduce q/qmul (r/of "FUN1" a) (map #(r/of "FUN1" %) (cons b more)))))
+  ([a b & more] (apply r/of "FUN1" a b more)))
 
 (defn FWOG
   "FWOG (live rate): (FWOG) => 1 FWOG; (FWOG amount) => that many FWOG;
   (FWOG a b …) => a·b·… FWOG^n (arity → exponent, like a unit)."
   ([]           (r/of "FWOG"))
   ([amount]     (r/of "FWOG" amount))
-  ([a b & more] (reduce q/qmul (r/of "FWOG" a) (map #(r/of "FWOG" %) (cons b more)))))
+  ([a b & more] (apply r/of "FWOG" a b more)))
 
 (defn G
   "G (live rate): (G) => 1 G; (G amount) => that many G;
   (G a b …) => a·b·… G^n (arity → exponent, like a unit)."
   ([]           (r/of "G"))
   ([amount]     (r/of "G" amount))
-  ([a b & more] (reduce q/qmul (r/of "G" a) (map #(r/of "G" %) (cons b more)))))
+  ([a b & more] (apply r/of "G" a b more)))
 
 (defn GAJ
   "GAJ (live rate): (GAJ) => 1 GAJ; (GAJ amount) => that many GAJ;
   (GAJ a b …) => a·b·… GAJ^n (arity → exponent, like a unit)."
   ([]           (r/of "GAJ"))
   ([amount]     (r/of "GAJ" amount))
-  ([a b & more] (reduce q/qmul (r/of "GAJ" a) (map #(r/of "GAJ" %) (cons b more)))))
+  ([a b & more] (apply r/of "GAJ" a b more)))
 
 (defn GAL
   "GAL (live rate): (GAL) => 1 GAL; (GAL amount) => that many GAL;
   (GAL a b …) => a·b·… GAL^n (arity → exponent, like a unit)."
   ([]           (r/of "GAL"))
   ([amount]     (r/of "GAL" amount))
-  ([a b & more] (reduce q/qmul (r/of "GAL" a) (map #(r/of "GAL" %) (cons b more)))))
+  ([a b & more] (apply r/of "GAL" a b more)))
 
 (defn GALA
   "GALA (live rate): (GALA) => 1 GALA; (GALA amount) => that many GALA;
   (GALA a b …) => a·b·… GALA^n (arity → exponent, like a unit)."
   ([]           (r/of "GALA"))
   ([amount]     (r/of "GALA" amount))
-  ([a b & more] (reduce q/qmul (r/of "GALA" a) (map #(r/of "GALA" %) (cons b more)))))
+  ([a b & more] (apply r/of "GALA" a b more)))
 
 (defn GAME
   "GAME (live rate): (GAME) => 1 GAME; (GAME amount) => that many GAME;
   (GAME a b …) => a·b·… GAME^n (arity → exponent, like a unit)."
   ([]           (r/of "GAME"))
   ([amount]     (r/of "GAME" amount))
-  ([a b & more] (reduce q/qmul (r/of "GAME" a) (map #(r/of "GAME" %) (cons b more)))))
+  ([a b & more] (apply r/of "GAME" a b more)))
 
 (defn GAS
   "GAS (live rate): (GAS) => 1 GAS; (GAS amount) => that many GAS;
   (GAS a b …) => a·b·… GAS^n (arity → exponent, like a unit)."
   ([]           (r/of "GAS"))
   ([amount]     (r/of "GAS" amount))
-  ([a b & more] (reduce q/qmul (r/of "GAS" a) (map #(r/of "GAS" %) (cons b more)))))
+  ([a b & more] (apply r/of "GAS" a b more)))
 
 (defn GBP
   "GBP (live rate): (GBP) => 1 GBP; (GBP amount) => that many GBP;
   (GBP a b …) => a·b·… GBP^n (arity → exponent, like a unit)."
   ([]           (r/of "GBP"))
   ([amount]     (r/of "GBP" amount))
-  ([a b & more] (reduce q/qmul (r/of "GBP" a) (map #(r/of "GBP" %) (cons b more)))))
+  ([a b & more] (apply r/of "GBP" a b more)))
 
 (defn GEL
   "GEL (live rate): (GEL) => 1 GEL; (GEL amount) => that many GEL;
   (GEL a b …) => a·b·… GEL^n (arity → exponent, like a unit)."
   ([]           (r/of "GEL"))
   ([amount]     (r/of "GEL" amount))
-  ([a b & more] (reduce q/qmul (r/of "GEL" a) (map #(r/of "GEL" %) (cons b more)))))
+  ([a b & more] (apply r/of "GEL" a b more)))
 
 (defn GEOD
   "GEOD (live rate): (GEOD) => 1 GEOD; (GEOD amount) => that many GEOD;
   (GEOD a b …) => a·b·… GEOD^n (arity → exponent, like a unit)."
   ([]           (r/of "GEOD"))
   ([amount]     (r/of "GEOD" amount))
-  ([a b & more] (reduce q/qmul (r/of "GEOD" a) (map #(r/of "GEOD" %) (cons b more)))))
+  ([a b & more] (apply r/of "GEOD" a b more)))
 
 (defn GFI
   "GFI (live rate): (GFI) => 1 GFI; (GFI amount) => that many GFI;
   (GFI a b …) => a·b·… GFI^n (arity → exponent, like a unit)."
   ([]           (r/of "GFI"))
   ([amount]     (r/of "GFI" amount))
-  ([a b & more] (reduce q/qmul (r/of "GFI" a) (map #(r/of "GFI" %) (cons b more)))))
+  ([a b & more] (apply r/of "GFI" a b more)))
 
 (defn GGP
   "GGP (live rate): (GGP) => 1 GGP; (GGP amount) => that many GGP;
   (GGP a b …) => a·b·… GGP^n (arity → exponent, like a unit)."
   ([]           (r/of "GGP"))
   ([amount]     (r/of "GGP" amount))
-  ([a b & more] (reduce q/qmul (r/of "GGP" a) (map #(r/of "GGP" %) (cons b more)))))
+  ([a b & more] (apply r/of "GGP" a b more)))
 
 (defn GHO
   "GHO (live rate): (GHO) => 1 GHO; (GHO amount) => that many GHO;
   (GHO a b …) => a·b·… GHO^n (arity → exponent, like a unit)."
   ([]           (r/of "GHO"))
   ([amount]     (r/of "GHO" amount))
-  ([a b & more] (reduce q/qmul (r/of "GHO" a) (map #(r/of "GHO" %) (cons b more)))))
+  ([a b & more] (apply r/of "GHO" a b more)))
 
 (defn GHS
   "GHS (live rate): (GHS) => 1 GHS; (GHS amount) => that many GHS;
   (GHS a b …) => a·b·… GHS^n (arity → exponent, like a unit)."
   ([]           (r/of "GHS"))
   ([amount]     (r/of "GHS" amount))
-  ([a b & more] (reduce q/qmul (r/of "GHS" a) (map #(r/of "GHS" %) (cons b more)))))
+  ([a b & more] (apply r/of "GHS" a b more)))
 
 (defn GHST
   "GHST (live rate): (GHST) => 1 GHST; (GHST amount) => that many GHST;
   (GHST a b …) => a·b·… GHST^n (arity → exponent, like a unit)."
   ([]           (r/of "GHST"))
   ([amount]     (r/of "GHST" amount))
-  ([a b & more] (reduce q/qmul (r/of "GHST" a) (map #(r/of "GHST" %) (cons b more)))))
+  ([a b & more] (apply r/of "GHST" a b more)))
 
 (defn GIGA
   "GIGA (live rate): (GIGA) => 1 GIGA; (GIGA amount) => that many GIGA;
   (GIGA a b …) => a·b·… GIGA^n (arity → exponent, like a unit)."
   ([]           (r/of "GIGA"))
   ([amount]     (r/of "GIGA" amount))
-  ([a b & more] (reduce q/qmul (r/of "GIGA" a) (map #(r/of "GIGA" %) (cons b more)))))
+  ([a b & more] (apply r/of "GIGA" a b more)))
 
 (defn GIP
   "GIP (live rate): (GIP) => 1 GIP; (GIP amount) => that many GIP;
   (GIP a b …) => a·b·… GIP^n (arity → exponent, like a unit)."
   ([]           (r/of "GIP"))
   ([amount]     (r/of "GIP" amount))
-  ([a b & more] (reduce q/qmul (r/of "GIP" a) (map #(r/of "GIP" %) (cons b more)))))
+  ([a b & more] (apply r/of "GIP" a b more)))
 
 (defn GLM
   "GLM (live rate): (GLM) => 1 GLM; (GLM amount) => that many GLM;
   (GLM a b …) => a·b·… GLM^n (arity → exponent, like a unit)."
   ([]           (r/of "GLM"))
   ([amount]     (r/of "GLM" amount))
-  ([a b & more] (reduce q/qmul (r/of "GLM" a) (map #(r/of "GLM" %) (cons b more)))))
+  ([a b & more] (apply r/of "GLM" a b more)))
 
 (defn GLMR
   "GLMR (live rate): (GLMR) => 1 GLMR; (GLMR amount) => that many GLMR;
   (GLMR a b …) => a·b·… GLMR^n (arity → exponent, like a unit)."
   ([]           (r/of "GLMR"))
   ([amount]     (r/of "GLMR" amount))
-  ([a b & more] (reduce q/qmul (r/of "GLMR" a) (map #(r/of "GLMR" %) (cons b more)))))
+  ([a b & more] (apply r/of "GLMR" a b more)))
 
 (defn GMD
   "GMD (live rate): (GMD) => 1 GMD; (GMD amount) => that many GMD;
   (GMD a b …) => a·b·… GMD^n (arity → exponent, like a unit)."
   ([]           (r/of "GMD"))
   ([amount]     (r/of "GMD" amount))
-  ([a b & more] (reduce q/qmul (r/of "GMD" a) (map #(r/of "GMD" %) (cons b more)))))
+  ([a b & more] (apply r/of "GMD" a b more)))
 
 (defn GMT
   "GMT (live rate): (GMT) => 1 GMT; (GMT amount) => that many GMT;
   (GMT a b …) => a·b·… GMT^n (arity → exponent, like a unit)."
   ([]           (r/of "GMT"))
   ([amount]     (r/of "GMT" amount))
-  ([a b & more] (reduce q/qmul (r/of "GMT" a) (map #(r/of "GMT" %) (cons b more)))))
+  ([a b & more] (apply r/of "GMT" a b more)))
 
 (defn GMX
   "GMX (live rate): (GMX) => 1 GMX; (GMX amount) => that many GMX;
   (GMX a b …) => a·b·… GMX^n (arity → exponent, like a unit)."
   ([]           (r/of "GMX"))
   ([amount]     (r/of "GMX" amount))
-  ([a b & more] (reduce q/qmul (r/of "GMX" a) (map #(r/of "GMX" %) (cons b more)))))
+  ([a b & more] (apply r/of "GMX" a b more)))
 
 (defn GNF
   "GNF (live rate): (GNF) => 1 GNF; (GNF amount) => that many GNF;
   (GNF a b …) => a·b·… GNF^n (arity → exponent, like a unit)."
   ([]           (r/of "GNF"))
   ([amount]     (r/of "GNF" amount))
-  ([a b & more] (reduce q/qmul (r/of "GNF" a) (map #(r/of "GNF" %) (cons b more)))))
+  ([a b & more] (apply r/of "GNF" a b more)))
 
 (defn GNO
   "GNO (live rate): (GNO) => 1 GNO; (GNO amount) => that many GNO;
   (GNO a b …) => a·b·… GNO^n (arity → exponent, like a unit)."
   ([]           (r/of "GNO"))
   ([amount]     (r/of "GNO" amount))
-  ([a b & more] (reduce q/qmul (r/of "GNO" a) (map #(r/of "GNO" %) (cons b more)))))
+  ([a b & more] (apply r/of "GNO" a b more)))
 
 (defn GNS
   "GNS (live rate): (GNS) => 1 GNS; (GNS amount) => that many GNS;
   (GNS a b …) => a·b·… GNS^n (arity → exponent, like a unit)."
   ([]           (r/of "GNS"))
   ([amount]     (r/of "GNS" amount))
-  ([a b & more] (reduce q/qmul (r/of "GNS" a) (map #(r/of "GNS" %) (cons b more)))))
+  ([a b & more] (apply r/of "GNS" a b more)))
 
 (defn GOAT
   "GOAT (live rate): (GOAT) => 1 GOAT; (GOAT amount) => that many GOAT;
   (GOAT a b …) => a·b·… GOAT^n (arity → exponent, like a unit)."
   ([]           (r/of "GOAT"))
   ([amount]     (r/of "GOAT" amount))
-  ([a b & more] (reduce q/qmul (r/of "GOAT" a) (map #(r/of "GOAT" %) (cons b more)))))
+  ([a b & more] (apply r/of "GOAT" a b more)))
 
 (defn GODS
   "GODS (live rate): (GODS) => 1 GODS; (GODS amount) => that many GODS;
   (GODS a b …) => a·b·… GODS^n (arity → exponent, like a unit)."
   ([]           (r/of "GODS"))
   ([amount]     (r/of "GODS" amount))
-  ([a b & more] (reduce q/qmul (r/of "GODS" a) (map #(r/of "GODS" %) (cons b more)))))
+  ([a b & more] (apply r/of "GODS" a b more)))
 
 (defn GPS
   "GPS (live rate): (GPS) => 1 GPS; (GPS amount) => that many GPS;
   (GPS a b …) => a·b·… GPS^n (arity → exponent, like a unit)."
   ([]           (r/of "GPS"))
   ([amount]     (r/of "GPS" amount))
-  ([a b & more] (reduce q/qmul (r/of "GPS" a) (map #(r/of "GPS" %) (cons b more)))))
+  ([a b & more] (apply r/of "GPS" a b more)))
 
 (defn GRAM
   "GRAM (live rate): (GRAM) => 1 GRAM; (GRAM amount) => that many GRAM;
   (GRAM a b …) => a·b·… GRAM^n (arity → exponent, like a unit)."
   ([]           (r/of "GRAM"))
   ([amount]     (r/of "GRAM" amount))
-  ([a b & more] (reduce q/qmul (r/of "GRAM" a) (map #(r/of "GRAM" %) (cons b more)))))
+  ([a b & more] (apply r/of "GRAM" a b more)))
 
 (defn GRASS
   "GRASS (live rate): (GRASS) => 1 GRASS; (GRASS amount) => that many GRASS;
   (GRASS a b …) => a·b·… GRASS^n (arity → exponent, like a unit)."
   ([]           (r/of "GRASS"))
   ([amount]     (r/of "GRASS" amount))
-  ([a b & more] (reduce q/qmul (r/of "GRASS" a) (map #(r/of "GRASS" %) (cons b more)))))
+  ([a b & more] (apply r/of "GRASS" a b more)))
 
 (defn GRIFFAIN
   "GRIFFAIN (live rate): (GRIFFAIN) => 1 GRIFFAIN; (GRIFFAIN amount) => that many GRIFFAIN;
   (GRIFFAIN a b …) => a·b·… GRIFFAIN^n (arity → exponent, like a unit)."
   ([]           (r/of "GRIFFAIN"))
   ([amount]     (r/of "GRIFFAIN" amount))
-  ([a b & more] (reduce q/qmul (r/of "GRIFFAIN" a) (map #(r/of "GRIFFAIN" %) (cons b more)))))
+  ([a b & more] (apply r/of "GRIFFAIN" a b more)))
 
 (defn GRIN
   "GRIN (live rate): (GRIN) => 1 GRIN; (GRIN amount) => that many GRIN;
   (GRIN a b …) => a·b·… GRIN^n (arity → exponent, like a unit)."
   ([]           (r/of "GRIN"))
   ([amount]     (r/of "GRIN" amount))
-  ([a b & more] (reduce q/qmul (r/of "GRIN" a) (map #(r/of "GRIN" %) (cons b more)))))
+  ([a b & more] (apply r/of "GRIN" a b more)))
 
 (defn GROVE
   "GROVE (live rate): (GROVE) => 1 GROVE; (GROVE amount) => that many GROVE;
   (GROVE a b …) => a·b·… GROVE^n (arity → exponent, like a unit)."
   ([]           (r/of "GROVE"))
   ([amount]     (r/of "GROVE" amount))
-  ([a b & more] (reduce q/qmul (r/of "GROVE" a) (map #(r/of "GROVE" %) (cons b more)))))
+  ([a b & more] (apply r/of "GROVE" a b more)))
 
 (defn GRT
   "GRT (live rate): (GRT) => 1 GRT; (GRT amount) => that many GRT;
   (GRT a b …) => a·b·… GRT^n (arity → exponent, like a unit)."
   ([]           (r/of "GRT"))
   ([amount]     (r/of "GRT" amount))
-  ([a b & more] (reduce q/qmul (r/of "GRT" a) (map #(r/of "GRT" %) (cons b more)))))
+  ([a b & more] (apply r/of "GRT" a b more)))
 
 (defn GRVT
   "GRVT (live rate): (GRVT) => 1 GRVT; (GRVT amount) => that many GRVT;
   (GRVT a b …) => a·b·… GRVT^n (arity → exponent, like a unit)."
   ([]           (r/of "GRVT"))
   ([amount]     (r/of "GRVT" amount))
-  ([a b & more] (reduce q/qmul (r/of "GRVT" a) (map #(r/of "GRVT" %) (cons b more)))))
+  ([a b & more] (apply r/of "GRVT" a b more)))
 
 (defn GST
   "GST (live rate): (GST) => 1 GST; (GST amount) => that many GST;
   (GST a b …) => a·b·… GST^n (arity → exponent, like a unit)."
   ([]           (r/of "GST"))
   ([amount]     (r/of "GST" amount))
-  ([a b & more] (reduce q/qmul (r/of "GST" a) (map #(r/of "GST" %) (cons b more)))))
+  ([a b & more] (apply r/of "GST" a b more)))
 
 (defn GT
   "GT (live rate): (GT) => 1 GT; (GT amount) => that many GT;
   (GT a b …) => a·b·… GT^n (arity → exponent, like a unit)."
   ([]           (r/of "GT"))
   ([amount]     (r/of "GT" amount))
-  ([a b & more] (reduce q/qmul (r/of "GT" a) (map #(r/of "GT" %) (cons b more)))))
+  ([a b & more] (apply r/of "GT" a b more)))
 
 (defn GTC
   "GTC (live rate): (GTC) => 1 GTC; (GTC amount) => that many GTC;
   (GTC a b …) => a·b·… GTC^n (arity → exponent, like a unit)."
   ([]           (r/of "GTC"))
   ([amount]     (r/of "GTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "GTC" a) (map #(r/of "GTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "GTC" a b more)))
 
 (defn GTQ
   "GTQ (live rate): (GTQ) => 1 GTQ; (GTQ amount) => that many GTQ;
   (GTQ a b …) => a·b·… GTQ^n (arity → exponent, like a unit)."
   ([]           (r/of "GTQ"))
   ([amount]     (r/of "GTQ" amount))
-  ([a b & more] (reduce q/qmul (r/of "GTQ" a) (map #(r/of "GTQ" %) (cons b more)))))
+  ([a b & more] (apply r/of "GTQ" a b more)))
 
 (defn GUSD
   "GUSD (live rate): (GUSD) => 1 GUSD; (GUSD amount) => that many GUSD;
   (GUSD a b …) => a·b·… GUSD^n (arity → exponent, like a unit)."
   ([]           (r/of "GUSD"))
   ([amount]     (r/of "GUSD" amount))
-  ([a b & more] (reduce q/qmul (r/of "GUSD" a) (map #(r/of "GUSD" %) (cons b more)))))
+  ([a b & more] (apply r/of "GUSD" a b more)))
 
 (defn GWEI
   "GWEI (live rate): (GWEI) => 1 GWEI; (GWEI amount) => that many GWEI;
   (GWEI a b …) => a·b·… GWEI^n (arity → exponent, like a unit)."
   ([]           (r/of "GWEI"))
   ([amount]     (r/of "GWEI" amount))
-  ([a b & more] (reduce q/qmul (r/of "GWEI" a) (map #(r/of "GWEI" %) (cons b more)))))
+  ([a b & more] (apply r/of "GWEI" a b more)))
 
 (defn GXC
   "GXC (live rate): (GXC) => 1 GXC; (GXC amount) => that many GXC;
   (GXC a b …) => a·b·… GXC^n (arity → exponent, like a unit)."
   ([]           (r/of "GXC"))
   ([amount]     (r/of "GXC" amount))
-  ([a b & more] (reduce q/qmul (r/of "GXC" a) (map #(r/of "GXC" %) (cons b more)))))
+  ([a b & more] (apply r/of "GXC" a b more)))
 
 (defn GYD
   "GYD (live rate): (GYD) => 1 GYD; (GYD amount) => that many GYD;
   (GYD a b …) => a·b·… GYD^n (arity → exponent, like a unit)."
   ([]           (r/of "GYD"))
   ([amount]     (r/of "GYD" amount))
-  ([a b & more] (reduce q/qmul (r/of "GYD" a) (map #(r/of "GYD" %) (cons b more)))))
+  ([a b & more] (apply r/of "GYD" a b more)))
 
 (defn GYEN
   "GYEN (live rate): (GYEN) => 1 GYEN; (GYEN amount) => that many GYEN;
   (GYEN a b …) => a·b·… GYEN^n (arity → exponent, like a unit)."
   ([]           (r/of "GYEN"))
   ([amount]     (r/of "GYEN" amount))
-  ([a b & more] (reduce q/qmul (r/of "GYEN" a) (map #(r/of "GYEN" %) (cons b more)))))
+  ([a b & more] (apply r/of "GYEN" a b more)))
 
 (defn H2O
   "H2O (live rate): (H2O) => 1 H2O; (H2O amount) => that many H2O;
   (H2O a b …) => a·b·… H2O^n (arity → exponent, like a unit)."
   ([]           (r/of "H2O"))
   ([amount]     (r/of "H2O" amount))
-  ([a b & more] (reduce q/qmul (r/of "H2O" a) (map #(r/of "H2O" %) (cons b more)))))
+  ([a b & more] (apply r/of "H2O" a b more)))
 
 (defn HBAR
   "HBAR (live rate): (HBAR) => 1 HBAR; (HBAR amount) => that many HBAR;
   (HBAR a b …) => a·b·… HBAR^n (arity → exponent, like a unit)."
   ([]           (r/of "HBAR"))
   ([amount]     (r/of "HBAR" amount))
-  ([a b & more] (reduce q/qmul (r/of "HBAR" a) (map #(r/of "HBAR" %) (cons b more)))))
+  ([a b & more] (apply r/of "HBAR" a b more)))
 
 (defn HBTC
   "HBTC (live rate): (HBTC) => 1 HBTC; (HBTC amount) => that many HBTC;
   (HBTC a b …) => a·b·… HBTC^n (arity → exponent, like a unit)."
   ([]           (r/of "HBTC"))
   ([amount]     (r/of "HBTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "HBTC" a) (map #(r/of "HBTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "HBTC" a b more)))
 
 (defn HFT
   "HFT (live rate): (HFT) => 1 HFT; (HFT amount) => that many HFT;
   (HFT a b …) => a·b·… HFT^n (arity → exponent, like a unit)."
   ([]           (r/of "HFT"))
   ([amount]     (r/of "HFT" amount))
-  ([a b & more] (reduce q/qmul (r/of "HFT" a) (map #(r/of "HFT" %) (cons b more)))))
+  ([a b & more] (apply r/of "HFT" a b more)))
 
 (defn HIGH
   "HIGH (live rate): (HIGH) => 1 HIGH; (HIGH amount) => that many HIGH;
   (HIGH a b …) => a·b·… HIGH^n (arity → exponent, like a unit)."
   ([]           (r/of "HIGH"))
   ([amount]     (r/of "HIGH" amount))
-  ([a b & more] (reduce q/qmul (r/of "HIGH" a) (map #(r/of "HIGH" %) (cons b more)))))
+  ([a b & more] (apply r/of "HIGH" a b more)))
 
 (defn HKD
   "HKD (live rate): (HKD) => 1 HKD; (HKD amount) => that many HKD;
   (HKD a b …) => a·b·… HKD^n (arity → exponent, like a unit)."
   ([]           (r/of "HKD"))
   ([amount]     (r/of "HKD" amount))
-  ([a b & more] (reduce q/qmul (r/of "HKD" a) (map #(r/of "HKD" %) (cons b more)))))
+  ([a b & more] (apply r/of "HKD" a b more)))
 
 (defn HMSTR
   "HMSTR (live rate): (HMSTR) => 1 HMSTR; (HMSTR amount) => that many HMSTR;
   (HMSTR a b …) => a·b·… HMSTR^n (arity → exponent, like a unit)."
   ([]           (r/of "HMSTR"))
   ([amount]     (r/of "HMSTR" amount))
-  ([a b & more] (reduce q/qmul (r/of "HMSTR" a) (map #(r/of "HMSTR" %) (cons b more)))))
+  ([a b & more] (apply r/of "HMSTR" a b more)))
 
 (defn HNL
   "HNL (live rate): (HNL) => 1 HNL; (HNL amount) => that many HNL;
   (HNL a b …) => a·b·… HNL^n (arity → exponent, like a unit)."
   ([]           (r/of "HNL"))
   ([amount]     (r/of "HNL" amount))
-  ([a b & more] (reduce q/qmul (r/of "HNL" a) (map #(r/of "HNL" %) (cons b more)))))
+  ([a b & more] (apply r/of "HNL" a b more)))
 
 (defn HNT
   "HNT (live rate): (HNT) => 1 HNT; (HNT amount) => that many HNT;
   (HNT a b …) => a·b·… HNT^n (arity → exponent, like a unit)."
   ([]           (r/of "HNT"))
   ([amount]     (r/of "HNT" amount))
-  ([a b & more] (reduce q/qmul (r/of "HNT" a) (map #(r/of "HNT" %) (cons b more)))))
+  ([a b & more] (apply r/of "HNT" a b more)))
 
 (defn HOME
   "HOME (live rate): (HOME) => 1 HOME; (HOME amount) => that many HOME;
   (HOME a b …) => a·b·… HOME^n (arity → exponent, like a unit)."
   ([]           (r/of "HOME"))
   ([amount]     (r/of "HOME" amount))
-  ([a b & more] (reduce q/qmul (r/of "HOME" a) (map #(r/of "HOME" %) (cons b more)))))
+  ([a b & more] (apply r/of "HOME" a b more)))
 
 (defn HONEY
   "HONEY (live rate): (HONEY) => 1 HONEY; (HONEY amount) => that many HONEY;
   (HONEY a b …) => a·b·… HONEY^n (arity → exponent, like a unit)."
   ([]           (r/of "HONEY"))
   ([amount]     (r/of "HONEY" amount))
-  ([a b & more] (reduce q/qmul (r/of "HONEY" a) (map #(r/of "HONEY" %) (cons b more)))))
+  ([a b & more] (apply r/of "HONEY" a b more)))
 
 (defn HOPR
   "HOPR (live rate): (HOPR) => 1 HOPR; (HOPR amount) => that many HOPR;
   (HOPR a b …) => a·b·… HOPR^n (arity → exponent, like a unit)."
   ([]           (r/of "HOPR"))
   ([amount]     (r/of "HOPR" amount))
-  ([a b & more] (reduce q/qmul (r/of "HOPR" a) (map #(r/of "HOPR" %) (cons b more)))))
+  ([a b & more] (apply r/of "HOPR" a b more)))
 
 (defn HOT
   "HOT (live rate): (HOT) => 1 HOT; (HOT amount) => that many HOT;
   (HOT a b …) => a·b·… HOT^n (arity → exponent, like a unit)."
   ([]           (r/of "HOT"))
   ([amount]     (r/of "HOT" amount))
-  ([a b & more] (reduce q/qmul (r/of "HOT" a) (map #(r/of "HOT" %) (cons b more)))))
+  ([a b & more] (apply r/of "HOT" a b more)))
 
 (defn HRK
   "HRK (live rate): (HRK) => 1 HRK; (HRK amount) => that many HRK;
   (HRK a b …) => a·b·… HRK^n (arity → exponent, like a unit)."
   ([]           (r/of "HRK"))
   ([amount]     (r/of "HRK" amount))
-  ([a b & more] (reduce q/qmul (r/of "HRK" a) (map #(r/of "HRK" %) (cons b more)))))
+  ([a b & more] (apply r/of "HRK" a b more)))
 
 (defn HT
   "HT (live rate): (HT) => 1 HT; (HT amount) => that many HT;
   (HT a b …) => a·b·… HT^n (arity → exponent, like a unit)."
   ([]           (r/of "HT"))
   ([amount]     (r/of "HT" amount))
-  ([a b & more] (reduce q/qmul (r/of "HT" a) (map #(r/of "HT" %) (cons b more)))))
+  ([a b & more] (apply r/of "HT" a b more)))
 
 (defn HTG
   "HTG (live rate): (HTG) => 1 HTG; (HTG amount) => that many HTG;
   (HTG a b …) => a·b·… HTG^n (arity → exponent, like a unit)."
   ([]           (r/of "HTG"))
   ([amount]     (r/of "HTG" amount))
-  ([a b & more] (reduce q/qmul (r/of "HTG" a) (map #(r/of "HTG" %) (cons b more)))))
+  ([a b & more] (apply r/of "HTG" a b more)))
 
 (defn HUF
   "HUF (live rate): (HUF) => 1 HUF; (HUF amount) => that many HUF;
   (HUF a b …) => a·b·… HUF^n (arity → exponent, like a unit)."
   ([]           (r/of "HUF"))
   ([amount]     (r/of "HUF" amount))
-  ([a b & more] (reduce q/qmul (r/of "HUF" a) (map #(r/of "HUF" %) (cons b more)))))
+  ([a b & more] (apply r/of "HUF" a b more)))
 
 (defn HYPE
   "HYPE (live rate): (HYPE) => 1 HYPE; (HYPE amount) => that many HYPE;
   (HYPE a b …) => a·b·… HYPE^n (arity → exponent, like a unit)."
   ([]           (r/of "HYPE"))
   ([amount]     (r/of "HYPE" amount))
-  ([a b & more] (reduce q/qmul (r/of "HYPE" a) (map #(r/of "HYPE" %) (cons b more)))))
+  ([a b & more] (apply r/of "HYPE" a b more)))
 
 (defn HYPER
   "HYPER (live rate): (HYPER) => 1 HYPER; (HYPER amount) => that many HYPER;
   (HYPER a b …) => a·b·… HYPER^n (arity → exponent, like a unit)."
   ([]           (r/of "HYPER"))
   ([amount]     (r/of "HYPER" amount))
-  ([a b & more] (reduce q/qmul (r/of "HYPER" a) (map #(r/of "HYPER" %) (cons b more)))))
+  ([a b & more] (apply r/of "HYPER" a b more)))
 
 (defn IBERA
   "IBERA (live rate): (IBERA) => 1 IBERA; (IBERA amount) => that many IBERA;
   (IBERA a b …) => a·b·… IBERA^n (arity → exponent, like a unit)."
   ([]           (r/of "IBERA"))
   ([amount]     (r/of "IBERA" amount))
-  ([a b & more] (reduce q/qmul (r/of "IBERA" a) (map #(r/of "IBERA" %) (cons b more)))))
+  ([a b & more] (apply r/of "IBERA" a b more)))
 
 (defn ICNT
   "ICNT (live rate): (ICNT) => 1 ICNT; (ICNT amount) => that many ICNT;
   (ICNT a b …) => a·b·… ICNT^n (arity → exponent, like a unit)."
   ([]           (r/of "ICNT"))
   ([amount]     (r/of "ICNT" amount))
-  ([a b & more] (reduce q/qmul (r/of "ICNT" a) (map #(r/of "ICNT" %) (cons b more)))))
+  ([a b & more] (apply r/of "ICNT" a b more)))
 
 (defn ICP
   "ICP (live rate): (ICP) => 1 ICP; (ICP amount) => that many ICP;
   (ICP a b …) => a·b·… ICP^n (arity → exponent, like a unit)."
   ([]           (r/of "ICP"))
   ([amount]     (r/of "ICP" amount))
-  ([a b & more] (reduce q/qmul (r/of "ICP" a) (map #(r/of "ICP" %) (cons b more)))))
+  ([a b & more] (apply r/of "ICP" a b more)))
 
 (defn ICX
   "ICX (live rate): (ICX) => 1 ICX; (ICX amount) => that many ICX;
   (ICX a b …) => a·b·… ICX^n (arity → exponent, like a unit)."
   ([]           (r/of "ICX"))
   ([amount]     (r/of "ICX" amount))
-  ([a b & more] (reduce q/qmul (r/of "ICX" a) (map #(r/of "ICX" %) (cons b more)))))
+  ([a b & more] (apply r/of "ICX" a b more)))
 
 (defn ID
   "ID (live rate): (ID) => 1 ID; (ID amount) => that many ID;
   (ID a b …) => a·b·… ID^n (arity → exponent, like a unit)."
   ([]           (r/of "ID"))
   ([amount]     (r/of "ID" amount))
-  ([a b & more] (reduce q/qmul (r/of "ID" a) (map #(r/of "ID" %) (cons b more)))))
+  ([a b & more] (apply r/of "ID" a b more)))
 
 (defn IDEX
   "IDEX (live rate): (IDEX) => 1 IDEX; (IDEX amount) => that many IDEX;
   (IDEX a b …) => a·b·… IDEX^n (arity → exponent, like a unit)."
   ([]           (r/of "IDEX"))
   ([amount]     (r/of "IDEX" amount))
-  ([a b & more] (reduce q/qmul (r/of "IDEX" a) (map #(r/of "IDEX" %) (cons b more)))))
+  ([a b & more] (apply r/of "IDEX" a b more)))
 
 (defn IDR
   "IDR (live rate): (IDR) => 1 IDR; (IDR amount) => that many IDR;
   (IDR a b …) => a·b·… IDR^n (arity → exponent, like a unit)."
   ([]           (r/of "IDR"))
   ([amount]     (r/of "IDR" amount))
-  ([a b & more] (reduce q/qmul (r/of "IDR" a) (map #(r/of "IDR" %) (cons b more)))))
+  ([a b & more] (apply r/of "IDR" a b more)))
 
 (defn ILS
   "ILS (live rate): (ILS) => 1 ILS; (ILS amount) => that many ILS;
   (ILS a b …) => a·b·… ILS^n (arity → exponent, like a unit)."
   ([]           (r/of "ILS"))
   ([amount]     (r/of "ILS" amount))
-  ([a b & more] (reduce q/qmul (r/of "ILS" a) (map #(r/of "ILS" %) (cons b more)))))
+  ([a b & more] (apply r/of "ILS" a b more)))
 
 (defn ILV
   "ILV (live rate): (ILV) => 1 ILV; (ILV amount) => that many ILV;
   (ILV a b …) => a·b·… ILV^n (arity → exponent, like a unit)."
   ([]           (r/of "ILV"))
   ([amount]     (r/of "ILV" amount))
-  ([a b & more] (reduce q/qmul (r/of "ILV" a) (map #(r/of "ILV" %) (cons b more)))))
+  ([a b & more] (apply r/of "ILV" a b more)))
 
 (defn IMP
   "IMP (live rate): (IMP) => 1 IMP; (IMP amount) => that many IMP;
   (IMP a b …) => a·b·… IMP^n (arity → exponent, like a unit)."
   ([]           (r/of "IMP"))
   ([amount]     (r/of "IMP" amount))
-  ([a b & more] (reduce q/qmul (r/of "IMP" a) (map #(r/of "IMP" %) (cons b more)))))
+  ([a b & more] (apply r/of "IMP" a b more)))
 
 (defn IMU
   "IMU (live rate): (IMU) => 1 IMU; (IMU amount) => that many IMU;
   (IMU a b …) => a·b·… IMU^n (arity → exponent, like a unit)."
   ([]           (r/of "IMU"))
   ([amount]     (r/of "IMU" amount))
-  ([a b & more] (reduce q/qmul (r/of "IMU" a) (map #(r/of "IMU" %) (cons b more)))))
+  ([a b & more] (apply r/of "IMU" a b more)))
 
 (defn IMX
   "IMX (live rate): (IMX) => 1 IMX; (IMX amount) => that many IMX;
   (IMX a b …) => a·b·… IMX^n (arity → exponent, like a unit)."
   ([]           (r/of "IMX"))
   ([amount]     (r/of "IMX" amount))
-  ([a b & more] (reduce q/qmul (r/of "IMX" a) (map #(r/of "IMX" %) (cons b more)))))
+  ([a b & more] (apply r/of "IMX" a b more)))
 
 (defn INDEX
   "INDEX (live rate): (INDEX) => 1 INDEX; (INDEX amount) => that many INDEX;
   (INDEX a b …) => a·b·… INDEX^n (arity → exponent, like a unit)."
   ([]           (r/of "INDEX"))
   ([amount]     (r/of "INDEX" amount))
-  ([a b & more] (reduce q/qmul (r/of "INDEX" a) (map #(r/of "INDEX" %) (cons b more)))))
+  ([a b & more] (apply r/of "INDEX" a b more)))
 
 (defn INJ
   "INJ (live rate): (INJ) => 1 INJ; (INJ amount) => that many INJ;
   (INJ a b …) => a·b·… INJ^n (arity → exponent, like a unit)."
   ([]           (r/of "INJ"))
   ([amount]     (r/of "INJ" amount))
-  ([a b & more] (reduce q/qmul (r/of "INJ" a) (map #(r/of "INJ" %) (cons b more)))))
+  ([a b & more] (apply r/of "INJ" a b more)))
 
 (defn INR
   "INR (live rate): (INR) => 1 INR; (INR amount) => that many INR;
   (INR a b …) => a·b·… INR^n (arity → exponent, like a unit)."
   ([]           (r/of "INR"))
   ([amount]     (r/of "INR" amount))
-  ([a b & more] (reduce q/qmul (r/of "INR" a) (map #(r/of "INR" %) (cons b more)))))
+  ([a b & more] (apply r/of "INR" a b more)))
 
 (defn INSURANCE
   "INSURANCE (live rate): (INSURANCE) => 1 INSURANCE; (INSURANCE amount) => that many INSURANCE;
   (INSURANCE a b …) => a·b·… INSURANCE^n (arity → exponent, like a unit)."
   ([]           (r/of "INSURANCE"))
   ([amount]     (r/of "INSURANCE" amount))
-  ([a b & more] (reduce q/qmul (r/of "INSURANCE" a) (map #(r/of "INSURANCE" %) (cons b more)))))
+  ([a b & more] (apply r/of "INSURANCE" a b more)))
 
 (defn INV
   "INV (live rate): (INV) => 1 INV; (INV amount) => that many INV;
   (INV a b …) => a·b·… INV^n (arity → exponent, like a unit)."
   ([]           (r/of "INV"))
   ([amount]     (r/of "INV" amount))
-  ([a b & more] (reduce q/qmul (r/of "INV" a) (map #(r/of "INV" %) (cons b more)))))
+  ([a b & more] (apply r/of "INV" a b more)))
 
 (defn INX
   "INX (live rate): (INX) => 1 INX; (INX amount) => that many INX;
   (INX a b …) => a·b·… INX^n (arity → exponent, like a unit)."
   ([]           (r/of "INX"))
   ([amount]     (r/of "INX" amount))
-  ([a b & more] (reduce q/qmul (r/of "INX" a) (map #(r/of "INX" %) (cons b more)))))
+  ([a b & more] (apply r/of "INX" a b more)))
 
 (defn IO
   "IO (live rate): (IO) => 1 IO; (IO amount) => that many IO;
   (IO a b …) => a·b·… IO^n (arity → exponent, like a unit)."
   ([]           (r/of "IO"))
   ([amount]     (r/of "IO" amount))
-  ([a b & more] (reduce q/qmul (r/of "IO" a) (map #(r/of "IO" %) (cons b more)))))
+  ([a b & more] (apply r/of "IO" a b more)))
 
 (defn IOST
   "IOST (live rate): (IOST) => 1 IOST; (IOST amount) => that many IOST;
   (IOST a b …) => a·b·… IOST^n (arity → exponent, like a unit)."
   ([]           (r/of "IOST"))
   ([amount]     (r/of "IOST" amount))
-  ([a b & more] (reduce q/qmul (r/of "IOST" a) (map #(r/of "IOST" %) (cons b more)))))
+  ([a b & more] (apply r/of "IOST" a b more)))
 
 (defn IOTA
   "IOTA (live rate): (IOTA) => 1 IOTA; (IOTA amount) => that many IOTA;
   (IOTA a b …) => a·b·… IOTA^n (arity → exponent, like a unit)."
   ([]           (r/of "IOTA"))
   ([amount]     (r/of "IOTA" amount))
-  ([a b & more] (reduce q/qmul (r/of "IOTA" a) (map #(r/of "IOTA" %) (cons b more)))))
+  ([a b & more] (apply r/of "IOTA" a b more)))
 
 (defn IOTX
   "IOTX (live rate): (IOTX) => 1 IOTX; (IOTX amount) => that many IOTX;
   (IOTX a b …) => a·b·… IOTX^n (arity → exponent, like a unit)."
   ([]           (r/of "IOTX"))
   ([amount]     (r/of "IOTX" amount))
-  ([a b & more] (reduce q/qmul (r/of "IOTX" a) (map #(r/of "IOTX" %) (cons b more)))))
+  ([a b & more] (apply r/of "IOTX" a b more)))
 
 (defn IP
   "IP (live rate): (IP) => 1 IP; (IP amount) => that many IP;
   (IP a b …) => a·b·… IP^n (arity → exponent, like a unit)."
   ([]           (r/of "IP"))
   ([amount]     (r/of "IP" amount))
-  ([a b & more] (reduce q/qmul (r/of "IP" a) (map #(r/of "IP" %) (cons b more)))))
+  ([a b & more] (apply r/of "IP" a b more)))
 
 (defn IQ
   "IQ (live rate): (IQ) => 1 IQ; (IQ amount) => that many IQ;
   (IQ a b …) => a·b·… IQ^n (arity → exponent, like a unit)."
   ([]           (r/of "IQ"))
   ([amount]     (r/of "IQ" amount))
-  ([a b & more] (reduce q/qmul (r/of "IQ" a) (map #(r/of "IQ" %) (cons b more)))))
+  ([a b & more] (apply r/of "IQ" a b more)))
 
 (defn IQD
   "IQD (live rate): (IQD) => 1 IQD; (IQD amount) => that many IQD;
   (IQD a b …) => a·b·… IQD^n (arity → exponent, like a unit)."
   ([]           (r/of "IQD"))
   ([amount]     (r/of "IQD" amount))
-  ([a b & more] (reduce q/qmul (r/of "IQD" a) (map #(r/of "IQD" %) (cons b more)))))
+  ([a b & more] (apply r/of "IQD" a b more)))
 
 (defn IRR
   "IRR (live rate): (IRR) => 1 IRR; (IRR amount) => that many IRR;
   (IRR a b …) => a·b·… IRR^n (arity → exponent, like a unit)."
   ([]           (r/of "IRR"))
   ([amount]     (r/of "IRR" amount))
-  ([a b & more] (reduce q/qmul (r/of "IRR" a) (map #(r/of "IRR" %) (cons b more)))))
+  ([a b & more] (apply r/of "IRR" a b more)))
 
 (defn IRYS
   "IRYS (live rate): (IRYS) => 1 IRYS; (IRYS amount) => that many IRYS;
   (IRYS a b …) => a·b·… IRYS^n (arity → exponent, like a unit)."
   ([]           (r/of "IRYS"))
   ([amount]     (r/of "IRYS" amount))
-  ([a b & more] (reduce q/qmul (r/of "IRYS" a) (map #(r/of "IRYS" %) (cons b more)))))
+  ([a b & more] (apply r/of "IRYS" a b more)))
 
 (defn ISK
   "ISK (live rate): (ISK) => 1 ISK; (ISK amount) => that many ISK;
   (ISK a b …) => a·b·… ISK^n (arity → exponent, like a unit)."
   ([]           (r/of "ISK"))
   ([amount]     (r/of "ISK" amount))
-  ([a b & more] (reduce q/qmul (r/of "ISK" a) (map #(r/of "ISK" %) (cons b more)))))
+  ([a b & more] (apply r/of "ISK" a b more)))
 
 (defn JASMY
   "JASMY (live rate): (JASMY) => 1 JASMY; (JASMY amount) => that many JASMY;
   (JASMY a b …) => a·b·… JASMY^n (arity → exponent, like a unit)."
   ([]           (r/of "JASMY"))
   ([amount]     (r/of "JASMY" amount))
-  ([a b & more] (reduce q/qmul (r/of "JASMY" a) (map #(r/of "JASMY" %) (cons b more)))))
+  ([a b & more] (apply r/of "JASMY" a b more)))
 
 (defn JEP
   "JEP (live rate): (JEP) => 1 JEP; (JEP amount) => that many JEP;
   (JEP a b …) => a·b·… JEP^n (arity → exponent, like a unit)."
   ([]           (r/of "JEP"))
   ([amount]     (r/of "JEP" amount))
-  ([a b & more] (reduce q/qmul (r/of "JEP" a) (map #(r/of "JEP" %) (cons b more)))))
+  ([a b & more] (apply r/of "JEP" a b more)))
 
 (defn JITOSOL
   "JITOSOL (live rate): (JITOSOL) => 1 JITOSOL; (JITOSOL amount) => that many JITOSOL;
   (JITOSOL a b …) => a·b·… JITOSOL^n (arity → exponent, like a unit)."
   ([]           (r/of "JITOSOL"))
   ([amount]     (r/of "JITOSOL" amount))
-  ([a b & more] (reduce q/qmul (r/of "JITOSOL" a) (map #(r/of "JITOSOL" %) (cons b more)))))
+  ([a b & more] (apply r/of "JITOSOL" a b more)))
 
 (defn JMD
   "JMD (live rate): (JMD) => 1 JMD; (JMD amount) => that many JMD;
   (JMD a b …) => a·b·… JMD^n (arity → exponent, like a unit)."
   ([]           (r/of "JMD"))
   ([amount]     (r/of "JMD" amount))
-  ([a b & more] (reduce q/qmul (r/of "JMD" a) (map #(r/of "JMD" %) (cons b more)))))
+  ([a b & more] (apply r/of "JMD" a b more)))
 
 (defn JOD
   "JOD (live rate): (JOD) => 1 JOD; (JOD amount) => that many JOD;
   (JOD a b …) => a·b·… JOD^n (arity → exponent, like a unit)."
   ([]           (r/of "JOD"))
   ([amount]     (r/of "JOD" amount))
-  ([a b & more] (reduce q/qmul (r/of "JOD" a) (map #(r/of "JOD" %) (cons b more)))))
+  ([a b & more] (apply r/of "JOD" a b more)))
 
 (defn JOE
   "JOE (live rate): (JOE) => 1 JOE; (JOE amount) => that many JOE;
   (JOE a b …) => a·b·… JOE^n (arity → exponent, like a unit)."
   ([]           (r/of "JOE"))
   ([amount]     (r/of "JOE" amount))
-  ([a b & more] (reduce q/qmul (r/of "JOE" a) (map #(r/of "JOE" %) (cons b more)))))
+  ([a b & more] (apply r/of "JOE" a b more)))
 
 (defn JPY
   "JPY (live rate): (JPY) => 1 JPY; (JPY amount) => that many JPY;
   (JPY a b …) => a·b·… JPY^n (arity → exponent, like a unit)."
   ([]           (r/of "JPY"))
   ([amount]     (r/of "JPY" amount))
-  ([a b & more] (reduce q/qmul (r/of "JPY" a) (map #(r/of "JPY" %) (cons b more)))))
+  ([a b & more] (apply r/of "JPY" a b more)))
 
 (defn JST
   "JST (live rate): (JST) => 1 JST; (JST amount) => that many JST;
   (JST a b …) => a·b·… JST^n (arity → exponent, like a unit)."
   ([]           (r/of "JST"))
   ([amount]     (r/of "JST" amount))
-  ([a b & more] (reduce q/qmul (r/of "JST" a) (map #(r/of "JST" %) (cons b more)))))
+  ([a b & more] (apply r/of "JST" a b more)))
 
 (defn JTO
   "JTO (live rate): (JTO) => 1 JTO; (JTO amount) => that many JTO;
   (JTO a b …) => a·b·… JTO^n (arity → exponent, like a unit)."
   ([]           (r/of "JTO"))
   ([amount]     (r/of "JTO" amount))
-  ([a b & more] (reduce q/qmul (r/of "JTO" a) (map #(r/of "JTO" %) (cons b more)))))
+  ([a b & more] (apply r/of "JTO" a b more)))
 
 (defn JUP
   "JUP (live rate): (JUP) => 1 JUP; (JUP amount) => that many JUP;
   (JUP a b …) => a·b·… JUP^n (arity → exponent, like a unit)."
   ([]           (r/of "JUP"))
   ([amount]     (r/of "JUP" amount))
-  ([a b & more] (reduce q/qmul (r/of "JUP" a) (map #(r/of "JUP" %) (cons b more)))))
+  ([a b & more] (apply r/of "JUP" a b more)))
 
 (defn JUPITER
   "JUPITER (live rate): (JUPITER) => 1 JUPITER; (JUPITER amount) => that many JUPITER;
   (JUPITER a b …) => a·b·… JUPITER^n (arity → exponent, like a unit)."
   ([]           (r/of "JUPITER"))
   ([amount]     (r/of "JUPITER" amount))
-  ([a b & more] (reduce q/qmul (r/of "JUPITER" a) (map #(r/of "JUPITER" %) (cons b more)))))
+  ([a b & more] (apply r/of "JUPITER" a b more)))
 
 (defn JUPSOL
   "JUPSOL (live rate): (JUPSOL) => 1 JUPSOL; (JUPSOL amount) => that many JUPSOL;
   (JUPSOL a b …) => a·b·… JUPSOL^n (arity → exponent, like a unit)."
   ([]           (r/of "JUPSOL"))
   ([amount]     (r/of "JUPSOL" amount))
-  ([a b & more] (reduce q/qmul (r/of "JUPSOL" a) (map #(r/of "JUPSOL" %) (cons b more)))))
+  ([a b & more] (apply r/of "JUPSOL" a b more)))
 
 (defn KAIA
   "KAIA (live rate): (KAIA) => 1 KAIA; (KAIA amount) => that many KAIA;
   (KAIA a b …) => a·b·… KAIA^n (arity → exponent, like a unit)."
   ([]           (r/of "KAIA"))
   ([amount]     (r/of "KAIA" amount))
-  ([a b & more] (reduce q/qmul (r/of "KAIA" a) (map #(r/of "KAIA" %) (cons b more)))))
+  ([a b & more] (apply r/of "KAIA" a b more)))
 
 (defn KAIO
   "KAIO (live rate): (KAIO) => 1 KAIO; (KAIO amount) => that many KAIO;
   (KAIO a b …) => a·b·… KAIO^n (arity → exponent, like a unit)."
   ([]           (r/of "KAIO"))
   ([amount]     (r/of "KAIO" amount))
-  ([a b & more] (reduce q/qmul (r/of "KAIO" a) (map #(r/of "KAIO" %) (cons b more)))))
+  ([a b & more] (apply r/of "KAIO" a b more)))
 
 (defn KAITO
   "KAITO (live rate): (KAITO) => 1 KAITO; (KAITO amount) => that many KAITO;
   (KAITO a b …) => a·b·… KAITO^n (arity → exponent, like a unit)."
   ([]           (r/of "KAITO"))
   ([amount]     (r/of "KAITO" amount))
-  ([a b & more] (reduce q/qmul (r/of "KAITO" a) (map #(r/of "KAITO" %) (cons b more)))))
+  ([a b & more] (apply r/of "KAITO" a b more)))
 
 (defn KARRAT
   "KARRAT (live rate): (KARRAT) => 1 KARRAT; (KARRAT amount) => that many KARRAT;
   (KARRAT a b …) => a·b·… KARRAT^n (arity → exponent, like a unit)."
   ([]           (r/of "KARRAT"))
   ([amount]     (r/of "KARRAT" amount))
-  ([a b & more] (reduce q/qmul (r/of "KARRAT" a) (map #(r/of "KARRAT" %) (cons b more)))))
+  ([a b & more] (apply r/of "KARRAT" a b more)))
 
 (defn KAS
   "KAS (live rate): (KAS) => 1 KAS; (KAS amount) => that many KAS;
   (KAS a b …) => a·b·… KAS^n (arity → exponent, like a unit)."
   ([]           (r/of "KAS"))
   ([amount]     (r/of "KAS" amount))
-  ([a b & more] (reduce q/qmul (r/of "KAS" a) (map #(r/of "KAS" %) (cons b more)))))
+  ([a b & more] (apply r/of "KAS" a b more)))
 
 (defn KAT
   "KAT (live rate): (KAT) => 1 KAT; (KAT amount) => that many KAT;
   (KAT a b …) => a·b·… KAT^n (arity → exponent, like a unit)."
   ([]           (r/of "KAT"))
   ([amount]     (r/of "KAT" amount))
-  ([a b & more] (reduce q/qmul (r/of "KAT" a) (map #(r/of "KAT" %) (cons b more)))))
+  ([a b & more] (apply r/of "KAT" a b more)))
 
 (defn KAVA
   "KAVA (live rate): (KAVA) => 1 KAVA; (KAVA amount) => that many KAVA;
   (KAVA a b …) => a·b·… KAVA^n (arity → exponent, like a unit)."
   ([]           (r/of "KAVA"))
   ([amount]     (r/of "KAVA" amount))
-  ([a b & more] (reduce q/qmul (r/of "KAVA" a) (map #(r/of "KAVA" %) (cons b more)))))
+  ([a b & more] (apply r/of "KAVA" a b more)))
 
 (defn KCS
   "KCS (live rate): (KCS) => 1 KCS; (KCS amount) => that many KCS;
   (KCS a b …) => a·b·… KCS^n (arity → exponent, like a unit)."
   ([]           (r/of "KCS"))
   ([amount]     (r/of "KCS" amount))
-  ([a b & more] (reduce q/qmul (r/of "KCS" a) (map #(r/of "KCS" %) (cons b more)))))
+  ([a b & more] (apply r/of "KCS" a b more)))
 
 (defn KDA
   "KDA (live rate): (KDA) => 1 KDA; (KDA amount) => that many KDA;
   (KDA a b …) => a·b·… KDA^n (arity → exponent, like a unit)."
   ([]           (r/of "KDA"))
   ([amount]     (r/of "KDA" amount))
-  ([a b & more] (reduce q/qmul (r/of "KDA" a) (map #(r/of "KDA" %) (cons b more)))))
+  ([a b & more] (apply r/of "KDA" a b more)))
 
 (defn KEEP
   "KEEP (live rate): (KEEP) => 1 KEEP; (KEEP amount) => that many KEEP;
   (KEEP a b …) => a·b·… KEEP^n (arity → exponent, like a unit)."
   ([]           (r/of "KEEP"))
   ([amount]     (r/of "KEEP" amount))
-  ([a b & more] (reduce q/qmul (r/of "KEEP" a) (map #(r/of "KEEP" %) (cons b more)))))
+  ([a b & more] (apply r/of "KEEP" a b more)))
 
 (defn KEKIUS
   "KEKIUS (live rate): (KEKIUS) => 1 KEKIUS; (KEKIUS amount) => that many KEKIUS;
   (KEKIUS a b …) => a·b·… KEKIUS^n (arity → exponent, like a unit)."
   ([]           (r/of "KEKIUS"))
   ([amount]     (r/of "KEKIUS" amount))
-  ([a b & more] (reduce q/qmul (r/of "KEKIUS" a) (map #(r/of "KEKIUS" %) (cons b more)))))
+  ([a b & more] (apply r/of "KEKIUS" a b more)))
 
 (defn KERNEL
   "KERNEL (live rate): (KERNEL) => 1 KERNEL; (KERNEL amount) => that many KERNEL;
   (KERNEL a b …) => a·b·… KERNEL^n (arity → exponent, like a unit)."
   ([]           (r/of "KERNEL"))
   ([amount]     (r/of "KERNEL" amount))
-  ([a b & more] (reduce q/qmul (r/of "KERNEL" a) (map #(r/of "KERNEL" %) (cons b more)))))
+  ([a b & more] (apply r/of "KERNEL" a b more)))
 
 (defn KES
   "KES (live rate): (KES) => 1 KES; (KES amount) => that many KES;
   (KES a b …) => a·b·… KES^n (arity → exponent, like a unit)."
   ([]           (r/of "KES"))
   ([amount]     (r/of "KES" amount))
-  ([a b & more] (reduce q/qmul (r/of "KES" a) (map #(r/of "KES" %) (cons b more)))))
+  ([a b & more] (apply r/of "KES" a b more)))
 
 (defn KET
   "KET (live rate): (KET) => 1 KET; (KET amount) => that many KET;
   (KET a b …) => a·b·… KET^n (arity → exponent, like a unit)."
   ([]           (r/of "KET"))
   ([amount]     (r/of "KET" amount))
-  ([a b & more] (reduce q/qmul (r/of "KET" a) (map #(r/of "KET" %) (cons b more)))))
+  ([a b & more] (apply r/of "KET" a b more)))
 
 (defn KEYCAT
   "KEYCAT (live rate): (KEYCAT) => 1 KEYCAT; (KEYCAT amount) => that many KEYCAT;
   (KEYCAT a b …) => a·b·… KEYCAT^n (arity → exponent, like a unit)."
   ([]           (r/of "KEYCAT"))
   ([amount]     (r/of "KEYCAT" amount))
-  ([a b & more] (reduce q/qmul (r/of "KEYCAT" a) (map #(r/of "KEYCAT" %) (cons b more)))))
+  ([a b & more] (apply r/of "KEYCAT" a b more)))
 
 (defn KGS
   "KGS (live rate): (KGS) => 1 KGS; (KGS amount) => that many KGS;
   (KGS a b …) => a·b·… KGS^n (arity → exponent, like a unit)."
   ([]           (r/of "KGS"))
   ([amount]     (r/of "KGS" amount))
-  ([a b & more] (reduce q/qmul (r/of "KGS" a) (map #(r/of "KGS" %) (cons b more)))))
+  ([a b & more] (apply r/of "KGS" a b more)))
 
 (defn KHR
   "KHR (live rate): (KHR) => 1 KHR; (KHR amount) => that many KHR;
   (KHR a b …) => a·b·… KHR^n (arity → exponent, like a unit)."
   ([]           (r/of "KHR"))
   ([amount]     (r/of "KHR" amount))
-  ([a b & more] (reduce q/qmul (r/of "KHR" a) (map #(r/of "KHR" %) (cons b more)))))
+  ([a b & more] (apply r/of "KHR" a b more)))
 
 (defn KITE
   "KITE (live rate): (KITE) => 1 KITE; (KITE amount) => that many KITE;
   (KITE a b …) => a·b·… KITE^n (arity → exponent, like a unit)."
   ([]           (r/of "KITE"))
   ([amount]     (r/of "KITE" amount))
-  ([a b & more] (reduce q/qmul (r/of "KITE" a) (map #(r/of "KITE" %) (cons b more)))))
+  ([a b & more] (apply r/of "KITE" a b more)))
 
 (defn KLAY
   "KLAY (live rate): (KLAY) => 1 KLAY; (KLAY amount) => that many KLAY;
   (KLAY a b …) => a·b·… KLAY^n (arity → exponent, like a unit)."
   ([]           (r/of "KLAY"))
   ([amount]     (r/of "KLAY" amount))
-  ([a b & more] (reduce q/qmul (r/of "KLAY" a) (map #(r/of "KLAY" %) (cons b more)))))
+  ([a b & more] (apply r/of "KLAY" a b more)))
 
 (defn KMF
   "KMF (live rate): (KMF) => 1 KMF; (KMF amount) => that many KMF;
   (KMF a b …) => a·b·… KMF^n (arity → exponent, like a unit)."
   ([]           (r/of "KMF"))
   ([amount]     (r/of "KMF" amount))
-  ([a b & more] (reduce q/qmul (r/of "KMF" a) (map #(r/of "KMF" %) (cons b more)))))
+  ([a b & more] (apply r/of "KMF" a b more)))
 
 (defn KMNO
   "KMNO (live rate): (KMNO) => 1 KMNO; (KMNO amount) => that many KMNO;
   (KMNO a b …) => a·b·… KMNO^n (arity → exponent, like a unit)."
   ([]           (r/of "KMNO"))
   ([amount]     (r/of "KMNO" amount))
-  ([a b & more] (reduce q/qmul (r/of "KMNO" a) (map #(r/of "KMNO" %) (cons b more)))))
+  ([a b & more] (apply r/of "KMNO" a b more)))
 
 (defn KNC
   "KNC (live rate): (KNC) => 1 KNC; (KNC amount) => that many KNC;
   (KNC a b …) => a·b·… KNC^n (arity → exponent, like a unit)."
   ([]           (r/of "KNC"))
   ([amount]     (r/of "KNC" amount))
-  ([a b & more] (reduce q/qmul (r/of "KNC" a) (map #(r/of "KNC" %) (cons b more)))))
+  ([a b & more] (apply r/of "KNC" a b more)))
 
 (defn KOGE
   "KOGE (live rate): (KOGE) => 1 KOGE; (KOGE amount) => that many KOGE;
   (KOGE a b …) => a·b·… KOGE^n (arity → exponent, like a unit)."
   ([]           (r/of "KOGE"))
   ([amount]     (r/of "KOGE" amount))
-  ([a b & more] (reduce q/qmul (r/of "KOGE" a) (map #(r/of "KOGE" %) (cons b more)))))
+  ([a b & more] (apply r/of "KOGE" a b more)))
 
 (defn KPW
   "KPW (live rate): (KPW) => 1 KPW; (KPW amount) => that many KPW;
   (KPW a b …) => a·b·… KPW^n (arity → exponent, like a unit)."
   ([]           (r/of "KPW"))
   ([amount]     (r/of "KPW" amount))
-  ([a b & more] (reduce q/qmul (r/of "KPW" a) (map #(r/of "KPW" %) (cons b more)))))
+  ([a b & more] (apply r/of "KPW" a b more)))
 
 (defn KRD
   "KRD (live rate): (KRD) => 1 KRD; (KRD amount) => that many KRD;
   (KRD a b …) => a·b·… KRD^n (arity → exponent, like a unit)."
   ([]           (r/of "KRD"))
   ([amount]     (r/of "KRD" amount))
-  ([a b & more] (reduce q/qmul (r/of "KRD" a) (map #(r/of "KRD" %) (cons b more)))))
+  ([a b & more] (apply r/of "KRD" a b more)))
 
 (defn KRL
   "KRL (live rate): (KRL) => 1 KRL; (KRL amount) => that many KRL;
   (KRL a b …) => a·b·… KRL^n (arity → exponent, like a unit)."
   ([]           (r/of "KRL"))
   ([amount]     (r/of "KRL" amount))
-  ([a b & more] (reduce q/qmul (r/of "KRL" a) (map #(r/of "KRL" %) (cons b more)))))
+  ([a b & more] (apply r/of "KRL" a b more)))
 
 (defn KRW
   "KRW (live rate): (KRW) => 1 KRW; (KRW amount) => that many KRW;
   (KRW a b …) => a·b·… KRW^n (arity → exponent, like a unit)."
   ([]           (r/of "KRW"))
   ([amount]     (r/of "KRW" amount))
-  ([a b & more] (reduce q/qmul (r/of "KRW" a) (map #(r/of "KRW" %) (cons b more)))))
+  ([a b & more] (apply r/of "KRW" a b more)))
 
 (defn KSM
   "KSM (live rate): (KSM) => 1 KSM; (KSM amount) => that many KSM;
   (KSM a b …) => a·b·… KSM^n (arity → exponent, like a unit)."
   ([]           (r/of "KSM"))
   ([amount]     (r/of "KSM" amount))
-  ([a b & more] (reduce q/qmul (r/of "KSM" a) (map #(r/of "KSM" %) (cons b more)))))
+  ([a b & more] (apply r/of "KSM" a b more)))
 
 (defn KTA
   "KTA (live rate): (KTA) => 1 KTA; (KTA amount) => that many KTA;
   (KTA a b …) => a·b·… KTA^n (arity → exponent, like a unit)."
   ([]           (r/of "KTA"))
   ([amount]     (r/of "KTA" amount))
-  ([a b & more] (reduce q/qmul (r/of "KTA" a) (map #(r/of "KTA" %) (cons b more)))))
+  ([a b & more] (apply r/of "KTA" a b more)))
 
 (defn KUB
   "KUB (live rate): (KUB) => 1 KUB; (KUB amount) => that many KUB;
   (KUB a b …) => a·b·… KUB^n (arity → exponent, like a unit)."
   ([]           (r/of "KUB"))
   ([amount]     (r/of "KUB" amount))
-  ([a b & more] (reduce q/qmul (r/of "KUB" a) (map #(r/of "KUB" %) (cons b more)))))
+  ([a b & more] (apply r/of "KUB" a b more)))
 
 (defn KWD
   "KWD (live rate): (KWD) => 1 KWD; (KWD amount) => that many KWD;
   (KWD a b …) => a·b·… KWD^n (arity → exponent, like a unit)."
   ([]           (r/of "KWD"))
   ([amount]     (r/of "KWD" amount))
-  ([a b & more] (reduce q/qmul (r/of "KWD" a) (map #(r/of "KWD" %) (cons b more)))))
+  ([a b & more] (apply r/of "KWD" a b more)))
 
 (defn KYD
   "KYD (live rate): (KYD) => 1 KYD; (KYD amount) => that many KYD;
   (KYD a b …) => a·b·… KYD^n (arity → exponent, like a unit)."
   ([]           (r/of "KYD"))
   ([amount]     (r/of "KYD" amount))
-  ([a b & more] (reduce q/qmul (r/of "KYD" a) (map #(r/of "KYD" %) (cons b more)))))
+  ([a b & more] (apply r/of "KYD" a b more)))
 
 (defn KZT
   "KZT (live rate): (KZT) => 1 KZT; (KZT amount) => that many KZT;
   (KZT a b …) => a·b·… KZT^n (arity → exponent, like a unit)."
   ([]           (r/of "KZT"))
   ([amount]     (r/of "KZT" amount))
-  ([a b & more] (reduce q/qmul (r/of "KZT" a) (map #(r/of "KZT" %) (cons b more)))))
+  ([a b & more] (apply r/of "KZT" a b more)))
 
 (defn L1X
   "L1X (live rate): (L1X) => 1 L1X; (L1X amount) => that many L1X;
   (L1X a b …) => a·b·… L1X^n (arity → exponent, like a unit)."
   ([]           (r/of "L1X"))
   ([amount]     (r/of "L1X" amount))
-  ([a b & more] (reduce q/qmul (r/of "L1X" a) (map #(r/of "L1X" %) (cons b more)))))
+  ([a b & more] (apply r/of "L1X" a b more)))
 
 (defn L3
   "L3 (live rate): (L3) => 1 L3; (L3 amount) => that many L3;
   (L3 a b …) => a·b·… L3^n (arity → exponent, like a unit)."
   ([]           (r/of "L3"))
   ([amount]     (r/of "L3" amount))
-  ([a b & more] (reduce q/qmul (r/of "L3" a) (map #(r/of "L3" %) (cons b more)))))
+  ([a b & more] (apply r/of "L3" a b more)))
 
 (defn LA
   "LA (live rate): (LA) => 1 LA; (LA amount) => that many LA;
   (LA a b …) => a·b·… LA^n (arity → exponent, like a unit)."
   ([]           (r/of "LA"))
   ([amount]     (r/of "LA" amount))
-  ([a b & more] (reduce q/qmul (r/of "LA" a) (map #(r/of "LA" %) (cons b more)))))
+  ([a b & more] (apply r/of "LA" a b more)))
 
 (defn LADYS
   "LADYS (live rate): (LADYS) => 1 LADYS; (LADYS amount) => that many LADYS;
   (LADYS a b …) => a·b·… LADYS^n (arity → exponent, like a unit)."
   ([]           (r/of "LADYS"))
   ([amount]     (r/of "LADYS" amount))
-  ([a b & more] (reduce q/qmul (r/of "LADYS" a) (map #(r/of "LADYS" %) (cons b more)))))
+  ([a b & more] (apply r/of "LADYS" a b more)))
 
 (defn LAK
   "LAK (live rate): (LAK) => 1 LAK; (LAK amount) => that many LAK;
   (LAK a b …) => a·b·… LAK^n (arity → exponent, like a unit)."
   ([]           (r/of "LAK"))
   ([amount]     (r/of "LAK" amount))
-  ([a b & more] (reduce q/qmul (r/of "LAK" a) (map #(r/of "LAK" %) (cons b more)))))
+  ([a b & more] (apply r/of "LAK" a b more)))
 
 (defn LAYER
   "LAYER (live rate): (LAYER) => 1 LAYER; (LAYER amount) => that many LAYER;
   (LAYER a b …) => a·b·… LAYER^n (arity → exponent, like a unit)."
   ([]           (r/of "LAYER"))
   ([amount]     (r/of "LAYER" amount))
-  ([a b & more] (reduce q/qmul (r/of "LAYER" a) (map #(r/of "LAYER" %) (cons b more)))))
+  ([a b & more] (apply r/of "LAYER" a b more)))
 
 (defn LBP
   "LBP (live rate): (LBP) => 1 LBP; (LBP amount) => that many LBP;
   (LBP a b …) => a·b·… LBP^n (arity → exponent, like a unit)."
   ([]           (r/of "LBP"))
   ([amount]     (r/of "LBP" amount))
-  ([a b & more] (reduce q/qmul (r/of "LBP" a) (map #(r/of "LBP" %) (cons b more)))))
+  ([a b & more] (apply r/of "LBP" a b more)))
 
 (defn LBTC
   "LBTC (live rate): (LBTC) => 1 LBTC; (LBTC amount) => that many LBTC;
   (LBTC a b …) => a·b·… LBTC^n (arity → exponent, like a unit)."
   ([]           (r/of "LBTC"))
   ([amount]     (r/of "LBTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "LBTC" a) (map #(r/of "LBTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "LBTC" a b more)))
 
 (defn LCX
   "LCX (live rate): (LCX) => 1 LCX; (LCX amount) => that many LCX;
   (LCX a b …) => a·b·… LCX^n (arity → exponent, like a unit)."
   ([]           (r/of "LCX"))
   ([amount]     (r/of "LCX" amount))
-  ([a b & more] (reduce q/qmul (r/of "LCX" a) (map #(r/of "LCX" %) (cons b more)))))
+  ([a b & more] (apply r/of "LCX" a b more)))
 
 (defn LDO
   "LDO (live rate): (LDO) => 1 LDO; (LDO amount) => that many LDO;
   (LDO a b …) => a·b·… LDO^n (arity → exponent, like a unit)."
   ([]           (r/of "LDO"))
   ([amount]     (r/of "LDO" amount))
-  ([a b & more] (reduce q/qmul (r/of "LDO" a) (map #(r/of "LDO" %) (cons b more)))))
+  ([a b & more] (apply r/of "LDO" a b more)))
 
 (defn LEO
   "LEO (live rate): (LEO) => 1 LEO; (LEO amount) => that many LEO;
   (LEO a b …) => a·b·… LEO^n (arity → exponent, like a unit)."
   ([]           (r/of "LEO"))
   ([amount]     (r/of "LEO" amount))
-  ([a b & more] (reduce q/qmul (r/of "LEO" a) (map #(r/of "LEO" %) (cons b more)))))
+  ([a b & more] (apply r/of "LEO" a b more)))
 
 (defn LIGHTER
   "LIGHTER (live rate): (LIGHTER) => 1 LIGHTER; (LIGHTER amount) => that many LIGHTER;
   (LIGHTER a b …) => a·b·… LIGHTER^n (arity → exponent, like a unit)."
   ([]           (r/of "LIGHTER"))
   ([amount]     (r/of "LIGHTER" amount))
-  ([a b & more] (reduce q/qmul (r/of "LIGHTER" a) (map #(r/of "LIGHTER" %) (cons b more)))))
+  ([a b & more] (apply r/of "LIGHTER" a b more)))
 
 (defn LINEA
   "LINEA (live rate): (LINEA) => 1 LINEA; (LINEA amount) => that many LINEA;
   (LINEA a b …) => a·b·… LINEA^n (arity → exponent, like a unit)."
   ([]           (r/of "LINEA"))
   ([amount]     (r/of "LINEA" amount))
-  ([a b & more] (reduce q/qmul (r/of "LINEA" a) (map #(r/of "LINEA" %) (cons b more)))))
+  ([a b & more] (apply r/of "LINEA" a b more)))
 
 (defn LINK
   "LINK (live rate): (LINK) => 1 LINK; (LINK amount) => that many LINK;
   (LINK a b …) => a·b·… LINK^n (arity → exponent, like a unit)."
   ([]           (r/of "LINK"))
   ([amount]     (r/of "LINK" amount))
-  ([a b & more] (reduce q/qmul (r/of "LINK" a) (map #(r/of "LINK" %) (cons b more)))))
+  ([a b & more] (apply r/of "LINK" a b more)))
 
 (defn LION
   "LION (live rate): (LION) => 1 LION; (LION amount) => that many LION;
   (LION a b …) => a·b·… LION^n (arity → exponent, like a unit)."
   ([]           (r/of "LION"))
   ([amount]     (r/of "LION" amount))
-  ([a b & more] (reduce q/qmul (r/of "LION" a) (map #(r/of "LION" %) (cons b more)))))
+  ([a b & more] (apply r/of "LION" a b more)))
 
 (defn LIT
   "LIT (live rate): (LIT) => 1 LIT; (LIT amount) => that many LIT;
   (LIT a b …) => a·b·… LIT^n (arity → exponent, like a unit)."
   ([]           (r/of "LIT"))
   ([amount]     (r/of "LIT" amount))
-  ([a b & more] (reduce q/qmul (r/of "LIT" a) (map #(r/of "LIT" %) (cons b more)))))
+  ([a b & more] (apply r/of "LIT" a b more)))
 
 (defn LKR
   "LKR (live rate): (LKR) => 1 LKR; (LKR amount) => that many LKR;
   (LKR a b …) => a·b·… LKR^n (arity → exponent, like a unit)."
   ([]           (r/of "LKR"))
   ([amount]     (r/of "LKR" amount))
-  ([a b & more] (reduce q/qmul (r/of "LKR" a) (map #(r/of "LKR" %) (cons b more)))))
+  ([a b & more] (apply r/of "LKR" a b more)))
 
 (defn LMTS
   "LMTS (live rate): (LMTS) => 1 LMTS; (LMTS amount) => that many LMTS;
   (LMTS a b …) => a·b·… LMTS^n (arity → exponent, like a unit)."
   ([]           (r/of "LMTS"))
   ([amount]     (r/of "LMTS" amount))
-  ([a b & more] (reduce q/qmul (r/of "LMTS" a) (map #(r/of "LMTS" %) (cons b more)))))
+  ([a b & more] (apply r/of "LMTS" a b more)))
 
 (defn LOKA
   "LOKA (live rate): (LOKA) => 1 LOKA; (LOKA amount) => that many LOKA;
   (LOKA a b …) => a·b·… LOKA^n (arity → exponent, like a unit)."
   ([]           (r/of "LOKA"))
   ([amount]     (r/of "LOKA" amount))
-  ([a b & more] (reduce q/qmul (r/of "LOKA" a) (map #(r/of "LOKA" %) (cons b more)))))
+  ([a b & more] (apply r/of "LOKA" a b more)))
 
 (defn LOOM
   "LOOM (live rate): (LOOM) => 1 LOOM; (LOOM amount) => that many LOOM;
   (LOOM a b …) => a·b·… LOOM^n (arity → exponent, like a unit)."
   ([]           (r/of "LOOM"))
   ([amount]     (r/of "LOOM" amount))
-  ([a b & more] (reduce q/qmul (r/of "LOOM" a) (map #(r/of "LOOM" %) (cons b more)))))
+  ([a b & more] (apply r/of "LOOM" a b more)))
 
 (defn LPT
   "LPT (live rate): (LPT) => 1 LPT; (LPT amount) => that many LPT;
   (LPT a b …) => a·b·… LPT^n (arity → exponent, like a unit)."
   ([]           (r/of "LPT"))
   ([amount]     (r/of "LPT" amount))
-  ([a b & more] (reduce q/qmul (r/of "LPT" a) (map #(r/of "LPT" %) (cons b more)))))
+  ([a b & more] (apply r/of "LPT" a b more)))
 
 (defn LQR
   "LQR (live rate): (LQR) => 1 LQR; (LQR amount) => that many LQR;
   (LQR a b …) => a·b·… LQR^n (arity → exponent, like a unit)."
   ([]           (r/of "LQR"))
   ([amount]     (r/of "LQR" amount))
-  ([a b & more] (reduce q/qmul (r/of "LQR" a) (map #(r/of "LQR" %) (cons b more)))))
+  ([a b & more] (apply r/of "LQR" a b more)))
 
 (defn LQTY
   "LQTY (live rate): (LQTY) => 1 LQTY; (LQTY amount) => that many LQTY;
   (LQTY a b …) => a·b·… LQTY^n (arity → exponent, like a unit)."
   ([]           (r/of "LQTY"))
   ([amount]     (r/of "LQTY" amount))
-  ([a b & more] (reduce q/qmul (r/of "LQTY" a) (map #(r/of "LQTY" %) (cons b more)))))
+  ([a b & more] (apply r/of "LQTY" a b more)))
 
 (defn LRC
   "LRC (live rate): (LRC) => 1 LRC; (LRC amount) => that many LRC;
   (LRC a b …) => a·b·… LRC^n (arity → exponent, like a unit)."
   ([]           (r/of "LRC"))
   ([amount]     (r/of "LRC" amount))
-  ([a b & more] (reduce q/qmul (r/of "LRC" a) (map #(r/of "LRC" %) (cons b more)))))
+  ([a b & more] (apply r/of "LRC" a b more)))
 
 (defn LRD
   "LRD (live rate): (LRD) => 1 LRD; (LRD amount) => that many LRD;
   (LRD a b …) => a·b·… LRD^n (arity → exponent, like a unit)."
   ([]           (r/of "LRD"))
   ([amount]     (r/of "LRD" amount))
-  ([a b & more] (reduce q/qmul (r/of "LRD" a) (map #(r/of "LRD" %) (cons b more)))))
+  ([a b & more] (apply r/of "LRD" a b more)))
 
 (defn LRDS
   "LRDS (live rate): (LRDS) => 1 LRDS; (LRDS amount) => that many LRDS;
   (LRDS a b …) => a·b·… LRDS^n (arity → exponent, like a unit)."
   ([]           (r/of "LRDS"))
   ([amount]     (r/of "LRDS" amount))
-  ([a b & more] (reduce q/qmul (r/of "LRDS" a) (map #(r/of "LRDS" %) (cons b more)))))
+  ([a b & more] (apply r/of "LRDS" a b more)))
 
 (defn LSETH
   "LSETH (live rate): (LSETH) => 1 LSETH; (LSETH amount) => that many LSETH;
   (LSETH a b …) => a·b·… LSETH^n (arity → exponent, like a unit)."
   ([]           (r/of "LSETH"))
   ([amount]     (r/of "LSETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "LSETH" a) (map #(r/of "LSETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "LSETH" a b more)))
 
 (defn LSK
   "LSK (live rate): (LSK) => 1 LSK; (LSK amount) => that many LSK;
   (LSK a b …) => a·b·… LSK^n (arity → exponent, like a unit)."
   ([]           (r/of "LSK"))
   ([amount]     (r/of "LSK" amount))
-  ([a b & more] (reduce q/qmul (r/of "LSK" a) (map #(r/of "LSK" %) (cons b more)))))
+  ([a b & more] (apply r/of "LSK" a b more)))
 
 (defn LSL
   "LSL (live rate): (LSL) => 1 LSL; (LSL amount) => that many LSL;
   (LSL a b …) => a·b·… LSL^n (arity → exponent, like a unit)."
   ([]           (r/of "LSL"))
   ([amount]     (r/of "LSL" amount))
-  ([a b & more] (reduce q/qmul (r/of "LSL" a) (map #(r/of "LSL" %) (cons b more)))))
+  ([a b & more] (apply r/of "LSL" a b more)))
 
 (defn LTC
   "LTC (live rate): (LTC) => 1 LTC; (LTC amount) => that many LTC;
   (LTC a b …) => a·b·… LTC^n (arity → exponent, like a unit)."
   ([]           (r/of "LTC"))
   ([amount]     (r/of "LTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "LTC" a) (map #(r/of "LTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "LTC" a b more)))
 
 (defn LUCE
   "LUCE (live rate): (LUCE) => 1 LUCE; (LUCE amount) => that many LUCE;
   (LUCE a b …) => a·b·… LUCE^n (arity → exponent, like a unit)."
   ([]           (r/of "LUCE"))
   ([amount]     (r/of "LUCE" amount))
-  ([a b & more] (reduce q/qmul (r/of "LUCE" a) (map #(r/of "LUCE" %) (cons b more)))))
+  ([a b & more] (apply r/of "LUCE" a b more)))
 
 (defn LUNA
   "LUNA (live rate): (LUNA) => 1 LUNA; (LUNA amount) => that many LUNA;
   (LUNA a b …) => a·b·… LUNA^n (arity → exponent, like a unit)."
   ([]           (r/of "LUNA"))
   ([amount]     (r/of "LUNA" amount))
-  ([a b & more] (reduce q/qmul (r/of "LUNA" a) (map #(r/of "LUNA" %) (cons b more)))))
+  ([a b & more] (apply r/of "LUNA" a b more)))
 
 (defn LUNC
   "LUNC (live rate): (LUNC) => 1 LUNC; (LUNC amount) => that many LUNC;
   (LUNC a b …) => a·b·… LUNC^n (arity → exponent, like a unit)."
   ([]           (r/of "LUNC"))
   ([amount]     (r/of "LUNC" amount))
-  ([a b & more] (reduce q/qmul (r/of "LUNC" a) (map #(r/of "LUNC" %) (cons b more)))))
+  ([a b & more] (apply r/of "LUNC" a b more)))
 
 (defn LUSD
   "LUSD (live rate): (LUSD) => 1 LUSD; (LUSD amount) => that many LUSD;
   (LUSD a b …) => a·b·… LUSD^n (arity → exponent, like a unit)."
   ([]           (r/of "LUSD"))
   ([amount]     (r/of "LUSD" amount))
-  ([a b & more] (reduce q/qmul (r/of "LUSD" a) (map #(r/of "LUSD" %) (cons b more)))))
+  ([a b & more] (apply r/of "LUSD" a b more)))
 
 (defn LYD
   "LYD (live rate): (LYD) => 1 LYD; (LYD amount) => that many LYD;
   (LYD a b …) => a·b·… LYD^n (arity → exponent, like a unit)."
   ([]           (r/of "LYD"))
   ([amount]     (r/of "LYD" amount))
-  ([a b & more] (reduce q/qmul (r/of "LYD" a) (map #(r/of "LYD" %) (cons b more)))))
+  ([a b & more] (apply r/of "LYD" a b more)))
 
 (defn LYX
   "LYX (live rate): (LYX) => 1 LYX; (LYX amount) => that many LYX;
   (LYX a b …) => a·b·… LYX^n (arity → exponent, like a unit)."
   ([]           (r/of "LYX"))
   ([amount]     (r/of "LYX" amount))
-  ([a b & more] (reduce q/qmul (r/of "LYX" a) (map #(r/of "LYX" %) (cons b more)))))
+  ([a b & more] (apply r/of "LYX" a b more)))
 
 (defn LYXE
   "LYXE (live rate): (LYXE) => 1 LYXE; (LYXE amount) => that many LYXE;
   (LYXE a b …) => a·b·… LYXE^n (arity → exponent, like a unit)."
   ([]           (r/of "LYXE"))
   ([amount]     (r/of "LYXE" amount))
-  ([a b & more] (reduce q/qmul (r/of "LYXE" a) (map #(r/of "LYXE" %) (cons b more)))))
+  ([a b & more] (apply r/of "LYXE" a b more)))
 
 (defn MAD
   "MAD (live rate): (MAD) => 1 MAD; (MAD amount) => that many MAD;
   (MAD a b …) => a·b·… MAD^n (arity → exponent, like a unit)."
   ([]           (r/of "MAD"))
   ([amount]     (r/of "MAD" amount))
-  ([a b & more] (reduce q/qmul (r/of "MAD" a) (map #(r/of "MAD" %) (cons b more)))))
+  ([a b & more] (apply r/of "MAD" a b more)))
 
 (defn MAGA
   "MAGA (live rate): (MAGA) => 1 MAGA; (MAGA amount) => that many MAGA;
   (MAGA a b …) => a·b·… MAGA^n (arity → exponent, like a unit)."
   ([]           (r/of "MAGA"))
   ([amount]     (r/of "MAGA" amount))
-  ([a b & more] (reduce q/qmul (r/of "MAGA" a) (map #(r/of "MAGA" %) (cons b more)))))
+  ([a b & more] (apply r/of "MAGA" a b more)))
 
 (defn MAGIC
   "MAGIC (live rate): (MAGIC) => 1 MAGIC; (MAGIC amount) => that many MAGIC;
   (MAGIC a b …) => a·b·… MAGIC^n (arity → exponent, like a unit)."
   ([]           (r/of "MAGIC"))
   ([amount]     (r/of "MAGIC" amount))
-  ([a b & more] (reduce q/qmul (r/of "MAGIC" a) (map #(r/of "MAGIC" %) (cons b more)))))
+  ([a b & more] (apply r/of "MAGIC" a b more)))
 
 (defn MAMO
   "MAMO (live rate): (MAMO) => 1 MAMO; (MAMO amount) => that many MAMO;
   (MAMO a b …) => a·b·… MAMO^n (arity → exponent, like a unit)."
   ([]           (r/of "MAMO"))
   ([amount]     (r/of "MAMO" amount))
-  ([a b & more] (reduce q/qmul (r/of "MAMO" a) (map #(r/of "MAMO" %) (cons b more)))))
+  ([a b & more] (apply r/of "MAMO" a b more)))
 
 (defn MANA
   "MANA (live rate): (MANA) => 1 MANA; (MANA amount) => that many MANA;
   (MANA a b …) => a·b·… MANA^n (arity → exponent, like a unit)."
   ([]           (r/of "MANA"))
   ([amount]     (r/of "MANA" amount))
-  ([a b & more] (reduce q/qmul (r/of "MANA" a) (map #(r/of "MANA" %) (cons b more)))))
+  ([a b & more] (apply r/of "MANA" a b more)))
 
 (defn MANTA
   "MANTA (live rate): (MANTA) => 1 MANTA; (MANTA amount) => that many MANTA;
   (MANTA a b …) => a·b·… MANTA^n (arity → exponent, like a unit)."
   ([]           (r/of "MANTA"))
   ([amount]     (r/of "MANTA" amount))
-  ([a b & more] (reduce q/qmul (r/of "MANTA" a) (map #(r/of "MANTA" %) (cons b more)))))
+  ([a b & more] (apply r/of "MANTA" a b more)))
 
 (defn MANTLE
   "MANTLE (live rate): (MANTLE) => 1 MANTLE; (MANTLE amount) => that many MANTLE;
   (MANTLE a b …) => a·b·… MANTLE^n (arity → exponent, like a unit)."
   ([]           (r/of "MANTLE"))
   ([amount]     (r/of "MANTLE" amount))
-  ([a b & more] (reduce q/qmul (r/of "MANTLE" a) (map #(r/of "MANTLE" %) (cons b more)))))
+  ([a b & more] (apply r/of "MANTLE" a b more)))
 
 (defn MASK
   "MASK (live rate): (MASK) => 1 MASK; (MASK amount) => that many MASK;
   (MASK a b …) => a·b·… MASK^n (arity → exponent, like a unit)."
   ([]           (r/of "MASK"))
   ([amount]     (r/of "MASK" amount))
-  ([a b & more] (reduce q/qmul (r/of "MASK" a) (map #(r/of "MASK" %) (cons b more)))))
+  ([a b & more] (apply r/of "MASK" a b more)))
 
 (defn MATH
   "MATH (live rate): (MATH) => 1 MATH; (MATH amount) => that many MATH;
   (MATH a b …) => a·b·… MATH^n (arity → exponent, like a unit)."
   ([]           (r/of "MATH"))
   ([amount]     (r/of "MATH" amount))
-  ([a b & more] (reduce q/qmul (r/of "MATH" a) (map #(r/of "MATH" %) (cons b more)))))
+  ([a b & more] (apply r/of "MATH" a b more)))
 
 (defn MATIC
   "MATIC (live rate): (MATIC) => 1 MATIC; (MATIC amount) => that many MATIC;
   (MATIC a b …) => a·b·… MATIC^n (arity → exponent, like a unit)."
   ([]           (r/of "MATIC"))
   ([amount]     (r/of "MATIC" amount))
-  ([a b & more] (reduce q/qmul (r/of "MATIC" a) (map #(r/of "MATIC" %) (cons b more)))))
+  ([a b & more] (apply r/of "MATIC" a b more)))
 
 (defn MAV
   "MAV (live rate): (MAV) => 1 MAV; (MAV amount) => that many MAV;
   (MAV a b …) => a·b·… MAV^n (arity → exponent, like a unit)."
   ([]           (r/of "MAV"))
   ([amount]     (r/of "MAV" amount))
-  ([a b & more] (reduce q/qmul (r/of "MAV" a) (map #(r/of "MAV" %) (cons b more)))))
+  ([a b & more] (apply r/of "MAV" a b more)))
 
 (defn MAVIA
   "MAVIA (live rate): (MAVIA) => 1 MAVIA; (MAVIA amount) => that many MAVIA;
   (MAVIA a b …) => a·b·… MAVIA^n (arity → exponent, like a unit)."
   ([]           (r/of "MAVIA"))
   ([amount]     (r/of "MAVIA" amount))
-  ([a b & more] (reduce q/qmul (r/of "MAVIA" a) (map #(r/of "MAVIA" %) (cons b more)))))
+  ([a b & more] (apply r/of "MAVIA" a b more)))
 
 (defn MCO2
   "MCO2 (live rate): (MCO2) => 1 MCO2; (MCO2 amount) => that many MCO2;
   (MCO2 a b …) => a·b·… MCO2^n (arity → exponent, like a unit)."
   ([]           (r/of "MCO2"))
   ([amount]     (r/of "MCO2" amount))
-  ([a b & more] (reduce q/qmul (r/of "MCO2" a) (map #(r/of "MCO2" %) (cons b more)))))
+  ([a b & more] (apply r/of "MCO2" a b more)))
 
 (defn MCOIN
   "MCOIN (live rate): (MCOIN) => 1 MCOIN; (MCOIN amount) => that many MCOIN;
   (MCOIN a b …) => a·b·… MCOIN^n (arity → exponent, like a unit)."
   ([]           (r/of "MCOIN"))
   ([amount]     (r/of "MCOIN" amount))
-  ([a b & more] (reduce q/qmul (r/of "MCOIN" a) (map #(r/of "MCOIN" %) (cons b more)))))
+  ([a b & more] (apply r/of "MCOIN" a b more)))
 
 (defn MDL
   "MDL (live rate): (MDL) => 1 MDL; (MDL amount) => that many MDL;
   (MDL a b …) => a·b·… MDL^n (arity → exponent, like a unit)."
   ([]           (r/of "MDL"))
   ([amount]     (r/of "MDL" amount))
-  ([a b & more] (reduce q/qmul (r/of "MDL" a) (map #(r/of "MDL" %) (cons b more)))))
+  ([a b & more] (apply r/of "MDL" a b more)))
 
 (defn MDT
   "MDT (live rate): (MDT) => 1 MDT; (MDT amount) => that many MDT;
   (MDT a b …) => a·b·… MDT^n (arity → exponent, like a unit)."
   ([]           (r/of "MDT"))
   ([amount]     (r/of "MDT" amount))
-  ([a b & more] (reduce q/qmul (r/of "MDT" a) (map #(r/of "MDT" %) (cons b more)))))
+  ([a b & more] (apply r/of "MDT" a b more)))
 
 (defn ME
   "ME (live rate): (ME) => 1 ME; (ME amount) => that many ME;
   (ME a b …) => a·b·… ME^n (arity → exponent, like a unit)."
   ([]           (r/of "ME"))
   ([amount]     (r/of "ME" amount))
-  ([a b & more] (reduce q/qmul (r/of "ME" a) (map #(r/of "ME" %) (cons b more)))))
+  ([a b & more] (apply r/of "ME" a b more)))
 
 (defn MEDIA
   "MEDIA (live rate): (MEDIA) => 1 MEDIA; (MEDIA amount) => that many MEDIA;
   (MEDIA a b …) => a·b·… MEDIA^n (arity → exponent, like a unit)."
   ([]           (r/of "MEDIA"))
   ([amount]     (r/of "MEDIA" amount))
-  ([a b & more] (reduce q/qmul (r/of "MEDIA" a) (map #(r/of "MEDIA" %) (cons b more)))))
+  ([a b & more] (apply r/of "MEDIA" a b more)))
 
 (defn MEGA
   "MEGA (live rate): (MEGA) => 1 MEGA; (MEGA amount) => that many MEGA;
   (MEGA a b …) => a·b·… MEGA^n (arity → exponent, like a unit)."
   ([]           (r/of "MEGA"))
   ([amount]     (r/of "MEGA" amount))
-  ([a b & more] (reduce q/qmul (r/of "MEGA" a) (map #(r/of "MEGA" %) (cons b more)))))
+  ([a b & more] (apply r/of "MEGA" a b more)))
 
 (defn MELANIA
   "MELANIA (live rate): (MELANIA) => 1 MELANIA; (MELANIA amount) => that many MELANIA;
   (MELANIA a b …) => a·b·… MELANIA^n (arity → exponent, like a unit)."
   ([]           (r/of "MELANIA"))
   ([amount]     (r/of "MELANIA" amount))
-  ([a b & more] (reduce q/qmul (r/of "MELANIA" a) (map #(r/of "MELANIA" %) (cons b more)))))
+  ([a b & more] (apply r/of "MELANIA" a b more)))
 
 (defn MEME
   "MEME (live rate): (MEME) => 1 MEME; (MEME amount) => that many MEME;
   (MEME a b …) => a·b·… MEME^n (arity → exponent, like a unit)."
   ([]           (r/of "MEME"))
   ([amount]     (r/of "MEME" amount))
-  ([a b & more] (reduce q/qmul (r/of "MEME" a) (map #(r/of "MEME" %) (cons b more)))))
+  ([a b & more] (apply r/of "MEME" a b more)))
 
 (defn MEOW
   "MEOW (live rate): (MEOW) => 1 MEOW; (MEOW amount) => that many MEOW;
   (MEOW a b …) => a·b·… MEOW^n (arity → exponent, like a unit)."
   ([]           (r/of "MEOW"))
   ([amount]     (r/of "MEOW" amount))
-  ([a b & more] (reduce q/qmul (r/of "MEOW" a) (map #(r/of "MEOW" %) (cons b more)))))
+  ([a b & more] (apply r/of "MEOW" a b more)))
 
 (defn MET
   "MET (live rate): (MET) => 1 MET; (MET amount) => that many MET;
   (MET a b …) => a·b·… MET^n (arity → exponent, like a unit)."
   ([]           (r/of "MET"))
   ([amount]     (r/of "MET" amount))
-  ([a b & more] (reduce q/qmul (r/of "MET" a) (map #(r/of "MET" %) (cons b more)))))
+  ([a b & more] (apply r/of "MET" a b more)))
 
 (defn META
   "META (live rate): (META) => 1 META; (META amount) => that many META;
   (META a b …) => a·b·… META^n (arity → exponent, like a unit)."
   ([]           (r/of "META"))
   ([amount]     (r/of "META" amount))
-  ([a b & more] (reduce q/qmul (r/of "META" a) (map #(r/of "META" %) (cons b more)))))
+  ([a b & more] (apply r/of "META" a b more)))
 
 (defn METAKPK
   "METAKPK (live rate): (METAKPK) => 1 METAKPK; (METAKPK amount) => that many METAKPK;
   (METAKPK a b …) => a·b·… METAKPK^n (arity → exponent, like a unit)."
   ([]           (r/of "METAKPK"))
   ([amount]     (r/of "METAKPK" amount))
-  ([a b & more] (reduce q/qmul (r/of "METAKPK" a) (map #(r/of "METAKPK" %) (cons b more)))))
+  ([a b & more] (apply r/of "METAKPK" a b more)))
 
 (defn METH
   "METH (live rate): (METH) => 1 METH; (METH amount) => that many METH;
   (METH a b …) => a·b·… METH^n (arity → exponent, like a unit)."
   ([]           (r/of "METH"))
   ([amount]     (r/of "METH" amount))
-  ([a b & more] (reduce q/qmul (r/of "METH" a) (map #(r/of "METH" %) (cons b more)))))
+  ([a b & more] (apply r/of "METH" a b more)))
 
 (defn METIS
   "METIS (live rate): (METIS) => 1 METIS; (METIS amount) => that many METIS;
   (METIS a b …) => a·b·… METIS^n (arity → exponent, like a unit)."
   ([]           (r/of "METIS"))
   ([amount]     (r/of "METIS" amount))
-  ([a b & more] (reduce q/qmul (r/of "METIS" a) (map #(r/of "METIS" %) (cons b more)))))
+  ([a b & more] (apply r/of "METIS" a b more)))
 
 (defn MEW
   "MEW (live rate): (MEW) => 1 MEW; (MEW amount) => that many MEW;
   (MEW a b …) => a·b·… MEW^n (arity → exponent, like a unit)."
   ([]           (r/of "MEW"))
   ([amount]     (r/of "MEW" amount))
-  ([a b & more] (reduce q/qmul (r/of "MEW" a) (map #(r/of "MEW" %) (cons b more)))))
+  ([a b & more] (apply r/of "MEW" a b more)))
 
 (defn MEZO
   "MEZO (live rate): (MEZO) => 1 MEZO; (MEZO amount) => that many MEZO;
   (MEZO a b …) => a·b·… MEZO^n (arity → exponent, like a unit)."
   ([]           (r/of "MEZO"))
   ([amount]     (r/of "MEZO" amount))
-  ([a b & more] (reduce q/qmul (r/of "MEZO" a) (map #(r/of "MEZO" %) (cons b more)))))
+  ([a b & more] (apply r/of "MEZO" a b more)))
 
 (defn MGA
   "MGA (live rate): (MGA) => 1 MGA; (MGA amount) => that many MGA;
   (MGA a b …) => a·b·… MGA^n (arity → exponent, like a unit)."
   ([]           (r/of "MGA"))
   ([amount]     (r/of "MGA" amount))
-  ([a b & more] (reduce q/qmul (r/of "MGA" a) (map #(r/of "MGA" %) (cons b more)))))
+  ([a b & more] (apply r/of "MGA" a b more)))
 
 (defn MINA
   "MINA (live rate): (MINA) => 1 MINA; (MINA amount) => that many MINA;
   (MINA a b …) => a·b·… MINA^n (arity → exponent, like a unit)."
   ([]           (r/of "MINA"))
   ([amount]     (r/of "MINA" amount))
-  ([a b & more] (reduce q/qmul (r/of "MINA" a) (map #(r/of "MINA" %) (cons b more)))))
+  ([a b & more] (apply r/of "MINA" a b more)))
 
 (defn MIR
   "MIR (live rate): (MIR) => 1 MIR; (MIR amount) => that many MIR;
   (MIR a b …) => a·b·… MIR^n (arity → exponent, like a unit)."
   ([]           (r/of "MIR"))
   ([amount]     (r/of "MIR" amount))
-  ([a b & more] (reduce q/qmul (r/of "MIR" a) (map #(r/of "MIR" %) (cons b more)))))
+  ([a b & more] (apply r/of "MIR" a b more)))
 
 (defn MKD
   "MKD (live rate): (MKD) => 1 MKD; (MKD amount) => that many MKD;
   (MKD a b …) => a·b·… MKD^n (arity → exponent, like a unit)."
   ([]           (r/of "MKD"))
   ([amount]     (r/of "MKD" amount))
-  ([a b & more] (reduce q/qmul (r/of "MKD" a) (map #(r/of "MKD" %) (cons b more)))))
+  ([a b & more] (apply r/of "MKD" a b more)))
 
 (defn MKR
   "MKR (live rate): (MKR) => 1 MKR; (MKR amount) => that many MKR;
   (MKR a b …) => a·b·… MKR^n (arity → exponent, like a unit)."
   ([]           (r/of "MKR"))
   ([amount]     (r/of "MKR" amount))
-  ([a b & more] (reduce q/qmul (r/of "MKR" a) (map #(r/of "MKR" %) (cons b more)))))
+  ([a b & more] (apply r/of "MKR" a b more)))
 
 (defn MKUSD
   "MKUSD (live rate): (MKUSD) => 1 MKUSD; (MKUSD amount) => that many MKUSD;
   (MKUSD a b …) => a·b·… MKUSD^n (arity → exponent, like a unit)."
   ([]           (r/of "MKUSD"))
   ([amount]     (r/of "MKUSD" amount))
-  ([a b & more] (reduce q/qmul (r/of "MKUSD" a) (map #(r/of "MKUSD" %) (cons b more)))))
+  ([a b & more] (apply r/of "MKUSD" a b more)))
 
 (defn MLN
   "MLN (live rate): (MLN) => 1 MLN; (MLN amount) => that many MLN;
   (MLN a b …) => a·b·… MLN^n (arity → exponent, like a unit)."
   ([]           (r/of "MLN"))
   ([amount]     (r/of "MLN" amount))
-  ([a b & more] (reduce q/qmul (r/of "MLN" a) (map #(r/of "MLN" %) (cons b more)))))
+  ([a b & more] (apply r/of "MLN" a b more)))
 
 (defn MMK
   "MMK (live rate): (MMK) => 1 MMK; (MMK amount) => that many MMK;
   (MMK a b …) => a·b·… MMK^n (arity → exponent, like a unit)."
   ([]           (r/of "MMK"))
   ([amount]     (r/of "MMK" amount))
-  ([a b & more] (reduce q/qmul (r/of "MMK" a) (map #(r/of "MMK" %) (cons b more)))))
+  ([a b & more] (apply r/of "MMK" a b more)))
 
 (defn MMX
   "MMX (live rate): (MMX) => 1 MMX; (MMX amount) => that many MMX;
   (MMX a b …) => a·b·… MMX^n (arity → exponent, like a unit)."
   ([]           (r/of "MMX"))
   ([amount]     (r/of "MMX" amount))
-  ([a b & more] (reduce q/qmul (r/of "MMX" a) (map #(r/of "MMX" %) (cons b more)))))
+  ([a b & more] (apply r/of "MMX" a b more)))
 
 (defn MNDE
   "MNDE (live rate): (MNDE) => 1 MNDE; (MNDE amount) => that many MNDE;
   (MNDE a b …) => a·b·… MNDE^n (arity → exponent, like a unit)."
   ([]           (r/of "MNDE"))
   ([amount]     (r/of "MNDE" amount))
-  ([a b & more] (reduce q/qmul (r/of "MNDE" a) (map #(r/of "MNDE" %) (cons b more)))))
+  ([a b & more] (apply r/of "MNDE" a b more)))
 
 (defn MNT
   "MNT (live rate): (MNT) => 1 MNT; (MNT amount) => that many MNT;
   (MNT a b …) => a·b·… MNT^n (arity → exponent, like a unit)."
   ([]           (r/of "MNT"))
   ([amount]     (r/of "MNT" amount))
-  ([a b & more] (reduce q/qmul (r/of "MNT" a) (map #(r/of "MNT" %) (cons b more)))))
+  ([a b & more] (apply r/of "MNT" a b more)))
 
 (defn MOBILE
   "MOBILE (live rate): (MOBILE) => 1 MOBILE; (MOBILE amount) => that many MOBILE;
   (MOBILE a b …) => a·b·… MOBILE^n (arity → exponent, like a unit)."
   ([]           (r/of "MOBILE"))
   ([amount]     (r/of "MOBILE" amount))
-  ([a b & more] (reduce q/qmul (r/of "MOBILE" a) (map #(r/of "MOBILE" %) (cons b more)))))
+  ([a b & more] (apply r/of "MOBILE" a b more)))
 
 (defn MOCA
   "MOCA (live rate): (MOCA) => 1 MOCA; (MOCA amount) => that many MOCA;
   (MOCA a b …) => a·b·… MOCA^n (arity → exponent, like a unit)."
   ([]           (r/of "MOCA"))
   ([amount]     (r/of "MOCA" amount))
-  ([a b & more] (reduce q/qmul (r/of "MOCA" a) (map #(r/of "MOCA" %) (cons b more)))))
+  ([a b & more] (apply r/of "MOCA" a b more)))
 
 (defn MOG
   "MOG (live rate): (MOG) => 1 MOG; (MOG amount) => that many MOG;
   (MOG a b …) => a·b·… MOG^n (arity → exponent, like a unit)."
   ([]           (r/of "MOG"))
   ([amount]     (r/of "MOG" amount))
-  ([a b & more] (reduce q/qmul (r/of "MOG" a) (map #(r/of "MOG" %) (cons b more)))))
+  ([a b & more] (apply r/of "MOG" a b more)))
 
 (defn MON
   "MON (live rate): (MON) => 1 MON; (MON amount) => that many MON;
   (MON a b …) => a·b·… MON^n (arity → exponent, like a unit)."
   ([]           (r/of "MON"))
   ([amount]     (r/of "MON" amount))
-  ([a b & more] (reduce q/qmul (r/of "MON" a) (map #(r/of "MON" %) (cons b more)))))
+  ([a b & more] (apply r/of "MON" a b more)))
 
 (defn MONA
   "MONA (live rate): (MONA) => 1 MONA; (MONA amount) => that many MONA;
   (MONA a b …) => a·b·… MONA^n (arity → exponent, like a unit)."
   ([]           (r/of "MONA"))
   ([amount]     (r/of "MONA" amount))
-  ([a b & more] (reduce q/qmul (r/of "MONA" a) (map #(r/of "MONA" %) (cons b more)))))
+  ([a b & more] (apply r/of "MONA" a b more)))
 
 (defn MONKEYS
   "MONKEYS (live rate): (MONKEYS) => 1 MONKEYS; (MONKEYS amount) => that many MONKEYS;
   (MONKEYS a b …) => a·b·… MONKEYS^n (arity → exponent, like a unit)."
   ([]           (r/of "MONKEYS"))
   ([amount]     (r/of "MONKEYS" amount))
-  ([a b & more] (reduce q/qmul (r/of "MONKEYS" a) (map #(r/of "MONKEYS" %) (cons b more)))))
+  ([a b & more] (apply r/of "MONKEYS" a b more)))
 
 (defn MOODENG
   "MOODENG (live rate): (MOODENG) => 1 MOODENG; (MOODENG amount) => that many MOODENG;
   (MOODENG a b …) => a·b·… MOODENG^n (arity → exponent, like a unit)."
   ([]           (r/of "MOODENG"))
   ([amount]     (r/of "MOODENG" amount))
-  ([a b & more] (reduce q/qmul (r/of "MOODENG" a) (map #(r/of "MOODENG" %) (cons b more)))))
+  ([a b & more] (apply r/of "MOODENG" a b more)))
 
 (defn MOP
   "MOP (live rate): (MOP) => 1 MOP; (MOP amount) => that many MOP;
   (MOP a b …) => a·b·… MOP^n (arity → exponent, like a unit)."
   ([]           (r/of "MOP"))
   ([amount]     (r/of "MOP" amount))
-  ([a b & more] (reduce q/qmul (r/of "MOP" a) (map #(r/of "MOP" %) (cons b more)))))
+  ([a b & more] (apply r/of "MOP" a b more)))
 
 (defn MORPHO
   "MORPHO (live rate): (MORPHO) => 1 MORPHO; (MORPHO amount) => that many MORPHO;
   (MORPHO a b …) => a·b·… MORPHO^n (arity → exponent, like a unit)."
   ([]           (r/of "MORPHO"))
   ([amount]     (r/of "MORPHO" amount))
-  ([a b & more] (reduce q/qmul (r/of "MORPHO" a) (map #(r/of "MORPHO" %) (cons b more)))))
+  ([a b & more] (apply r/of "MORPHO" a b more)))
 
 (defn MOVE
   "MOVE (live rate): (MOVE) => 1 MOVE; (MOVE amount) => that many MOVE;
   (MOVE a b …) => a·b·… MOVE^n (arity → exponent, like a unit)."
   ([]           (r/of "MOVE"))
   ([amount]     (r/of "MOVE" amount))
-  ([a b & more] (reduce q/qmul (r/of "MOVE" a) (map #(r/of "MOVE" %) (cons b more)))))
+  ([a b & more] (apply r/of "MOVE" a b more)))
 
 (defn MOVR
   "MOVR (live rate): (MOVR) => 1 MOVR; (MOVR amount) => that many MOVR;
   (MOVR a b …) => a·b·… MOVR^n (arity → exponent, like a unit)."
   ([]           (r/of "MOVR"))
   ([amount]     (r/of "MOVR" amount))
-  ([a b & more] (reduce q/qmul (r/of "MOVR" a) (map #(r/of "MOVR" %) (cons b more)))))
+  ([a b & more] (apply r/of "MOVR" a b more)))
 
 (defn MPLX
   "MPLX (live rate): (MPLX) => 1 MPLX; (MPLX amount) => that many MPLX;
   (MPLX a b …) => a·b·… MPLX^n (arity → exponent, like a unit)."
   ([]           (r/of "MPLX"))
   ([amount]     (r/of "MPLX" amount))
-  ([a b & more] (reduce q/qmul (r/of "MPLX" a) (map #(r/of "MPLX" %) (cons b more)))))
+  ([a b & more] (apply r/of "MPLX" a b more)))
 
 (defn MRS
   "MRS (live rate): (MRS) => 1 MRS; (MRS amount) => that many MRS;
   (MRS a b …) => a·b·… MRS^n (arity → exponent, like a unit)."
   ([]           (r/of "MRS"))
   ([amount]     (r/of "MRS" amount))
-  ([a b & more] (reduce q/qmul (r/of "MRS" a) (map #(r/of "MRS" %) (cons b more)))))
+  ([a b & more] (apply r/of "MRS" a b more)))
 
 (defn MRU
   "MRU (live rate): (MRU) => 1 MRU; (MRU amount) => that many MRU;
   (MRU a b …) => a·b·… MRU^n (arity → exponent, like a unit)."
   ([]           (r/of "MRU"))
   ([amount]     (r/of "MRU" amount))
-  ([a b & more] (reduce q/qmul (r/of "MRU" a) (map #(r/of "MRU" %) (cons b more)))))
+  ([a b & more] (apply r/of "MRU" a b more)))
 
 (defn MSOL
   "MSOL (live rate): (MSOL) => 1 MSOL; (MSOL amount) => that many MSOL;
   (MSOL a b …) => a·b·… MSOL^n (arity → exponent, like a unit)."
   ([]           (r/of "MSOL"))
   ([amount]     (r/of "MSOL" amount))
-  ([a b & more] (reduce q/qmul (r/of "MSOL" a) (map #(r/of "MSOL" %) (cons b more)))))
+  ([a b & more] (apply r/of "MSOL" a b more)))
 
 (defn MTD
   "MTD (live rate): (MTD) => 1 MTD; (MTD amount) => that many MTD;
   (MTD a b …) => a·b·… MTD^n (arity → exponent, like a unit)."
   ([]           (r/of "MTD"))
   ([amount]     (r/of "MTD" amount))
-  ([a b & more] (reduce q/qmul (r/of "MTD" a) (map #(r/of "MTD" %) (cons b more)))))
+  ([a b & more] (apply r/of "MTD" a b more)))
 
 (defn MTL
   "MTL (live rate): (MTL) => 1 MTL; (MTL amount) => that many MTL;
   (MTL a b …) => a·b·… MTL^n (arity → exponent, like a unit)."
   ([]           (r/of "MTL"))
   ([amount]     (r/of "MTL" amount))
-  ([a b & more] (reduce q/qmul (r/of "MTL" a) (map #(r/of "MTL" %) (cons b more)))))
+  ([a b & more] (apply r/of "MTL" a b more)))
 
 (defn MUBI
   "MUBI (live rate): (MUBI) => 1 MUBI; (MUBI amount) => that many MUBI;
   (MUBI a b …) => a·b·… MUBI^n (arity → exponent, like a unit)."
   ([]           (r/of "MUBI"))
   ([amount]     (r/of "MUBI" amount))
-  ([a b & more] (reduce q/qmul (r/of "MUBI" a) (map #(r/of "MUBI" %) (cons b more)))))
+  ([a b & more] (apply r/of "MUBI" a b more)))
 
 (defn MULTI
   "MULTI (live rate): (MULTI) => 1 MULTI; (MULTI amount) => that many MULTI;
   (MULTI a b …) => a·b·… MULTI^n (arity → exponent, like a unit)."
   ([]           (r/of "MULTI"))
   ([amount]     (r/of "MULTI" amount))
-  ([a b & more] (reduce q/qmul (r/of "MULTI" a) (map #(r/of "MULTI" %) (cons b more)))))
+  ([a b & more] (apply r/of "MULTI" a b more)))
 
 (defn MUMU
   "MUMU (live rate): (MUMU) => 1 MUMU; (MUMU amount) => that many MUMU;
   (MUMU a b …) => a·b·… MUMU^n (arity → exponent, like a unit)."
   ([]           (r/of "MUMU"))
   ([amount]     (r/of "MUMU" amount))
-  ([a b & more] (reduce q/qmul (r/of "MUMU" a) (map #(r/of "MUMU" %) (cons b more)))))
+  ([a b & more] (apply r/of "MUMU" a b more)))
 
 (defn MUR
   "MUR (live rate): (MUR) => 1 MUR; (MUR amount) => that many MUR;
   (MUR a b …) => a·b·… MUR^n (arity → exponent, like a unit)."
   ([]           (r/of "MUR"))
   ([amount]     (r/of "MUR" amount))
-  ([a b & more] (reduce q/qmul (r/of "MUR" a) (map #(r/of "MUR" %) (cons b more)))))
+  ([a b & more] (apply r/of "MUR" a b more)))
 
 (defn MURA
   "MURA (live rate): (MURA) => 1 MURA; (MURA amount) => that many MURA;
   (MURA a b …) => a·b·… MURA^n (arity → exponent, like a unit)."
   ([]           (r/of "MURA"))
   ([amount]     (r/of "MURA" amount))
-  ([a b & more] (reduce q/qmul (r/of "MURA" a) (map #(r/of "MURA" %) (cons b more)))))
+  ([a b & more] (apply r/of "MURA" a b more)))
 
 (defn MUSD
   "MUSD (live rate): (MUSD) => 1 MUSD; (MUSD amount) => that many MUSD;
   (MUSD a b …) => a·b·… MUSD^n (arity → exponent, like a unit)."
   ([]           (r/of "MUSD"))
   ([amount]     (r/of "MUSD" amount))
-  ([a b & more] (reduce q/qmul (r/of "MUSD" a) (map #(r/of "MUSD" %) (cons b more)))))
+  ([a b & more] (apply r/of "MUSD" a b more)))
 
 (defn MUSE
   "MUSE (live rate): (MUSE) => 1 MUSE; (MUSE amount) => that many MUSE;
   (MUSE a b …) => a·b·… MUSE^n (arity → exponent, like a unit)."
   ([]           (r/of "MUSE"))
   ([amount]     (r/of "MUSE" amount))
-  ([a b & more] (reduce q/qmul (r/of "MUSE" a) (map #(r/of "MUSE" %) (cons b more)))))
+  ([a b & more] (apply r/of "MUSE" a b more)))
 
 (defn MVR
   "MVR (live rate): (MVR) => 1 MVR; (MVR amount) => that many MVR;
   (MVR a b …) => a·b·… MVR^n (arity → exponent, like a unit)."
   ([]           (r/of "MVR"))
   ([amount]     (r/of "MVR" amount))
-  ([a b & more] (reduce q/qmul (r/of "MVR" a) (map #(r/of "MVR" %) (cons b more)))))
+  ([a b & more] (apply r/of "MVR" a b more)))
 
 (defn MWC
   "MWC (live rate): (MWC) => 1 MWC; (MWC amount) => that many MWC;
   (MWC a b …) => a·b·… MWC^n (arity → exponent, like a unit)."
   ([]           (r/of "MWC"))
   ([amount]     (r/of "MWC" amount))
-  ([a b & more] (reduce q/qmul (r/of "MWC" a) (map #(r/of "MWC" %) (cons b more)))))
+  ([a b & more] (apply r/of "MWC" a b more)))
 
 (defn MWK
   "MWK (live rate): (MWK) => 1 MWK; (MWK amount) => that many MWK;
   (MWK a b …) => a·b·… MWK^n (arity → exponent, like a unit)."
   ([]           (r/of "MWK"))
   ([amount]     (r/of "MWK" amount))
-  ([a b & more] (reduce q/qmul (r/of "MWK" a) (map #(r/of "MWK" %) (cons b more)))))
+  ([a b & more] (apply r/of "MWK" a b more)))
 
 (defn MX
   "MX (live rate): (MX) => 1 MX; (MX amount) => that many MX;
   (MX a b …) => a·b·… MX^n (arity → exponent, like a unit)."
   ([]           (r/of "MX"))
   ([amount]     (r/of "MX" amount))
-  ([a b & more] (reduce q/qmul (r/of "MX" a) (map #(r/of "MX" %) (cons b more)))))
+  ([a b & more] (apply r/of "MX" a b more)))
 
 (defn MXC
   "MXC (live rate): (MXC) => 1 MXC; (MXC amount) => that many MXC;
   (MXC a b …) => a·b·… MXC^n (arity → exponent, like a unit)."
   ([]           (r/of "MXC"))
   ([amount]     (r/of "MXC" amount))
-  ([a b & more] (reduce q/qmul (r/of "MXC" a) (map #(r/of "MXC" %) (cons b more)))))
+  ([a b & more] (apply r/of "MXC" a b more)))
 
 (defn MXN
   "MXN (live rate): (MXN) => 1 MXN; (MXN amount) => that many MXN;
   (MXN a b …) => a·b·… MXN^n (arity → exponent, like a unit)."
   ([]           (r/of "MXN"))
   ([amount]     (r/of "MXN" amount))
-  ([a b & more] (reduce q/qmul (r/of "MXN" a) (map #(r/of "MXN" %) (cons b more)))))
+  ([a b & more] (apply r/of "MXN" a b more)))
 
 (defn MYR
   "MYR (live rate): (MYR) => 1 MYR; (MYR amount) => that many MYR;
   (MYR a b …) => a·b·… MYR^n (arity → exponent, like a unit)."
   ([]           (r/of "MYR"))
   ([amount]     (r/of "MYR" amount))
-  ([a b & more] (reduce q/qmul (r/of "MYR" a) (map #(r/of "MYR" %) (cons b more)))))
+  ([a b & more] (apply r/of "MYR" a b more)))
 
 (defn MYRO
   "MYRO (live rate): (MYRO) => 1 MYRO; (MYRO amount) => that many MYRO;
   (MYRO a b …) => a·b·… MYRO^n (arity → exponent, like a unit)."
   ([]           (r/of "MYRO"))
   ([amount]     (r/of "MYRO" amount))
-  ([a b & more] (reduce q/qmul (r/of "MYRO" a) (map #(r/of "MYRO" %) (cons b more)))))
+  ([a b & more] (apply r/of "MYRO" a b more)))
 
 (defn MYTH
   "MYTH (live rate): (MYTH) => 1 MYTH; (MYTH amount) => that many MYTH;
   (MYTH a b …) => a·b·… MYTH^n (arity → exponent, like a unit)."
   ([]           (r/of "MYTH"))
   ([amount]     (r/of "MYTH" amount))
-  ([a b & more] (reduce q/qmul (r/of "MYTH" a) (map #(r/of "MYTH" %) (cons b more)))))
+  ([a b & more] (apply r/of "MYTH" a b more)))
 
 (defn MZN
   "MZN (live rate): (MZN) => 1 MZN; (MZN amount) => that many MZN;
   (MZN a b …) => a·b·… MZN^n (arity → exponent, like a unit)."
   ([]           (r/of "MZN"))
   ([amount]     (r/of "MZN" amount))
-  ([a b & more] (reduce q/qmul (r/of "MZN" a) (map #(r/of "MZN" %) (cons b more)))))
+  ([a b & more] (apply r/of "MZN" a b more)))
 
 (defn NAD
   "NAD (live rate): (NAD) => 1 NAD; (NAD amount) => that many NAD;
   (NAD a b …) => a·b·… NAD^n (arity → exponent, like a unit)."
   ([]           (r/of "NAD"))
   ([amount]     (r/of "NAD" amount))
-  ([a b & more] (reduce q/qmul (r/of "NAD" a) (map #(r/of "NAD" %) (cons b more)))))
+  ([a b & more] (apply r/of "NAD" a b more)))
 
 (defn NCT
   "NCT (live rate): (NCT) => 1 NCT; (NCT amount) => that many NCT;
   (NCT a b …) => a·b·… NCT^n (arity → exponent, like a unit)."
   ([]           (r/of "NCT"))
   ([amount]     (r/of "NCT" amount))
-  ([a b & more] (reduce q/qmul (r/of "NCT" a) (map #(r/of "NCT" %) (cons b more)))))
+  ([a b & more] (apply r/of "NCT" a b more)))
 
 (defn NEAR
   "NEAR (live rate): (NEAR) => 1 NEAR; (NEAR amount) => that many NEAR;
   (NEAR a b …) => a·b·… NEAR^n (arity → exponent, like a unit)."
   ([]           (r/of "NEAR"))
   ([amount]     (r/of "NEAR" amount))
-  ([a b & more] (reduce q/qmul (r/of "NEAR" a) (map #(r/of "NEAR" %) (cons b more)))))
+  ([a b & more] (apply r/of "NEAR" a b more)))
 
 (defn NEI
   "NEI (live rate): (NEI) => 1 NEI; (NEI amount) => that many NEI;
   (NEI a b …) => a·b·… NEI^n (arity → exponent, like a unit)."
   ([]           (r/of "NEI"))
   ([amount]     (r/of "NEI" amount))
-  ([a b & more] (reduce q/qmul (r/of "NEI" a) (map #(r/of "NEI" %) (cons b more)))))
+  ([a b & more] (apply r/of "NEI" a b more)))
 
 (defn NEO
   "NEO (live rate): (NEO) => 1 NEO; (NEO amount) => that many NEO;
   (NEO a b …) => a·b·… NEO^n (arity → exponent, like a unit)."
   ([]           (r/of "NEO"))
   ([amount]     (r/of "NEO" amount))
-  ([a b & more] (reduce q/qmul (r/of "NEO" a) (map #(r/of "NEO" %) (cons b more)))))
+  ([a b & more] (apply r/of "NEO" a b more)))
 
 (defn NEON
   "NEON (live rate): (NEON) => 1 NEON; (NEON amount) => that many NEON;
   (NEON a b …) => a·b·… NEON^n (arity → exponent, like a unit)."
   ([]           (r/of "NEON"))
   ([amount]     (r/of "NEON" amount))
-  ([a b & more] (reduce q/qmul (r/of "NEON" a) (map #(r/of "NEON" %) (cons b more)))))
+  ([a b & more] (apply r/of "NEON" a b more)))
 
 (defn NEWT
   "NEWT (live rate): (NEWT) => 1 NEWT; (NEWT amount) => that many NEWT;
   (NEWT a b …) => a·b·… NEWT^n (arity → exponent, like a unit)."
   ([]           (r/of "NEWT"))
   ([amount]     (r/of "NEWT" amount))
-  ([a b & more] (reduce q/qmul (r/of "NEWT" a) (map #(r/of "NEWT" %) (cons b more)))))
+  ([a b & more] (apply r/of "NEWT" a b more)))
 
 (defn NEX
   "NEX (live rate): (NEX) => 1 NEX; (NEX amount) => that many NEX;
   (NEX a b …) => a·b·… NEX^n (arity → exponent, like a unit)."
   ([]           (r/of "NEX"))
   ([amount]     (r/of "NEX" amount))
-  ([a b & more] (reduce q/qmul (r/of "NEX" a) (map #(r/of "NEX" %) (cons b more)))))
+  ([a b & more] (apply r/of "NEX" a b more)))
 
 (defn NEXO
   "NEXO (live rate): (NEXO) => 1 NEXO; (NEXO amount) => that many NEXO;
   (NEXO a b …) => a·b·… NEXO^n (arity → exponent, like a unit)."
   ([]           (r/of "NEXO"))
   ([amount]     (r/of "NEXO" amount))
-  ([a b & more] (reduce q/qmul (r/of "NEXO" a) (map #(r/of "NEXO" %) (cons b more)))))
+  ([a b & more] (apply r/of "NEXO" a b more)))
 
 (defn NFT
   "NFT (live rate): (NFT) => 1 NFT; (NFT amount) => that many NFT;
   (NFT a b …) => a·b·… NFT^n (arity → exponent, like a unit)."
   ([]           (r/of "NFT"))
   ([amount]     (r/of "NFT" amount))
-  ([a b & more] (reduce q/qmul (r/of "NFT" a) (map #(r/of "NFT" %) (cons b more)))))
+  ([a b & more] (apply r/of "NFT" a b more)))
 
 (defn NGN
   "NGN (live rate): (NGN) => 1 NGN; (NGN amount) => that many NGN;
   (NGN a b …) => a·b·… NGN^n (arity → exponent, like a unit)."
   ([]           (r/of "NGN"))
   ([amount]     (r/of "NGN" amount))
-  ([a b & more] (reduce q/qmul (r/of "NGN" a) (map #(r/of "NGN" %) (cons b more)))))
+  ([a b & more] (apply r/of "NGN" a b more)))
 
 (defn NIO
   "NIO (live rate): (NIO) => 1 NIO; (NIO amount) => that many NIO;
   (NIO a b …) => a·b·… NIO^n (arity → exponent, like a unit)."
   ([]           (r/of "NIO"))
   ([amount]     (r/of "NIO" amount))
-  ([a b & more] (reduce q/qmul (r/of "NIO" a) (map #(r/of "NIO" %) (cons b more)))))
+  ([a b & more] (apply r/of "NIO" a b more)))
 
 (defn NKN
   "NKN (live rate): (NKN) => 1 NKN; (NKN amount) => that many NKN;
   (NKN a b …) => a·b·… NKN^n (arity → exponent, like a unit)."
   ([]           (r/of "NKN"))
   ([amount]     (r/of "NKN" amount))
-  ([a b & more] (reduce q/qmul (r/of "NKN" a) (map #(r/of "NKN" %) (cons b more)))))
+  ([a b & more] (apply r/of "NKN" a b more)))
 
 (defn NMR
   "NMR (live rate): (NMR) => 1 NMR; (NMR amount) => that many NMR;
   (NMR a b …) => a·b·… NMR^n (arity → exponent, like a unit)."
   ([]           (r/of "NMR"))
   ([amount]     (r/of "NMR" amount))
-  ([a b & more] (reduce q/qmul (r/of "NMR" a) (map #(r/of "NMR" %) (cons b more)))))
+  ([a b & more] (apply r/of "NMR" a b more)))
 
 (defn NMT
   "NMT (live rate): (NMT) => 1 NMT; (NMT amount) => that many NMT;
   (NMT a b …) => a·b·… NMT^n (arity → exponent, like a unit)."
   ([]           (r/of "NMT"))
   ([amount]     (r/of "NMT" amount))
-  ([a b & more] (reduce q/qmul (r/of "NMT" a) (map #(r/of "NMT" %) (cons b more)))))
+  ([a b & more] (apply r/of "NMT" a b more)))
 
 (defn NOICE
   "NOICE (live rate): (NOICE) => 1 NOICE; (NOICE amount) => that many NOICE;
   (NOICE a b …) => a·b·… NOICE^n (arity → exponent, like a unit)."
   ([]           (r/of "NOICE"))
   ([amount]     (r/of "NOICE" amount))
-  ([a b & more] (reduce q/qmul (r/of "NOICE" a) (map #(r/of "NOICE" %) (cons b more)))))
+  ([a b & more] (apply r/of "NOICE" a b more)))
 
 (defn NOK
   "NOK (live rate): (NOK) => 1 NOK; (NOK amount) => that many NOK;
   (NOK a b …) => a·b·… NOK^n (arity → exponent, like a unit)."
   ([]           (r/of "NOK"))
   ([amount]     (r/of "NOK" amount))
-  ([a b & more] (reduce q/qmul (r/of "NOK" a) (map #(r/of "NOK" %) (cons b more)))))
+  ([a b & more] (apply r/of "NOK" a b more)))
 
 (defn NOM
   "NOM (live rate): (NOM) => 1 NOM; (NOM amount) => that many NOM;
   (NOM a b …) => a·b·… NOM^n (arity → exponent, like a unit)."
   ([]           (r/of "NOM"))
   ([amount]     (r/of "NOM" amount))
-  ([a b & more] (reduce q/qmul (r/of "NOM" a) (map #(r/of "NOM" %) (cons b more)))))
+  ([a b & more] (apply r/of "NOM" a b more)))
 
 (defn NOS
   "NOS (live rate): (NOS) => 1 NOS; (NOS amount) => that many NOS;
   (NOS a b …) => a·b·… NOS^n (arity → exponent, like a unit)."
   ([]           (r/of "NOS"))
   ([amount]     (r/of "NOS" amount))
-  ([a b & more] (reduce q/qmul (r/of "NOS" a) (map #(r/of "NOS" %) (cons b more)))))
+  ([a b & more] (apply r/of "NOS" a b more)))
 
 (defn NOT
   "NOT (live rate): (NOT) => 1 NOT; (NOT amount) => that many NOT;
   (NOT a b …) => a·b·… NOT^n (arity → exponent, like a unit)."
   ([]           (r/of "NOT"))
   ([amount]     (r/of "NOT" amount))
-  ([a b & more] (reduce q/qmul (r/of "NOT" a) (map #(r/of "NOT" %) (cons b more)))))
+  ([a b & more] (apply r/of "NOT" a b more)))
 
 (defn NPC
   "NPC (live rate): (NPC) => 1 NPC; (NPC amount) => that many NPC;
   (NPC a b …) => a·b·… NPC^n (arity → exponent, like a unit)."
   ([]           (r/of "NPC"))
   ([amount]     (r/of "NPC" amount))
-  ([a b & more] (reduce q/qmul (r/of "NPC" a) (map #(r/of "NPC" %) (cons b more)))))
+  ([a b & more] (apply r/of "NPC" a b more)))
 
 (defn NPR
   "NPR (live rate): (NPR) => 1 NPR; (NPR amount) => that many NPR;
   (NPR a b …) => a·b·… NPR^n (arity → exponent, like a unit)."
   ([]           (r/of "NPR"))
   ([amount]     (r/of "NPR" amount))
-  ([a b & more] (reduce q/qmul (r/of "NPR" a) (map #(r/of "NPR" %) (cons b more)))))
+  ([a b & more] (apply r/of "NPR" a b more)))
 
 (defn NTRN
   "NTRN (live rate): (NTRN) => 1 NTRN; (NTRN amount) => that many NTRN;
   (NTRN a b …) => a·b·… NTRN^n (arity → exponent, like a unit)."
   ([]           (r/of "NTRN"))
   ([amount]     (r/of "NTRN" amount))
-  ([a b & more] (reduce q/qmul (r/of "NTRN" a) (map #(r/of "NTRN" %) (cons b more)))))
+  ([a b & more] (apply r/of "NTRN" a b more)))
 
 (defn NU
   "NU (live rate): (NU) => 1 NU; (NU amount) => that many NU;
   (NU a b …) => a·b·… NU^n (arity → exponent, like a unit)."
   ([]           (r/of "NU"))
   ([amount]     (r/of "NU" amount))
-  ([a b & more] (reduce q/qmul (r/of "NU" a) (map #(r/of "NU" %) (cons b more)))))
+  ([a b & more] (apply r/of "NU" a b more)))
 
 (defn NXM
   "NXM (live rate): (NXM) => 1 NXM; (NXM amount) => that many NXM;
   (NXM a b …) => a·b·… NXM^n (arity → exponent, like a unit)."
   ([]           (r/of "NXM"))
   ([amount]     (r/of "NXM" amount))
-  ([a b & more] (reduce q/qmul (r/of "NXM" a) (map #(r/of "NXM" %) (cons b more)))))
+  ([a b & more] (apply r/of "NXM" a b more)))
 
 (defn NZD
   "NZD (live rate): (NZD) => 1 NZD; (NZD amount) => that many NZD;
   (NZD a b …) => a·b·… NZD^n (arity → exponent, like a unit)."
   ([]           (r/of "NZD"))
   ([amount]     (r/of "NZD" amount))
-  ([a b & more] (reduce q/qmul (r/of "NZD" a) (map #(r/of "NZD" %) (cons b more)))))
+  ([a b & more] (apply r/of "NZD" a b more)))
 
 (defn O
   "O (live rate): (O) => 1 O; (O amount) => that many O;
   (O a b …) => a·b·… O^n (arity → exponent, like a unit)."
   ([]           (r/of "O"))
   ([amount]     (r/of "O" amount))
-  ([a b & more] (reduce q/qmul (r/of "O" a) (map #(r/of "O" %) (cons b more)))))
+  ([a b & more] (apply r/of "O" a b more)))
 
 (defn OAS
   "OAS (live rate): (OAS) => 1 OAS; (OAS amount) => that many OAS;
   (OAS a b …) => a·b·… OAS^n (arity → exponent, like a unit)."
   ([]           (r/of "OAS"))
   ([amount]     (r/of "OAS" amount))
-  ([a b & more] (reduce q/qmul (r/of "OAS" a) (map #(r/of "OAS" %) (cons b more)))))
+  ([a b & more] (apply r/of "OAS" a b more)))
 
 (defn OCEAN
   "OCEAN (live rate): (OCEAN) => 1 OCEAN; (OCEAN amount) => that many OCEAN;
   (OCEAN a b …) => a·b·… OCEAN^n (arity → exponent, like a unit)."
   ([]           (r/of "OCEAN"))
   ([amount]     (r/of "OCEAN" amount))
-  ([a b & more] (reduce q/qmul (r/of "OCEAN" a) (map #(r/of "OCEAN" %) (cons b more)))))
+  ([a b & more] (apply r/of "OCEAN" a b more)))
 
 (defn OGN
   "OGN (live rate): (OGN) => 1 OGN; (OGN amount) => that many OGN;
   (OGN a b …) => a·b·… OGN^n (arity → exponent, like a unit)."
   ([]           (r/of "OGN"))
   ([amount]     (r/of "OGN" amount))
-  ([a b & more] (reduce q/qmul (r/of "OGN" a) (map #(r/of "OGN" %) (cons b more)))))
+  ([a b & more] (apply r/of "OGN" a b more)))
 
 (defn OHM
   "OHM (live rate): (OHM) => 1 OHM; (OHM amount) => that many OHM;
   (OHM a b …) => a·b·… OHM^n (arity → exponent, like a unit)."
   ([]           (r/of "OHM"))
   ([amount]     (r/of "OHM" amount))
-  ([a b & more] (reduce q/qmul (r/of "OHM" a) (map #(r/of "OHM" %) (cons b more)))))
+  ([a b & more] (apply r/of "OHM" a b more)))
 
 (defn OKB
   "OKB (live rate): (OKB) => 1 OKB; (OKB amount) => that many OKB;
   (OKB a b …) => a·b·… OKB^n (arity → exponent, like a unit)."
   ([]           (r/of "OKB"))
   ([amount]     (r/of "OKB" amount))
-  ([a b & more] (reduce q/qmul (r/of "OKB" a) (map #(r/of "OKB" %) (cons b more)))))
+  ([a b & more] (apply r/of "OKB" a b more)))
 
 (defn OLAS
   "OLAS (live rate): (OLAS) => 1 OLAS; (OLAS amount) => that many OLAS;
   (OLAS a b …) => a·b·… OLAS^n (arity → exponent, like a unit)."
   ([]           (r/of "OLAS"))
   ([amount]     (r/of "OLAS" amount))
-  ([a b & more] (reduce q/qmul (r/of "OLAS" a) (map #(r/of "OLAS" %) (cons b more)))))
+  ([a b & more] (apply r/of "OLAS" a b more)))
 
 (defn OMG
   "OMG (live rate): (OMG) => 1 OMG; (OMG amount) => that many OMG;
   (OMG a b …) => a·b·… OMG^n (arity → exponent, like a unit)."
   ([]           (r/of "OMG"))
   ([amount]     (r/of "OMG" amount))
-  ([a b & more] (reduce q/qmul (r/of "OMG" a) (map #(r/of "OMG" %) (cons b more)))))
+  ([a b & more] (apply r/of "OMG" a b more)))
 
 (defn OMI
   "OMI (live rate): (OMI) => 1 OMI; (OMI amount) => that many OMI;
   (OMI a b …) => a·b·… OMI^n (arity → exponent, like a unit)."
   ([]           (r/of "OMI"))
   ([amount]     (r/of "OMI" amount))
-  ([a b & more] (reduce q/qmul (r/of "OMI" a) (map #(r/of "OMI" %) (cons b more)))))
+  ([a b & more] (apply r/of "OMI" a b more)))
 
 (defn OMIKAMI
   "OMIKAMI (live rate): (OMIKAMI) => 1 OMIKAMI; (OMIKAMI amount) => that many OMIKAMI;
   (OMIKAMI a b …) => a·b·… OMIKAMI^n (arity → exponent, like a unit)."
   ([]           (r/of "OMIKAMI"))
   ([amount]     (r/of "OMIKAMI" amount))
-  ([a b & more] (reduce q/qmul (r/of "OMIKAMI" a) (map #(r/of "OMIKAMI" %) (cons b more)))))
+  ([a b & more] (apply r/of "OMIKAMI" a b more)))
 
 (defn OMNI
   "OMNI (live rate): (OMNI) => 1 OMNI; (OMNI amount) => that many OMNI;
   (OMNI a b …) => a·b·… OMNI^n (arity → exponent, like a unit)."
   ([]           (r/of "OMNI"))
   ([amount]     (r/of "OMNI" amount))
-  ([a b & more] (reduce q/qmul (r/of "OMNI" a) (map #(r/of "OMNI" %) (cons b more)))))
+  ([a b & more] (apply r/of "OMNI" a b more)))
 
 (defn OMR
   "OMR (live rate): (OMR) => 1 OMR; (OMR amount) => that many OMR;
   (OMR a b …) => a·b·… OMR^n (arity → exponent, like a unit)."
   ([]           (r/of "OMR"))
   ([amount]     (r/of "OMR" amount))
-  ([a b & more] (reduce q/qmul (r/of "OMR" a) (map #(r/of "OMR" %) (cons b more)))))
+  ([a b & more] (apply r/of "OMR" a b more)))
 
 (defn ONDO
   "ONDO (live rate): (ONDO) => 1 ONDO; (ONDO amount) => that many ONDO;
   (ONDO a b …) => a·b·… ONDO^n (arity → exponent, like a unit)."
   ([]           (r/of "ONDO"))
   ([amount]     (r/of "ONDO" amount))
-  ([a b & more] (reduce q/qmul (r/of "ONDO" a) (map #(r/of "ONDO" %) (cons b more)))))
+  ([a b & more] (apply r/of "ONDO" a b more)))
 
 (defn ONE
   "ONE (live rate): (ONE) => 1 ONE; (ONE amount) => that many ONE;
   (ONE a b …) => a·b·… ONE^n (arity → exponent, like a unit)."
   ([]           (r/of "ONE"))
   ([amount]     (r/of "ONE" amount))
-  ([a b & more] (reduce q/qmul (r/of "ONE" a) (map #(r/of "ONE" %) (cons b more)))))
+  ([a b & more] (apply r/of "ONE" a b more)))
 
 (defn ONG
   "ONG (live rate): (ONG) => 1 ONG; (ONG amount) => that many ONG;
   (ONG a b …) => a·b·… ONG^n (arity → exponent, like a unit)."
   ([]           (r/of "ONG"))
   ([amount]     (r/of "ONG" amount))
-  ([a b & more] (reduce q/qmul (r/of "ONG" a) (map #(r/of "ONG" %) (cons b more)))))
+  ([a b & more] (apply r/of "ONG" a b more)))
 
 (defn ONT
   "ONT (live rate): (ONT) => 1 ONT; (ONT amount) => that many ONT;
   (ONT a b …) => a·b·… ONT^n (arity → exponent, like a unit)."
   ([]           (r/of "ONT"))
   ([amount]     (r/of "ONT" amount))
-  ([a b & more] (reduce q/qmul (r/of "ONT" a) (map #(r/of "ONT" %) (cons b more)))))
+  ([a b & more] (apply r/of "ONT" a b more)))
 
 (defn OOKI
   "OOKI (live rate): (OOKI) => 1 OOKI; (OOKI amount) => that many OOKI;
   (OOKI a b …) => a·b·… OOKI^n (arity → exponent, like a unit)."
   ([]           (r/of "OOKI"))
   ([amount]     (r/of "OOKI" amount))
-  ([a b & more] (reduce q/qmul (r/of "OOKI" a) (map #(r/of "OOKI" %) (cons b more)))))
+  ([a b & more] (apply r/of "OOKI" a b more)))
 
 (defn OP
   "OP (live rate): (OP) => 1 OP; (OP amount) => that many OP;
   (OP a b …) => a·b·… OP^n (arity → exponent, like a unit)."
   ([]           (r/of "OP"))
   ([amount]     (r/of "OP" amount))
-  ([a b & more] (reduce q/qmul (r/of "OP" a) (map #(r/of "OP" %) (cons b more)))))
+  ([a b & more] (apply r/of "OP" a b more)))
 
 (defn OPG
   "OPG (live rate): (OPG) => 1 OPG; (OPG amount) => that many OPG;
   (OPG a b …) => a·b·… OPG^n (arity → exponent, like a unit)."
   ([]           (r/of "OPG"))
   ([amount]     (r/of "OPG" amount))
-  ([a b & more] (reduce q/qmul (r/of "OPG" a) (map #(r/of "OPG" %) (cons b more)))))
+  ([a b & more] (apply r/of "OPG" a b more)))
 
 (defn OPN
   "OPN (live rate): (OPN) => 1 OPN; (OPN amount) => that many OPN;
   (OPN a b …) => a·b·… OPN^n (arity → exponent, like a unit)."
   ([]           (r/of "OPN"))
   ([amount]     (r/of "OPN" amount))
-  ([a b & more] (reduce q/qmul (r/of "OPN" a) (map #(r/of "OPN" %) (cons b more)))))
+  ([a b & more] (apply r/of "OPN" a b more)))
 
 (defn ORA
   "ORA (live rate): (ORA) => 1 ORA; (ORA amount) => that many ORA;
   (ORA a b …) => a·b·… ORA^n (arity → exponent, like a unit)."
   ([]           (r/of "ORA"))
   ([amount]     (r/of "ORA" amount))
-  ([a b & more] (reduce q/qmul (r/of "ORA" a) (map #(r/of "ORA" %) (cons b more)))))
+  ([a b & more] (apply r/of "ORA" a b more)))
 
 (defn ORAI
   "ORAI (live rate): (ORAI) => 1 ORAI; (ORAI amount) => that many ORAI;
   (ORAI a b …) => a·b·… ORAI^n (arity → exponent, like a unit)."
   ([]           (r/of "ORAI"))
   ([amount]     (r/of "ORAI" amount))
-  ([a b & more] (reduce q/qmul (r/of "ORAI" a) (map #(r/of "ORAI" %) (cons b more)))))
+  ([a b & more] (apply r/of "ORAI" a b more)))
 
 (defn ORCA
   "ORCA (live rate): (ORCA) => 1 ORCA; (ORCA amount) => that many ORCA;
   (ORCA a b …) => a·b·… ORCA^n (arity → exponent, like a unit)."
   ([]           (r/of "ORCA"))
   ([amount]     (r/of "ORCA" amount))
-  ([a b & more] (reduce q/qmul (r/of "ORCA" a) (map #(r/of "ORCA" %) (cons b more)))))
+  ([a b & more] (apply r/of "ORCA" a b more)))
 
 (defn ORDI
   "ORDI (live rate): (ORDI) => 1 ORDI; (ORDI amount) => that many ORDI;
   (ORDI a b …) => a·b·… ORDI^n (arity → exponent, like a unit)."
   ([]           (r/of "ORDI"))
   ([amount]     (r/of "ORDI" amount))
-  ([a b & more] (reduce q/qmul (r/of "ORDI" a) (map #(r/of "ORDI" %) (cons b more)))))
+  ([a b & more] (apply r/of "ORDI" a b more)))
 
 (defn ORN
   "ORN (live rate): (ORN) => 1 ORN; (ORN amount) => that many ORN;
   (ORN a b …) => a·b·… ORN^n (arity → exponent, like a unit)."
   ([]           (r/of "ORN"))
   ([amount]     (r/of "ORN" amount))
-  ([a b & more] (reduce q/qmul (r/of "ORN" a) (map #(r/of "ORN" %) (cons b more)))))
+  ([a b & more] (apply r/of "ORN" a b more)))
 
 (defn OSAK
   "OSAK (live rate): (OSAK) => 1 OSAK; (OSAK amount) => that many OSAK;
   (OSAK a b …) => a·b·… OSAK^n (arity → exponent, like a unit)."
   ([]           (r/of "OSAK"))
   ([amount]     (r/of "OSAK" amount))
-  ([a b & more] (reduce q/qmul (r/of "OSAK" a) (map #(r/of "OSAK" %) (cons b more)))))
+  ([a b & more] (apply r/of "OSAK" a b more)))
 
 (defn OSETH
   "OSETH (live rate): (OSETH) => 1 OSETH; (OSETH amount) => that many OSETH;
   (OSETH a b …) => a·b·… OSETH^n (arity → exponent, like a unit)."
   ([]           (r/of "OSETH"))
   ([amount]     (r/of "OSETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "OSETH" a) (map #(r/of "OSETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "OSETH" a b more)))
 
 (defn OSMO
   "OSMO (live rate): (OSMO) => 1 OSMO; (OSMO amount) => that many OSMO;
   (OSMO a b …) => a·b·… OSMO^n (arity → exponent, like a unit)."
   ([]           (r/of "OSMO"))
   ([amount]     (r/of "OSMO" amount))
-  ([a b & more] (reduce q/qmul (r/of "OSMO" a) (map #(r/of "OSMO" %) (cons b more)))))
+  ([a b & more] (apply r/of "OSMO" a b more)))
 
 (defn OUSG
   "OUSG (live rate): (OUSG) => 1 OUSG; (OUSG amount) => that many OUSG;
   (OUSG a b …) => a·b·… OUSG^n (arity → exponent, like a unit)."
   ([]           (r/of "OUSG"))
   ([amount]     (r/of "OUSG" amount))
-  ([a b & more] (reduce q/qmul (r/of "OUSG" a) (map #(r/of "OUSG" %) (cons b more)))))
+  ([a b & more] (apply r/of "OUSG" a b more)))
 
 (defn OXT
   "OXT (live rate): (OXT) => 1 OXT; (OXT amount) => that many OXT;
   (OXT a b …) => a·b·… OXT^n (arity → exponent, like a unit)."
   ([]           (r/of "OXT"))
   ([amount]     (r/of "OXT" amount))
-  ([a b & more] (reduce q/qmul (r/of "OXT" a) (map #(r/of "OXT" %) (cons b more)))))
+  ([a b & more] (apply r/of "OXT" a b more)))
 
 (defn PAAL
   "PAAL (live rate): (PAAL) => 1 PAAL; (PAAL amount) => that many PAAL;
   (PAAL a b …) => a·b·… PAAL^n (arity → exponent, like a unit)."
   ([]           (r/of "PAAL"))
   ([amount]     (r/of "PAAL" amount))
-  ([a b & more] (reduce q/qmul (r/of "PAAL" a) (map #(r/of "PAAL" %) (cons b more)))))
+  ([a b & more] (apply r/of "PAAL" a b more)))
 
 (defn PAB
   "PAB (live rate): (PAB) => 1 PAB; (PAB amount) => that many PAB;
   (PAB a b …) => a·b·… PAB^n (arity → exponent, like a unit)."
   ([]           (r/of "PAB"))
   ([amount]     (r/of "PAB" amount))
-  ([a b & more] (reduce q/qmul (r/of "PAB" a) (map #(r/of "PAB" %) (cons b more)))))
+  ([a b & more] (apply r/of "PAB" a b more)))
 
 (defn PANDORA
   "PANDORA (live rate): (PANDORA) => 1 PANDORA; (PANDORA amount) => that many PANDORA;
   (PANDORA a b …) => a·b·… PANDORA^n (arity → exponent, like a unit)."
   ([]           (r/of "PANDORA"))
   ([amount]     (r/of "PANDORA" amount))
-  ([a b & more] (reduce q/qmul (r/of "PANDORA" a) (map #(r/of "PANDORA" %) (cons b more)))))
+  ([a b & more] (apply r/of "PANDORA" a b more)))
 
 (defn PARTI
   "PARTI (live rate): (PARTI) => 1 PARTI; (PARTI amount) => that many PARTI;
   (PARTI a b …) => a·b·… PARTI^n (arity → exponent, like a unit)."
   ([]           (r/of "PARTI"))
   ([amount]     (r/of "PARTI" amount))
-  ([a b & more] (reduce q/qmul (r/of "PARTI" a) (map #(r/of "PARTI" %) (cons b more)))))
+  ([a b & more] (apply r/of "PARTI" a b more)))
 
 (defn PAX
   "PAX (live rate): (PAX) => 1 PAX; (PAX amount) => that many PAX;
   (PAX a b …) => a·b·… PAX^n (arity → exponent, like a unit)."
   ([]           (r/of "PAX"))
   ([amount]     (r/of "PAX" amount))
-  ([a b & more] (reduce q/qmul (r/of "PAX" a) (map #(r/of "PAX" %) (cons b more)))))
+  ([a b & more] (apply r/of "PAX" a b more)))
 
 (defn PAXG
   "PAXG (live rate): (PAXG) => 1 PAXG; (PAXG amount) => that many PAXG;
   (PAXG a b …) => a·b·… PAXG^n (arity → exponent, like a unit)."
   ([]           (r/of "PAXG"))
   ([amount]     (r/of "PAXG" amount))
-  ([a b & more] (reduce q/qmul (r/of "PAXG" a) (map #(r/of "PAXG" %) (cons b more)))))
+  ([a b & more] (apply r/of "PAXG" a b more)))
 
 (defn PCI
   "PCI (live rate): (PCI) => 1 PCI; (PCI amount) => that many PCI;
   (PCI a b …) => a·b·… PCI^n (arity → exponent, like a unit)."
   ([]           (r/of "PCI"))
   ([amount]     (r/of "PCI" amount))
-  ([a b & more] (reduce q/qmul (r/of "PCI" a) (map #(r/of "PCI" %) (cons b more)))))
+  ([a b & more] (apply r/of "PCI" a b more)))
 
 (defn PEAQ
   "PEAQ (live rate): (PEAQ) => 1 PEAQ; (PEAQ amount) => that many PEAQ;
   (PEAQ a b …) => a·b·… PEAQ^n (arity → exponent, like a unit)."
   ([]           (r/of "PEAQ"))
   ([amount]     (r/of "PEAQ" amount))
-  ([a b & more] (reduce q/qmul (r/of "PEAQ" a) (map #(r/of "PEAQ" %) (cons b more)))))
+  ([a b & more] (apply r/of "PEAQ" a b more)))
 
 (defn PEN
   "PEN (live rate): (PEN) => 1 PEN; (PEN amount) => that many PEN;
   (PEN a b …) => a·b·… PEN^n (arity → exponent, like a unit)."
   ([]           (r/of "PEN"))
   ([amount]     (r/of "PEN" amount))
-  ([a b & more] (reduce q/qmul (r/of "PEN" a) (map #(r/of "PEN" %) (cons b more)))))
+  ([a b & more] (apply r/of "PEN" a b more)))
 
 (defn PENDLE
   "PENDLE (live rate): (PENDLE) => 1 PENDLE; (PENDLE amount) => that many PENDLE;
   (PENDLE a b …) => a·b·… PENDLE^n (arity → exponent, like a unit)."
   ([]           (r/of "PENDLE"))
   ([amount]     (r/of "PENDLE" amount))
-  ([a b & more] (reduce q/qmul (r/of "PENDLE" a) (map #(r/of "PENDLE" %) (cons b more)))))
+  ([a b & more] (apply r/of "PENDLE" a b more)))
 
 (defn PENGU
   "PENGU (live rate): (PENGU) => 1 PENGU; (PENGU amount) => that many PENGU;
   (PENGU a b …) => a·b·… PENGU^n (arity → exponent, like a unit)."
   ([]           (r/of "PENGU"))
   ([amount]     (r/of "PENGU" amount))
-  ([a b & more] (reduce q/qmul (r/of "PENGU" a) (map #(r/of "PENGU" %) (cons b more)))))
+  ([a b & more] (apply r/of "PENGU" a b more)))
 
 (defn PEOPLE
   "PEOPLE (live rate): (PEOPLE) => 1 PEOPLE; (PEOPLE amount) => that many PEOPLE;
   (PEOPLE a b …) => a·b·… PEOPLE^n (arity → exponent, like a unit)."
   ([]           (r/of "PEOPLE"))
   ([amount]     (r/of "PEOPLE" amount))
-  ([a b & more] (reduce q/qmul (r/of "PEOPLE" a) (map #(r/of "PEOPLE" %) (cons b more)))))
+  ([a b & more] (apply r/of "PEOPLE" a b more)))
 
 (defn PEPE
   "PEPE (live rate): (PEPE) => 1 PEPE; (PEPE amount) => that many PEPE;
   (PEPE a b …) => a·b·… PEPE^n (arity → exponent, like a unit)."
   ([]           (r/of "PEPE"))
   ([amount]     (r/of "PEPE" amount))
-  ([a b & more] (reduce q/qmul (r/of "PEPE" a) (map #(r/of "PEPE" %) (cons b more)))))
+  ([a b & more] (apply r/of "PEPE" a b more)))
 
 (defn PEPECOIN
   "PEPECOIN (live rate): (PEPECOIN) => 1 PEPECOIN; (PEPECOIN amount) => that many PEPECOIN;
   (PEPECOIN a b …) => a·b·… PEPECOIN^n (arity → exponent, like a unit)."
   ([]           (r/of "PEPECOIN"))
   ([amount]     (r/of "PEPECOIN" amount))
-  ([a b & more] (reduce q/qmul (r/of "PEPECOIN" a) (map #(r/of "PEPECOIN" %) (cons b more)))))
+  ([a b & more] (apply r/of "PEPECOIN" a b more)))
 
 (defn PERP
   "PERP (live rate): (PERP) => 1 PERP; (PERP amount) => that many PERP;
   (PERP a b …) => a·b·… PERP^n (arity → exponent, like a unit)."
   ([]           (r/of "PERP"))
   ([amount]     (r/of "PERP" amount))
-  ([a b & more] (reduce q/qmul (r/of "PERP" a) (map #(r/of "PERP" %) (cons b more)))))
+  ([a b & more] (apply r/of "PERP" a b more)))
 
 (defn PGK
   "PGK (live rate): (PGK) => 1 PGK; (PGK amount) => that many PGK;
   (PGK a b …) => a·b·… PGK^n (arity → exponent, like a unit)."
   ([]           (r/of "PGK"))
   ([amount]     (r/of "PGK" amount))
-  ([a b & more] (reduce q/qmul (r/of "PGK" a) (map #(r/of "PGK" %) (cons b more)))))
+  ([a b & more] (apply r/of "PGK" a b more)))
 
 (defn PHA
   "PHA (live rate): (PHA) => 1 PHA; (PHA amount) => that many PHA;
   (PHA a b …) => a·b·… PHA^n (arity → exponent, like a unit)."
   ([]           (r/of "PHA"))
   ([amount]     (r/of "PHA" amount))
-  ([a b & more] (reduce q/qmul (r/of "PHA" a) (map #(r/of "PHA" %) (cons b more)))))
+  ([a b & more] (apply r/of "PHA" a b more)))
 
 (defn PHP
   "PHP (live rate): (PHP) => 1 PHP; (PHP amount) => that many PHP;
   (PHP a b …) => a·b·… PHP^n (arity → exponent, like a unit)."
   ([]           (r/of "PHP"))
   ([amount]     (r/of "PHP" amount))
-  ([a b & more] (reduce q/qmul (r/of "PHP" a) (map #(r/of "PHP" %) (cons b more)))))
+  ([a b & more] (apply r/of "PHP" a b more)))
 
 (defn PI
   "PI (live rate): (PI) => 1 PI; (PI amount) => that many PI;
   (PI a b …) => a·b·… PI^n (arity → exponent, like a unit)."
   ([]           (r/of "PI"))
   ([amount]     (r/of "PI" amount))
-  ([a b & more] (reduce q/qmul (r/of "PI" a) (map #(r/of "PI" %) (cons b more)))))
+  ([a b & more] (apply r/of "PI" a b more)))
 
 (defn PIP
   "PIP (live rate): (PIP) => 1 PIP; (PIP amount) => that many PIP;
   (PIP a b …) => a·b·… PIP^n (arity → exponent, like a unit)."
   ([]           (r/of "PIP"))
   ([amount]     (r/of "PIP" amount))
-  ([a b & more] (reduce q/qmul (r/of "PIP" a) (map #(r/of "PIP" %) (cons b more)))))
+  ([a b & more] (apply r/of "PIP" a b more)))
 
 (defn PIRATE
   "PIRATE (live rate): (PIRATE) => 1 PIRATE; (PIRATE amount) => that many PIRATE;
   (PIRATE a b …) => a·b·… PIRATE^n (arity → exponent, like a unit)."
   ([]           (r/of "PIRATE"))
   ([amount]     (r/of "PIRATE" amount))
-  ([a b & more] (reduce q/qmul (r/of "PIRATE" a) (map #(r/of "PIRATE" %) (cons b more)))))
+  ([a b & more] (apply r/of "PIRATE" a b more)))
 
 (defn PIXEL
   "PIXEL (live rate): (PIXEL) => 1 PIXEL; (PIXEL amount) => that many PIXEL;
   (PIXEL a b …) => a·b·… PIXEL^n (arity → exponent, like a unit)."
   ([]           (r/of "PIXEL"))
   ([amount]     (r/of "PIXEL" amount))
-  ([a b & more] (reduce q/qmul (r/of "PIXEL" a) (map #(r/of "PIXEL" %) (cons b more)))))
+  ([a b & more] (apply r/of "PIXEL" a b more)))
 
 (defn PKR
   "PKR (live rate): (PKR) => 1 PKR; (PKR amount) => that many PKR;
   (PKR a b …) => a·b·… PKR^n (arity → exponent, like a unit)."
   ([]           (r/of "PKR"))
   ([amount]     (r/of "PKR" amount))
-  ([a b & more] (reduce q/qmul (r/of "PKR" a) (map #(r/of "PKR" %) (cons b more)))))
+  ([a b & more] (apply r/of "PKR" a b more)))
 
 (defn PLA
   "PLA (live rate): (PLA) => 1 PLA; (PLA amount) => that many PLA;
   (PLA a b …) => a·b·… PLA^n (arity → exponent, like a unit)."
   ([]           (r/of "PLA"))
   ([amount]     (r/of "PLA" amount))
-  ([a b & more] (reduce q/qmul (r/of "PLA" a) (map #(r/of "PLA" %) (cons b more)))))
+  ([a b & more] (apply r/of "PLA" a b more)))
 
 (defn PLN
   "PLN (live rate): (PLN) => 1 PLN; (PLN amount) => that many PLN;
   (PLN a b …) => a·b·… PLN^n (arity → exponent, like a unit)."
   ([]           (r/of "PLN"))
   ([amount]     (r/of "PLN" amount))
-  ([a b & more] (reduce q/qmul (r/of "PLN" a) (map #(r/of "PLN" %) (cons b more)))))
+  ([a b & more] (apply r/of "PLN" a b more)))
 
 (defn PLU
   "PLU (live rate): (PLU) => 1 PLU; (PLU amount) => that many PLU;
   (PLU a b …) => a·b·… PLU^n (arity → exponent, like a unit)."
   ([]           (r/of "PLU"))
   ([amount]     (r/of "PLU" amount))
-  ([a b & more] (reduce q/qmul (r/of "PLU" a) (map #(r/of "PLU" %) (cons b more)))))
+  ([a b & more] (apply r/of "PLU" a b more)))
 
 (defn PLUME
   "PLUME (live rate): (PLUME) => 1 PLUME; (PLUME amount) => that many PLUME;
   (PLUME a b …) => a·b·… PLUME^n (arity → exponent, like a unit)."
   ([]           (r/of "PLUME"))
   ([amount]     (r/of "PLUME" amount))
-  ([a b & more] (reduce q/qmul (r/of "PLUME" a) (map #(r/of "PLUME" %) (cons b more)))))
+  ([a b & more] (apply r/of "PLUME" a b more)))
 
 (defn PNG
   "PNG (live rate): (PNG) => 1 PNG; (PNG amount) => that many PNG;
   (PNG a b …) => a·b·… PNG^n (arity → exponent, like a unit)."
   ([]           (r/of "PNG"))
   ([amount]     (r/of "PNG" amount))
-  ([a b & more] (reduce q/qmul (r/of "PNG" a) (map #(r/of "PNG" %) (cons b more)))))
+  ([a b & more] (apply r/of "PNG" a b more)))
 
 (defn PNUT
   "PNUT (live rate): (PNUT) => 1 PNUT; (PNUT amount) => that many PNUT;
   (PNUT a b …) => a·b·… PNUT^n (arity → exponent, like a unit)."
   ([]           (r/of "PNUT"))
   ([amount]     (r/of "PNUT" amount))
-  ([a b & more] (reduce q/qmul (r/of "PNUT" a) (map #(r/of "PNUT" %) (cons b more)))))
+  ([a b & more] (apply r/of "PNUT" a b more)))
 
 (defn POKT
   "POKT (live rate): (POKT) => 1 POKT; (POKT amount) => that many POKT;
   (POKT a b …) => a·b·… POKT^n (arity → exponent, like a unit)."
   ([]           (r/of "POKT"))
   ([amount]     (r/of "POKT" amount))
-  ([a b & more] (reduce q/qmul (r/of "POKT" a) (map #(r/of "POKT" %) (cons b more)))))
+  ([a b & more] (apply r/of "POKT" a b more)))
 
 (defn POL
   "POL (live rate): (POL) => 1 POL; (POL amount) => that many POL;
   (POL a b …) => a·b·… POL^n (arity → exponent, like a unit)."
   ([]           (r/of "POL"))
   ([amount]     (r/of "POL" amount))
-  ([a b & more] (reduce q/qmul (r/of "POL" a) (map #(r/of "POL" %) (cons b more)))))
+  ([a b & more] (apply r/of "POL" a b more)))
 
 (defn POLS
   "POLS (live rate): (POLS) => 1 POLS; (POLS amount) => that many POLS;
   (POLS a b …) => a·b·… POLS^n (arity → exponent, like a unit)."
   ([]           (r/of "POLS"))
   ([amount]     (r/of "POLS" amount))
-  ([a b & more] (reduce q/qmul (r/of "POLS" a) (map #(r/of "POLS" %) (cons b more)))))
+  ([a b & more] (apply r/of "POLS" a b more)))
 
 (defn POLY
   "POLY (live rate): (POLY) => 1 POLY; (POLY amount) => that many POLY;
   (POLY a b …) => a·b·… POLY^n (arity → exponent, like a unit)."
   ([]           (r/of "POLY"))
   ([amount]     (r/of "POLY" amount))
-  ([a b & more] (reduce q/qmul (r/of "POLY" a) (map #(r/of "POLY" %) (cons b more)))))
+  ([a b & more] (apply r/of "POLY" a b more)))
 
 (defn POLYX
   "POLYX (live rate): (POLYX) => 1 POLYX; (POLYX amount) => that many POLYX;
   (POLYX a b …) => a·b·… POLYX^n (arity → exponent, like a unit)."
   ([]           (r/of "POLYX"))
   ([amount]     (r/of "POLYX" amount))
-  ([a b & more] (reduce q/qmul (r/of "POLYX" a) (map #(r/of "POLYX" %) (cons b more)))))
+  ([a b & more] (apply r/of "POLYX" a b more)))
 
 (defn POND
   "POND (live rate): (POND) => 1 POND; (POND amount) => that many POND;
   (POND a b …) => a·b·… POND^n (arity → exponent, like a unit)."
   ([]           (r/of "POND"))
   ([amount]     (r/of "POND" amount))
-  ([a b & more] (reduce q/qmul (r/of "POND" a) (map #(r/of "POND" %) (cons b more)))))
+  ([a b & more] (apply r/of "POND" a b more)))
 
 (defn PONKE
   "PONKE (live rate): (PONKE) => 1 PONKE; (PONKE amount) => that many PONKE;
   (PONKE a b …) => a·b·… PONKE^n (arity → exponent, like a unit)."
   ([]           (r/of "PONKE"))
   ([amount]     (r/of "PONKE" amount))
-  ([a b & more] (reduce q/qmul (r/of "PONKE" a) (map #(r/of "PONKE" %) (cons b more)))))
+  ([a b & more] (apply r/of "PONKE" a b more)))
 
 (defn POPCAT
   "POPCAT (live rate): (POPCAT) => 1 POPCAT; (POPCAT amount) => that many POPCAT;
   (POPCAT a b …) => a·b·… POPCAT^n (arity → exponent, like a unit)."
   ([]           (r/of "POPCAT"))
   ([amount]     (r/of "POPCAT" amount))
-  ([a b & more] (reduce q/qmul (r/of "POPCAT" a) (map #(r/of "POPCAT" %) (cons b more)))))
+  ([a b & more] (apply r/of "POPCAT" a b more)))
 
 (defn PORK
   "PORK (live rate): (PORK) => 1 PORK; (PORK amount) => that many PORK;
   (PORK a b …) => a·b·… PORK^n (arity → exponent, like a unit)."
   ([]           (r/of "PORK"))
   ([amount]     (r/of "PORK" amount))
-  ([a b & more] (reduce q/qmul (r/of "PORK" a) (map #(r/of "PORK" %) (cons b more)))))
+  ([a b & more] (apply r/of "PORK" a b more)))
 
 (defn PORTAL
   "PORTAL (live rate): (PORTAL) => 1 PORTAL; (PORTAL amount) => that many PORTAL;
   (PORTAL a b …) => a·b·… PORTAL^n (arity → exponent, like a unit)."
   ([]           (r/of "PORTAL"))
   ([amount]     (r/of "PORTAL" amount))
-  ([a b & more] (reduce q/qmul (r/of "PORTAL" a) (map #(r/of "PORTAL" %) (cons b more)))))
+  ([a b & more] (apply r/of "PORTAL" a b more)))
 
 (defn POWR
   "POWR (live rate): (POWR) => 1 POWR; (POWR amount) => that many POWR;
   (POWR a b …) => a·b·… POWR^n (arity → exponent, like a unit)."
   ([]           (r/of "POWR"))
   ([amount]     (r/of "POWR" amount))
-  ([a b & more] (reduce q/qmul (r/of "POWR" a) (map #(r/of "POWR" %) (cons b more)))))
+  ([a b & more] (apply r/of "POWR" a b more)))
 
 (defn PRCL
   "PRCL (live rate): (PRCL) => 1 PRCL; (PRCL amount) => that many PRCL;
   (PRCL a b …) => a·b·… PRCL^n (arity → exponent, like a unit)."
   ([]           (r/of "PRCL"))
   ([amount]     (r/of "PRCL" amount))
-  ([a b & more] (reduce q/qmul (r/of "PRCL" a) (map #(r/of "PRCL" %) (cons b more)))))
+  ([a b & more] (apply r/of "PRCL" a b more)))
 
 (defn PRIME
   "PRIME (live rate): (PRIME) => 1 PRIME; (PRIME amount) => that many PRIME;
   (PRIME a b …) => a·b·… PRIME^n (arity → exponent, like a unit)."
   ([]           (r/of "PRIME"))
   ([amount]     (r/of "PRIME" amount))
-  ([a b & more] (reduce q/qmul (r/of "PRIME" a) (map #(r/of "PRIME" %) (cons b more)))))
+  ([a b & more] (apply r/of "PRIME" a b more)))
 
 (defn PRL
   "PRL (live rate): (PRL) => 1 PRL; (PRL amount) => that many PRL;
   (PRL a b …) => a·b·… PRL^n (arity → exponent, like a unit)."
   ([]           (r/of "PRL"))
   ([amount]     (r/of "PRL" amount))
-  ([a b & more] (reduce q/qmul (r/of "PRL" a) (map #(r/of "PRL" %) (cons b more)))))
+  ([a b & more] (apply r/of "PRL" a b more)))
 
 (defn PRO
   "PRO (live rate): (PRO) => 1 PRO; (PRO amount) => that many PRO;
   (PRO a b …) => a·b·… PRO^n (arity → exponent, like a unit)."
   ([]           (r/of "PRO"))
   ([amount]     (r/of "PRO" amount))
-  ([a b & more] (reduce q/qmul (r/of "PRO" a) (map #(r/of "PRO" %) (cons b more)))))
+  ([a b & more] (apply r/of "PRO" a b more)))
 
 (defn PROM
   "PROM (live rate): (PROM) => 1 PROM; (PROM amount) => that many PROM;
   (PROM a b …) => a·b·… PROM^n (arity → exponent, like a unit)."
   ([]           (r/of "PROM"))
   ([amount]     (r/of "PROM" amount))
-  ([a b & more] (reduce q/qmul (r/of "PROM" a) (map #(r/of "PROM" %) (cons b more)))))
+  ([a b & more] (apply r/of "PROM" a b more)))
 
 (defn PROMPT
   "PROMPT (live rate): (PROMPT) => 1 PROMPT; (PROMPT amount) => that many PROMPT;
   (PROMPT a b …) => a·b·… PROMPT^n (arity → exponent, like a unit)."
   ([]           (r/of "PROMPT"))
   ([amount]     (r/of "PROMPT" amount))
-  ([a b & more] (reduce q/qmul (r/of "PROMPT" a) (map #(r/of "PROMPT" %) (cons b more)))))
+  ([a b & more] (apply r/of "PROMPT" a b more)))
 
 (defn PROS
   "PROS (live rate): (PROS) => 1 PROS; (PROS amount) => that many PROS;
   (PROS a b …) => a·b·… PROS^n (arity → exponent, like a unit)."
   ([]           (r/of "PROS"))
   ([amount]     (r/of "PROS" amount))
-  ([a b & more] (reduce q/qmul (r/of "PROS" a) (map #(r/of "PROS" %) (cons b more)))))
+  ([a b & more] (apply r/of "PROS" a b more)))
 
 (defn PROVE
   "PROVE (live rate): (PROVE) => 1 PROVE; (PROVE amount) => that many PROVE;
   (PROVE a b …) => a·b·… PROVE^n (arity → exponent, like a unit)."
   ([]           (r/of "PROVE"))
   ([amount]     (r/of "PROVE" amount))
-  ([a b & more] (reduce q/qmul (r/of "PROVE" a) (map #(r/of "PROVE" %) (cons b more)))))
+  ([a b & more] (apply r/of "PROVE" a b more)))
 
 (defn PRQ
   "PRQ (live rate): (PRQ) => 1 PRQ; (PRQ amount) => that many PRQ;
   (PRQ a b …) => a·b·… PRQ^n (arity → exponent, like a unit)."
   ([]           (r/of "PRQ"))
   ([amount]     (r/of "PRQ" amount))
-  ([a b & more] (reduce q/qmul (r/of "PRQ" a) (map #(r/of "PRQ" %) (cons b more)))))
+  ([a b & more] (apply r/of "PRQ" a b more)))
 
 (defn PTGC
   "PTGC (live rate): (PTGC) => 1 PTGC; (PTGC amount) => that many PTGC;
   (PTGC a b …) => a·b·… PTGC^n (arity → exponent, like a unit)."
   ([]           (r/of "PTGC"))
   ([amount]     (r/of "PTGC" amount))
-  ([a b & more] (reduce q/qmul (r/of "PTGC" a) (map #(r/of "PTGC" %) (cons b more)))))
+  ([a b & more] (apply r/of "PTGC" a b more)))
 
 (defn PUMP
   "PUMP (live rate): (PUMP) => 1 PUMP; (PUMP amount) => that many PUMP;
   (PUMP a b …) => a·b·… PUMP^n (arity → exponent, like a unit)."
   ([]           (r/of "PUMP"))
   ([amount]     (r/of "PUMP" amount))
-  ([a b & more] (reduce q/qmul (r/of "PUMP" a) (map #(r/of "PUMP" %) (cons b more)))))
+  ([a b & more] (apply r/of "PUMP" a b more)))
 
 (defn PUMPBTC
   "PUMPBTC (live rate): (PUMPBTC) => 1 PUMPBTC; (PUMPBTC amount) => that many PUMPBTC;
   (PUMPBTC a b …) => a·b·… PUMPBTC^n (arity → exponent, like a unit)."
   ([]           (r/of "PUMPBTC"))
   ([amount]     (r/of "PUMPBTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "PUMPBTC" a) (map #(r/of "PUMPBTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "PUMPBTC" a b more)))
 
 (defn PUNDIAI
   "PUNDIAI (live rate): (PUNDIAI) => 1 PUNDIAI; (PUNDIAI amount) => that many PUNDIAI;
   (PUNDIAI a b …) => a·b·… PUNDIAI^n (arity → exponent, like a unit)."
   ([]           (r/of "PUNDIAI"))
   ([amount]     (r/of "PUNDIAI" amount))
-  ([a b & more] (reduce q/qmul (r/of "PUNDIAI" a) (map #(r/of "PUNDIAI" %) (cons b more)))))
+  ([a b & more] (apply r/of "PUNDIAI" a b more)))
 
 (defn PUNDIX
   "PUNDIX (live rate): (PUNDIX) => 1 PUNDIX; (PUNDIX amount) => that many PUNDIX;
   (PUNDIX a b …) => a·b·… PUNDIX^n (arity → exponent, like a unit)."
   ([]           (r/of "PUNDIX"))
   ([amount]     (r/of "PUNDIX" amount))
-  ([a b & more] (reduce q/qmul (r/of "PUNDIX" a) (map #(r/of "PUNDIX" %) (cons b more)))))
+  ([a b & more] (apply r/of "PUNDIX" a b more)))
 
 (defn PURR
   "PURR (live rate): (PURR) => 1 PURR; (PURR amount) => that many PURR;
   (PURR a b …) => a·b·… PURR^n (arity → exponent, like a unit)."
   ([]           (r/of "PURR"))
   ([amount]     (r/of "PURR" amount))
-  ([a b & more] (reduce q/qmul (r/of "PURR" a) (map #(r/of "PURR" %) (cons b more)))))
+  ([a b & more] (apply r/of "PURR" a b more)))
 
 (defn PYG
   "PYG (live rate): (PYG) => 1 PYG; (PYG amount) => that many PYG;
   (PYG a b …) => a·b·… PYG^n (arity → exponent, like a unit)."
   ([]           (r/of "PYG"))
   ([amount]     (r/of "PYG" amount))
-  ([a b & more] (reduce q/qmul (r/of "PYG" a) (map #(r/of "PYG" %) (cons b more)))))
+  ([a b & more] (apply r/of "PYG" a b more)))
 
 (defn PYR
   "PYR (live rate): (PYR) => 1 PYR; (PYR amount) => that many PYR;
   (PYR a b …) => a·b·… PYR^n (arity → exponent, like a unit)."
   ([]           (r/of "PYR"))
   ([amount]     (r/of "PYR" amount))
-  ([a b & more] (reduce q/qmul (r/of "PYR" a) (map #(r/of "PYR" %) (cons b more)))))
+  ([a b & more] (apply r/of "PYR" a b more)))
 
 (defn PYTH
   "PYTH (live rate): (PYTH) => 1 PYTH; (PYTH amount) => that many PYTH;
   (PYTH a b …) => a·b·… PYTH^n (arity → exponent, like a unit)."
   ([]           (r/of "PYTH"))
   ([amount]     (r/of "PYTH" amount))
-  ([a b & more] (reduce q/qmul (r/of "PYTH" a) (map #(r/of "PYTH" %) (cons b more)))))
+  ([a b & more] (apply r/of "PYTH" a b more)))
 
 (defn PYUSD
   "PYUSD (live rate): (PYUSD) => 1 PYUSD; (PYUSD amount) => that many PYUSD;
   (PYUSD a b …) => a·b·… PYUSD^n (arity → exponent, like a unit)."
   ([]           (r/of "PYUSD"))
   ([amount]     (r/of "PYUSD" amount))
-  ([a b & more] (reduce q/qmul (r/of "PYUSD" a) (map #(r/of "PYUSD" %) (cons b more)))))
+  ([a b & more] (apply r/of "PYUSD" a b more)))
 
 (defn QAR
   "QAR (live rate): (QAR) => 1 QAR; (QAR amount) => that many QAR;
   (QAR a b …) => a·b·… QAR^n (arity → exponent, like a unit)."
   ([]           (r/of "QAR"))
   ([amount]     (r/of "QAR" amount))
-  ([a b & more] (reduce q/qmul (r/of "QAR" a) (map #(r/of "QAR" %) (cons b more)))))
+  ([a b & more] (apply r/of "QAR" a b more)))
 
 (defn QFI
   "QFI (live rate): (QFI) => 1 QFI; (QFI amount) => that many QFI;
   (QFI a b …) => a·b·… QFI^n (arity → exponent, like a unit)."
   ([]           (r/of "QFI"))
   ([amount]     (r/of "QFI" amount))
-  ([a b & more] (reduce q/qmul (r/of "QFI" a) (map #(r/of "QFI" %) (cons b more)))))
+  ([a b & more] (apply r/of "QFI" a b more)))
 
 (defn QGOLD
   "QGOLD (live rate): (QGOLD) => 1 QGOLD; (QGOLD amount) => that many QGOLD;
   (QGOLD a b …) => a·b·… QGOLD^n (arity → exponent, like a unit)."
   ([]           (r/of "QGOLD"))
   ([amount]     (r/of "QGOLD" amount))
-  ([a b & more] (reduce q/qmul (r/of "QGOLD" a) (map #(r/of "QGOLD" %) (cons b more)))))
+  ([a b & more] (apply r/of "QGOLD" a b more)))
 
 (defn QI
   "QI (live rate): (QI) => 1 QI; (QI amount) => that many QI;
   (QI a b …) => a·b·… QI^n (arity → exponent, like a unit)."
   ([]           (r/of "QI"))
   ([amount]     (r/of "QI" amount))
-  ([a b & more] (reduce q/qmul (r/of "QI" a) (map #(r/of "QI" %) (cons b more)))))
+  ([a b & more] (apply r/of "QI" a b more)))
 
 (defn QNT
   "QNT (live rate): (QNT) => 1 QNT; (QNT amount) => that many QNT;
   (QNT a b …) => a·b·… QNT^n (arity → exponent, like a unit)."
   ([]           (r/of "QNT"))
   ([amount]     (r/of "QNT" amount))
-  ([a b & more] (reduce q/qmul (r/of "QNT" a) (map #(r/of "QNT" %) (cons b more)))))
+  ([a b & more] (apply r/of "QNT" a b more)))
 
 (defn QTUM
   "QTUM (live rate): (QTUM) => 1 QTUM; (QTUM amount) => that many QTUM;
   (QTUM a b …) => a·b·… QTUM^n (arity → exponent, like a unit)."
   ([]           (r/of "QTUM"))
   ([amount]     (r/of "QTUM" amount))
-  ([a b & more] (reduce q/qmul (r/of "QTUM" a) (map #(r/of "QTUM" %) (cons b more)))))
+  ([a b & more] (apply r/of "QTUM" a b more)))
 
 (defn QUBIC
   "QUBIC (live rate): (QUBIC) => 1 QUBIC; (QUBIC amount) => that many QUBIC;
   (QUBIC a b …) => a·b·… QUBIC^n (arity → exponent, like a unit)."
   ([]           (r/of "QUBIC"))
   ([amount]     (r/of "QUBIC" amount))
-  ([a b & more] (reduce q/qmul (r/of "QUBIC" a) (map #(r/of "QUBIC" %) (cons b more)))))
+  ([a b & more] (apply r/of "QUBIC" a b more)))
 
 (defn QUICK
   "QUICK (live rate): (QUICK) => 1 QUICK; (QUICK amount) => that many QUICK;
   (QUICK a b …) => a·b·… QUICK^n (arity → exponent, like a unit)."
   ([]           (r/of "QUICK"))
   ([amount]     (r/of "QUICK" amount))
-  ([a b & more] (reduce q/qmul (r/of "QUICK" a) (map #(r/of "QUICK" %) (cons b more)))))
+  ([a b & more] (apply r/of "QUICK" a b more)))
 
 (defn RAD
   "RAD (live rate): (RAD) => 1 RAD; (RAD amount) => that many RAD;
   (RAD a b …) => a·b·… RAD^n (arity → exponent, like a unit)."
   ([]           (r/of "RAD"))
   ([amount]     (r/of "RAD" amount))
-  ([a b & more] (reduce q/qmul (r/of "RAD" a) (map #(r/of "RAD" %) (cons b more)))))
+  ([a b & more] (apply r/of "RAD" a b more)))
 
 (defn RAI
   "RAI (live rate): (RAI) => 1 RAI; (RAI amount) => that many RAI;
   (RAI a b …) => a·b·… RAI^n (arity → exponent, like a unit)."
   ([]           (r/of "RAI"))
   ([amount]     (r/of "RAI" amount))
-  ([a b & more] (reduce q/qmul (r/of "RAI" a) (map #(r/of "RAI" %) (cons b more)))))
+  ([a b & more] (apply r/of "RAI" a b more)))
 
 (defn RARE
   "RARE (live rate): (RARE) => 1 RARE; (RARE amount) => that many RARE;
   (RARE a b …) => a·b·… RARE^n (arity → exponent, like a unit)."
   ([]           (r/of "RARE"))
   ([amount]     (r/of "RARE" amount))
-  ([a b & more] (reduce q/qmul (r/of "RARE" a) (map #(r/of "RARE" %) (cons b more)))))
+  ([a b & more] (apply r/of "RARE" a b more)))
 
 (defn RARI
   "RARI (live rate): (RARI) => 1 RARI; (RARI amount) => that many RARI;
   (RARI a b …) => a·b·… RARI^n (arity → exponent, like a unit)."
   ([]           (r/of "RARI"))
   ([amount]     (r/of "RARI" amount))
-  ([a b & more] (reduce q/qmul (r/of "RARI" a) (map #(r/of "RARI" %) (cons b more)))))
+  ([a b & more] (apply r/of "RARI" a b more)))
 
 (defn RAVE
   "RAVE (live rate): (RAVE) => 1 RAVE; (RAVE amount) => that many RAVE;
   (RAVE a b …) => a·b·… RAVE^n (arity → exponent, like a unit)."
   ([]           (r/of "RAVE"))
   ([amount]     (r/of "RAVE" amount))
-  ([a b & more] (reduce q/qmul (r/of "RAVE" a) (map #(r/of "RAVE" %) (cons b more)))))
+  ([a b & more] (apply r/of "RAVE" a b more)))
 
 (defn RAY
   "RAY (live rate): (RAY) => 1 RAY; (RAY amount) => that many RAY;
   (RAY a b …) => a·b·… RAY^n (arity → exponent, like a unit)."
   ([]           (r/of "RAY"))
   ([amount]     (r/of "RAY" amount))
-  ([a b & more] (reduce q/qmul (r/of "RAY" a) (map #(r/of "RAY" %) (cons b more)))))
+  ([a b & more] (apply r/of "RAY" a b more)))
 
 (defn RBN
   "RBN (live rate): (RBN) => 1 RBN; (RBN amount) => that many RBN;
   (RBN a b …) => a·b·… RBN^n (arity → exponent, like a unit)."
   ([]           (r/of "RBN"))
   ([amount]     (r/of "RBN" amount))
-  ([a b & more] (reduce q/qmul (r/of "RBN" a) (map #(r/of "RBN" %) (cons b more)))))
+  ([a b & more] (apply r/of "RBN" a b more)))
 
 (defn RBNT
   "RBNT (live rate): (RBNT) => 1 RBNT; (RBNT amount) => that many RBNT;
   (RBNT a b …) => a·b·… RBNT^n (arity → exponent, like a unit)."
   ([]           (r/of "RBNT"))
   ([amount]     (r/of "RBNT" amount))
-  ([a b & more] (reduce q/qmul (r/of "RBNT" a) (map #(r/of "RBNT" %) (cons b more)))))
+  ([a b & more] (apply r/of "RBNT" a b more)))
 
 (defn RDOG
   "RDOG (live rate): (RDOG) => 1 RDOG; (RDOG amount) => that many RDOG;
   (RDOG a b …) => a·b·… RDOG^n (arity → exponent, like a unit)."
   ([]           (r/of "RDOG"))
   ([amount]     (r/of "RDOG" amount))
-  ([a b & more] (reduce q/qmul (r/of "RDOG" a) (map #(r/of "RDOG" %) (cons b more)))))
+  ([a b & more] (apply r/of "RDOG" a b more)))
 
 (defn RE
   "RE (live rate): (RE) => 1 RE; (RE amount) => that many RE;
   (RE a b …) => a·b·… RE^n (arity → exponent, like a unit)."
   ([]           (r/of "RE"))
   ([amount]     (r/of "RE" amount))
-  ([a b & more] (reduce q/qmul (r/of "RE" a) (map #(r/of "RE" %) (cons b more)))))
+  ([a b & more] (apply r/of "RE" a b more)))
 
 (defn RECALL
   "RECALL (live rate): (RECALL) => 1 RECALL; (RECALL amount) => that many RECALL;
   (RECALL a b …) => a·b·… RECALL^n (arity → exponent, like a unit)."
   ([]           (r/of "RECALL"))
   ([amount]     (r/of "RECALL" amount))
-  ([a b & more] (reduce q/qmul (r/of "RECALL" a) (map #(r/of "RECALL" %) (cons b more)))))
+  ([a b & more] (apply r/of "RECALL" a b more)))
 
 (defn RED
   "RED (live rate): (RED) => 1 RED; (RED amount) => that many RED;
   (RED a b …) => a·b·… RED^n (arity → exponent, like a unit)."
   ([]           (r/of "RED"))
   ([amount]     (r/of "RED" amount))
-  ([a b & more] (reduce q/qmul (r/of "RED" a) (map #(r/of "RED" %) (cons b more)))))
+  ([a b & more] (apply r/of "RED" a b more)))
 
 (defn REI
   "REI (live rate): (REI) => 1 REI; (REI amount) => that many REI;
   (REI a b …) => a·b·… REI^n (arity → exponent, like a unit)."
   ([]           (r/of "REI"))
   ([amount]     (r/of "REI" amount))
-  ([a b & more] (reduce q/qmul (r/of "REI" a) (map #(r/of "REI" %) (cons b more)))))
+  ([a b & more] (apply r/of "REI" a b more)))
 
 (defn REN
   "REN (live rate): (REN) => 1 REN; (REN amount) => that many REN;
   (REN a b …) => a·b·… REN^n (arity → exponent, like a unit)."
   ([]           (r/of "REN"))
   ([amount]     (r/of "REN" amount))
-  ([a b & more] (reduce q/qmul (r/of "REN" a) (map #(r/of "REN" %) (cons b more)))))
+  ([a b & more] (apply r/of "REN" a b more)))
 
 (defn RENDER
   "RENDER (live rate): (RENDER) => 1 RENDER; (RENDER amount) => that many RENDER;
   (RENDER a b …) => a·b·… RENDER^n (arity → exponent, like a unit)."
   ([]           (r/of "RENDER"))
   ([amount]     (r/of "RENDER" amount))
-  ([a b & more] (reduce q/qmul (r/of "RENDER" a) (map #(r/of "RENDER" %) (cons b more)))))
+  ([a b & more] (apply r/of "RENDER" a b more)))
 
 (defn REP
   "REP (live rate): (REP) => 1 REP; (REP amount) => that many REP;
   (REP a b …) => a·b·… REP^n (arity → exponent, like a unit)."
   ([]           (r/of "REP"))
   ([amount]     (r/of "REP" amount))
-  ([a b & more] (reduce q/qmul (r/of "REP" a) (map #(r/of "REP" %) (cons b more)))))
+  ([a b & more] (apply r/of "REP" a b more)))
 
 (defn REPV2
   "REPV2 (live rate): (REPV2) => 1 REPV2; (REPV2 amount) => that many REPV2;
   (REPV2 a b …) => a·b·… REPV2^n (arity → exponent, like a unit)."
   ([]           (r/of "REPV2"))
   ([amount]     (r/of "REPV2" amount))
-  ([a b & more] (reduce q/qmul (r/of "REPV2" a) (map #(r/of "REPV2" %) (cons b more)))))
+  ([a b & more] (apply r/of "REPV2" a b more)))
 
 (defn REQ
   "REQ (live rate): (REQ) => 1 REQ; (REQ amount) => that many REQ;
   (REQ a b …) => a·b·… REQ^n (arity → exponent, like a unit)."
   ([]           (r/of "REQ"))
   ([amount]     (r/of "REQ" amount))
-  ([a b & more] (reduce q/qmul (r/of "REQ" a) (map #(r/of "REQ" %) (cons b more)))))
+  ([a b & more] (apply r/of "REQ" a b more)))
 
 (defn RETH
   "RETH (live rate): (RETH) => 1 RETH; (RETH amount) => that many RETH;
   (RETH a b …) => a·b·… RETH^n (arity → exponent, like a unit)."
   ([]           (r/of "RETH"))
   ([amount]     (r/of "RETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "RETH" a) (map #(r/of "RETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "RETH" a b more)))
 
 (defn REZ
   "REZ (live rate): (REZ) => 1 REZ; (REZ amount) => that many REZ;
   (REZ a b …) => a·b·… REZ^n (arity → exponent, like a unit)."
   ([]           (r/of "REZ"))
   ([amount]     (r/of "REZ" amount))
-  ([a b & more] (reduce q/qmul (r/of "REZ" a) (map #(r/of "REZ" %) (cons b more)))))
+  ([a b & more] (apply r/of "REZ" a b more)))
 
 (defn RGT
   "RGT (live rate): (RGT) => 1 RGT; (RGT amount) => that many RGT;
   (RGT a b …) => a·b·… RGT^n (arity → exponent, like a unit)."
   ([]           (r/of "RGT"))
   ([amount]     (r/of "RGT" amount))
-  ([a b & more] (reduce q/qmul (r/of "RGT" a) (map #(r/of "RGT" %) (cons b more)))))
+  ([a b & more] (apply r/of "RGT" a b more)))
 
 (defn RIF
   "RIF (live rate): (RIF) => 1 RIF; (RIF amount) => that many RIF;
   (RIF a b …) => a·b·… RIF^n (arity → exponent, like a unit)."
   ([]           (r/of "RIF"))
   ([amount]     (r/of "RIF" amount))
-  ([a b & more] (reduce q/qmul (r/of "RIF" a) (map #(r/of "RIF" %) (cons b more)))))
+  ([a b & more] (apply r/of "RIF" a b more)))
 
 (defn RLB
   "RLB (live rate): (RLB) => 1 RLB; (RLB amount) => that many RLB;
   (RLB a b …) => a·b·… RLB^n (arity → exponent, like a unit)."
   ([]           (r/of "RLB"))
   ([amount]     (r/of "RLB" amount))
-  ([a b & more] (reduce q/qmul (r/of "RLB" a) (map #(r/of "RLB" %) (cons b more)))))
+  ([a b & more] (apply r/of "RLB" a b more)))
 
 (defn RLC
   "RLC (live rate): (RLC) => 1 RLC; (RLC amount) => that many RLC;
   (RLC a b …) => a·b·… RLC^n (arity → exponent, like a unit)."
   ([]           (r/of "RLC"))
   ([amount]     (r/of "RLC" amount))
-  ([a b & more] (reduce q/qmul (r/of "RLC" a) (map #(r/of "RLC" %) (cons b more)))))
+  ([a b & more] (apply r/of "RLC" a b more)))
 
 (defn RLS
   "RLS (live rate): (RLS) => 1 RLS; (RLS amount) => that many RLS;
   (RLS a b …) => a·b·… RLS^n (arity → exponent, like a unit)."
   ([]           (r/of "RLS"))
   ([amount]     (r/of "RLS" amount))
-  ([a b & more] (reduce q/qmul (r/of "RLS" a) (map #(r/of "RLS" %) (cons b more)))))
+  ([a b & more] (apply r/of "RLS" a b more)))
 
 (defn RLUSD
   "RLUSD (live rate): (RLUSD) => 1 RLUSD; (RLUSD amount) => that many RLUSD;
   (RLUSD a b …) => a·b·… RLUSD^n (arity → exponent, like a unit)."
   ([]           (r/of "RLUSD"))
   ([amount]     (r/of "RLUSD" amount))
-  ([a b & more] (reduce q/qmul (r/of "RLUSD" a) (map #(r/of "RLUSD" %) (cons b more)))))
+  ([a b & more] (apply r/of "RLUSD" a b more)))
 
 (defn RLY
   "RLY (live rate): (RLY) => 1 RLY; (RLY amount) => that many RLY;
   (RLY a b …) => a·b·… RLY^n (arity → exponent, like a unit)."
   ([]           (r/of "RLY"))
   ([amount]     (r/of "RLY" amount))
-  ([a b & more] (reduce q/qmul (r/of "RLY" a) (map #(r/of "RLY" %) (cons b more)))))
+  ([a b & more] (apply r/of "RLY" a b more)))
 
 (defn RNBW
   "RNBW (live rate): (RNBW) => 1 RNBW; (RNBW amount) => that many RNBW;
   (RNBW a b …) => a·b·… RNBW^n (arity → exponent, like a unit)."
   ([]           (r/of "RNBW"))
   ([amount]     (r/of "RNBW" amount))
-  ([a b & more] (reduce q/qmul (r/of "RNBW" a) (map #(r/of "RNBW" %) (cons b more)))))
+  ([a b & more] (apply r/of "RNBW" a b more)))
 
 (defn RNDR
   "RNDR (live rate): (RNDR) => 1 RNDR; (RNDR amount) => that many RNDR;
   (RNDR a b …) => a·b·… RNDR^n (arity → exponent, like a unit)."
   ([]           (r/of "RNDR"))
   ([amount]     (r/of "RNDR" amount))
-  ([a b & more] (reduce q/qmul (r/of "RNDR" a) (map #(r/of "RNDR" %) (cons b more)))))
+  ([a b & more] (apply r/of "RNDR" a b more)))
 
 (defn ROBO
   "ROBO (live rate): (ROBO) => 1 ROBO; (ROBO amount) => that many ROBO;
   (ROBO a b …) => a·b·… ROBO^n (arity → exponent, like a unit)."
   ([]           (r/of "ROBO"))
   ([amount]     (r/of "ROBO" amount))
-  ([a b & more] (reduce q/qmul (r/of "ROBO" a) (map #(r/of "ROBO" %) (cons b more)))))
+  ([a b & more] (apply r/of "ROBO" a b more)))
 
 (defn RON
   "RON (live rate): (RON) => 1 RON; (RON amount) => that many RON;
   (RON a b …) => a·b·… RON^n (arity → exponent, like a unit)."
   ([]           (r/of "RON"))
   ([amount]     (r/of "RON" amount))
-  ([a b & more] (reduce q/qmul (r/of "RON" a) (map #(r/of "RON" %) (cons b more)))))
+  ([a b & more] (apply r/of "RON" a b more)))
 
 (defn RONIN
   "RONIN (live rate): (RONIN) => 1 RONIN; (RONIN amount) => that many RONIN;
   (RONIN a b …) => a·b·… RONIN^n (arity → exponent, like a unit)."
   ([]           (r/of "RONIN"))
   ([amount]     (r/of "RONIN" amount))
-  ([a b & more] (reduce q/qmul (r/of "RONIN" a) (map #(r/of "RONIN" %) (cons b more)))))
+  ([a b & more] (apply r/of "RONIN" a b more)))
 
 (defn ROSE
   "ROSE (live rate): (ROSE) => 1 ROSE; (ROSE amount) => that many ROSE;
   (ROSE a b …) => a·b·… ROSE^n (arity → exponent, like a unit)."
   ([]           (r/of "ROSE"))
   ([amount]     (r/of "ROSE" amount))
-  ([a b & more] (reduce q/qmul (r/of "ROSE" a) (map #(r/of "ROSE" %) (cons b more)))))
+  ([a b & more] (apply r/of "ROSE" a b more)))
 
 (defn RPL
   "RPL (live rate): (RPL) => 1 RPL; (RPL amount) => that many RPL;
   (RPL a b …) => a·b·… RPL^n (arity → exponent, like a unit)."
   ([]           (r/of "RPL"))
   ([amount]     (r/of "RPL" amount))
-  ([a b & more] (reduce q/qmul (r/of "RPL" a) (map #(r/of "RPL" %) (cons b more)))))
+  ([a b & more] (apply r/of "RPL" a b more)))
 
 (defn RSC
   "RSC (live rate): (RSC) => 1 RSC; (RSC amount) => that many RSC;
   (RSC a b …) => a·b·… RSC^n (arity → exponent, like a unit)."
   ([]           (r/of "RSC"))
   ([amount]     (r/of "RSC" amount))
-  ([a b & more] (reduce q/qmul (r/of "RSC" a) (map #(r/of "RSC" %) (cons b more)))))
+  ([a b & more] (apply r/of "RSC" a b more)))
 
 (defn RSD
   "RSD (live rate): (RSD) => 1 RSD; (RSD amount) => that many RSD;
   (RSD a b …) => a·b·… RSD^n (arity → exponent, like a unit)."
   ([]           (r/of "RSD"))
   ([amount]     (r/of "RSD" amount))
-  ([a b & more] (reduce q/qmul (r/of "RSD" a) (map #(r/of "RSD" %) (cons b more)))))
+  ([a b & more] (apply r/of "RSD" a b more)))
 
 (defn RSETH
   "RSETH (live rate): (RSETH) => 1 RSETH; (RSETH amount) => that many RSETH;
   (RSETH a b …) => a·b·… RSETH^n (arity → exponent, like a unit)."
   ([]           (r/of "RSETH"))
   ([amount]     (r/of "RSETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "RSETH" a) (map #(r/of "RSETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "RSETH" a b more)))
 
 (defn RSR
   "RSR (live rate): (RSR) => 1 RSR; (RSR amount) => that many RSR;
   (RSR a b …) => a·b·… RSR^n (arity → exponent, like a unit)."
   ([]           (r/of "RSR"))
   ([amount]     (r/of "RSR" amount))
-  ([a b & more] (reduce q/qmul (r/of "RSR" a) (map #(r/of "RSR" %) (cons b more)))))
+  ([a b & more] (apply r/of "RSR" a b more)))
 
 (defn RSS3
   "RSS3 (live rate): (RSS3) => 1 RSS3; (RSS3 amount) => that many RSS3;
   (RSS3 a b …) => a·b·… RSS3^n (arity → exponent, like a unit)."
   ([]           (r/of "RSS3"))
   ([amount]     (r/of "RSS3" amount))
-  ([a b & more] (reduce q/qmul (r/of "RSS3" a) (map #(r/of "RSS3" %) (cons b more)))))
+  ([a b & more] (apply r/of "RSS3" a b more)))
 
 (defn RUB
   "RUB (live rate): (RUB) => 1 RUB; (RUB amount) => that many RUB;
   (RUB a b …) => a·b·… RUB^n (arity → exponent, like a unit)."
   ([]           (r/of "RUB"))
   ([amount]     (r/of "RUB" amount))
-  ([a b & more] (reduce q/qmul (r/of "RUB" a) (map #(r/of "RUB" %) (cons b more)))))
+  ([a b & more] (apply r/of "RUB" a b more)))
 
 (defn RUNE
   "RUNE (live rate): (RUNE) => 1 RUNE; (RUNE amount) => that many RUNE;
   (RUNE a b …) => a·b·… RUNE^n (arity → exponent, like a unit)."
   ([]           (r/of "RUNE"))
   ([amount]     (r/of "RUNE" amount))
-  ([a b & more] (reduce q/qmul (r/of "RUNE" a) (map #(r/of "RUNE" %) (cons b more)))))
+  ([a b & more] (apply r/of "RUNE" a b more)))
 
 (defn RVN
   "RVN (live rate): (RVN) => 1 RVN; (RVN amount) => that many RVN;
   (RVN a b …) => a·b·… RVN^n (arity → exponent, like a unit)."
   ([]           (r/of "RVN"))
   ([amount]     (r/of "RVN" amount))
-  ([a b & more] (reduce q/qmul (r/of "RVN" a) (map #(r/of "RVN" %) (cons b more)))))
+  ([a b & more] (apply r/of "RVN" a b more)))
 
 (defn RWF
   "RWF (live rate): (RWF) => 1 RWF; (RWF amount) => that many RWF;
   (RWF a b …) => a·b·… RWF^n (arity → exponent, like a unit)."
   ([]           (r/of "RWF"))
   ([amount]     (r/of "RWF" amount))
-  ([a b & more] (reduce q/qmul (r/of "RWF" a) (map #(r/of "RWF" %) (cons b more)))))
+  ([a b & more] (apply r/of "RWF" a b more)))
 
 (defn S
   "S (live rate): (S) => 1 S; (S amount) => that many S;
   (S a b …) => a·b·… S^n (arity → exponent, like a unit)."
   ([]           (r/of "S"))
   ([amount]     (r/of "S" amount))
-  ([a b & more] (reduce q/qmul (r/of "S" a) (map #(r/of "S" %) (cons b more)))))
+  ([a b & more] (apply r/of "S" a b more)))
 
 (defn SAFE
   "SAFE (live rate): (SAFE) => 1 SAFE; (SAFE amount) => that many SAFE;
   (SAFE a b …) => a·b·… SAFE^n (arity → exponent, like a unit)."
   ([]           (r/of "SAFE"))
   ([amount]     (r/of "SAFE" amount))
-  ([a b & more] (reduce q/qmul (r/of "SAFE" a) (map #(r/of "SAFE" %) (cons b more)))))
+  ([a b & more] (apply r/of "SAFE" a b more)))
 
 (defn SAGA
   "SAGA (live rate): (SAGA) => 1 SAGA; (SAGA amount) => that many SAGA;
   (SAGA a b …) => a·b·… SAGA^n (arity → exponent, like a unit)."
   ([]           (r/of "SAGA"))
   ([amount]     (r/of "SAGA" amount))
-  ([a b & more] (reduce q/qmul (r/of "SAGA" a) (map #(r/of "SAGA" %) (cons b more)))))
+  ([a b & more] (apply r/of "SAGA" a b more)))
 
 (defn SAND
   "SAND (live rate): (SAND) => 1 SAND; (SAND amount) => that many SAND;
   (SAND a b …) => a·b·… SAND^n (arity → exponent, like a unit)."
   ([]           (r/of "SAND"))
   ([amount]     (r/of "SAND" amount))
-  ([a b & more] (reduce q/qmul (r/of "SAND" a) (map #(r/of "SAND" %) (cons b more)))))
+  ([a b & more] (apply r/of "SAND" a b more)))
 
 (defn SAPIEN
   "SAPIEN (live rate): (SAPIEN) => 1 SAPIEN; (SAPIEN amount) => that many SAPIEN;
   (SAPIEN a b …) => a·b·… SAPIEN^n (arity → exponent, like a unit)."
   ([]           (r/of "SAPIEN"))
   ([amount]     (r/of "SAPIEN" amount))
-  ([a b & more] (reduce q/qmul (r/of "SAPIEN" a) (map #(r/of "SAPIEN" %) (cons b more)))))
+  ([a b & more] (apply r/of "SAPIEN" a b more)))
 
 (defn SAR
   "SAR (live rate): (SAR) => 1 SAR; (SAR amount) => that many SAR;
   (SAR a b …) => a·b·… SAR^n (arity → exponent, like a unit)."
   ([]           (r/of "SAR"))
   ([amount]     (r/of "SAR" amount))
-  ([a b & more] (reduce q/qmul (r/of "SAR" a) (map #(r/of "SAR" %) (cons b more)))))
+  ([a b & more] (apply r/of "SAR" a b more)))
 
 (defn SAROS
   "SAROS (live rate): (SAROS) => 1 SAROS; (SAROS amount) => that many SAROS;
   (SAROS a b …) => a·b·… SAROS^n (arity → exponent, like a unit)."
   ([]           (r/of "SAROS"))
   ([amount]     (r/of "SAROS" amount))
-  ([a b & more] (reduce q/qmul (r/of "SAROS" a) (map #(r/of "SAROS" %) (cons b more)))))
+  ([a b & more] (apply r/of "SAROS" a b more)))
 
 (defn SATS
   "SATS (live rate): (SATS) => 1 SATS; (SATS amount) => that many SATS;
   (SATS a b …) => a·b·… SATS^n (arity → exponent, like a unit)."
   ([]           (r/of "SATS"))
   ([amount]     (r/of "SATS" amount))
-  ([a b & more] (reduce q/qmul (r/of "SATS" a) (map #(r/of "SATS" %) (cons b more)))))
+  ([a b & more] (apply r/of "SATS" a b more)))
 
 (defn SAVAX
   "SAVAX (live rate): (SAVAX) => 1 SAVAX; (SAVAX amount) => that many SAVAX;
   (SAVAX a b …) => a·b·… SAVAX^n (arity → exponent, like a unit)."
   ([]           (r/of "SAVAX"))
   ([amount]     (r/of "SAVAX" amount))
-  ([a b & more] (reduce q/qmul (r/of "SAVAX" a) (map #(r/of "SAVAX" %) (cons b more)))))
+  ([a b & more] (apply r/of "SAVAX" a b more)))
 
 (defn SBD
   "SBD (live rate): (SBD) => 1 SBD; (SBD amount) => that many SBD;
   (SBD a b …) => a·b·… SBD^n (arity → exponent, like a unit)."
   ([]           (r/of "SBD"))
   ([amount]     (r/of "SBD" amount))
-  ([a b & more] (reduce q/qmul (r/of "SBD" a) (map #(r/of "SBD" %) (cons b more)))))
+  ([a b & more] (apply r/of "SBD" a b more)))
 
 (defn SC
   "SC (live rate): (SC) => 1 SC; (SC amount) => that many SC;
   (SC a b …) => a·b·… SC^n (arity → exponent, like a unit)."
   ([]           (r/of "SC"))
   ([amount]     (r/of "SC" amount))
-  ([a b & more] (reduce q/qmul (r/of "SC" a) (map #(r/of "SC" %) (cons b more)))))
+  ([a b & more] (apply r/of "SC" a b more)))
 
 (defn SCR
   "SCR (live rate): (SCR) => 1 SCR; (SCR amount) => that many SCR;
   (SCR a b …) => a·b·… SCR^n (arity → exponent, like a unit)."
   ([]           (r/of "SCR"))
   ([amount]     (r/of "SCR" amount))
-  ([a b & more] (reduce q/qmul (r/of "SCR" a) (map #(r/of "SCR" %) (cons b more)))))
+  ([a b & more] (apply r/of "SCR" a b more)))
 
 (defn SD
   "SD (live rate): (SD) => 1 SD; (SD amount) => that many SD;
   (SD a b …) => a·b·… SD^n (arity → exponent, like a unit)."
   ([]           (r/of "SD"))
   ([amount]     (r/of "SD" amount))
-  ([a b & more] (reduce q/qmul (r/of "SD" a) (map #(r/of "SD" %) (cons b more)))))
+  ([a b & more] (apply r/of "SD" a b more)))
 
 (defn SDG
   "SDG (live rate): (SDG) => 1 SDG; (SDG amount) => that many SDG;
   (SDG a b …) => a·b·… SDG^n (arity → exponent, like a unit)."
   ([]           (r/of "SDG"))
   ([amount]     (r/of "SDG" amount))
-  ([a b & more] (reduce q/qmul (r/of "SDG" a) (map #(r/of "SDG" %) (cons b more)))))
+  ([a b & more] (apply r/of "SDG" a b more)))
 
 (defn SEAM
   "SEAM (live rate): (SEAM) => 1 SEAM; (SEAM amount) => that many SEAM;
   (SEAM a b …) => a·b·… SEAM^n (arity → exponent, like a unit)."
   ([]           (r/of "SEAM"))
   ([amount]     (r/of "SEAM" amount))
-  ([a b & more] (reduce q/qmul (r/of "SEAM" a) (map #(r/of "SEAM" %) (cons b more)))))
+  ([a b & more] (apply r/of "SEAM" a b more)))
 
 (defn SEI
   "SEI (live rate): (SEI) => 1 SEI; (SEI amount) => that many SEI;
   (SEI a b …) => a·b·… SEI^n (arity → exponent, like a unit)."
   ([]           (r/of "SEI"))
   ([amount]     (r/of "SEI" amount))
-  ([a b & more] (reduce q/qmul (r/of "SEI" a) (map #(r/of "SEI" %) (cons b more)))))
+  ([a b & more] (apply r/of "SEI" a b more)))
 
 (defn SEK
   "SEK (live rate): (SEK) => 1 SEK; (SEK amount) => that many SEK;
   (SEK a b …) => a·b·… SEK^n (arity → exponent, like a unit)."
   ([]           (r/of "SEK"))
   ([amount]     (r/of "SEK" amount))
-  ([a b & more] (reduce q/qmul (r/of "SEK" a) (map #(r/of "SEK" %) (cons b more)))))
+  ([a b & more] (apply r/of "SEK" a b more)))
 
 (defn SENT
   "SENT (live rate): (SENT) => 1 SENT; (SENT amount) => that many SENT;
   (SENT a b …) => a·b·… SENT^n (arity → exponent, like a unit)."
   ([]           (r/of "SENT"))
   ([amount]     (r/of "SENT" amount))
-  ([a b & more] (reduce q/qmul (r/of "SENT" a) (map #(r/of "SENT" %) (cons b more)))))
+  ([a b & more] (apply r/of "SENT" a b more)))
 
 (defn SERAPH
   "SERAPH (live rate): (SERAPH) => 1 SERAPH; (SERAPH amount) => that many SERAPH;
   (SERAPH a b …) => a·b·… SERAPH^n (arity → exponent, like a unit)."
   ([]           (r/of "SERAPH"))
   ([amount]     (r/of "SERAPH" amount))
-  ([a b & more] (reduce q/qmul (r/of "SERAPH" a) (map #(r/of "SERAPH" %) (cons b more)))))
+  ([a b & more] (apply r/of "SERAPH" a b more)))
 
 (defn SFP
   "SFP (live rate): (SFP) => 1 SFP; (SFP amount) => that many SFP;
   (SFP a b …) => a·b·… SFP^n (arity → exponent, like a unit)."
   ([]           (r/of "SFP"))
   ([amount]     (r/of "SFP" amount))
-  ([a b & more] (reduce q/qmul (r/of "SFP" a) (map #(r/of "SFP" %) (cons b more)))))
+  ([a b & more] (apply r/of "SFP" a b more)))
 
 (defn SFRXETH
   "SFRXETH (live rate): (SFRXETH) => 1 SFRXETH; (SFRXETH amount) => that many SFRXETH;
   (SFRXETH a b …) => a·b·… SFRXETH^n (arity → exponent, like a unit)."
   ([]           (r/of "SFRXETH"))
   ([amount]     (r/of "SFRXETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "SFRXETH" a) (map #(r/of "SFRXETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "SFRXETH" a b more)))
 
 (defn SFUND
   "SFUND (live rate): (SFUND) => 1 SFUND; (SFUND amount) => that many SFUND;
   (SFUND a b …) => a·b·… SFUND^n (arity → exponent, like a unit)."
   ([]           (r/of "SFUND"))
   ([amount]     (r/of "SFUND" amount))
-  ([a b & more] (reduce q/qmul (r/of "SFUND" a) (map #(r/of "SFUND" %) (cons b more)))))
+  ([a b & more] (apply r/of "SFUND" a b more)))
 
 (defn SGB
   "SGB (live rate): (SGB) => 1 SGB; (SGB amount) => that many SGB;
   (SGB a b …) => a·b·… SGB^n (arity → exponent, like a unit)."
   ([]           (r/of "SGB"))
   ([amount]     (r/of "SGB" amount))
-  ([a b & more] (reduce q/qmul (r/of "SGB" a) (map #(r/of "SGB" %) (cons b more)))))
+  ([a b & more] (apply r/of "SGB" a b more)))
 
 (defn SGD
   "SGD (live rate): (SGD) => 1 SGD; (SGD amount) => that many SGD;
   (SGD a b …) => a·b·… SGD^n (arity → exponent, like a unit)."
   ([]           (r/of "SGD"))
   ([amount]     (r/of "SGD" amount))
-  ([a b & more] (reduce q/qmul (r/of "SGD" a) (map #(r/of "SGD" %) (cons b more)))))
+  ([a b & more] (apply r/of "SGD" a b more)))
 
 (defn SHDW
   "SHDW (live rate): (SHDW) => 1 SHDW; (SHDW amount) => that many SHDW;
   (SHDW a b …) => a·b·… SHDW^n (arity → exponent, like a unit)."
   ([]           (r/of "SHDW"))
   ([amount]     (r/of "SHDW" amount))
-  ([a b & more] (reduce q/qmul (r/of "SHDW" a) (map #(r/of "SHDW" %) (cons b more)))))
+  ([a b & more] (apply r/of "SHDW" a b more)))
 
 (defn SHIB
   "SHIB (live rate): (SHIB) => 1 SHIB; (SHIB amount) => that many SHIB;
   (SHIB a b …) => a·b·… SHIB^n (arity → exponent, like a unit)."
   ([]           (r/of "SHIB"))
   ([amount]     (r/of "SHIB" amount))
-  ([a b & more] (reduce q/qmul (r/of "SHIB" a) (map #(r/of "SHIB" %) (cons b more)))))
+  ([a b & more] (apply r/of "SHIB" a b more)))
 
 (defn SHIRO
   "SHIRO (live rate): (SHIRO) => 1 SHIRO; (SHIRO amount) => that many SHIRO;
   (SHIRO a b …) => a·b·… SHIRO^n (arity → exponent, like a unit)."
   ([]           (r/of "SHIRO"))
   ([amount]     (r/of "SHIRO" amount))
-  ([a b & more] (reduce q/qmul (r/of "SHIRO" a) (map #(r/of "SHIRO" %) (cons b more)))))
+  ([a b & more] (apply r/of "SHIRO" a b more)))
 
 (defn SHP
   "SHP (live rate): (SHP) => 1 SHP; (SHP amount) => that many SHP;
   (SHP a b …) => a·b·… SHP^n (arity → exponent, like a unit)."
   ([]           (r/of "SHP"))
   ([amount]     (r/of "SHP" amount))
-  ([a b & more] (reduce q/qmul (r/of "SHP" a) (map #(r/of "SHP" %) (cons b more)))))
+  ([a b & more] (apply r/of "SHP" a b more)))
 
 (defn SHPING
   "SHPING (live rate): (SHPING) => 1 SHPING; (SHPING amount) => that many SHPING;
   (SHPING a b …) => a·b·… SHPING^n (arity → exponent, like a unit)."
   ([]           (r/of "SHPING"))
   ([amount]     (r/of "SHPING" amount))
-  ([a b & more] (reduce q/qmul (r/of "SHPING" a) (map #(r/of "SHPING" %) (cons b more)))))
+  ([a b & more] (apply r/of "SHPING" a b more)))
 
 (defn SIGN
   "SIGN (live rate): (SIGN) => 1 SIGN; (SIGN amount) => that many SIGN;
   (SIGN a b …) => a·b·… SIGN^n (arity → exponent, like a unit)."
   ([]           (r/of "SIGN"))
   ([amount]     (r/of "SIGN" amount))
-  ([a b & more] (reduce q/qmul (r/of "SIGN" a) (map #(r/of "SIGN" %) (cons b more)))))
+  ([a b & more] (apply r/of "SIGN" a b more)))
 
 (defn SKL
   "SKL (live rate): (SKL) => 1 SKL; (SKL amount) => that many SKL;
   (SKL a b …) => a·b·… SKL^n (arity → exponent, like a unit)."
   ([]           (r/of "SKL"))
   ([amount]     (r/of "SKL" amount))
-  ([a b & more] (reduce q/qmul (r/of "SKL" a) (map #(r/of "SKL" %) (cons b more)))))
+  ([a b & more] (apply r/of "SKL" a b more)))
 
 (defn SKR
   "SKR (live rate): (SKR) => 1 SKR; (SKR amount) => that many SKR;
   (SKR a b …) => a·b·… SKR^n (arity → exponent, like a unit)."
   ([]           (r/of "SKR"))
   ([amount]     (r/of "SKR" amount))
-  ([a b & more] (reduce q/qmul (r/of "SKR" a) (map #(r/of "SKR" %) (cons b more)))))
+  ([a b & more] (apply r/of "SKR" a b more)))
 
 (defn SKY
   "SKY (live rate): (SKY) => 1 SKY; (SKY amount) => that many SKY;
   (SKY a b …) => a·b·… SKY^n (arity → exponent, like a unit)."
   ([]           (r/of "SKY"))
   ([amount]     (r/of "SKY" amount))
-  ([a b & more] (reduce q/qmul (r/of "SKY" a) (map #(r/of "SKY" %) (cons b more)))))
+  ([a b & more] (apply r/of "SKY" a b more)))
 
 (defn SLE
   "SLE (live rate): (SLE) => 1 SLE; (SLE amount) => that many SLE;
   (SLE a b …) => a·b·… SLE^n (arity → exponent, like a unit)."
   ([]           (r/of "SLE"))
   ([amount]     (r/of "SLE" amount))
-  ([a b & more] (reduce q/qmul (r/of "SLE" a) (map #(r/of "SLE" %) (cons b more)))))
+  ([a b & more] (apply r/of "SLE" a b more)))
 
 (defn SLERF
   "SLERF (live rate): (SLERF) => 1 SLERF; (SLERF amount) => that many SLERF;
   (SLERF a b …) => a·b·… SLERF^n (arity → exponent, like a unit)."
   ([]           (r/of "SLERF"))
   ([amount]     (r/of "SLERF" amount))
-  ([a b & more] (reduce q/qmul (r/of "SLERF" a) (map #(r/of "SLERF" %) (cons b more)))))
+  ([a b & more] (apply r/of "SLERF" a b more)))
 
 (defn SLL
   "SLL (live rate): (SLL) => 1 SLL; (SLL amount) => that many SLL;
   (SLL a b …) => a·b·… SLL^n (arity → exponent, like a unit)."
   ([]           (r/of "SLL"))
   ([amount]     (r/of "SLL" amount))
-  ([a b & more] (reduce q/qmul (r/of "SLL" a) (map #(r/of "SLL" %) (cons b more)))))
+  ([a b & more] (apply r/of "SLL" a b more)))
 
 (defn SLP
   "SLP (live rate): (SLP) => 1 SLP; (SLP amount) => that many SLP;
   (SLP a b …) => a·b·… SLP^n (arity → exponent, like a unit)."
   ([]           (r/of "SLP"))
   ([amount]     (r/of "SLP" amount))
-  ([a b & more] (reduce q/qmul (r/of "SLP" a) (map #(r/of "SLP" %) (cons b more)))))
+  ([a b & more] (apply r/of "SLP" a b more)))
 
 (defn SNEK
   "SNEK (live rate): (SNEK) => 1 SNEK; (SNEK amount) => that many SNEK;
   (SNEK a b …) => a·b·… SNEK^n (arity → exponent, like a unit)."
   ([]           (r/of "SNEK"))
   ([amount]     (r/of "SNEK" amount))
-  ([a b & more] (reduce q/qmul (r/of "SNEK" a) (map #(r/of "SNEK" %) (cons b more)))))
+  ([a b & more] (apply r/of "SNEK" a b more)))
 
 (defn SNT
   "SNT (live rate): (SNT) => 1 SNT; (SNT amount) => that many SNT;
   (SNT a b …) => a·b·… SNT^n (arity → exponent, like a unit)."
   ([]           (r/of "SNT"))
   ([amount]     (r/of "SNT" amount))
-  ([a b & more] (reduce q/qmul (r/of "SNT" a) (map #(r/of "SNT" %) (cons b more)))))
+  ([a b & more] (apply r/of "SNT" a b more)))
 
 (defn SNX
   "SNX (live rate): (SNX) => 1 SNX; (SNX amount) => that many SNX;
   (SNX a b …) => a·b·… SNX^n (arity → exponent, like a unit)."
   ([]           (r/of "SNX"))
   ([amount]     (r/of "SNX" amount))
-  ([a b & more] (reduce q/qmul (r/of "SNX" a) (map #(r/of "SNX" %) (cons b more)))))
+  ([a b & more] (apply r/of "SNX" a b more)))
 
 (defn SOL
   "SOL (live rate): (SOL) => 1 SOL; (SOL amount) => that many SOL;
   (SOL a b …) => a·b·… SOL^n (arity → exponent, like a unit)."
   ([]           (r/of "SOL"))
   ([amount]     (r/of "SOL" amount))
-  ([a b & more] (reduce q/qmul (r/of "SOL" a) (map #(r/of "SOL" %) (cons b more)))))
+  ([a b & more] (apply r/of "SOL" a b more)))
 
 (defn SOLO
   "SOLO (live rate): (SOLO) => 1 SOLO; (SOLO amount) => that many SOLO;
   (SOLO a b …) => a·b·… SOLO^n (arity → exponent, like a unit)."
   ([]           (r/of "SOLO"))
   ([amount]     (r/of "SOLO" amount))
-  ([a b & more] (reduce q/qmul (r/of "SOLO" a) (map #(r/of "SOLO" %) (cons b more)))))
+  ([a b & more] (apply r/of "SOLO" a b more)))
 
 (defn SOLVBTC
   "SOLVBTC (live rate): (SOLVBTC) => 1 SOLVBTC; (SOLVBTC amount) => that many SOLVBTC;
   (SOLVBTC a b …) => a·b·… SOLVBTC^n (arity → exponent, like a unit)."
   ([]           (r/of "SOLVBTC"))
   ([amount]     (r/of "SOLVBTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "SOLVBTC" a) (map #(r/of "SOLVBTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "SOLVBTC" a b more)))
 
 (defn SONIC
   "SONIC (live rate): (SONIC) => 1 SONIC; (SONIC amount) => that many SONIC;
   (SONIC a b …) => a·b·… SONIC^n (arity → exponent, like a unit)."
   ([]           (r/of "SONIC"))
   ([amount]     (r/of "SONIC" amount))
-  ([a b & more] (reduce q/qmul (r/of "SONIC" a) (map #(r/of "SONIC" %) (cons b more)))))
+  ([a b & more] (apply r/of "SONIC" a b more)))
 
 (defn SOS
   "SOS (live rate): (SOS) => 1 SOS; (SOS amount) => that many SOS;
   (SOS a b …) => a·b·… SOS^n (arity → exponent, like a unit)."
   ([]           (r/of "SOS"))
   ([amount]     (r/of "SOS" amount))
-  ([a b & more] (reduce q/qmul (r/of "SOS" a) (map #(r/of "SOS" %) (cons b more)))))
+  ([a b & more] (apply r/of "SOS" a b more)))
 
 (defn SPA
   "SPA (live rate): (SPA) => 1 SPA; (SPA amount) => that many SPA;
   (SPA a b …) => a·b·… SPA^n (arity → exponent, like a unit)."
   ([]           (r/of "SPA"))
   ([amount]     (r/of "SPA" amount))
-  ([a b & more] (reduce q/qmul (r/of "SPA" a) (map #(r/of "SPA" %) (cons b more)))))
+  ([a b & more] (apply r/of "SPA" a b more)))
 
 (defn SPELL
   "SPELL (live rate): (SPELL) => 1 SPELL; (SPELL amount) => that many SPELL;
   (SPELL a b …) => a·b·… SPELL^n (arity → exponent, like a unit)."
   ([]           (r/of "SPELL"))
   ([amount]     (r/of "SPELL" amount))
-  ([a b & more] (reduce q/qmul (r/of "SPELL" a) (map #(r/of "SPELL" %) (cons b more)))))
+  ([a b & more] (apply r/of "SPELL" a b more)))
 
 (defn SPK
   "SPK (live rate): (SPK) => 1 SPK; (SPK amount) => that many SPK;
   (SPK a b …) => a·b·… SPK^n (arity → exponent, like a unit)."
   ([]           (r/of "SPK"))
   ([amount]     (r/of "SPK" amount))
-  ([a b & more] (reduce q/qmul (r/of "SPK" a) (map #(r/of "SPK" %) (cons b more)))))
+  ([a b & more] (apply r/of "SPK" a b more)))
 
 (defn SPX
   "SPX (live rate): (SPX) => 1 SPX; (SPX amount) => that many SPX;
   (SPX a b …) => a·b·… SPX^n (arity → exponent, like a unit)."
   ([]           (r/of "SPX"))
   ([amount]     (r/of "SPX" amount))
-  ([a b & more] (reduce q/qmul (r/of "SPX" a) (map #(r/of "SPX" %) (cons b more)))))
+  ([a b & more] (apply r/of "SPX" a b more)))
 
 (defn SQD
   "SQD (live rate): (SQD) => 1 SQD; (SQD amount) => that many SQD;
   (SQD a b …) => a·b·… SQD^n (arity → exponent, like a unit)."
   ([]           (r/of "SQD"))
   ([amount]     (r/of "SQD" amount))
-  ([a b & more] (reduce q/qmul (r/of "SQD" a) (map #(r/of "SQD" %) (cons b more)))))
+  ([a b & more] (apply r/of "SQD" a b more)))
 
 (defn SRD
   "SRD (live rate): (SRD) => 1 SRD; (SRD amount) => that many SRD;
   (SRD a b …) => a·b·… SRD^n (arity → exponent, like a unit)."
   ([]           (r/of "SRD"))
   ([amount]     (r/of "SRD" amount))
-  ([a b & more] (reduce q/qmul (r/of "SRD" a) (map #(r/of "SRD" %) (cons b more)))))
+  ([a b & more] (apply r/of "SRD" a b more)))
 
 (defn SSOL
   "SSOL (live rate): (SSOL) => 1 SSOL; (SSOL amount) => that many SSOL;
   (SSOL a b …) => a·b·… SSOL^n (arity → exponent, like a unit)."
   ([]           (r/of "SSOL"))
   ([amount]     (r/of "SSOL" amount))
-  ([a b & more] (reduce q/qmul (r/of "SSOL" a) (map #(r/of "SSOL" %) (cons b more)))))
+  ([a b & more] (apply r/of "SSOL" a b more)))
 
 (defn SSP
   "SSP (live rate): (SSP) => 1 SSP; (SSP amount) => that many SSP;
   (SSP a b …) => a·b·… SSP^n (arity → exponent, like a unit)."
   ([]           (r/of "SSP"))
   ([amount]     (r/of "SSP" amount))
-  ([a b & more] (reduce q/qmul (r/of "SSP" a) (map #(r/of "SSP" %) (cons b more)))))
+  ([a b & more] (apply r/of "SSP" a b more)))
 
 (defn SSV
   "SSV (live rate): (SSV) => 1 SSV; (SSV amount) => that many SSV;
   (SSV a b …) => a·b·… SSV^n (arity → exponent, like a unit)."
   ([]           (r/of "SSV"))
   ([amount]     (r/of "SSV" amount))
-  ([a b & more] (reduce q/qmul (r/of "SSV" a) (map #(r/of "SSV" %) (cons b more)))))
+  ([a b & more] (apply r/of "SSV" a b more)))
 
 (defn STAU
   "STAU (live rate): (STAU) => 1 STAU; (STAU amount) => that many STAU;
   (STAU a b …) => a·b·… STAU^n (arity → exponent, like a unit)."
   ([]           (r/of "STAU"))
   ([amount]     (r/of "STAU" amount))
-  ([a b & more] (reduce q/qmul (r/of "STAU" a) (map #(r/of "STAU" %) (cons b more)))))
+  ([a b & more] (apply r/of "STAU" a b more)))
 
 (defn STBTC
   "STBTC (live rate): (STBTC) => 1 STBTC; (STBTC amount) => that many STBTC;
   (STBTC a b …) => a·b·… STBTC^n (arity → exponent, like a unit)."
   ([]           (r/of "STBTC"))
   ([amount]     (r/of "STBTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "STBTC" a) (map #(r/of "STBTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "STBTC" a b more)))
 
 (defn STEAKEURCV
   "STEAKEURCV (live rate): (STEAKEURCV) => 1 STEAKEURCV; (STEAKEURCV amount) => that many STEAKEURCV;
   (STEAKEURCV a b …) => a·b·… STEAKEURCV^n (arity → exponent, like a unit)."
   ([]           (r/of "STEAKEURCV"))
   ([amount]     (r/of "STEAKEURCV" amount))
-  ([a b & more] (reduce q/qmul (r/of "STEAKEURCV" a) (map #(r/of "STEAKEURCV" %) (cons b more)))))
+  ([a b & more] (apply r/of "STEAKEURCV" a b more)))
 
 (defn STEAKUSDC
   "STEAKUSDC (live rate): (STEAKUSDC) => 1 STEAKUSDC; (STEAKUSDC amount) => that many STEAKUSDC;
   (STEAKUSDC a b …) => a·b·… STEAKUSDC^n (arity → exponent, like a unit)."
   ([]           (r/of "STEAKUSDC"))
   ([amount]     (r/of "STEAKUSDC" amount))
-  ([a b & more] (reduce q/qmul (r/of "STEAKUSDC" a) (map #(r/of "STEAKUSDC" %) (cons b more)))))
+  ([a b & more] (apply r/of "STEAKUSDC" a b more)))
 
 (defn STETH
   "STETH (live rate): (STETH) => 1 STETH; (STETH amount) => that many STETH;
   (STETH a b …) => a·b·… STETH^n (arity → exponent, like a unit)."
   ([]           (r/of "STETH"))
   ([amount]     (r/of "STETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "STETH" a) (map #(r/of "STETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "STETH" a b more)))
 
 (defn STG
   "STG (live rate): (STG) => 1 STG; (STG amount) => that many STG;
   (STG a b …) => a·b·… STG^n (arity → exponent, like a unit)."
   ([]           (r/of "STG"))
   ([amount]     (r/of "STG" amount))
-  ([a b & more] (reduce q/qmul (r/of "STG" a) (map #(r/of "STG" %) (cons b more)))))
+  ([a b & more] (apply r/of "STG" a b more)))
 
 (defn STN
   "STN (live rate): (STN) => 1 STN; (STN amount) => that many STN;
   (STN a b …) => a·b·… STN^n (arity → exponent, like a unit)."
   ([]           (r/of "STN"))
   ([amount]     (r/of "STN" amount))
-  ([a b & more] (reduce q/qmul (r/of "STN" a) (map #(r/of "STN" %) (cons b more)))))
+  ([a b & more] (apply r/of "STN" a b more)))
 
 (defn STORJ
   "STORJ (live rate): (STORJ) => 1 STORJ; (STORJ amount) => that many STORJ;
   (STORJ a b …) => a·b·… STORJ^n (arity → exponent, like a unit)."
   ([]           (r/of "STORJ"))
   ([amount]     (r/of "STORJ" amount))
-  ([a b & more] (reduce q/qmul (r/of "STORJ" a) (map #(r/of "STORJ" %) (cons b more)))))
+  ([a b & more] (apply r/of "STORJ" a b more)))
 
 (defn STRAX
   "STRAX (live rate): (STRAX) => 1 STRAX; (STRAX amount) => that many STRAX;
   (STRAX a b …) => a·b·… STRAX^n (arity → exponent, like a unit)."
   ([]           (r/of "STRAX"))
   ([amount]     (r/of "STRAX" amount))
-  ([a b & more] (reduce q/qmul (r/of "STRAX" a) (map #(r/of "STRAX" %) (cons b more)))))
+  ([a b & more] (apply r/of "STRAX" a b more)))
 
 (defn STRD
   "STRD (live rate): (STRD) => 1 STRD; (STRD amount) => that many STRD;
   (STRD a b …) => a·b·… STRD^n (arity → exponent, like a unit)."
   ([]           (r/of "STRD"))
   ([amount]     (r/of "STRD" amount))
-  ([a b & more] (reduce q/qmul (r/of "STRD" a) (map #(r/of "STRD" %) (cons b more)))))
+  ([a b & more] (apply r/of "STRD" a b more)))
 
 (defn STRK
   "STRK (live rate): (STRK) => 1 STRK; (STRK amount) => that many STRK;
   (STRK a b …) => a·b·… STRK^n (arity → exponent, like a unit)."
   ([]           (r/of "STRK"))
   ([amount]     (r/of "STRK" amount))
-  ([a b & more] (reduce q/qmul (r/of "STRK" a) (map #(r/of "STRK" %) (cons b more)))))
+  ([a b & more] (apply r/of "STRK" a b more)))
 
 (defn STSOL
   "STSOL (live rate): (STSOL) => 1 STSOL; (STSOL amount) => that many STSOL;
   (STSOL a b …) => a·b·… STSOL^n (arity → exponent, like a unit)."
   ([]           (r/of "STSOL"))
   ([amount]     (r/of "STSOL" amount))
-  ([a b & more] (reduce q/qmul (r/of "STSOL" a) (map #(r/of "STSOL" %) (cons b more)))))
+  ([a b & more] (apply r/of "STSOL" a b more)))
 
 (defn STX
   "STX (live rate): (STX) => 1 STX; (STX amount) => that many STX;
   (STX a b …) => a·b·… STX^n (arity → exponent, like a unit)."
   ([]           (r/of "STX"))
   ([amount]     (r/of "STX" amount))
-  ([a b & more] (reduce q/qmul (r/of "STX" a) (map #(r/of "STX" %) (cons b more)))))
+  ([a b & more] (apply r/of "STX" a b more)))
 
 (defn SUI
   "SUI (live rate): (SUI) => 1 SUI; (SUI amount) => that many SUI;
   (SUI a b …) => a·b·… SUI^n (arity → exponent, like a unit)."
   ([]           (r/of "SUI"))
   ([amount]     (r/of "SUI" amount))
-  ([a b & more] (reduce q/qmul (r/of "SUI" a) (map #(r/of "SUI" %) (cons b more)))))
+  ([a b & more] (apply r/of "SUI" a b more)))
 
 (defn SUKU
   "SUKU (live rate): (SUKU) => 1 SUKU; (SUKU amount) => that many SUKU;
   (SUKU a b …) => a·b·… SUKU^n (arity → exponent, like a unit)."
   ([]           (r/of "SUKU"))
   ([amount]     (r/of "SUKU" amount))
-  ([a b & more] (reduce q/qmul (r/of "SUKU" a) (map #(r/of "SUKU" %) (cons b more)))))
+  ([a b & more] (apply r/of "SUKU" a b more)))
 
 (defn SUN
   "SUN (live rate): (SUN) => 1 SUN; (SUN amount) => that many SUN;
   (SUN a b …) => a·b·… SUN^n (arity → exponent, like a unit)."
   ([]           (r/of "SUN"))
   ([amount]     (r/of "SUN" amount))
-  ([a b & more] (reduce q/qmul (r/of "SUN" a) (map #(r/of "SUN" %) (cons b more)))))
+  ([a b & more] (apply r/of "SUN" a b more)))
 
 (defn SUNDOG
   "SUNDOG (live rate): (SUNDOG) => 1 SUNDOG; (SUNDOG amount) => that many SUNDOG;
   (SUNDOG a b …) => a·b·… SUNDOG^n (arity → exponent, like a unit)."
   ([]           (r/of "SUNDOG"))
   ([amount]     (r/of "SUNDOG" amount))
-  ([a b & more] (reduce q/qmul (r/of "SUNDOG" a) (map #(r/of "SUNDOG" %) (cons b more)))))
+  ([a b & more] (apply r/of "SUNDOG" a b more)))
 
 (defn SUP
   "SUP (live rate): (SUP) => 1 SUP; (SUP amount) => that many SUP;
   (SUP a b …) => a·b·… SUP^n (arity → exponent, like a unit)."
   ([]           (r/of "SUP"))
   ([amount]     (r/of "SUP" amount))
-  ([a b & more] (reduce q/qmul (r/of "SUP" a) (map #(r/of "SUP" %) (cons b more)))))
+  ([a b & more] (apply r/of "SUP" a b more)))
 
 (defn SUPER
   "SUPER (live rate): (SUPER) => 1 SUPER; (SUPER amount) => that many SUPER;
   (SUPER a b …) => a·b·… SUPER^n (arity → exponent, like a unit)."
   ([]           (r/of "SUPER"))
   ([amount]     (r/of "SUPER" amount))
-  ([a b & more] (reduce q/qmul (r/of "SUPER" a) (map #(r/of "SUPER" %) (cons b more)))))
+  ([a b & more] (apply r/of "SUPER" a b more)))
 
 (defn SUPEROETHB
   "SUPEROETHB (live rate): (SUPEROETHB) => 1 SUPEROETHB; (SUPEROETHB amount) => that many SUPEROETHB;
   (SUPEROETHB a b …) => a·b·… SUPEROETHB^n (arity → exponent, like a unit)."
   ([]           (r/of "SUPEROETHB"))
   ([amount]     (r/of "SUPEROETHB" amount))
-  ([a b & more] (reduce q/qmul (r/of "SUPEROETHB" a) (map #(r/of "SUPEROETHB" %) (cons b more)))))
+  ([a b & more] (apply r/of "SUPEROETHB" a b more)))
 
 (defn SUSDE
   "SUSDE (live rate): (SUSDE) => 1 SUSDE; (SUSDE amount) => that many SUSDE;
   (SUSDE a b …) => a·b·… SUSDE^n (arity → exponent, like a unit)."
   ([]           (r/of "SUSDE"))
   ([amount]     (r/of "SUSDE" amount))
-  ([a b & more] (reduce q/qmul (r/of "SUSDE" a) (map #(r/of "SUSDE" %) (cons b more)))))
+  ([a b & more] (apply r/of "SUSDE" a b more)))
 
 (defn SUSDS
   "SUSDS (live rate): (SUSDS) => 1 SUSDS; (SUSDS amount) => that many SUSDS;
   (SUSDS a b …) => a·b·… SUSDS^n (arity → exponent, like a unit)."
   ([]           (r/of "SUSDS"))
   ([amount]     (r/of "SUSDS" amount))
-  ([a b & more] (reduce q/qmul (r/of "SUSDS" a) (map #(r/of "SUSDS" %) (cons b more)))))
+  ([a b & more] (apply r/of "SUSDS" a b more)))
 
 (defn SUSHI
   "SUSHI (live rate): (SUSHI) => 1 SUSHI; (SUSHI amount) => that many SUSHI;
   (SUSHI a b …) => a·b·… SUSHI^n (arity → exponent, like a unit)."
   ([]           (r/of "SUSHI"))
   ([amount]     (r/of "SUSHI" amount))
-  ([a b & more] (reduce q/qmul (r/of "SUSHI" a) (map #(r/of "SUSHI" %) (cons b more)))))
+  ([a b & more] (apply r/of "SUSHI" a b more)))
 
 (defn SVC
   "SVC (live rate): (SVC) => 1 SVC; (SVC amount) => that many SVC;
   (SVC a b …) => a·b·… SVC^n (arity → exponent, like a unit)."
   ([]           (r/of "SVC"))
   ([amount]     (r/of "SVC" amount))
-  ([a b & more] (reduce q/qmul (r/of "SVC" a) (map #(r/of "SVC" %) (cons b more)))))
+  ([a b & more] (apply r/of "SVC" a b more)))
 
 (defn SWARMS
   "SWARMS (live rate): (SWARMS) => 1 SWARMS; (SWARMS amount) => that many SWARMS;
   (SWARMS a b …) => a·b·… SWARMS^n (arity → exponent, like a unit)."
   ([]           (r/of "SWARMS"))
   ([amount]     (r/of "SWARMS" amount))
-  ([a b & more] (reduce q/qmul (r/of "SWARMS" a) (map #(r/of "SWARMS" %) (cons b more)))))
+  ([a b & more] (apply r/of "SWARMS" a b more)))
 
 (defn SWELL
   "SWELL (live rate): (SWELL) => 1 SWELL; (SWELL amount) => that many SWELL;
   (SWELL a b …) => a·b·… SWELL^n (arity → exponent, like a unit)."
   ([]           (r/of "SWELL"))
   ([amount]     (r/of "SWELL" amount))
-  ([a b & more] (reduce q/qmul (r/of "SWELL" a) (map #(r/of "SWELL" %) (cons b more)))))
+  ([a b & more] (apply r/of "SWELL" a b more)))
 
 (defn SWETH
   "SWETH (live rate): (SWETH) => 1 SWETH; (SWETH amount) => that many SWETH;
   (SWETH a b …) => a·b·… SWETH^n (arity → exponent, like a unit)."
   ([]           (r/of "SWETH"))
   ([amount]     (r/of "SWETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "SWETH" a) (map #(r/of "SWETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "SWETH" a b more)))
 
 (defn SWFTC
   "SWFTC (live rate): (SWFTC) => 1 SWFTC; (SWFTC amount) => that many SWFTC;
   (SWFTC a b …) => a·b·… SWFTC^n (arity → exponent, like a unit)."
   ([]           (r/of "SWFTC"))
   ([amount]     (r/of "SWFTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "SWFTC" a) (map #(r/of "SWFTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "SWFTC" a b more)))
 
 (defn SXP
   "SXP (live rate): (SXP) => 1 SXP; (SXP amount) => that many SXP;
   (SXP a b …) => a·b·… SXP^n (arity → exponent, like a unit)."
   ([]           (r/of "SXP"))
   ([amount]     (r/of "SXP" amount))
-  ([a b & more] (reduce q/qmul (r/of "SXP" a) (map #(r/of "SXP" %) (cons b more)))))
+  ([a b & more] (apply r/of "SXP" a b more)))
 
 (defn SXT
   "SXT (live rate): (SXT) => 1 SXT; (SXT amount) => that many SXT;
   (SXT a b …) => a·b·… SXT^n (arity → exponent, like a unit)."
   ([]           (r/of "SXT"))
   ([amount]     (r/of "SXT" amount))
-  ([a b & more] (reduce q/qmul (r/of "SXT" a) (map #(r/of "SXT" %) (cons b more)))))
+  ([a b & more] (apply r/of "SXT" a b more)))
 
 (defn SYBTC
   "SYBTC (live rate): (SYBTC) => 1 SYBTC; (SYBTC amount) => that many SYBTC;
   (SYBTC a b …) => a·b·… SYBTC^n (arity → exponent, like a unit)."
   ([]           (r/of "SYBTC"))
   ([amount]     (r/of "SYBTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "SYBTC" a) (map #(r/of "SYBTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "SYBTC" a b more)))
 
 (defn SYLO
   "SYLO (live rate): (SYLO) => 1 SYLO; (SYLO amount) => that many SYLO;
   (SYLO a b …) => a·b·… SYLO^n (arity → exponent, like a unit)."
   ([]           (r/of "SYLO"))
   ([amount]     (r/of "SYLO" amount))
-  ([a b & more] (reduce q/qmul (r/of "SYLO" a) (map #(r/of "SYLO" %) (cons b more)))))
+  ([a b & more] (apply r/of "SYLO" a b more)))
 
 (defn SYN
   "SYN (live rate): (SYN) => 1 SYN; (SYN amount) => that many SYN;
   (SYN a b …) => a·b·… SYN^n (arity → exponent, like a unit)."
   ([]           (r/of "SYN"))
   ([amount]     (r/of "SYN" amount))
-  ([a b & more] (reduce q/qmul (r/of "SYN" a) (map #(r/of "SYN" %) (cons b more)))))
+  ([a b & more] (apply r/of "SYN" a b more)))
 
 (defn SYND
   "SYND (live rate): (SYND) => 1 SYND; (SYND amount) => that many SYND;
   (SYND a b …) => a·b·… SYND^n (arity → exponent, like a unit)."
   ([]           (r/of "SYND"))
   ([amount]     (r/of "SYND" amount))
-  ([a b & more] (reduce q/qmul (r/of "SYND" a) (map #(r/of "SYND" %) (cons b more)))))
+  ([a b & more] (apply r/of "SYND" a b more)))
 
 (defn SYP
   "SYP (live rate): (SYP) => 1 SYP; (SYP amount) => that many SYP;
   (SYP a b …) => a·b·… SYP^n (arity → exponent, like a unit)."
   ([]           (r/of "SYP"))
   ([amount]     (r/of "SYP" amount))
-  ([a b & more] (reduce q/qmul (r/of "SYP" a) (map #(r/of "SYP" %) (cons b more)))))
+  ([a b & more] (apply r/of "SYP" a b more)))
 
 (defn SYRUP
   "SYRUP (live rate): (SYRUP) => 1 SYRUP; (SYRUP amount) => that many SYRUP;
   (SYRUP a b …) => a·b·… SYRUP^n (arity → exponent, like a unit)."
   ([]           (r/of "SYRUP"))
   ([amount]     (r/of "SYRUP" amount))
-  ([a b & more] (reduce q/qmul (r/of "SYRUP" a) (map #(r/of "SYRUP" %) (cons b more)))))
+  ([a b & more] (apply r/of "SYRUP" a b more)))
 
 (defn SZL
   "SZL (live rate): (SZL) => 1 SZL; (SZL amount) => that many SZL;
   (SZL a b …) => a·b·… SZL^n (arity → exponent, like a unit)."
   ([]           (r/of "SZL"))
   ([amount]     (r/of "SZL" amount))
-  ([a b & more] (reduce q/qmul (r/of "SZL" a) (map #(r/of "SZL" %) (cons b more)))))
+  ([a b & more] (apply r/of "SZL" a b more)))
 
 (defn T
   "T (live rate): (T) => 1 T; (T amount) => that many T;
   (T a b …) => a·b·… T^n (arity → exponent, like a unit)."
   ([]           (r/of "T"))
   ([amount]     (r/of "T" amount))
-  ([a b & more] (reduce q/qmul (r/of "T" a) (map #(r/of "T" %) (cons b more)))))
+  ([a b & more] (apply r/of "T" a b more)))
 
 (defn TAO
   "TAO (live rate): (TAO) => 1 TAO; (TAO amount) => that many TAO;
   (TAO a b …) => a·b·… TAO^n (arity → exponent, like a unit)."
   ([]           (r/of "TAO"))
   ([amount]     (r/of "TAO" amount))
-  ([a b & more] (reduce q/qmul (r/of "TAO" a) (map #(r/of "TAO" %) (cons b more)))))
+  ([a b & more] (apply r/of "TAO" a b more)))
 
 (defn TBTC
   "TBTC (live rate): (TBTC) => 1 TBTC; (TBTC amount) => that many TBTC;
   (TBTC a b …) => a·b·… TBTC^n (arity → exponent, like a unit)."
   ([]           (r/of "TBTC"))
   ([amount]     (r/of "TBTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "TBTC" a) (map #(r/of "TBTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "TBTC" a b more)))
 
 (defn TEL
   "TEL (live rate): (TEL) => 1 TEL; (TEL amount) => that many TEL;
   (TEL a b …) => a·b·… TEL^n (arity → exponent, like a unit)."
   ([]           (r/of "TEL"))
   ([amount]     (r/of "TEL" amount))
-  ([a b & more] (reduce q/qmul (r/of "TEL" a) (map #(r/of "TEL" %) (cons b more)))))
+  ([a b & more] (apply r/of "TEL" a b more)))
 
 (defn TET
   "TET (live rate): (TET) => 1 TET; (TET amount) => that many TET;
   (TET a b …) => a·b·… TET^n (arity → exponent, like a unit)."
   ([]           (r/of "TET"))
   ([amount]     (r/of "TET" amount))
-  ([a b & more] (reduce q/qmul (r/of "TET" a) (map #(r/of "TET" %) (cons b more)))))
+  ([a b & more] (apply r/of "TET" a b more)))
 
 (defn TFUEL
   "TFUEL (live rate): (TFUEL) => 1 TFUEL; (TFUEL amount) => that many TFUEL;
   (TFUEL a b …) => a·b·… TFUEL^n (arity → exponent, like a unit)."
   ([]           (r/of "TFUEL"))
   ([amount]     (r/of "TFUEL" amount))
-  ([a b & more] (reduce q/qmul (r/of "TFUEL" a) (map #(r/of "TFUEL" %) (cons b more)))))
+  ([a b & more] (apply r/of "TFUEL" a b more)))
 
 (defn TGBP
   "TGBP (live rate): (TGBP) => 1 TGBP; (TGBP amount) => that many TGBP;
   (TGBP a b …) => a·b·… TGBP^n (arity → exponent, like a unit)."
   ([]           (r/of "TGBP"))
   ([amount]     (r/of "TGBP" amount))
-  ([a b & more] (reduce q/qmul (r/of "TGBP" a) (map #(r/of "TGBP" %) (cons b more)))))
+  ([a b & more] (apply r/of "TGBP" a b more)))
 
 (defn THB
   "THB (live rate): (THB) => 1 THB; (THB amount) => that many THB;
   (THB a b …) => a·b·… THB^n (arity → exponent, like a unit)."
   ([]           (r/of "THB"))
   ([amount]     (r/of "THB" amount))
-  ([a b & more] (reduce q/qmul (r/of "THB" a) (map #(r/of "THB" %) (cons b more)))))
+  ([a b & more] (apply r/of "THB" a b more)))
 
 (defn THETA
   "THETA (live rate): (THETA) => 1 THETA; (THETA amount) => that many THETA;
   (THETA a b …) => a·b·… THETA^n (arity → exponent, like a unit)."
   ([]           (r/of "THETA"))
   ([amount]     (r/of "THETA" amount))
-  ([a b & more] (reduce q/qmul (r/of "THETA" a) (map #(r/of "THETA" %) (cons b more)))))
+  ([a b & more] (apply r/of "THETA" a b more)))
 
 (defn THQ
   "THQ (live rate): (THQ) => 1 THQ; (THQ amount) => that many THQ;
   (THQ a b …) => a·b·… THQ^n (arity → exponent, like a unit)."
   ([]           (r/of "THQ"))
   ([amount]     (r/of "THQ" amount))
-  ([a b & more] (reduce q/qmul (r/of "THQ" a) (map #(r/of "THQ" %) (cons b more)))))
+  ([a b & more] (apply r/of "THQ" a b more)))
 
 (defn TIA
   "TIA (live rate): (TIA) => 1 TIA; (TIA amount) => that many TIA;
   (TIA a b …) => a·b·… TIA^n (arity → exponent, like a unit)."
   ([]           (r/of "TIA"))
   ([amount]     (r/of "TIA" amount))
-  ([a b & more] (reduce q/qmul (r/of "TIA" a) (map #(r/of "TIA" %) (cons b more)))))
+  ([a b & more] (apply r/of "TIA" a b more)))
 
 (defn TIME
   "TIME (live rate): (TIME) => 1 TIME; (TIME amount) => that many TIME;
   (TIME a b …) => a·b·… TIME^n (arity → exponent, like a unit)."
   ([]           (r/of "TIME"))
   ([amount]     (r/of "TIME" amount))
-  ([a b & more] (reduce q/qmul (r/of "TIME" a) (map #(r/of "TIME" %) (cons b more)))))
+  ([a b & more] (apply r/of "TIME" a b more)))
 
 (defn TITS
   "TITS (live rate): (TITS) => 1 TITS; (TITS amount) => that many TITS;
   (TITS a b …) => a·b·… TITS^n (arity → exponent, like a unit)."
   ([]           (r/of "TITS"))
   ([amount]     (r/of "TITS" amount))
-  ([a b & more] (reduce q/qmul (r/of "TITS" a) (map #(r/of "TITS" %) (cons b more)))))
+  ([a b & more] (apply r/of "TITS" a b more)))
 
 (defn TJS
   "TJS (live rate): (TJS) => 1 TJS; (TJS amount) => that many TJS;
   (TJS a b …) => a·b·… TJS^n (arity → exponent, like a unit)."
   ([]           (r/of "TJS"))
   ([amount]     (r/of "TJS" amount))
-  ([a b & more] (reduce q/qmul (r/of "TJS" a) (map #(r/of "TJS" %) (cons b more)))))
+  ([a b & more] (apply r/of "TJS" a b more)))
 
 (defn TKX
   "TKX (live rate): (TKX) => 1 TKX; (TKX amount) => that many TKX;
   (TKX a b …) => a·b·… TKX^n (arity → exponent, like a unit)."
   ([]           (r/of "TKX"))
   ([amount]     (r/of "TKX" amount))
-  ([a b & more] (reduce q/qmul (r/of "TKX" a) (map #(r/of "TKX" %) (cons b more)))))
+  ([a b & more] (apply r/of "TKX" a b more)))
 
 (defn TMT
   "TMT (live rate): (TMT) => 1 TMT; (TMT amount) => that many TMT;
   (TMT a b …) => a·b·… TMT^n (arity → exponent, like a unit)."
   ([]           (r/of "TMT"))
   ([amount]     (r/of "TMT" amount))
-  ([a b & more] (reduce q/qmul (r/of "TMT" a) (map #(r/of "TMT" %) (cons b more)))))
+  ([a b & more] (apply r/of "TMT" a b more)))
 
 (defn TND
   "TND (live rate): (TND) => 1 TND; (TND amount) => that many TND;
   (TND a b …) => a·b·… TND^n (arity → exponent, like a unit)."
   ([]           (r/of "TND"))
   ([amount]     (r/of "TND" amount))
-  ([a b & more] (reduce q/qmul (r/of "TND" a) (map #(r/of "TND" %) (cons b more)))))
+  ([a b & more] (apply r/of "TND" a b more)))
 
 (defn TNSR
   "TNSR (live rate): (TNSR) => 1 TNSR; (TNSR amount) => that many TNSR;
   (TNSR a b …) => a·b·… TNSR^n (arity → exponent, like a unit)."
   ([]           (r/of "TNSR"))
   ([amount]     (r/of "TNSR" amount))
-  ([a b & more] (reduce q/qmul (r/of "TNSR" a) (map #(r/of "TNSR" %) (cons b more)))))
+  ([a b & more] (apply r/of "TNSR" a b more)))
 
 (defn TON
   "TON (live rate): (TON) => 1 TON; (TON amount) => that many TON;
   (TON a b …) => a·b·… TON^n (arity → exponent, like a unit)."
   ([]           (r/of "TON"))
   ([amount]     (r/of "TON" amount))
-  ([a b & more] (reduce q/qmul (r/of "TON" a) (map #(r/of "TON" %) (cons b more)))))
+  ([a b & more] (apply r/of "TON" a b more)))
 
 (defn TONE
   "TONE (live rate): (TONE) => 1 TONE; (TONE amount) => that many TONE;
   (TONE a b …) => a·b·… TONE^n (arity → exponent, like a unit)."
   ([]           (r/of "TONE"))
   ([amount]     (r/of "TONE" amount))
-  ([a b & more] (reduce q/qmul (r/of "TONE" a) (map #(r/of "TONE" %) (cons b more)))))
+  ([a b & more] (apply r/of "TONE" a b more)))
 
 (defn TOP
   "TOP (live rate): (TOP) => 1 TOP; (TOP amount) => that many TOP;
   (TOP a b …) => a·b·… TOP^n (arity → exponent, like a unit)."
   ([]           (r/of "TOP"))
   ([amount]     (r/of "TOP" amount))
-  ([a b & more] (reduce q/qmul (r/of "TOP" a) (map #(r/of "TOP" %) (cons b more)))))
+  ([a b & more] (apply r/of "TOP" a b more)))
 
 (defn TOPIA
   "TOPIA (live rate): (TOPIA) => 1 TOPIA; (TOPIA amount) => that many TOPIA;
   (TOPIA a b …) => a·b·… TOPIA^n (arity → exponent, like a unit)."
   ([]           (r/of "TOPIA"))
   ([amount]     (r/of "TOPIA" amount))
-  ([a b & more] (reduce q/qmul (r/of "TOPIA" a) (map #(r/of "TOPIA" %) (cons b more)))))
+  ([a b & more] (apply r/of "TOPIA" a b more)))
 
 (defn TOSHI
   "TOSHI (live rate): (TOSHI) => 1 TOSHI; (TOSHI amount) => that many TOSHI;
   (TOSHI a b …) => a·b·… TOSHI^n (arity → exponent, like a unit)."
   ([]           (r/of "TOSHI"))
   ([amount]     (r/of "TOSHI" amount))
-  ([a b & more] (reduce q/qmul (r/of "TOSHI" a) (map #(r/of "TOSHI" %) (cons b more)))))
+  ([a b & more] (apply r/of "TOSHI" a b more)))
 
 (defn TOWNS
   "TOWNS (live rate): (TOWNS) => 1 TOWNS; (TOWNS amount) => that many TOWNS;
   (TOWNS a b …) => a·b·… TOWNS^n (arity → exponent, like a unit)."
   ([]           (r/of "TOWNS"))
   ([amount]     (r/of "TOWNS" amount))
-  ([a b & more] (reduce q/qmul (r/of "TOWNS" a) (map #(r/of "TOWNS" %) (cons b more)))))
+  ([a b & more] (apply r/of "TOWNS" a b more)))
 
 (defn TRAC
   "TRAC (live rate): (TRAC) => 1 TRAC; (TRAC amount) => that many TRAC;
   (TRAC a b …) => a·b·… TRAC^n (arity → exponent, like a unit)."
   ([]           (r/of "TRAC"))
   ([amount]     (r/of "TRAC" amount))
-  ([a b & more] (reduce q/qmul (r/of "TRAC" a) (map #(r/of "TRAC" %) (cons b more)))))
+  ([a b & more] (apply r/of "TRAC" a b more)))
 
 (defn TRB
   "TRB (live rate): (TRB) => 1 TRB; (TRB amount) => that many TRB;
   (TRB a b …) => a·b·… TRB^n (arity → exponent, like a unit)."
   ([]           (r/of "TRB"))
   ([amount]     (r/of "TRB" amount))
-  ([a b & more] (reduce q/qmul (r/of "TRB" a) (map #(r/of "TRB" %) (cons b more)))))
+  ([a b & more] (apply r/of "TRB" a b more)))
 
 (defn TREE
   "TREE (live rate): (TREE) => 1 TREE; (TREE amount) => that many TREE;
   (TREE a b …) => a·b·… TREE^n (arity → exponent, like a unit)."
   ([]           (r/of "TREE"))
   ([amount]     (r/of "TREE" amount))
-  ([a b & more] (reduce q/qmul (r/of "TREE" a) (map #(r/of "TREE" %) (cons b more)))))
+  ([a b & more] (apply r/of "TREE" a b more)))
 
 (defn TRIA
   "TRIA (live rate): (TRIA) => 1 TRIA; (TRIA amount) => that many TRIA;
   (TRIA a b …) => a·b·… TRIA^n (arity → exponent, like a unit)."
   ([]           (r/of "TRIA"))
   ([amount]     (r/of "TRIA" amount))
-  ([a b & more] (reduce q/qmul (r/of "TRIA" a) (map #(r/of "TRIA" %) (cons b more)))))
+  ([a b & more] (apply r/of "TRIA" a b more)))
 
 (defn TRIBE
   "TRIBE (live rate): (TRIBE) => 1 TRIBE; (TRIBE amount) => that many TRIBE;
   (TRIBE a b …) => a·b·… TRIBE^n (arity → exponent, like a unit)."
   ([]           (r/of "TRIBE"))
   ([amount]     (r/of "TRIBE" amount))
-  ([a b & more] (reduce q/qmul (r/of "TRIBE" a) (map #(r/of "TRIBE" %) (cons b more)))))
+  ([a b & more] (apply r/of "TRIBE" a b more)))
 
 (defn TRIP
   "TRIP (live rate): (TRIP) => 1 TRIP; (TRIP amount) => that many TRIP;
   (TRIP a b …) => a·b·… TRIP^n (arity → exponent, like a unit)."
   ([]           (r/of "TRIP"))
   ([amount]     (r/of "TRIP" amount))
-  ([a b & more] (reduce q/qmul (r/of "TRIP" a) (map #(r/of "TRIP" %) (cons b more)))))
+  ([a b & more] (apply r/of "TRIP" a b more)))
 
 (defn TROLL
   "TROLL (live rate): (TROLL) => 1 TROLL; (TROLL amount) => that many TROLL;
   (TROLL a b …) => a·b·… TROLL^n (arity → exponent, like a unit)."
   ([]           (r/of "TROLL"))
   ([amount]     (r/of "TROLL" amount))
-  ([a b & more] (reduce q/qmul (r/of "TROLL" a) (map #(r/of "TROLL" %) (cons b more)))))
+  ([a b & more] (apply r/of "TROLL" a b more)))
 
 (defn TRU
   "TRU (live rate): (TRU) => 1 TRU; (TRU amount) => that many TRU;
   (TRU a b …) => a·b·… TRU^n (arity → exponent, like a unit)."
   ([]           (r/of "TRU"))
   ([amount]     (r/of "TRU" amount))
-  ([a b & more] (reduce q/qmul (r/of "TRU" a) (map #(r/of "TRU" %) (cons b more)))))
+  ([a b & more] (apply r/of "TRU" a b more)))
 
 (defn TRUMP
   "TRUMP (live rate): (TRUMP) => 1 TRUMP; (TRUMP amount) => that many TRUMP;
   (TRUMP a b …) => a·b·… TRUMP^n (arity → exponent, like a unit)."
   ([]           (r/of "TRUMP"))
   ([amount]     (r/of "TRUMP" amount))
-  ([a b & more] (reduce q/qmul (r/of "TRUMP" a) (map #(r/of "TRUMP" %) (cons b more)))))
+  ([a b & more] (apply r/of "TRUMP" a b more)))
 
 (defn TRUST
   "TRUST (live rate): (TRUST) => 1 TRUST; (TRUST amount) => that many TRUST;
   (TRUST a b …) => a·b·… TRUST^n (arity → exponent, like a unit)."
   ([]           (r/of "TRUST"))
   ([amount]     (r/of "TRUST" amount))
-  ([a b & more] (reduce q/qmul (r/of "TRUST" a) (map #(r/of "TRUST" %) (cons b more)))))
+  ([a b & more] (apply r/of "TRUST" a b more)))
 
 (defn TRX
   "TRX (live rate): (TRX) => 1 TRX; (TRX amount) => that many TRX;
   (TRX a b …) => a·b·… TRX^n (arity → exponent, like a unit)."
   ([]           (r/of "TRX"))
   ([amount]     (r/of "TRX" amount))
-  ([a b & more] (reduce q/qmul (r/of "TRX" a) (map #(r/of "TRX" %) (cons b more)))))
+  ([a b & more] (apply r/of "TRX" a b more)))
 
 (defn TRY
   "TRY (live rate): (TRY) => 1 TRY; (TRY amount) => that many TRY;
   (TRY a b …) => a·b·… TRY^n (arity → exponent, like a unit)."
   ([]           (r/of "TRY"))
   ([amount]     (r/of "TRY" amount))
-  ([a b & more] (reduce q/qmul (r/of "TRY" a) (map #(r/of "TRY" %) (cons b more)))))
+  ([a b & more] (apply r/of "TRY" a b more)))
 
 (defn TST
   "TST (live rate): (TST) => 1 TST; (TST amount) => that many TST;
   (TST a b …) => a·b·… TST^n (arity → exponent, like a unit)."
   ([]           (r/of "TST"))
   ([amount]     (r/of "TST" amount))
-  ([a b & more] (reduce q/qmul (r/of "TST" a) (map #(r/of "TST" %) (cons b more)))))
+  ([a b & more] (apply r/of "TST" a b more)))
 
 (defn TTD
   "TTD (live rate): (TTD) => 1 TTD; (TTD amount) => that many TTD;
   (TTD a b …) => a·b·… TTD^n (arity → exponent, like a unit)."
   ([]           (r/of "TTD"))
   ([amount]     (r/of "TTD" amount))
-  ([a b & more] (reduce q/qmul (r/of "TTD" a) (map #(r/of "TTD" %) (cons b more)))))
+  ([a b & more] (apply r/of "TTD" a b more)))
 
 (defn TURBO
   "TURBO (live rate): (TURBO) => 1 TURBO; (TURBO amount) => that many TURBO;
   (TURBO a b …) => a·b·… TURBO^n (arity → exponent, like a unit)."
   ([]           (r/of "TURBO"))
   ([amount]     (r/of "TURBO" amount))
-  ([a b & more] (reduce q/qmul (r/of "TURBO" a) (map #(r/of "TURBO" %) (cons b more)))))
+  ([a b & more] (apply r/of "TURBO" a b more)))
 
 (defn TUSD
   "TUSD (live rate): (TUSD) => 1 TUSD; (TUSD amount) => that many TUSD;
   (TUSD a b …) => a·b·… TUSD^n (arity → exponent, like a unit)."
   ([]           (r/of "TUSD"))
   ([amount]     (r/of "TUSD" amount))
-  ([a b & more] (reduce q/qmul (r/of "TUSD" a) (map #(r/of "TUSD" %) (cons b more)))))
+  ([a b & more] (apply r/of "TUSD" a b more)))
 
 (defn TVK
   "TVK (live rate): (TVK) => 1 TVK; (TVK amount) => that many TVK;
   (TVK a b …) => a·b·… TVK^n (arity → exponent, like a unit)."
   ([]           (r/of "TVK"))
   ([amount]     (r/of "TVK" amount))
-  ([a b & more] (reduce q/qmul (r/of "TVK" a) (map #(r/of "TVK" %) (cons b more)))))
+  ([a b & more] (apply r/of "TVK" a b more)))
 
 (defn TWD
   "TWD (live rate): (TWD) => 1 TWD; (TWD amount) => that many TWD;
   (TWD a b …) => a·b·… TWD^n (arity → exponent, like a unit)."
   ([]           (r/of "TWD"))
   ([amount]     (r/of "TWD" amount))
-  ([a b & more] (reduce q/qmul (r/of "TWD" a) (map #(r/of "TWD" %) (cons b more)))))
+  ([a b & more] (apply r/of "TWD" a b more)))
 
 (defn TWT
   "TWT (live rate): (TWT) => 1 TWT; (TWT amount) => that many TWT;
   (TWT a b …) => a·b·… TWT^n (arity → exponent, like a unit)."
   ([]           (r/of "TWT"))
   ([amount]     (r/of "TWT" amount))
-  ([a b & more] (reduce q/qmul (r/of "TWT" a) (map #(r/of "TWT" %) (cons b more)))))
+  ([a b & more] (apply r/of "TWT" a b more)))
 
 (defn TZS
   "TZS (live rate): (TZS) => 1 TZS; (TZS amount) => that many TZS;
   (TZS a b …) => a·b·… TZS^n (arity → exponent, like a unit)."
   ([]           (r/of "TZS"))
   ([amount]     (r/of "TZS" amount))
-  ([a b & more] (reduce q/qmul (r/of "TZS" a) (map #(r/of "TZS" %) (cons b more)))))
+  ([a b & more] (apply r/of "TZS" a b more)))
 
 (defn UAH
   "UAH (live rate): (UAH) => 1 UAH; (UAH amount) => that many UAH;
   (UAH a b …) => a·b·… UAH^n (arity → exponent, like a unit)."
   ([]           (r/of "UAH"))
   ([amount]     (r/of "UAH" amount))
-  ([a b & more] (reduce q/qmul (r/of "UAH" a) (map #(r/of "UAH" %) (cons b more)))))
+  ([a b & more] (apply r/of "UAH" a b more)))
 
 (defn UFD
   "UFD (live rate): (UFD) => 1 UFD; (UFD amount) => that many UFD;
   (UFD a b …) => a·b·… UFD^n (arity → exponent, like a unit)."
   ([]           (r/of "UFD"))
   ([amount]     (r/of "UFD" amount))
-  ([a b & more] (reduce q/qmul (r/of "UFD" a) (map #(r/of "UFD" %) (cons b more)))))
+  ([a b & more] (apply r/of "UFD" a b more)))
 
 (defn UGX
   "UGX (live rate): (UGX) => 1 UGX; (UGX amount) => that many UGX;
   (UGX a b …) => a·b·… UGX^n (arity → exponent, like a unit)."
   ([]           (r/of "UGX"))
   ([amount]     (r/of "UGX" amount))
-  ([a b & more] (reduce q/qmul (r/of "UGX" a) (map #(r/of "UGX" %) (cons b more)))))
+  ([a b & more] (apply r/of "UGX" a b more)))
 
 (defn ULTIMA
   "ULTIMA (live rate): (ULTIMA) => 1 ULTIMA; (ULTIMA amount) => that many ULTIMA;
   (ULTIMA a b …) => a·b·… ULTIMA^n (arity → exponent, like a unit)."
   ([]           (r/of "ULTIMA"))
   ([amount]     (r/of "ULTIMA" amount))
-  ([a b & more] (reduce q/qmul (r/of "ULTIMA" a) (map #(r/of "ULTIMA" %) (cons b more)))))
+  ([a b & more] (apply r/of "ULTIMA" a b more)))
 
 (defn UMA
   "UMA (live rate): (UMA) => 1 UMA; (UMA amount) => that many UMA;
   (UMA a b …) => a·b·… UMA^n (arity → exponent, like a unit)."
   ([]           (r/of "UMA"))
   ([amount]     (r/of "UMA" amount))
-  ([a b & more] (reduce q/qmul (r/of "UMA" a) (map #(r/of "UMA" %) (cons b more)))))
+  ([a b & more] (apply r/of "UMA" a b more)))
 
 (defn UNFI
   "UNFI (live rate): (UNFI) => 1 UNFI; (UNFI amount) => that many UNFI;
   (UNFI a b …) => a·b·… UNFI^n (arity → exponent, like a unit)."
   ([]           (r/of "UNFI"))
   ([amount]     (r/of "UNFI" amount))
-  ([a b & more] (reduce q/qmul (r/of "UNFI" a) (map #(r/of "UNFI" %) (cons b more)))))
+  ([a b & more] (apply r/of "UNFI" a b more)))
 
 (defn UNI
   "UNI (live rate): (UNI) => 1 UNI; (UNI amount) => that many UNI;
   (UNI a b …) => a·b·… UNI^n (arity → exponent, like a unit)."
   ([]           (r/of "UNI"))
   ([amount]     (r/of "UNI" amount))
-  ([a b & more] (reduce q/qmul (r/of "UNI" a) (map #(r/of "UNI" %) (cons b more)))))
+  ([a b & more] (apply r/of "UNI" a b more)))
 
 (defn UOS
   "UOS (live rate): (UOS) => 1 UOS; (UOS amount) => that many UOS;
   (UOS a b …) => a·b·… UOS^n (arity → exponent, like a unit)."
   ([]           (r/of "UOS"))
   ([amount]     (r/of "UOS" amount))
-  ([a b & more] (reduce q/qmul (r/of "UOS" a) (map #(r/of "UOS" %) (cons b more)))))
+  ([a b & more] (apply r/of "UOS" a b more)))
 
 (defn UP
   "UP (live rate): (UP) => 1 UP; (UP amount) => that many UP;
   (UP a b …) => a·b·… UP^n (arity → exponent, like a unit)."
   ([]           (r/of "UP"))
   ([amount]     (r/of "UP" amount))
-  ([a b & more] (reduce q/qmul (r/of "UP" a) (map #(r/of "UP" %) (cons b more)))))
+  ([a b & more] (apply r/of "UP" a b more)))
 
 (defn UQC
   "UQC (live rate): (UQC) => 1 UQC; (UQC amount) => that many UQC;
   (UQC a b …) => a·b·… UQC^n (arity → exponent, like a unit)."
   ([]           (r/of "UQC"))
   ([amount]     (r/of "UQC" amount))
-  ([a b & more] (reduce q/qmul (r/of "UQC" a) (map #(r/of "UQC" %) (cons b more)))))
+  ([a b & more] (apply r/of "UQC" a b more)))
 
 (defn USD
   "USD (live rate): (USD) => 1 USD; (USD amount) => that many USD;
   (USD a b …) => a·b·… USD^n (arity → exponent, like a unit)."
   ([]           (r/of "USD"))
   ([amount]     (r/of "USD" amount))
-  ([a b & more] (reduce q/qmul (r/of "USD" a) (map #(r/of "USD" %) (cons b more)))))
+  ([a b & more] (apply r/of "USD" a b more)))
 
 (defn USD0
   "USD0 (live rate): (USD0) => 1 USD0; (USD0 amount) => that many USD0;
   (USD0 a b …) => a·b·… USD0^n (arity → exponent, like a unit)."
   ([]           (r/of "USD0"))
   ([amount]     (r/of "USD0" amount))
-  ([a b & more] (reduce q/qmul (r/of "USD0" a) (map #(r/of "USD0" %) (cons b more)))))
+  ([a b & more] (apply r/of "USD0" a b more)))
 
 (defn USD1
   "USD1 (live rate): (USD1) => 1 USD1; (USD1 amount) => that many USD1;
   (USD1 a b …) => a·b·… USD1^n (arity → exponent, like a unit)."
   ([]           (r/of "USD1"))
   ([amount]     (r/of "USD1" amount))
-  ([a b & more] (reduce q/qmul (r/of "USD1" a) (map #(r/of "USD1" %) (cons b more)))))
+  ([a b & more] (apply r/of "USD1" a b more)))
 
 (defn USDA
   "USDA (live rate): (USDA) => 1 USDA; (USDA amount) => that many USDA;
   (USDA a b …) => a·b·… USDA^n (arity → exponent, like a unit)."
   ([]           (r/of "USDA"))
   ([amount]     (r/of "USDA" amount))
-  ([a b & more] (reduce q/qmul (r/of "USDA" a) (map #(r/of "USDA" %) (cons b more)))))
+  ([a b & more] (apply r/of "USDA" a b more)))
 
 (defn USDB
   "USDB (live rate): (USDB) => 1 USDB; (USDB amount) => that many USDB;
   (USDB a b …) => a·b·… USDB^n (arity → exponent, like a unit)."
   ([]           (r/of "USDB"))
   ([amount]     (r/of "USDB" amount))
-  ([a b & more] (reduce q/qmul (r/of "USDB" a) (map #(r/of "USDB" %) (cons b more)))))
+  ([a b & more] (apply r/of "USDB" a b more)))
 
 (defn USDC
   "USDC (live rate): (USDC) => 1 USDC; (USDC amount) => that many USDC;
   (USDC a b …) => a·b·… USDC^n (arity → exponent, like a unit)."
   ([]           (r/of "USDC"))
   ([amount]     (r/of "USDC" amount))
-  ([a b & more] (reduce q/qmul (r/of "USDC" a) (map #(r/of "USDC" %) (cons b more)))))
+  ([a b & more] (apply r/of "USDC" a b more)))
 
 (defn USDD
   "USDD (live rate): (USDD) => 1 USDD; (USDD amount) => that many USDD;
   (USDD a b …) => a·b·… USDD^n (arity → exponent, like a unit)."
   ([]           (r/of "USDD"))
   ([amount]     (r/of "USDD" amount))
-  ([a b & more] (reduce q/qmul (r/of "USDD" a) (map #(r/of "USDD" %) (cons b more)))))
+  ([a b & more] (apply r/of "USDD" a b more)))
 
 (defn USDE
   "USDE (live rate): (USDE) => 1 USDE; (USDE amount) => that many USDE;
   (USDE a b …) => a·b·… USDE^n (arity → exponent, like a unit)."
   ([]           (r/of "USDE"))
   ([amount]     (r/of "USDE" amount))
-  ([a b & more] (reduce q/qmul (r/of "USDE" a) (map #(r/of "USDE" %) (cons b more)))))
+  ([a b & more] (apply r/of "USDE" a b more)))
 
 (defn USDG
   "USDG (live rate): (USDG) => 1 USDG; (USDG amount) => that many USDG;
   (USDG a b …) => a·b·… USDG^n (arity → exponent, like a unit)."
   ([]           (r/of "USDG"))
   ([amount]     (r/of "USDG" amount))
-  ([a b & more] (reduce q/qmul (r/of "USDG" a) (map #(r/of "USDG" %) (cons b more)))))
+  ([a b & more] (apply r/of "USDG" a b more)))
 
 (defn USDP
   "USDP (live rate): (USDP) => 1 USDP; (USDP amount) => that many USDP;
   (USDP a b …) => a·b·… USDP^n (arity → exponent, like a unit)."
   ([]           (r/of "USDP"))
   ([amount]     (r/of "USDP" amount))
-  ([a b & more] (reduce q/qmul (r/of "USDP" a) (map #(r/of "USDP" %) (cons b more)))))
+  ([a b & more] (apply r/of "USDP" a b more)))
 
 (defn USDS
   "USDS (live rate): (USDS) => 1 USDS; (USDS amount) => that many USDS;
   (USDS a b …) => a·b·… USDS^n (arity → exponent, like a unit)."
   ([]           (r/of "USDS"))
   ([amount]     (r/of "USDS" amount))
-  ([a b & more] (reduce q/qmul (r/of "USDS" a) (map #(r/of "USDS" %) (cons b more)))))
+  ([a b & more] (apply r/of "USDS" a b more)))
 
 (defn USDT
   "USDT (live rate): (USDT) => 1 USDT; (USDT amount) => that many USDT;
   (USDT a b …) => a·b·… USDT^n (arity → exponent, like a unit)."
   ([]           (r/of "USDT"))
   ([amount]     (r/of "USDT" amount))
-  ([a b & more] (reduce q/qmul (r/of "USDT" a) (map #(r/of "USDT" %) (cons b more)))))
+  ([a b & more] (apply r/of "USDT" a b more)))
 
 (defn USDT0
   "USDT0 (live rate): (USDT0) => 1 USDT0; (USDT0 amount) => that many USDT0;
   (USDT0 a b …) => a·b·… USDT0^n (arity → exponent, like a unit)."
   ([]           (r/of "USDT0"))
   ([amount]     (r/of "USDT0" amount))
-  ([a b & more] (reduce q/qmul (r/of "USDT0" a) (map #(r/of "USDT0" %) (cons b more)))))
+  ([a b & more] (apply r/of "USDT0" a b more)))
 
 (defn USDX
   "USDX (live rate): (USDX) => 1 USDX; (USDX amount) => that many USDX;
   (USDX a b …) => a·b·… USDX^n (arity → exponent, like a unit)."
   ([]           (r/of "USDX"))
   ([amount]     (r/of "USDX" amount))
-  ([a b & more] (reduce q/qmul (r/of "USDX" a) (map #(r/of "USDX" %) (cons b more)))))
+  ([a b & more] (apply r/of "USDX" a b more)))
 
 (defn USDY
   "USDY (live rate): (USDY) => 1 USDY; (USDY amount) => that many USDY;
   (USDY a b …) => a·b·… USDY^n (arity → exponent, like a unit)."
   ([]           (r/of "USDY"))
   ([amount]     (r/of "USDY" amount))
-  ([a b & more] (reduce q/qmul (r/of "USDY" a) (map #(r/of "USDY" %) (cons b more)))))
+  ([a b & more] (apply r/of "USDY" a b more)))
 
 (defn USELESS
   "USELESS (live rate): (USELESS) => 1 USELESS; (USELESS amount) => that many USELESS;
   (USELESS a b …) => a·b·… USELESS^n (arity → exponent, like a unit)."
   ([]           (r/of "USELESS"))
   ([amount]     (r/of "USELESS" amount))
-  ([a b & more] (reduce q/qmul (r/of "USELESS" a) (map #(r/of "USELESS" %) (cons b more)))))
+  ([a b & more] (apply r/of "USELESS" a b more)))
 
 (defn USR
   "USR (live rate): (USR) => 1 USR; (USR amount) => that many USR;
   (USR a b …) => a·b·… USR^n (arity → exponent, like a unit)."
   ([]           (r/of "USR"))
   ([amount]     (r/of "USR" amount))
-  ([a b & more] (reduce q/qmul (r/of "USR" a) (map #(r/of "USR" %) (cons b more)))))
+  ([a b & more] (apply r/of "USR" a b more)))
 
 (defn UST
   "UST (live rate): (UST) => 1 UST; (UST amount) => that many UST;
   (UST a b …) => a·b·… UST^n (arity → exponent, like a unit)."
   ([]           (r/of "UST"))
   ([amount]     (r/of "UST" amount))
-  ([a b & more] (reduce q/qmul (r/of "UST" a) (map #(r/of "UST" %) (cons b more)))))
+  ([a b & more] (apply r/of "UST" a b more)))
 
 (defn USTC
   "USTC (live rate): (USTC) => 1 USTC; (USTC amount) => that many USTC;
   (USTC a b …) => a·b·… USTC^n (arity → exponent, like a unit)."
   ([]           (r/of "USTC"))
   ([amount]     (r/of "USTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "USTC" a) (map #(r/of "USTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "USTC" a b more)))
 
 (defn USUAL
   "USUAL (live rate): (USUAL) => 1 USUAL; (USUAL amount) => that many USUAL;
   (USUAL a b …) => a·b·… USUAL^n (arity → exponent, like a unit)."
   ([]           (r/of "USUAL"))
   ([amount]     (r/of "USUAL" amount))
-  ([a b & more] (reduce q/qmul (r/of "USUAL" a) (map #(r/of "USUAL" %) (cons b more)))))
+  ([a b & more] (apply r/of "USUAL" a b more)))
 
 (defn USYC
   "USYC (live rate): (USYC) => 1 USYC; (USYC amount) => that many USYC;
   (USYC a b …) => a·b·… USYC^n (arity → exponent, like a unit)."
   ([]           (r/of "USYC"))
   ([amount]     (r/of "USYC" amount))
-  ([a b & more] (reduce q/qmul (r/of "USYC" a) (map #(r/of "USYC" %) (cons b more)))))
+  ([a b & more] (apply r/of "USYC" a b more)))
 
 (defn UXLINK
   "UXLINK (live rate): (UXLINK) => 1 UXLINK; (UXLINK amount) => that many UXLINK;
   (UXLINK a b …) => a·b·… UXLINK^n (arity → exponent, like a unit)."
   ([]           (r/of "UXLINK"))
   ([amount]     (r/of "UXLINK" amount))
-  ([a b & more] (reduce q/qmul (r/of "UXLINK" a) (map #(r/of "UXLINK" %) (cons b more)))))
+  ([a b & more] (apply r/of "UXLINK" a b more)))
 
 (defn UYU
   "UYU (live rate): (UYU) => 1 UYU; (UYU amount) => that many UYU;
   (UYU a b …) => a·b·… UYU^n (arity → exponent, like a unit)."
   ([]           (r/of "UYU"))
   ([amount]     (r/of "UYU" amount))
-  ([a b & more] (reduce q/qmul (r/of "UYU" a) (map #(r/of "UYU" %) (cons b more)))))
+  ([a b & more] (apply r/of "UYU" a b more)))
 
 (defn UZS
   "UZS (live rate): (UZS) => 1 UZS; (UZS amount) => that many UZS;
   (UZS a b …) => a·b·… UZS^n (arity → exponent, like a unit)."
   ([]           (r/of "UZS"))
   ([amount]     (r/of "UZS" amount))
-  ([a b & more] (reduce q/qmul (r/of "UZS" a) (map #(r/of "UZS" %) (cons b more)))))
+  ([a b & more] (apply r/of "UZS" a b more)))
 
 (defn VANA
   "VANA (live rate): (VANA) => 1 VANA; (VANA amount) => that many VANA;
   (VANA a b …) => a·b·… VANA^n (arity → exponent, like a unit)."
   ([]           (r/of "VANA"))
   ([amount]     (r/of "VANA" amount))
-  ([a b & more] (reduce q/qmul (r/of "VANA" a) (map #(r/of "VANA" %) (cons b more)))))
+  ([a b & more] (apply r/of "VANA" a b more)))
 
 (defn VANRY
   "VANRY (live rate): (VANRY) => 1 VANRY; (VANRY amount) => that many VANRY;
   (VANRY a b …) => a·b·… VANRY^n (arity → exponent, like a unit)."
   ([]           (r/of "VANRY"))
   ([amount]     (r/of "VANRY" amount))
-  ([a b & more] (reduce q/qmul (r/of "VANRY" a) (map #(r/of "VANRY" %) (cons b more)))))
+  ([a b & more] (apply r/of "VANRY" a b more)))
 
 (defn VARA
   "VARA (live rate): (VARA) => 1 VARA; (VARA amount) => that many VARA;
   (VARA a b …) => a·b·… VARA^n (arity → exponent, like a unit)."
   ([]           (r/of "VARA"))
   ([amount]     (r/of "VARA" amount))
-  ([a b & more] (reduce q/qmul (r/of "VARA" a) (map #(r/of "VARA" %) (cons b more)))))
+  ([a b & more] (apply r/of "VARA" a b more)))
 
 (defn VEF
   "VEF (live rate): (VEF) => 1 VEF; (VEF amount) => that many VEF;
   (VEF a b …) => a·b·… VEF^n (arity → exponent, like a unit)."
   ([]           (r/of "VEF"))
   ([amount]     (r/of "VEF" amount))
-  ([a b & more] (reduce q/qmul (r/of "VEF" a) (map #(r/of "VEF" %) (cons b more)))))
+  ([a b & more] (apply r/of "VEF" a b more)))
 
 (defn VELO
   "VELO (live rate): (VELO) => 1 VELO; (VELO amount) => that many VELO;
   (VELO a b …) => a·b·… VELO^n (arity → exponent, like a unit)."
   ([]           (r/of "VELO"))
   ([amount]     (r/of "VELO" amount))
-  ([a b & more] (reduce q/qmul (r/of "VELO" a) (map #(r/of "VELO" %) (cons b more)))))
+  ([a b & more] (apply r/of "VELO" a b more)))
 
 (defn VENOM
   "VENOM (live rate): (VENOM) => 1 VENOM; (VENOM amount) => that many VENOM;
   (VENOM a b …) => a·b·… VENOM^n (arity → exponent, like a unit)."
   ([]           (r/of "VENOM"))
   ([amount]     (r/of "VENOM" amount))
-  ([a b & more] (reduce q/qmul (r/of "VENOM" a) (map #(r/of "VENOM" %) (cons b more)))))
+  ([a b & more] (apply r/of "VENOM" a b more)))
 
 (defn VES
   "VES (live rate): (VES) => 1 VES; (VES amount) => that many VES;
   (VES a b …) => a·b·… VES^n (arity → exponent, like a unit)."
   ([]           (r/of "VES"))
   ([amount]     (r/of "VES" amount))
-  ([a b & more] (reduce q/qmul (r/of "VES" a) (map #(r/of "VES" %) (cons b more)))))
+  ([a b & more] (apply r/of "VES" a b more)))
 
 (defn VET
   "VET (live rate): (VET) => 1 VET; (VET amount) => that many VET;
   (VET a b …) => a·b·… VET^n (arity → exponent, like a unit)."
   ([]           (r/of "VET"))
   ([amount]     (r/of "VET" amount))
-  ([a b & more] (reduce q/qmul (r/of "VET" a) (map #(r/of "VET" %) (cons b more)))))
+  ([a b & more] (apply r/of "VET" a b more)))
 
 (defn VGX
   "VGX (live rate): (VGX) => 1 VGX; (VGX amount) => that many VGX;
   (VGX a b …) => a·b·… VGX^n (arity → exponent, like a unit)."
   ([]           (r/of "VGX"))
   ([amount]     (r/of "VGX" amount))
-  ([a b & more] (reduce q/qmul (r/of "VGX" a) (map #(r/of "VGX" %) (cons b more)))))
+  ([a b & more] (apply r/of "VGX" a b more)))
 
 (defn VINE
   "VINE (live rate): (VINE) => 1 VINE; (VINE amount) => that many VINE;
   (VINE a b …) => a·b·… VINE^n (arity → exponent, like a unit)."
   ([]           (r/of "VINE"))
   ([amount]     (r/of "VINE" amount))
-  ([a b & more] (reduce q/qmul (r/of "VINE" a) (map #(r/of "VINE" %) (cons b more)))))
+  ([a b & more] (apply r/of "VINE" a b more)))
 
 (defn VIRTUAL
   "VIRTUAL (live rate): (VIRTUAL) => 1 VIRTUAL; (VIRTUAL amount) => that many VIRTUAL;
   (VIRTUAL a b …) => a·b·… VIRTUAL^n (arity → exponent, like a unit)."
   ([]           (r/of "VIRTUAL"))
   ([amount]     (r/of "VIRTUAL" amount))
-  ([a b & more] (reduce q/qmul (r/of "VIRTUAL" a) (map #(r/of "VIRTUAL" %) (cons b more)))))
+  ([a b & more] (apply r/of "VIRTUAL" a b more)))
 
 (defn VND
   "VND (live rate): (VND) => 1 VND; (VND amount) => that many VND;
   (VND a b …) => a·b·… VND^n (arity → exponent, like a unit)."
   ([]           (r/of "VND"))
   ([amount]     (r/of "VND" amount))
-  ([a b & more] (reduce q/qmul (r/of "VND" a) (map #(r/of "VND" %) (cons b more)))))
+  ([a b & more] (apply r/of "VND" a b more)))
 
 (defn VNST
   "VNST (live rate): (VNST) => 1 VNST; (VNST amount) => that many VNST;
   (VNST a b …) => a·b·… VNST^n (arity → exponent, like a unit)."
   ([]           (r/of "VNST"))
   ([amount]     (r/of "VNST" amount))
-  ([a b & more] (reduce q/qmul (r/of "VNST" a) (map #(r/of "VNST" %) (cons b more)))))
+  ([a b & more] (apply r/of "VNST" a b more)))
 
 (defn VOXEL
   "VOXEL (live rate): (VOXEL) => 1 VOXEL; (VOXEL amount) => that many VOXEL;
   (VOXEL a b …) => a·b·… VOXEL^n (arity → exponent, like a unit)."
   ([]           (r/of "VOXEL"))
   ([amount]     (r/of "VOXEL" amount))
-  ([a b & more] (reduce q/qmul (r/of "VOXEL" a) (map #(r/of "VOXEL" %) (cons b more)))))
+  ([a b & more] (apply r/of "VOXEL" a b more)))
 
 (defn VR
   "VR (live rate): (VR) => 1 VR; (VR amount) => that many VR;
   (VR a b …) => a·b·… VR^n (arity → exponent, like a unit)."
   ([]           (r/of "VR"))
   ([amount]     (r/of "VR" amount))
-  ([a b & more] (reduce q/qmul (r/of "VR" a) (map #(r/of "VR" %) (cons b more)))))
+  ([a b & more] (apply r/of "VR" a b more)))
 
 (defn VRSC
   "VRSC (live rate): (VRSC) => 1 VRSC; (VRSC amount) => that many VRSC;
   (VRSC a b …) => a·b·… VRSC^n (arity → exponent, like a unit)."
   ([]           (r/of "VRSC"))
   ([amount]     (r/of "VRSC" amount))
-  ([a b & more] (reduce q/qmul (r/of "VRSC" a) (map #(r/of "VRSC" %) (cons b more)))))
+  ([a b & more] (apply r/of "VRSC" a b more)))
 
 (defn VTHO
   "VTHO (live rate): (VTHO) => 1 VTHO; (VTHO amount) => that many VTHO;
   (VTHO a b …) => a·b·… VTHO^n (arity → exponent, like a unit)."
   ([]           (r/of "VTHO"))
   ([amount]     (r/of "VTHO" amount))
-  ([a b & more] (reduce q/qmul (r/of "VTHO" a) (map #(r/of "VTHO" %) (cons b more)))))
+  ([a b & more] (apply r/of "VTHO" a b more)))
 
 (defn VUV
   "VUV (live rate): (VUV) => 1 VUV; (VUV amount) => that many VUV;
   (VUV a b …) => a·b·… VUV^n (arity → exponent, like a unit)."
   ([]           (r/of "VUV"))
   ([amount]     (r/of "VUV" amount))
-  ([a b & more] (reduce q/qmul (r/of "VUV" a) (map #(r/of "VUV" %) (cons b more)))))
+  ([a b & more] (apply r/of "VUV" a b more)))
 
 (defn VVV
   "VVV (live rate): (VVV) => 1 VVV; (VVV amount) => that many VVV;
   (VVV a b …) => a·b·… VVV^n (arity → exponent, like a unit)."
   ([]           (r/of "VVV"))
   ([amount]     (r/of "VVV" amount))
-  ([a b & more] (reduce q/qmul (r/of "VVV" a) (map #(r/of "VVV" %) (cons b more)))))
+  ([a b & more] (apply r/of "VVV" a b more)))
 
 (defn W
   "W (live rate): (W) => 1 W; (W amount) => that many W;
   (W a b …) => a·b·… W^n (arity → exponent, like a unit)."
   ([]           (r/of "W"))
   ([amount]     (r/of "W" amount))
-  ([a b & more] (reduce q/qmul (r/of "W" a) (map #(r/of "W" %) (cons b more)))))
+  ([a b & more] (apply r/of "W" a b more)))
 
 (defn W3S
   "W3S (live rate): (W3S) => 1 W3S; (W3S amount) => that many W3S;
   (W3S a b …) => a·b·… W3S^n (arity → exponent, like a unit)."
   ([]           (r/of "W3S"))
   ([amount]     (r/of "W3S" amount))
-  ([a b & more] (reduce q/qmul (r/of "W3S" a) (map #(r/of "W3S" %) (cons b more)))))
+  ([a b & more] (apply r/of "W3S" a b more)))
 
 (defn WAL
   "WAL (live rate): (WAL) => 1 WAL; (WAL amount) => that many WAL;
   (WAL a b …) => a·b·… WAL^n (arity → exponent, like a unit)."
   ([]           (r/of "WAL"))
   ([amount]     (r/of "WAL" amount))
-  ([a b & more] (reduce q/qmul (r/of "WAL" a) (map #(r/of "WAL" %) (cons b more)))))
+  ([a b & more] (apply r/of "WAL" a b more)))
 
 (defn WAMPL
   "WAMPL (live rate): (WAMPL) => 1 WAMPL; (WAMPL amount) => that many WAMPL;
   (WAMPL a b …) => a·b·… WAMPL^n (arity → exponent, like a unit)."
   ([]           (r/of "WAMPL"))
   ([amount]     (r/of "WAMPL" amount))
-  ([a b & more] (reduce q/qmul (r/of "WAMPL" a) (map #(r/of "WAMPL" %) (cons b more)))))
+  ([a b & more] (apply r/of "WAMPL" a b more)))
 
 (defn WAVAX
   "WAVAX (live rate): (WAVAX) => 1 WAVAX; (WAVAX amount) => that many WAVAX;
   (WAVAX a b …) => a·b·… WAVAX^n (arity → exponent, like a unit)."
   ([]           (r/of "WAVAX"))
   ([amount]     (r/of "WAVAX" amount))
-  ([a b & more] (reduce q/qmul (r/of "WAVAX" a) (map #(r/of "WAVAX" %) (cons b more)))))
+  ([a b & more] (apply r/of "WAVAX" a b more)))
 
 (defn WAVES
   "WAVES (live rate): (WAVES) => 1 WAVES; (WAVES amount) => that many WAVES;
   (WAVES a b …) => a·b·… WAVES^n (arity → exponent, like a unit)."
   ([]           (r/of "WAVES"))
   ([amount]     (r/of "WAVES" amount))
-  ([a b & more] (reduce q/qmul (r/of "WAVES" a) (map #(r/of "WAVES" %) (cons b more)))))
+  ([a b & more] (apply r/of "WAVES" a b more)))
 
 (defn WAXL
   "WAXL (live rate): (WAXL) => 1 WAXL; (WAXL amount) => that many WAXL;
   (WAXL a b …) => a·b·… WAXL^n (arity → exponent, like a unit)."
   ([]           (r/of "WAXL"))
   ([amount]     (r/of "WAXL" amount))
-  ([a b & more] (reduce q/qmul (r/of "WAXL" a) (map #(r/of "WAXL" %) (cons b more)))))
+  ([a b & more] (apply r/of "WAXL" a b more)))
 
 (defn WAXP
   "WAXP (live rate): (WAXP) => 1 WAXP; (WAXP amount) => that many WAXP;
   (WAXP a b …) => a·b·… WAXP^n (arity → exponent, like a unit)."
   ([]           (r/of "WAXP"))
   ([amount]     (r/of "WAXP" amount))
-  ([a b & more] (reduce q/qmul (r/of "WAXP" a) (map #(r/of "WAXP" %) (cons b more)))))
+  ([a b & more] (apply r/of "WAXP" a b more)))
 
 (defn WBETH
   "WBETH (live rate): (WBETH) => 1 WBETH; (WBETH amount) => that many WBETH;
   (WBETH a b …) => a·b·… WBETH^n (arity → exponent, like a unit)."
   ([]           (r/of "WBETH"))
   ([amount]     (r/of "WBETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "WBETH" a) (map #(r/of "WBETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "WBETH" a b more)))
 
 (defn WBNB
   "WBNB (live rate): (WBNB) => 1 WBNB; (WBNB amount) => that many WBNB;
   (WBNB a b …) => a·b·… WBNB^n (arity → exponent, like a unit)."
   ([]           (r/of "WBNB"))
   ([amount]     (r/of "WBNB" amount))
-  ([a b & more] (reduce q/qmul (r/of "WBNB" a) (map #(r/of "WBNB" %) (cons b more)))))
+  ([a b & more] (apply r/of "WBNB" a b more)))
 
 (defn WBT
   "WBT (live rate): (WBT) => 1 WBT; (WBT amount) => that many WBT;
   (WBT a b …) => a·b·… WBT^n (arity → exponent, like a unit)."
   ([]           (r/of "WBT"))
   ([amount]     (r/of "WBT" amount))
-  ([a b & more] (reduce q/qmul (r/of "WBT" a) (map #(r/of "WBT" %) (cons b more)))))
+  ([a b & more] (apply r/of "WBT" a b more)))
 
 (defn WBTC
   "WBTC (live rate): (WBTC) => 1 WBTC; (WBTC amount) => that many WBTC;
   (WBTC a b …) => a·b·… WBTC^n (arity → exponent, like a unit)."
   ([]           (r/of "WBTC"))
   ([amount]     (r/of "WBTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "WBTC" a) (map #(r/of "WBTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "WBTC" a b more)))
 
 (defn WCT
   "WCT (live rate): (WCT) => 1 WCT; (WCT amount) => that many WCT;
   (WCT a b …) => a·b·… WCT^n (arity → exponent, like a unit)."
   ([]           (r/of "WCT"))
   ([amount]     (r/of "WCT" amount))
-  ([a b & more] (reduce q/qmul (r/of "WCT" a) (map #(r/of "WCT" %) (cons b more)))))
+  ([a b & more] (apply r/of "WCT" a b more)))
 
 (defn WEETH
   "WEETH (live rate): (WEETH) => 1 WEETH; (WEETH amount) => that many WEETH;
   (WEETH a b …) => a·b·… WEETH^n (arity → exponent, like a unit)."
   ([]           (r/of "WEETH"))
   ([amount]     (r/of "WEETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "WEETH" a) (map #(r/of "WEETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "WEETH" a b more)))
 
 (defn WELL
   "WELL (live rate): (WELL) => 1 WELL; (WELL amount) => that many WELL;
   (WELL a b …) => a·b·… WELL^n (arity → exponent, like a unit)."
   ([]           (r/of "WELL"))
   ([amount]     (r/of "WELL" amount))
-  ([a b & more] (reduce q/qmul (r/of "WELL" a) (map #(r/of "WELL" %) (cons b more)))))
+  ([a b & more] (apply r/of "WELL" a b more)))
 
 (defn WEMIX
   "WEMIX (live rate): (WEMIX) => 1 WEMIX; (WEMIX amount) => that many WEMIX;
   (WEMIX a b …) => a·b·… WEMIX^n (arity → exponent, like a unit)."
   ([]           (r/of "WEMIX"))
   ([amount]     (r/of "WEMIX" amount))
-  ([a b & more] (reduce q/qmul (r/of "WEMIX" a) (map #(r/of "WEMIX" %) (cons b more)))))
+  ([a b & more] (apply r/of "WEMIX" a b more)))
 
 (defn WEN
   "WEN (live rate): (WEN) => 1 WEN; (WEN amount) => that many WEN;
   (WEN a b …) => a·b·… WEN^n (arity → exponent, like a unit)."
   ([]           (r/of "WEN"))
   ([amount]     (r/of "WEN" amount))
-  ([a b & more] (reduce q/qmul (r/of "WEN" a) (map #(r/of "WEN" %) (cons b more)))))
+  ([a b & more] (apply r/of "WEN" a b more)))
 
 (defn WET
   "WET (live rate): (WET) => 1 WET; (WET amount) => that many WET;
   (WET a b …) => a·b·… WET^n (arity → exponent, like a unit)."
   ([]           (r/of "WET"))
   ([amount]     (r/of "WET" amount))
-  ([a b & more] (reduce q/qmul (r/of "WET" a) (map #(r/of "WET" %) (cons b more)))))
+  ([a b & more] (apply r/of "WET" a b more)))
 
 (defn WETH
   "WETH (live rate): (WETH) => 1 WETH; (WETH amount) => that many WETH;
   (WETH a b …) => a·b·… WETH^n (arity → exponent, like a unit)."
   ([]           (r/of "WETH"))
   ([amount]     (r/of "WETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "WETH" a) (map #(r/of "WETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "WETH" a b more)))
 
 (defn WHITE
   "WHITE (live rate): (WHITE) => 1 WHITE; (WHITE amount) => that many WHITE;
   (WHITE a b …) => a·b·… WHITE^n (arity → exponent, like a unit)."
   ([]           (r/of "WHITE"))
   ([amount]     (r/of "WHITE" amount))
-  ([a b & more] (reduce q/qmul (r/of "WHITE" a) (map #(r/of "WHITE" %) (cons b more)))))
+  ([a b & more] (apply r/of "WHITE" a b more)))
 
 (defn WIF
   "WIF (live rate): (WIF) => 1 WIF; (WIF amount) => that many WIF;
   (WIF a b …) => a·b·… WIF^n (arity → exponent, like a unit)."
   ([]           (r/of "WIF"))
   ([amount]     (r/of "WIF" amount))
-  ([a b & more] (reduce q/qmul (r/of "WIF" a) (map #(r/of "WIF" %) (cons b more)))))
+  ([a b & more] (apply r/of "WIF" a b more)))
 
 (defn WILD
   "WILD (live rate): (WILD) => 1 WILD; (WILD amount) => that many WILD;
   (WILD a b …) => a·b·… WILD^n (arity → exponent, like a unit)."
   ([]           (r/of "WILD"))
   ([amount]     (r/of "WILD" amount))
-  ([a b & more] (reduce q/qmul (r/of "WILD" a) (map #(r/of "WILD" %) (cons b more)))))
+  ([a b & more] (apply r/of "WILD" a b more)))
 
 (defn WLD
   "WLD (live rate): (WLD) => 1 WLD; (WLD amount) => that many WLD;
   (WLD a b …) => a·b·… WLD^n (arity → exponent, like a unit)."
   ([]           (r/of "WLD"))
   ([amount]     (r/of "WLD" amount))
-  ([a b & more] (reduce q/qmul (r/of "WLD" a) (map #(r/of "WLD" %) (cons b more)))))
+  ([a b & more] (apply r/of "WLD" a b more)))
 
 (defn WLFI
   "WLFI (live rate): (WLFI) => 1 WLFI; (WLFI amount) => that many WLFI;
   (WLFI a b …) => a·b·… WLFI^n (arity → exponent, like a unit)."
   ([]           (r/of "WLFI"))
   ([amount]     (r/of "WLFI" amount))
-  ([a b & more] (reduce q/qmul (r/of "WLFI" a) (map #(r/of "WLFI" %) (cons b more)))))
+  ([a b & more] (apply r/of "WLFI" a b more)))
 
 (defn WLUNA
   "WLUNA (live rate): (WLUNA) => 1 WLUNA; (WLUNA amount) => that many WLUNA;
   (WLUNA a b …) => a·b·… WLUNA^n (arity → exponent, like a unit)."
   ([]           (r/of "WLUNA"))
   ([amount]     (r/of "WLUNA" amount))
-  ([a b & more] (reduce q/qmul (r/of "WLUNA" a) (map #(r/of "WLUNA" %) (cons b more)))))
+  ([a b & more] (apply r/of "WLUNA" a b more)))
 
 (defn WMTX
   "WMTX (live rate): (WMTX) => 1 WMTX; (WMTX amount) => that many WMTX;
   (WMTX a b …) => a·b·… WMTX^n (arity → exponent, like a unit)."
   ([]           (r/of "WMTX"))
   ([amount]     (r/of "WMTX" amount))
-  ([a b & more] (reduce q/qmul (r/of "WMTX" a) (map #(r/of "WMTX" %) (cons b more)))))
+  ([a b & more] (apply r/of "WMTX" a b more)))
 
 (defn WOO
   "WOO (live rate): (WOO) => 1 WOO; (WOO amount) => that many WOO;
   (WOO a b …) => a·b·… WOO^n (arity → exponent, like a unit)."
   ([]           (r/of "WOO"))
   ([amount]     (r/of "WOO" amount))
-  ([a b & more] (reduce q/qmul (r/of "WOO" a) (map #(r/of "WOO" %) (cons b more)))))
+  ([a b & more] (apply r/of "WOO" a b more)))
 
 (defn WOULD
   "WOULD (live rate): (WOULD) => 1 WOULD; (WOULD amount) => that many WOULD;
   (WOULD a b …) => a·b·… WOULD^n (arity → exponent, like a unit)."
   ([]           (r/of "WOULD"))
   ([amount]     (r/of "WOULD" amount))
-  ([a b & more] (reduce q/qmul (r/of "WOULD" a) (map #(r/of "WOULD" %) (cons b more)))))
+  ([a b & more] (apply r/of "WOULD" a b more)))
 
 (defn WRON
   "WRON (live rate): (WRON) => 1 WRON; (WRON amount) => that many WRON;
   (WRON a b …) => a·b·… WRON^n (arity → exponent, like a unit)."
   ([]           (r/of "WRON"))
   ([amount]     (r/of "WRON" amount))
-  ([a b & more] (reduce q/qmul (r/of "WRON" a) (map #(r/of "WRON" %) (cons b more)))))
+  ([a b & more] (apply r/of "WRON" a b more)))
 
 (defn WST
   "WST (live rate): (WST) => 1 WST; (WST amount) => that many WST;
   (WST a b …) => a·b·… WST^n (arity → exponent, like a unit)."
   ([]           (r/of "WST"))
   ([amount]     (r/of "WST" amount))
-  ([a b & more] (reduce q/qmul (r/of "WST" a) (map #(r/of "WST" %) (cons b more)))))
+  ([a b & more] (apply r/of "WST" a b more)))
 
 (defn WSTETH
   "WSTETH (live rate): (WSTETH) => 1 WSTETH; (WSTETH amount) => that many WSTETH;
   (WSTETH a b …) => a·b·… WSTETH^n (arity → exponent, like a unit)."
   ([]           (r/of "WSTETH"))
   ([amount]     (r/of "WSTETH" amount))
-  ([a b & more] (reduce q/qmul (r/of "WSTETH" a) (map #(r/of "WSTETH" %) (cons b more)))))
+  ([a b & more] (apply r/of "WSTETH" a b more)))
 
 (defn WSTUSR
   "WSTUSR (live rate): (WSTUSR) => 1 WSTUSR; (WSTUSR amount) => that many WSTUSR;
   (WSTUSR a b …) => a·b·… WSTUSR^n (arity → exponent, like a unit)."
   ([]           (r/of "WSTUSR"))
   ([amount]     (r/of "WSTUSR" amount))
-  ([a b & more] (reduce q/qmul (r/of "WSTUSR" a) (map #(r/of "WSTUSR" %) (cons b more)))))
+  ([a b & more] (apply r/of "WSTUSR" a b more)))
 
 (defn XAF
   "XAF (live rate): (XAF) => 1 XAF; (XAF amount) => that many XAF;
   (XAF a b …) => a·b·… XAF^n (arity → exponent, like a unit)."
   ([]           (r/of "XAF"))
   ([amount]     (r/of "XAF" amount))
-  ([a b & more] (reduce q/qmul (r/of "XAF" a) (map #(r/of "XAF" %) (cons b more)))))
+  ([a b & more] (apply r/of "XAF" a b more)))
 
 (defn XAG
   "XAG (live rate): (XAG) => 1 XAG; (XAG amount) => that many XAG;
   (XAG a b …) => a·b·… XAG^n (arity → exponent, like a unit)."
   ([]           (r/of "XAG"))
   ([amount]     (r/of "XAG" amount))
-  ([a b & more] (reduce q/qmul (r/of "XAG" a) (map #(r/of "XAG" %) (cons b more)))))
+  ([a b & more] (apply r/of "XAG" a b more)))
 
 (defn XAI
   "XAI (live rate): (XAI) => 1 XAI; (XAI amount) => that many XAI;
   (XAI a b …) => a·b·… XAI^n (arity → exponent, like a unit)."
   ([]           (r/of "XAI"))
   ([amount]     (r/of "XAI" amount))
-  ([a b & more] (reduce q/qmul (r/of "XAI" a) (map #(r/of "XAI" %) (cons b more)))))
+  ([a b & more] (apply r/of "XAI" a b more)))
 
 (defn XAN
   "XAN (live rate): (XAN) => 1 XAN; (XAN amount) => that many XAN;
   (XAN a b …) => a·b·… XAN^n (arity → exponent, like a unit)."
   ([]           (r/of "XAN"))
   ([amount]     (r/of "XAN" amount))
-  ([a b & more] (reduce q/qmul (r/of "XAN" a) (map #(r/of "XAN" %) (cons b more)))))
+  ([a b & more] (apply r/of "XAN" a b more)))
 
 (defn XAU
   "XAU (live rate): (XAU) => 1 XAU; (XAU amount) => that many XAU;
   (XAU a b …) => a·b·… XAU^n (arity → exponent, like a unit)."
   ([]           (r/of "XAU"))
   ([amount]     (r/of "XAU" amount))
-  ([a b & more] (reduce q/qmul (r/of "XAU" a) (map #(r/of "XAU" %) (cons b more)))))
+  ([a b & more] (apply r/of "XAU" a b more)))
 
 (defn XAUT
   "XAUT (live rate): (XAUT) => 1 XAUT; (XAUT amount) => that many XAUT;
   (XAUT a b …) => a·b·… XAUT^n (arity → exponent, like a unit)."
   ([]           (r/of "XAUT"))
   ([amount]     (r/of "XAUT" amount))
-  ([a b & more] (reduce q/qmul (r/of "XAUT" a) (map #(r/of "XAUT" %) (cons b more)))))
+  ([a b & more] (apply r/of "XAUT" a b more)))
 
 (defn XCD
   "XCD (live rate): (XCD) => 1 XCD; (XCD amount) => that many XCD;
   (XCD a b …) => a·b·… XCD^n (arity → exponent, like a unit)."
   ([]           (r/of "XCD"))
   ([amount]     (r/of "XCD" amount))
-  ([a b & more] (reduce q/qmul (r/of "XCD" a) (map #(r/of "XCD" %) (cons b more)))))
+  ([a b & more] (apply r/of "XCD" a b more)))
 
 (defn XCG
   "XCG (live rate): (XCG) => 1 XCG; (XCG amount) => that many XCG;
   (XCG a b …) => a·b·… XCG^n (arity → exponent, like a unit)."
   ([]           (r/of "XCG"))
   ([amount]     (r/of "XCG" amount))
-  ([a b & more] (reduce q/qmul (r/of "XCG" a) (map #(r/of "XCG" %) (cons b more)))))
+  ([a b & more] (apply r/of "XCG" a b more)))
 
 (defn XCH
   "XCH (live rate): (XCH) => 1 XCH; (XCH amount) => that many XCH;
   (XCH a b …) => a·b·… XCH^n (arity → exponent, like a unit)."
   ([]           (r/of "XCH"))
   ([amount]     (r/of "XCH" amount))
-  ([a b & more] (reduce q/qmul (r/of "XCH" a) (map #(r/of "XCH" %) (cons b more)))))
+  ([a b & more] (apply r/of "XCH" a b more)))
 
 (defn XCN
   "XCN (live rate): (XCN) => 1 XCN; (XCN amount) => that many XCN;
   (XCN a b …) => a·b·… XCN^n (arity → exponent, like a unit)."
   ([]           (r/of "XCN"))
   ([amount]     (r/of "XCN" amount))
-  ([a b & more] (reduce q/qmul (r/of "XCN" a) (map #(r/of "XCN" %) (cons b more)))))
+  ([a b & more] (apply r/of "XCN" a b more)))
 
 (defn XDC
   "XDC (live rate): (XDC) => 1 XDC; (XDC amount) => that many XDC;
   (XDC a b …) => a·b·… XDC^n (arity → exponent, like a unit)."
   ([]           (r/of "XDC"))
   ([amount]     (r/of "XDC" amount))
-  ([a b & more] (reduce q/qmul (r/of "XDC" a) (map #(r/of "XDC" %) (cons b more)))))
+  ([a b & more] (apply r/of "XDC" a b more)))
 
 (defn XEC
   "XEC (live rate): (XEC) => 1 XEC; (XEC amount) => that many XEC;
   (XEC a b …) => a·b·… XEC^n (arity → exponent, like a unit)."
   ([]           (r/of "XEC"))
   ([amount]     (r/of "XEC" amount))
-  ([a b & more] (reduce q/qmul (r/of "XEC" a) (map #(r/of "XEC" %) (cons b more)))))
+  ([a b & more] (apply r/of "XEC" a b more)))
 
 (defn XEM
   "XEM (live rate): (XEM) => 1 XEM; (XEM amount) => that many XEM;
   (XEM a b …) => a·b·… XEM^n (arity → exponent, like a unit)."
   ([]           (r/of "XEM"))
   ([amount]     (r/of "XEM" amount))
-  ([a b & more] (reduce q/qmul (r/of "XEM" a) (map #(r/of "XEM" %) (cons b more)))))
+  ([a b & more] (apply r/of "XEM" a b more)))
 
 (defn XLM
   "XLM (live rate): (XLM) => 1 XLM; (XLM amount) => that many XLM;
   (XLM a b …) => a·b·… XLM^n (arity → exponent, like a unit)."
   ([]           (r/of "XLM"))
   ([amount]     (r/of "XLM" amount))
-  ([a b & more] (reduce q/qmul (r/of "XLM" a) (map #(r/of "XLM" %) (cons b more)))))
+  ([a b & more] (apply r/of "XLM" a b more)))
 
 (defn XMON
   "XMON (live rate): (XMON) => 1 XMON; (XMON amount) => that many XMON;
   (XMON a b …) => a·b·… XMON^n (arity → exponent, like a unit)."
   ([]           (r/of "XMON"))
   ([amount]     (r/of "XMON" amount))
-  ([a b & more] (reduce q/qmul (r/of "XMON" a) (map #(r/of "XMON" %) (cons b more)))))
+  ([a b & more] (apply r/of "XMON" a b more)))
 
 (defn XMR
   "XMR (live rate): (XMR) => 1 XMR; (XMR amount) => that many XMR;
   (XMR a b …) => a·b·… XMR^n (arity → exponent, like a unit)."
   ([]           (r/of "XMR"))
   ([amount]     (r/of "XMR" amount))
-  ([a b & more] (reduce q/qmul (r/of "XMR" a) (map #(r/of "XMR" %) (cons b more)))))
+  ([a b & more] (apply r/of "XMR" a b more)))
 
 (defn XOF
   "XOF (live rate): (XOF) => 1 XOF; (XOF amount) => that many XOF;
   (XOF a b …) => a·b·… XOF^n (arity → exponent, like a unit)."
   ([]           (r/of "XOF"))
   ([amount]     (r/of "XOF" amount))
-  ([a b & more] (reduce q/qmul (r/of "XOF" a) (map #(r/of "XOF" %) (cons b more)))))
+  ([a b & more] (apply r/of "XOF" a b more)))
 
 (defn XPD
   "XPD (live rate): (XPD) => 1 XPD; (XPD amount) => that many XPD;
   (XPD a b …) => a·b·… XPD^n (arity → exponent, like a unit)."
   ([]           (r/of "XPD"))
   ([amount]     (r/of "XPD" amount))
-  ([a b & more] (reduce q/qmul (r/of "XPD" a) (map #(r/of "XPD" %) (cons b more)))))
+  ([a b & more] (apply r/of "XPD" a b more)))
 
 (defn XPF
   "XPF (live rate): (XPF) => 1 XPF; (XPF amount) => that many XPF;
   (XPF a b …) => a·b·… XPF^n (arity → exponent, like a unit)."
   ([]           (r/of "XPF"))
   ([amount]     (r/of "XPF" amount))
-  ([a b & more] (reduce q/qmul (r/of "XPF" a) (map #(r/of "XPF" %) (cons b more)))))
+  ([a b & more] (apply r/of "XPF" a b more)))
 
 (defn XPL
   "XPL (live rate): (XPL) => 1 XPL; (XPL amount) => that many XPL;
   (XPL a b …) => a·b·… XPL^n (arity → exponent, like a unit)."
   ([]           (r/of "XPL"))
   ([amount]     (r/of "XPL" amount))
-  ([a b & more] (reduce q/qmul (r/of "XPL" a) (map #(r/of "XPL" %) (cons b more)))))
+  ([a b & more] (apply r/of "XPL" a b more)))
 
 (defn XPT
   "XPT (live rate): (XPT) => 1 XPT; (XPT amount) => that many XPT;
   (XPT a b …) => a·b·… XPT^n (arity → exponent, like a unit)."
   ([]           (r/of "XPT"))
   ([amount]     (r/of "XPT" amount))
-  ([a b & more] (reduce q/qmul (r/of "XPT" a) (map #(r/of "XPT" %) (cons b more)))))
+  ([a b & more] (apply r/of "XPT" a b more)))
 
 (defn XRD
   "XRD (live rate): (XRD) => 1 XRD; (XRD amount) => that many XRD;
   (XRD a b …) => a·b·… XRD^n (arity → exponent, like a unit)."
   ([]           (r/of "XRD"))
   ([amount]     (r/of "XRD" amount))
-  ([a b & more] (reduce q/qmul (r/of "XRD" a) (map #(r/of "XRD" %) (cons b more)))))
+  ([a b & more] (apply r/of "XRD" a b more)))
 
 (defn XRP
   "XRP (live rate): (XRP) => 1 XRP; (XRP amount) => that many XRP;
   (XRP a b …) => a·b·… XRP^n (arity → exponent, like a unit)."
   ([]           (r/of "XRP"))
   ([amount]     (r/of "XRP" amount))
-  ([a b & more] (reduce q/qmul (r/of "XRP" a) (map #(r/of "XRP" %) (cons b more)))))
+  ([a b & more] (apply r/of "XRP" a b more)))
 
 (defn XSGD
   "XSGD (live rate): (XSGD) => 1 XSGD; (XSGD amount) => that many XSGD;
   (XSGD a b …) => a·b·… XSGD^n (arity → exponent, like a unit)."
   ([]           (r/of "XSGD"))
   ([amount]     (r/of "XSGD" amount))
-  ([a b & more] (reduce q/qmul (r/of "XSGD" a) (map #(r/of "XSGD" %) (cons b more)))))
+  ([a b & more] (apply r/of "XSGD" a b more)))
 
 (defn XSOLVBTC
   "XSOLVBTC (live rate): (XSOLVBTC) => 1 XSOLVBTC; (XSOLVBTC amount) => that many XSOLVBTC;
   (XSOLVBTC a b …) => a·b·… XSOLVBTC^n (arity → exponent, like a unit)."
   ([]           (r/of "XSOLVBTC"))
   ([amount]     (r/of "XSOLVBTC" amount))
-  ([a b & more] (reduce q/qmul (r/of "XSOLVBTC" a) (map #(r/of "XSOLVBTC" %) (cons b more)))))
+  ([a b & more] (apply r/of "XSOLVBTC" a b more)))
 
 (defn XT
   "XT (live rate): (XT) => 1 XT; (XT amount) => that many XT;
   (XT a b …) => a·b·… XT^n (arity → exponent, like a unit)."
   ([]           (r/of "XT"))
   ([amount]     (r/of "XT" amount))
-  ([a b & more] (reduce q/qmul (r/of "XT" a) (map #(r/of "XT" %) (cons b more)))))
+  ([a b & more] (apply r/of "XT" a b more)))
 
 (defn XTZ
   "XTZ (live rate): (XTZ) => 1 XTZ; (XTZ amount) => that many XTZ;
   (XTZ a b …) => a·b·… XTZ^n (arity → exponent, like a unit)."
   ([]           (r/of "XTZ"))
   ([amount]     (r/of "XTZ" amount))
-  ([a b & more] (reduce q/qmul (r/of "XTZ" a) (map #(r/of "XTZ" %) (cons b more)))))
+  ([a b & more] (apply r/of "XTZ" a b more)))
 
 (defn XVS
   "XVS (live rate): (XVS) => 1 XVS; (XVS amount) => that many XVS;
   (XVS a b …) => a·b·… XVS^n (arity → exponent, like a unit)."
   ([]           (r/of "XVS"))
   ([amount]     (r/of "XVS" amount))
-  ([a b & more] (reduce q/qmul (r/of "XVS" a) (map #(r/of "XVS" %) (cons b more)))))
+  ([a b & more] (apply r/of "XVS" a b more)))
 
 (defn XYO
   "XYO (live rate): (XYO) => 1 XYO; (XYO amount) => that many XYO;
   (XYO a b …) => a·b·… XYO^n (arity → exponent, like a unit)."
   ([]           (r/of "XYO"))
   ([amount]     (r/of "XYO" amount))
-  ([a b & more] (reduce q/qmul (r/of "XYO" a) (map #(r/of "XYO" %) (cons b more)))))
+  ([a b & more] (apply r/of "XYO" a b more)))
 
 (defn YAYSTONE
   "YAYSTONE (live rate): (YAYSTONE) => 1 YAYSTONE; (YAYSTONE amount) => that many YAYSTONE;
   (YAYSTONE a b …) => a·b·… YAYSTONE^n (arity → exponent, like a unit)."
   ([]           (r/of "YAYSTONE"))
   ([amount]     (r/of "YAYSTONE" amount))
-  ([a b & more] (reduce q/qmul (r/of "YAYSTONE" a) (map #(r/of "YAYSTONE" %) (cons b more)))))
+  ([a b & more] (apply r/of "YAYSTONE" a b more)))
 
 (defn YB
   "YB (live rate): (YB) => 1 YB; (YB amount) => that many YB;
   (YB a b …) => a·b·… YB^n (arity → exponent, like a unit)."
   ([]           (r/of "YB"))
   ([amount]     (r/of "YB" amount))
-  ([a b & more] (reduce q/qmul (r/of "YB" a) (map #(r/of "YB" %) (cons b more)))))
+  ([a b & more] (apply r/of "YB" a b more)))
 
 (defn YER
   "YER (live rate): (YER) => 1 YER; (YER amount) => that many YER;
   (YER a b …) => a·b·… YER^n (arity → exponent, like a unit)."
   ([]           (r/of "YER"))
   ([amount]     (r/of "YER" amount))
-  ([a b & more] (reduce q/qmul (r/of "YER" a) (map #(r/of "YER" %) (cons b more)))))
+  ([a b & more] (apply r/of "YER" a b more)))
 
 (defn YFI
   "YFI (live rate): (YFI) => 1 YFI; (YFI amount) => that many YFI;
   (YFI a b …) => a·b·… YFI^n (arity → exponent, like a unit)."
   ([]           (r/of "YFI"))
   ([amount]     (r/of "YFI" amount))
-  ([a b & more] (reduce q/qmul (r/of "YFI" a) (map #(r/of "YFI" %) (cons b more)))))
+  ([a b & more] (apply r/of "YFI" a b more)))
 
 (defn YFII
   "YFII (live rate): (YFII) => 1 YFII; (YFII amount) => that many YFII;
   (YFII a b …) => a·b·… YFII^n (arity → exponent, like a unit)."
   ([]           (r/of "YFII"))
   ([amount]     (r/of "YFII" amount))
-  ([a b & more] (reduce q/qmul (r/of "YFII" a) (map #(r/of "YFII" %) (cons b more)))))
+  ([a b & more] (apply r/of "YFII" a b more)))
 
 (defn YGG
   "YGG (live rate): (YGG) => 1 YGG; (YGG amount) => that many YGG;
   (YGG a b …) => a·b·… YGG^n (arity → exponent, like a unit)."
   ([]           (r/of "YGG"))
   ([amount]     (r/of "YGG" amount))
-  ([a b & more] (reduce q/qmul (r/of "YGG" a) (map #(r/of "YGG" %) (cons b more)))))
+  ([a b & more] (apply r/of "YGG" a b more)))
 
 (defn ZAMA
   "ZAMA (live rate): (ZAMA) => 1 ZAMA; (ZAMA amount) => that many ZAMA;
   (ZAMA a b …) => a·b·… ZAMA^n (arity → exponent, like a unit)."
   ([]           (r/of "ZAMA"))
   ([amount]     (r/of "ZAMA" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZAMA" a) (map #(r/of "ZAMA" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZAMA" a b more)))
 
 (defn ZAR
   "ZAR (live rate): (ZAR) => 1 ZAR; (ZAR amount) => that many ZAR;
   (ZAR a b …) => a·b·… ZAR^n (arity → exponent, like a unit)."
   ([]           (r/of "ZAR"))
   ([amount]     (r/of "ZAR" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZAR" a) (map #(r/of "ZAR" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZAR" a b more)))
 
 (defn ZBC
   "ZBC (live rate): (ZBC) => 1 ZBC; (ZBC amount) => that many ZBC;
   (ZBC a b …) => a·b·… ZBC^n (arity → exponent, like a unit)."
   ([]           (r/of "ZBC"))
   ([amount]     (r/of "ZBC" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZBC" a) (map #(r/of "ZBC" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZBC" a b more)))
 
 (defn ZEC
   "ZEC (live rate): (ZEC) => 1 ZEC; (ZEC amount) => that many ZEC;
   (ZEC a b …) => a·b·… ZEC^n (arity → exponent, like a unit)."
   ([]           (r/of "ZEC"))
   ([amount]     (r/of "ZEC" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZEC" a) (map #(r/of "ZEC" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZEC" a b more)))
 
 (defn ZEN
   "ZEN (live rate): (ZEN) => 1 ZEN; (ZEN amount) => that many ZEN;
   (ZEN a b …) => a·b·… ZEN^n (arity → exponent, like a unit)."
   ([]           (r/of "ZEN"))
   ([amount]     (r/of "ZEN" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZEN" a) (map #(r/of "ZEN" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZEN" a b more)))
 
 (defn ZEREBRO
   "ZEREBRO (live rate): (ZEREBRO) => 1 ZEREBRO; (ZEREBRO amount) => that many ZEREBRO;
   (ZEREBRO a b …) => a·b·… ZEREBRO^n (arity → exponent, like a unit)."
   ([]           (r/of "ZEREBRO"))
   ([amount]     (r/of "ZEREBRO" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZEREBRO" a) (map #(r/of "ZEREBRO" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZEREBRO" a b more)))
 
 (defn ZETA
   "ZETA (live rate): (ZETA) => 1 ZETA; (ZETA amount) => that many ZETA;
   (ZETA a b …) => a·b·… ZETA^n (arity → exponent, like a unit)."
   ([]           (r/of "ZETA"))
   ([amount]     (r/of "ZETA" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZETA" a) (map #(r/of "ZETA" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZETA" a b more)))
 
 (defn ZETACHAIN
   "ZETACHAIN (live rate): (ZETACHAIN) => 1 ZETACHAIN; (ZETACHAIN amount) => that many ZETACHAIN;
   (ZETACHAIN a b …) => a·b·… ZETACHAIN^n (arity → exponent, like a unit)."
   ([]           (r/of "ZETACHAIN"))
   ([amount]     (r/of "ZETACHAIN" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZETACHAIN" a) (map #(r/of "ZETACHAIN" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZETACHAIN" a b more)))
 
 (defn ZEUS
   "ZEUS (live rate): (ZEUS) => 1 ZEUS; (ZEUS amount) => that many ZEUS;
   (ZEUS a b …) => a·b·… ZEUS^n (arity → exponent, like a unit)."
   ([]           (r/of "ZEUS"))
   ([amount]     (r/of "ZEUS" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZEUS" a) (map #(r/of "ZEUS" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZEUS" a b more)))
 
 (defn ZIL
   "ZIL (live rate): (ZIL) => 1 ZIL; (ZIL amount) => that many ZIL;
   (ZIL a b …) => a·b·… ZIL^n (arity → exponent, like a unit)."
   ([]           (r/of "ZIL"))
   ([amount]     (r/of "ZIL" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZIL" a) (map #(r/of "ZIL" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZIL" a b more)))
 
 (defn ZK
   "ZK (live rate): (ZK) => 1 ZK; (ZK amount) => that many ZK;
   (ZK a b …) => a·b·… ZK^n (arity → exponent, like a unit)."
   ([]           (r/of "ZK"))
   ([amount]     (r/of "ZK" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZK" a) (map #(r/of "ZK" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZK" a b more)))
 
 (defn ZKC
   "ZKC (live rate): (ZKC) => 1 ZKC; (ZKC amount) => that many ZKC;
   (ZKC a b …) => a·b·… ZKC^n (arity → exponent, like a unit)."
   ([]           (r/of "ZKC"))
   ([amount]     (r/of "ZKC" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZKC" a) (map #(r/of "ZKC" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZKC" a b more)))
 
 (defn ZKP
   "ZKP (live rate): (ZKP) => 1 ZKP; (ZKP amount) => that many ZKP;
   (ZKP a b …) => a·b·… ZKP^n (arity → exponent, like a unit)."
   ([]           (r/of "ZKP"))
   ([amount]     (r/of "ZKP" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZKP" a) (map #(r/of "ZKP" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZKP" a b more)))
 
 (defn ZMW
   "ZMW (live rate): (ZMW) => 1 ZMW; (ZMW amount) => that many ZMW;
   (ZMW a b …) => a·b·… ZMW^n (arity → exponent, like a unit)."
   ([]           (r/of "ZMW"))
   ([amount]     (r/of "ZMW" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZMW" a) (map #(r/of "ZMW" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZMW" a b more)))
 
 (defn ZORA
   "ZORA (live rate): (ZORA) => 1 ZORA; (ZORA amount) => that many ZORA;
   (ZORA a b …) => a·b·… ZORA^n (arity → exponent, like a unit)."
   ([]           (r/of "ZORA"))
   ([amount]     (r/of "ZORA" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZORA" a) (map #(r/of "ZORA" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZORA" a b more)))
 
 (defn ZRO
   "ZRO (live rate): (ZRO) => 1 ZRO; (ZRO amount) => that many ZRO;
   (ZRO a b …) => a·b·… ZRO^n (arity → exponent, like a unit)."
   ([]           (r/of "ZRO"))
   ([amount]     (r/of "ZRO" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZRO" a) (map #(r/of "ZRO" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZRO" a b more)))
 
 (defn ZRX
   "ZRX (live rate): (ZRX) => 1 ZRX; (ZRX amount) => that many ZRX;
   (ZRX a b …) => a·b·… ZRX^n (arity → exponent, like a unit)."
   ([]           (r/of "ZRX"))
   ([amount]     (r/of "ZRX" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZRX" a) (map #(r/of "ZRX" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZRX" a b more)))
 
 (defn ZWG
   "ZWG (live rate): (ZWG) => 1 ZWG; (ZWG amount) => that many ZWG;
   (ZWG a b …) => a·b·… ZWG^n (arity → exponent, like a unit)."
   ([]           (r/of "ZWG"))
   ([amount]     (r/of "ZWG" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZWG" a) (map #(r/of "ZWG" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZWG" a b more)))
 
 (defn ZWL
   "ZWL (live rate): (ZWL) => 1 ZWL; (ZWL amount) => that many ZWL;
   (ZWL a b …) => a·b·… ZWL^n (arity → exponent, like a unit)."
   ([]           (r/of "ZWL"))
   ([amount]     (r/of "ZWL" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZWL" a) (map #(r/of "ZWL" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZWL" a b more)))
 
 (defn ZYPTO
   "ZYPTO (live rate): (ZYPTO) => 1 ZYPTO; (ZYPTO amount) => that many ZYPTO;
   (ZYPTO a b …) => a·b·… ZYPTO^n (arity → exponent, like a unit)."
   ([]           (r/of "ZYPTO"))
   ([amount]     (r/of "ZYPTO" amount))
-  ([a b & more] (reduce q/qmul (r/of "ZYPTO" a) (map #(r/of "ZYPTO" %) (cons b more)))))
+  ([a b & more] (apply r/of "ZYPTO" a b more)))
