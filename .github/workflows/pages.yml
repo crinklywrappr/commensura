@@ -2,7 +2,7 @@ name: pages
 
 # Build the Clerk notebook and deploy it to GitHub Pages on every master push. All correctness gates —
 # offline suite, Frink oracle, docs render, and the live integration tests — live in ci.yml (which also
-# runs on master push); the release + Clojars publish is release.yml. CPI refresh lives in monthly.yml.
+# runs on master push); the release + Clojars publish is ci.yml's `release` job. CPI is in monthly.yml.
 on:
   push:
     branches: [master]

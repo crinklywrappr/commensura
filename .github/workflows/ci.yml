@@ -2,8 +2,8 @@ name: CI
 
 # Gates every PR must pass (the ruleset requires `test` / `oracle` / `docs`). Also runs on master so the
 # badge reflects the default branch and the *merged* result is verified — not just the pre-merge PR. On a
-# master push it additionally runs the `live` integration tests, so this whole workflow's success is the
-# release gate: release.yml publishes on `workflow_run` completion of CI (see that file).
+# master push (or dispatch) it also runs the `live` tests and, if the whole suite is green, the `release`
+# job publishes to Clojars and cuts the tag — CD in the same run, so the release is visible on the commit.
 on:
   pull_request:
     branches: [master]
@@ -55,8 +55,8 @@ jobs:
 
   # Live integration tests (real FRED + CurrencyFreaks). Runs on master whether reached by push OR manual
   # dispatch — only PRs skip it, so PRs never spend API quota (the ^:live tests also self-skip without
-  # keys). Part of the release gate: release.yml requires CI success, and CI isn't green on master until
-  # this passes. (PR events have ref refs/pull/N/merge, so this correctly excludes them.)
+  # keys). The `release` job `needs` this, so nothing publishes unless live is green. (PR events have ref
+  # refs/pull/N/merge, so this correctly excludes them.)
   live:
     name: live
     if: github.ref == 'refs/heads/master'
@@ -69,3 +69,51 @@ jobs:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           CURRENCYFREAKS_API_KEY: ${{ secrets.CURRENCYFREAKS_API_KEY }}
         run: clojure -X:build test    # the ^:live tests run themselves when the keys are present
+
+  # Continuous deployment: on green master (push or dispatch), publish com.github.crinklywrappr/commensura
+  # to Clojars and cut a GitHub release. `needs` every other job, so a red suite publishes nothing. Living
+  # in this push-triggered workflow (rather than a separate workflow_run one) keeps it visible on the commit
+  # as `CI / release`. The tag v1.0.<git-count-revs> is written only after a successful publish, so it is
+  # the idempotency marker: a re-run skips, and a failed publish (no tag) retries on the next trigger.
+  release:
+    name: release
+    needs: [test, oracle, docs, live]
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # create the git tag + GitHub release (tags are not branch-protected)
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0     # full history so `git rev-list --count` matches build.clj's version
+      - uses: ./.github/actions/clojure
+      - name: Compute the version; skip if already released
+        id: ver
+        run: |
+          version="1.0.$(git rev-list --count HEAD)"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          if git ls-remote --exit-code --tags origin "refs/tags/v${version}" >/dev/null 2>&1; then
+            echo "released=true" >> "$GITHUB_OUTPUT"
+            echo "v${version} is already released — nothing to do."
+          else
+            echo "released=false" >> "$GITHUB_OUTPUT"
+            echo "Releasing v${version}."
+          fi
+      - name: Build the JAR
+        if: steps.ver.outputs.released == 'false'
+        run: clojure -X:build jar
+      - name: Publish to Clojars
+        if: steps.ver.outputs.released == 'false'
+        env:
+          CLOJARS_USERNAME: ${{ secrets.CLOJARS_USERNAME }}
+          CLOJARS_PASSWORD: ${{ secrets.CLOJARS_PASSWORD }}
+        run: clojure -X:build deploy
+      - name: Tag + GitHub release (only after a successful publish)
+        if: steps.ver.outputs.released == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v${{ steps.ver.outputs.version }}" \
+            --target "$(git rev-parse HEAD)" \
+            --title  "v${{ steps.ver.outputs.version }}" \
+            --generate-notes
