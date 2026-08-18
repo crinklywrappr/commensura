@@ -298,6 +298,25 @@ fuel-cost
 
 (map discover/describe (discover/search-units "volt"))
 
+;; **One caveat — on-demand units.** `search-units` and `units-of-dimension` see only the *registered*
+;; table: the builtins and your own `defunit`s. Units that exist only through a **resolver** are minted
+;; the instant you name them and have no list to enumerate, so they never surface in a search or a
+;; dimension roundup — the `dollar_YYYY` inflation units, every live currency code (`EUR`, `AAVE`, …),
+;; and any `register-unit-resolver!` family (the `satoshi` and `plank_<n>` above). That's why the money
+;; roundup listed a handful of slang units, not thousands of codes — and why searching for one is empty:
+
+(discover/search-units "dollar_1960")
+
+;; `describe` is the exception: it resolves by *exact* name, so it does reach a resolver-minted unit —
+;; you just get `:value` and `:dimensions` and nothing more, since it wasn't made with `defunit` (no
+;; `:namespace`, no `:doc`). And a *misspelled* resolver name gets no "did you mean?", because the
+;; suggester only knows the registered names:
+
+(discover/describe "dollar_1960")
+
+;; So: reach for `search-units` / `units-of-dimension` to explore the registered world, and exact naming
+;; (or the defining `defn` / resolver) to summon the on-demand one.
+
 ;; ## Under the hood — everything reduces to base dimensions
 ;;
 ;; A quantity is a magnitude plus a map of base-dimension exponents. Conversion is just: check the
