@@ -15,7 +15,7 @@
   here instead of filtering the registry atoms by hand.
 
     (require '[commensura.discover :as d] '[commensura.units :as u])
-    (d/search-units \"volt\")            ;=> [\"abvolt\" \"electronvolt\" \"intvolt\" \"statvolt\" \"volt\"]
+    (d/search-units \"volt\")            ;=> [\"volt\" \"abvolt\" \"intvolt\" \"statvolt\" \"thermalvolt\" \"electronvolt\"]
     (d/units-of-dimension u/foot)       ;=> [\"actus\" \"angstrom\" … \"foot\" … \"meter\" … \"mile\" …]  (all lengths)
     (d/describe (c/per u/mile u/hour))  ;=> {:value \"1 mile/hour [velocity]\" :dimensions {:length 1 :time -1} :dimension \"velocity\"}"
   (:require [clojure.string :as str]
@@ -62,17 +62,24 @@
          vec)))
 
 (defn search-units
-  "Sorted registered unit names matching `query` — a case-insensitive substring, or a regex
-  `Pattern` (matched with `re-find`). Reflects live registrations."
+  "Registered unit names matching `query` — a case-insensitive substring, or a regex `Pattern`
+  (matched with `re-find`). A substring search is ranked by closeness to the query (edit distance,
+  so an exact name leads and the tightest wrappers follow — `\"volt\"` → `volt`, then `abvolt`, …);
+  a regex, having no query string to rank against, is returned alphabetically. Reflects live
+  registrations."
   [query]
-  (let [match? (if (instance? java.util.regex.Pattern query)
-                 #(boolean (re-find query %))
-                 (let [needle (str/lower-case (str query))]
-                   #(str/includes? (str/lower-case %) needle)))]
+  (if (instance? java.util.regex.Pattern query)
     (->> (keys (registry/all-units))
-         (filter match?)
-         (sort-by (fn [s] [(str/lower-case s) s]))   ; case-insensitive, exact name as tiebreak
-         vec)))
+         (filter #(re-find query %))
+         (sort-by (fn [s] [(str/lower-case s) s]))   ; no query string to rank by → case-insensitive alpha
+         vec)
+    (let [q      (str query)
+          needle (str/lower-case q)]
+      (->> (keys (registry/all-units))
+           (filter #(str/includes? (str/lower-case %) needle))
+           ;; rank by edit distance to the query (exact = 0 leads), then shorter, then alpha
+           (sort-by (fn [s] [(suggest/distance q s) (count s) (str/lower-case s) s]))
+           vec))))
 
 (defn describe
   "A plain-data description of a commensura unit or quantity `x`: its display string, its

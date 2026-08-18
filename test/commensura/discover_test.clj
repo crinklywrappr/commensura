@@ -10,13 +10,14 @@
 (c/defunit zorptron (u/meter 7))
 
 (deftest search-units-substring-and-regex
-  (testing "case-insensitive substring"
+  (testing "case-insensitive substring, ranked by closeness — the exact match leads"
     (let [hits (d/search-units "VOLT")]
-      (is (some #{"volt"} hits))
-      (is (some #{"electronvolt"} hits))
-      (is (= hits (sort-by clojure.string/lower-case hits)))))   ; sorted case-insensitively
-  (testing "regex query"
-    (is (every? #(re-find #"^milli" %) (d/search-units #"^milli")))))
+      (is (= "volt" (first hits)))                 ; exact match first, not buried alphabetically
+      (is (some #{"electronvolt"} hits))))
+  (testing "regex query is returned alphabetically"
+    (let [hits (d/search-units #"^milli")]
+      (is (every? #(re-find #"^milli" %) hits))
+      (is (= hits (sort-by clojure.string/lower-case hits))))))
 
 (deftest units-of-dimension-by-map-value-and-name
   (testing "a dims-map, a unit value, and (u/foot) all agree for length"
