@@ -26,10 +26,10 @@
   (with-rates
    (fn []
      (testing "a non-currency quantity throws"
-       (is (thrown-with-msg? clojure.lang.ExceptionInfo #"plain currency quantity"
+       (is (thrown-with-msg? clojure.lang.ExceptionInfo #"currency quantity"
                              (c/->money (u/meter 5)))))
      (testing "a compound currency (EUR²) is not a plain amount"
-       (is (thrown-with-msg? clojure.lang.ExceptionInfo #"plain currency quantity"
+       (is (thrown-with-msg? clojure.lang.ExceptionInfo #"currency quantity"
                              (c/->money (cur/EUR 3 5)))))
      (testing "a code Joda-Money doesn't know (crypto ETH) throws a clear error"
        (is (thrown-with-msg? clojure.lang.ExceptionInfo #"not an ISO-4217 currency"

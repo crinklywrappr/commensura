@@ -265,10 +265,10 @@
 
 (defn- currency-code
   "The ISO code `qty` is denominated in — its display unit's name (aliased, e.g. `dollar` → `USD`).
-  Throws unless `qty` is a plain currency amount (dimensions `{:currency 1}`)."
+  Throws unless `qty` carries a currency dimension of exponent 1 (a single amount of money)."
   [qty]
-  (when-not (= {:currency 1} (q/dims qty))
-    (throw (ex-info "->money expects a plain currency quantity (dimensions {:currency 1})"
+  (when-not (= 1 (:currency (q/dims qty)))
+    (throw (ex-info "->money expects a currency quantity (dimension :currency 1)"
                     {:dims (q/dims qty)})))
   (let [nm (:unit-name (first (q/formula qty)))]
     (get currency-aliases nm nm)))
