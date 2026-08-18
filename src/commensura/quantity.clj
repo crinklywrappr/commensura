@@ -92,11 +92,11 @@
 
 (declare scale apply-scaled)
 
-(defmacro ^:private def-callable
-  "`defrecord` for a callable value: the supplied protocol impls, plus the full `IFn` — an `invoke`
-  for every arity 0..20 and `applyTo`, each delegating to `apply-scaled`. So a unit/quantity is a
-  first-class fn across Clojure's whole positional-arity range; past 20, `apply` routes through
-  `applyTo`."
+(defmacro ^:private defscalable
+  "`defrecord` for a callable value: the supplied protocol impls, plus the *complete* `IFn` — an
+  `invoke` for every fixed arity 0..20, the trailing varargs `invoke` (`IFn`'s 22nd, a Java
+  `Object...` method reached for >20 positional args), and `applyTo` — each delegating to
+  `apply-scaled`. So a unit/quantity is a genuine first-class fn at any arity."
   [rname fields & impls]
   `(defrecord ~rname ~fields
      ~@impls
@@ -104,6 +104,10 @@
      ~@(for [n (range 0 21)]
          (let [as (repeatedly n gensym)]
            `(~'invoke [~'this ~@as] (apply-scaled ~'this [~@as]))))
+     ;; IFn's 22nd invoke: 20 fixed args + a Java varargs array — its trailing param is a plain
+     ;; array param (not `& more`), which is how deftype/defrecord binds a Java `Object...`.
+     ~(let [as (repeatedly 20 gensym), rst (gensym)]
+        `(~'invoke [~'this ~@as ~rst] (apply-scaled ~'this (concat [~@as] (seq ~rst)))))
      (~'applyTo [~'this ~'args] (apply-scaled ~'this (seq ~'args)))))
 
 ;; one term of a display formula, e.g. foot^3 — a Unit raised to a power
@@ -112,7 +116,7 @@
   (dims [_] (scale-dims base-dims exp)))          ; this term's dimensional contribution
 
 ;; a named registered unit: name + base magnitude + stored dimensions
-(def-callable PreciseUnit [name mag dims]
+(defscalable PreciseUnit [name mag dims]
   Dimensionable
   (dims [_] dims)
 
@@ -126,7 +130,7 @@
   (toString [this] (display-string this)))
 
 ;; an anonymous computed value: exact magnitude + ordered display formula
-(def-callable PreciseQuantity [mag formula]
+(defscalable PreciseQuantity [mag formula]
   Dimensionable
   (dims [_] (formula-dims formula))
 
@@ -140,7 +144,7 @@
   (toString [this] (display-string this)))
 
 ;; like Unit, but the magnitude is an approximate BigDecimal (irrational value)
-(def-callable ApproxUnit [name mag dims]
+(defscalable ApproxUnit [name mag dims]
   Dimensionable
   (dims [_] dims)
 
@@ -154,7 +158,7 @@
   (toString [this] (display-string this)))
 
 ;; like Quantity, but the magnitude is an approximate BigDecimal (irrational value)
-(def-callable ApproxQuantity [mag formula]
+(defscalable ApproxQuantity [mag formula]
   Dimensionable
   (dims [_] (formula-dims formula))
 
