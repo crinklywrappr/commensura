@@ -215,10 +215,12 @@ fuel-cost
 
 (per (u/miles 30) u/gallon)
 
-;; `defunit` **snapshots** its relationship at definition time — ideal for a fixed peg like `banana`. To
-;; track a *moving* rate, pair a plain `defn` that returns a freshly-minted **unit** with a
-;; `register-unit-resolver!`, so the name also reifies from a literal. A **satoshi** (1e-8 BTC) is the
-;; ideal demo — defining and registering it are cheap; only *calling* it touches the live BTC price:
+;; `defunit` **snapshots** its relationship at definition time — ideal for a fixed peg like `banana`. A
+;; `register-unit-resolver!` covers the two cases `defunit` can't: a name-derived *family* (one `pred`
+;; matching a whole shape — e.g. the `dollar_YYYY` CPI units), and a single *moving* rate. For the
+;; moving case, pair a plain `defn` that returns a freshly-minted **unit** with the resolver, so the
+;; name also reifies from a literal. A **satoshi** (1e-8 BTC) is the ideal demo — defining and
+;; registering it are cheap; only *calling* it touches the live BTC price:
 
 ^{:nextjournal.clerk/visibility {:result :hide}}
 (defn satoshi                                    ; a freshly-minted unit at the live BTC price
