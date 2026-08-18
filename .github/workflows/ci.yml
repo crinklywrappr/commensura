@@ -2,8 +2,8 @@ name: CI
 
 # Gates every PR must pass (the ruleset requires `test` / `oracle` / `docs`). Also runs on master so the
 # badge reflects the default branch and the *merged* result is verified — not just the pre-merge PR. On a
-# master push (or dispatch) it also runs the `live` tests and, if the whole suite is green, the `release`
-# job publishes to Clojars and cuts the tag — CD in the same run, so the release is visible on the commit.
+# master push (or dispatch), once the suite is green, `release` publishes to Clojars + cuts the tag and
+# `deploy-docs` publishes the notebook to Pages — CD in the same run, so both are visible on the commit.
 on:
   pull_request:
     branches: [master]
@@ -117,3 +117,36 @@ jobs:
             --target "$(git rev-parse HEAD)" \
             --title  "v${{ steps.ver.outputs.version }}" \
             --generate-notes
+
+  # Publish the Clerk notebook to GitHub Pages — only on green master, gated on the build jobs so a red
+  # suite never republishes the docs. Its own `pages` concurrency serializes deploys without touching the
+  # rest of CI. Not gated on `live`: the notebook's live cells degrade gracefully, so an API blip
+  # shouldn't block a docs update.
+  deploy-docs:
+    name: deploy-docs
+    needs: [test, oracle, docs]
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/clojure
+      - name: Build docs (live)
+        env:
+          CURRENCYFREAKS_API_KEY: ${{ secrets.CURRENCYFREAKS_API_KEY }}
+        run: clojure -X:build docs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: target/doc
+      - uses: actions/deploy-pages@v4
+        id: deployment
