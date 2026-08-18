@@ -4,7 +4,8 @@
         ch.obermuhlner/big-math {:mvn/version "2.3.2"}    ; BigDecimal exp/log/root (MIT)
         org.clojure/data.json {:mvn/version "2.5.1"}      ; parse the FRED / CurrencyFreaks JSON
         org.clojure/core.memoize {:mvn/version "1.1.266"} ; TTL cache for live currency rates
-        http-kit/http-kit {:mvn/version "2.8.0"}}         ; HTTP client for the live CPI / currency sources
+        http-kit/http-kit {:mvn/version "2.8.0"}          ; HTTP client for the live CPI / currency sources
+        clojurewerkz/money {:mvn/version "1.10.0"}}       ; Joda-Money bridge (commensura.core/->money)
  :aliases
  {:test
   {:extra-paths ["test" "dev"]        ; "dev" so the drift test can load the converter + manifest
