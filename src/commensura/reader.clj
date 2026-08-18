@@ -21,6 +21,7 @@
   (:require [clojure.string :as str]
             [commensura.quantity :as q]
             [commensura.registry :as registry]
+            [commensura.suggest :as suggest]
             [commensura.cpi]              ; load so its historical-currency resolver is installed
             [commensura.currency.rates]   ; load so the currency-code resolver is installed
             [commensura.units]))   ; load so builtin units are registered
@@ -28,10 +29,15 @@
 (defn- resolve-unit
   "Resolve a unit name from a literal via `registry/resolve-unit` — a registered unit (builtin or
   user `defunit`), or a resolver family (e.g. commensura's historical currencies, or a user's own
-  `register-unit-resolver!`). Reused across the unit and quantity readers. Throws if nothing resolves."
+  `register-unit-resolver!`). Reused across the unit and quantity readers. Throws if nothing resolves,
+  with a `did you mean?` hint (and `:suggestions` in the ex-data) when a close registered name exists."
   [nm]
   (or (registry/resolve-unit nm)
-      (throw (ex-info "unknown unit in commensura literal" {:unit nm}))))
+      (let [near (suggest/nearest nm (keys (registry/all-units)))]
+        (throw (ex-info (cond-> (str "unknown unit " (pr-str nm) " in commensura literal")
+                          (seq near) (str " — did you mean " (str/join ", " near) "?"))
+                        (cond-> {:unit nm}
+                          (seq near) (assoc :suggestions near)))))))
 
 (def ^:dynamic *approx-tolerance*
   "Maximum *relative* difference tolerated between the literal's printed

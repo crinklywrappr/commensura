@@ -48,3 +48,11 @@
   (testing "an unregistered unit name still can't be resolved"
     (is (thrown? clojure.lang.ExceptionInfo
                  (read-string "#commensura/quantity \"5 zorkmid ≈ 5.0 [length]\"")))))
+
+(deftest did-you-mean-suggests-a-near-unit
+  (testing "a misspelled unit surfaces the closest registered name (message + :suggestions)"
+    (let [ex (try (read-string "#commensura/unit \"meterr\"")
+                  (catch clojure.lang.ExceptionInfo e e))]
+      (is (some? ex))
+      (is (contains? (set (:suggestions (ex-data ex))) "meter"))
+      (is (re-find #"did you mean" (ex-message ex))))))
