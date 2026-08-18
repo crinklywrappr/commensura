@@ -8,7 +8,8 @@
             [commensura.core :as c]
             [commensura.interval :as iv]
             [commensura.math :as m]
-            [commensura.quantity :as q]))
+            [commensura.quantity :as q]
+            [commensura.reader]))   ; loads the #commensura/… data readers for the round-trip law
 
 ;; ---- helpers ----
 (defn q= "Same physical quantity (magnitude + dimensions), ignoring display unit."
@@ -175,3 +176,55 @@
   (prop/for-all [x gen-quantity]
     (let [ax (m/abs x)]                             ; non-negative, so the real √ never throws
       (= (q/dims (c/pow (m/sqrt ax) 2)) (q/dims ax)))))
+
+;; ---- print / read round-trip: the reader is the exact inverse of the printer (M7) ----
+(defspec quantity-pr-read-round-trips 300
+  (prop/for-all [qty gen-quantity]
+    (= qty (read-string (pr-str qty)))))           ; full record equality, not just q=
+
+(defspec unit-pr-read-round-trips 100
+  (prop/for-all [uu gen-unit]                       ; units now carry :ns/:doc metadata;
+    (= uu (read-string (pr-str uu)))))              ; `=` ignores it, so the round-trip still holds
+
+;; ---- linearity: scaling distributes over addition ----
+(defspec scaling-distributes-over-plus 200
+  (prop/for-all [[x y] gen-conforming-two, k gen-exact]
+    (q= (c/by k (c/plus x y))
+        (c/plus (c/by k x) (c/by k y)))))
+
+;; ---- dimension homomorphism: `by` adds exponents ----
+(defn- add-dims [a b] (into {} (remove (comp zero? val)) (merge-with + a b)))
+(defspec by-adds-dimensions 200
+  (prop/for-all [x gen-quantity y gen-quantity]
+    (= (q/dims (c/by x y)) (add-dims (q/dims x) (q/dims y)))))
+
+;; ---- sign: a dimensionless trit (-1/0/1) that tracks the magnitude and negates ----
+(defspec sign-tracks-magnitude 200
+  (prop/for-all [x gen-quantity]
+    (let [s (m/sign x), mag (q/magnitude x)]
+      (and (contains? #{-1 0 1} s)
+           (= (= s -1) (neg?  mag))
+           (= (= s  1) (pos?  mag))
+           (= (= s  0) (zero? mag))))))
+
+(defspec sign-negates 200
+  (prop/for-all [x gen-quantity]
+    (= (m/sign (c/minus x)) (- (m/sign x)))))
+
+;; ---- min / max: commutative + idempotent ----
+(defspec min-max-commutative 200
+  (prop/for-all [[x y] gen-conforming-two]
+    (and (q= (m/min x y) (m/min y x))
+         (q= (m/max x y) (m/max y x)))))
+
+(defspec min-max-idempotent 200
+  (prop/for-all [x gen-quantity]
+    (and (q= (m/min x x) x) (q= (m/max x x) x))))
+
+;; ---- monotone math brackets an interval (the spine for interval parity — M7 item 8) ----
+;; floor/ceil/round/sign are non-decreasing, so mapping them over [lo,hi] must bracket the op at any
+;; interior point. (abs is special-cased over zero-spanning intervals and is checked separately above.)
+(defspec monotone-math-brackets-interval 200
+  (prop/for-all [x gen-iv-point]
+    (every? (fn [f] (within? (f (:iv x)) (f (:pt x))))
+            [m/floor m/ceil m/round m/sign])))
