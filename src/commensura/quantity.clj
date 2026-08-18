@@ -90,7 +90,7 @@
 (def ^:private default-mc MathContext/DECIMAL128)
 (defn- ctx [] (or *math-context* default-mc))
 
-(declare scale)
+(declare scale apply-scaled)
 
 ;; one term of a display formula, e.g. foot^3 — a Unit raised to a power
 (defrecord UnitTerm [unit-name exp factor base-dims]
@@ -109,8 +109,16 @@
   (formula [_] [(->UnitTerm name 1 mag dims)])
 
   clojure.lang.IFn
-  (invoke [this n] (scale this n))
-  (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
+  (invoke [this]                 (apply-scaled this []))
+  (invoke [this a]               (apply-scaled this [a]))
+  (invoke [this a b]             (apply-scaled this [a b]))
+  (invoke [this a b c]           (apply-scaled this [a b c]))
+  (invoke [this a b c d]         (apply-scaled this [a b c d]))
+  (invoke [this a b c d e]       (apply-scaled this [a b c d e]))
+  (invoke [this a b c d e f]     (apply-scaled this [a b c d e f]))
+  (invoke [this a b c d e f g]   (apply-scaled this [a b c d e f g]))
+  (invoke [this a b c d e f g h] (apply-scaled this [a b c d e f g h]))
+  (applyTo [this args]           (apply-scaled this (seq args)))
 
   Object
   (toString [this] (display-string this)))
@@ -127,8 +135,16 @@
   (formula [_] formula)
 
   clojure.lang.IFn
-  (invoke [this n] (scale this n))
-  (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
+  (invoke [this]                 (apply-scaled this []))
+  (invoke [this a]               (apply-scaled this [a]))
+  (invoke [this a b]             (apply-scaled this [a b]))
+  (invoke [this a b c]           (apply-scaled this [a b c]))
+  (invoke [this a b c d]         (apply-scaled this [a b c d]))
+  (invoke [this a b c d e]       (apply-scaled this [a b c d e]))
+  (invoke [this a b c d e f]     (apply-scaled this [a b c d e f]))
+  (invoke [this a b c d e f g]   (apply-scaled this [a b c d e f g]))
+  (invoke [this a b c d e f g h] (apply-scaled this [a b c d e f g h]))
+  (applyTo [this args]           (apply-scaled this (seq args)))
 
   Object
   (toString [this] (display-string this)))
@@ -145,8 +161,16 @@
   (formula [_] [(->UnitTerm name 1 mag dims)])
 
   clojure.lang.IFn
-  (invoke [this n] (scale this n))
-  (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
+  (invoke [this]                 (apply-scaled this []))
+  (invoke [this a]               (apply-scaled this [a]))
+  (invoke [this a b]             (apply-scaled this [a b]))
+  (invoke [this a b c]           (apply-scaled this [a b c]))
+  (invoke [this a b c d]         (apply-scaled this [a b c d]))
+  (invoke [this a b c d e]       (apply-scaled this [a b c d e]))
+  (invoke [this a b c d e f]     (apply-scaled this [a b c d e f]))
+  (invoke [this a b c d e f g]   (apply-scaled this [a b c d e f g]))
+  (invoke [this a b c d e f g h] (apply-scaled this [a b c d e f g h]))
+  (applyTo [this args]           (apply-scaled this (seq args)))
 
   Object
   (toString [this] (display-string this)))
@@ -163,8 +187,16 @@
   (formula [_] formula)
 
   clojure.lang.IFn
-  (invoke [this n] (scale this n))
-  (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
+  (invoke [this]                 (apply-scaled this []))
+  (invoke [this a]               (apply-scaled this [a]))
+  (invoke [this a b]             (apply-scaled this [a b]))
+  (invoke [this a b c]           (apply-scaled this [a b c]))
+  (invoke [this a b c d]         (apply-scaled this [a b c d]))
+  (invoke [this a b c d e]       (apply-scaled this [a b c d e]))
+  (invoke [this a b c d e f]     (apply-scaled this [a b c d e f]))
+  (invoke [this a b c d e f g]   (apply-scaled this [a b c d e f g]))
+  (invoke [this a b c d e f g h] (apply-scaled this [a b c d e f g h]))
+  (applyTo [this args]           (apply-scaled this (seq args)))
 
   Object
   (toString [this] (display-string this)))
@@ -379,6 +411,19 @@
     (if (or (approx? x) (approx? y))
       (quantity (nmul (magnitude x) (magnitude y)) formula')
       (->PreciseQuantity (* (magnitude x) (magnitude y)) formula'))))
+
+(defn apply-scaled
+  "The callable behavior every unit/quantity shares (see the records' `IFn` impls): `(x)` ⇒ x itself;
+  `(x n)` ⇒ x scaled by n; `(x a b …)` ⇒ the product of x scaled by each arg, so n args raise x's
+  dimension to the nth power — `(u/meter 3 5)` ⇒ 15 m², and the 1-arg `scale` is just the n=1 case.
+  Uniform and total: no dimension is special-cased (`(newton 3 5)` ⇒ 15 N² is defined, if unusual),
+  and the one unsound case — affine temperature — is excluded by construction, since `celsius`/
+  `fahrenheit` are plain `defn`s, not callable records."
+  [this args]
+  (case (count args)
+    0 this
+    1 (scale this (first args))
+    (reduce qmul (map #(scale this %) args))))
 
 (defn qdiv [x y]
   (let [formula' (combine-terms (concat (formula x) (formula-neg (formula y))))]

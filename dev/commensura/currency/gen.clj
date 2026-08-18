@@ -24,9 +24,11 @@
 
 (defn- emit-fn [code]
   (str "(defn " code "\n"
-       "  \"" code " (live rate): (" code ") => 1 " code "; (" code " amount) => that many " code ".\"\n"
-       "  ([]       (r/of \"" code "\"))\n"
-       "  ([amount] (r/of \"" code "\" amount)))\n"))
+       "  \"" code " (live rate): (" code ") => 1 " code "; (" code " amount) => that many " code ";\n"
+       "  (" code " a b …) => a·b·… " code "^n (arity → exponent, like a unit).\"\n"
+       "  ([]           (r/of \"" code "\"))\n"
+       "  ([amount]     (r/of \"" code "\" amount))\n"
+       "  ([a b & more] (reduce q/qmul (r/of \"" code "\" a) (map #(r/of \"" code "\" %) (cons b more)))))\n"))
 
 (def ^:private header
   (str ";;;; commensura — Frink-inspired exact unit conversion for Clojure.\n"
@@ -36,10 +38,11 @@
        ";;;; Do not edit by hand — re-run `clojure -X:build gen-currency`.\n\n"
        "(ns commensura.currency\n"
        "  \"Discoverable currency units — live rates via CurrencyFreaks (needs CURRENCYFREAKS_API_KEY).\n"
-       "  One fn per code: `(EUR)` => 1 EUR, `(EUR 600)` => 600 EUR; compose with the core verbs, e.g.\n"
-       "  `(c/to (EUR 600) u/dollar)`. Codes without a legal symbol name, and dynamic use, go through\n"
-       "  `commensura.currency.rates/of`.\"\n"
-       "  (:require [commensura.currency.rates :as r]))\n\n"))
+       "  One fn per code: `(EUR)` => 1 EUR, `(EUR 600)` => 600 EUR, `(EUR 3 5)` => 15 EUR^2 (arity ->\n"
+       "  exponent, as for a unit); compose with the core verbs, e.g. `(c/to (EUR 600) u/dollar)`. Codes\n"
+       "  without a legal symbol name, and dynamic use, go through `commensura.currency.rates/of`.\"\n"
+       "  (:require [commensura.currency.rates :as r]\n"
+       "            [commensura.quantity :as q]))\n\n"))
 
 (defn generate!
   "Build task entry (clojure -X:build gen-currency): regenerate src/commensura/currency.clj."

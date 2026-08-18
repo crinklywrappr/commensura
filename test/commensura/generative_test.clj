@@ -221,6 +221,11 @@
   (prop/for-all [x gen-quantity]
     (and (q= (m/min x x) x) (q= (m/max x x) x))))
 
+;; ---- callable records: applying to n args is the product of the scaled values (M7 item 5) ----
+(defspec callable-is-product-of-scaled 200
+  (prop/for-all [uu gen-unit, args (gen/vector gen-exact 2 6)]
+    (q= (apply uu args) (reduce c/by (map uu args)))))
+
 ;; ---- monotone math brackets an interval (the spine for interval parity — M7 item 8) ----
 ;; floor/ceil/round/sign are non-decreasing, so mapping them over [lo,hi] must bracket the op at any
 ;; interior point. (abs is special-cased over zero-spanning intervals and is checked separately above.)
