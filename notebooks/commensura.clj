@@ -260,32 +260,41 @@ fuel-cost
 
 (to (u/yards 4) (registry/resolve-unit "plank_12"))
 
-;; ## Discovering what's available
+;; ## Discovering what's available — right in the middle of a calculation
 ;;
-;; With thousands of units in scope, `commensura.discover` helps you find your way around — and it hands
-;; back plain **data**, never a printout, so results compose and test. **`search-units`** matches a name
-;; by case-insensitive substring (or a regex), ranked so the exact hit leads:
+;; `discover` earns its keep less as a catalog than as something you reach for *mid-calculation*: you're
+;; partway through, holding a value — what units could it wear? what would conform if you kept going?
+;; **`units-of-dimension`** takes the value *itself*, so you needn't even name the dimension. Say you've
+;; worked out a cruising speed:
+
+(def cruising (per (u/miles 70) u/hour))
+
+(discover/units-of-dimension cruising)
+
+;; There's the whole vocabulary of *how fast* — so pick one and finish the thought:
+
+(to cruising u/mach)
+
+;; It reads **intervals** too — which is exactly what you tend to be holding mid-calculation. The road
+;; trip's fuzzy `fuel-cost` is a currency, so ask what money conforms with it; it checks that every
+;; endpoint agrees on the dimension (a constructor-built interval always does):
+
+(discover/units-of-dimension fuel-cost)
+
+;; The other two tools *find* and *inspect*. **`search-units`** matches a name — case-insensitive
+;; substring or regex, ranked so the exact hit leads:
 
 (discover/search-units "volt")
 
-;; **`describe`** is the inspector: display string, canonical dimensions, the human dimension name, the
-;; defining namespace, and the docstring — each key dropped when it doesn't apply. It accepts a unit, a
-;; quantity, or a bare name:
-
-(discover/describe "Ah")
-
-;; It reads the *live* registry, so the `banana` you defined earlier is already discoverable — and
-;; `describe` even reports that it was minted right here in this notebook:
+;; **`describe`** is the inspector: display string, dimensions, the human dimension name, the defining
+;; namespace, and the docstring — each dropped when it doesn't apply. It reads the *live* registry, so
+;; the `banana` you defined above is already discoverable, and `describe` reports it was minted right
+;; here in this notebook:
 
 (discover/describe "banana")
 
-;; **`units-of-dimension`** is the reverse lookup — every unit of a dimension, given a dims-map, a human
-;; name, or a sample unit. All the ways to say *how fast*:
-
-(discover/units-of-dimension "velocity")
-
-;; And because `describe` accepts names, a search flows straight into full descriptions — data in, data
-;; out:
+;; And because everything is plain **data**, a search flows straight into full descriptions — data in,
+;; data out:
 
 (map discover/describe (discover/search-units "volt"))
 

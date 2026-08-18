@@ -20,6 +20,7 @@
     (d/describe (c/per u/mile u/hour))  ;=> {:value \"1 mile/hour [velocity]\" :dimensions {:length 1 :time -1} :dimension-name \"velocity\"}"
   (:require [clojure.string :as str]
             [commensura.quantity :as q]
+            [commensura.interval :as iv]
             [commensura.registry :as registry]
             [commensura.suggest :as suggest]))
 
@@ -33,13 +34,24 @@
   [s]
   (some (fn [[dm nm]] (when (= nm s) dm)) (registry/all-dimensions)))
 
+(defn- interval-dims
+  "The shared dimensions of an interval's parts (lo, hi, and the main value if present), throwing
+  if they disagree — which a constructor-built interval never does."
+  [x]
+  (let [dimset (into #{} (map q/dims) (remove nil? [(iv/lo x) (iv/hi x) (iv/main-value x)]))]
+    (if (= 1 (count dimset))
+      (first dimset)
+      (throw (ex-info "interval parts have differing dimensions" {:dimensions dimset})))))
+
 (defn- ->dims
   "Coerce a dimension spec to a canonical dims-map: a dims-map (`{:length 1}`), a commensura
-  unit/quantity (its dimensions), or a human dimension name (`\"velocity\"` — reverse-looked
-  up, with a `did you mean?` on a miss)."
+  unit/quantity/interval (its dimensions), or a human dimension name (`\"velocity\"` — reverse-
+  looked up, with a `did you mean?` on a miss)."
   [d]
   (cond
-    ;; a unit/quantity first — records also satisfy `map?`, so this must precede the dims-map branch
+    ;; interval first (its parts share one dimension); then unit/quantity — records also satisfy
+    ;; `map?`, so both must precede the dims-map branch
+    (iv/interval? d) (interval-dims d)
     (q/displayable? d) (q/dims d)
     (and (map? d) (not (instance? clojure.lang.IRecord d))) (canonical d)
     (string? d) (or (name->dims d)
@@ -47,13 +59,13 @@
                       (throw (ex-info (cond-> (str "unknown dimension name " (pr-str d))
                                         (seq near) (str " — did you mean " (str/join ", " near) "?"))
                                       (cond-> {:dimension d} (seq near) (assoc :suggestions near))))))
-    :else (throw (ex-info "expected a dims-map, dimension name, or commensura unit/quantity"
+    :else (throw (ex-info "expected a dims-map, dimension name, or commensura unit/quantity/interval"
                           {:got d}))))
 
 (defn units-of-dimension
-  "Sorted names of registered units whose canonical dimensions equal `d`. `d` may be a
-  dims-map (`{:length 1}`), a commensura unit/quantity (its dimensions are used), or a human
-  dimension name (`\"velocity\"`). Reflects live registrations."
+  "Sorted names of registered units whose canonical dimensions equal `d`. `d` may be a dims-map
+  (`{:length 1}`), a commensura unit/quantity/interval (its dimensions are used — an interval's
+  parts share one dimension), or a human dimension name (`\"velocity\"`). Reflects live registrations."
   [d]
   (let [dims (->dims d)]
     (->> (registry/all-units)
