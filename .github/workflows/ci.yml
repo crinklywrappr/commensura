@@ -53,12 +53,13 @@ jobs:
       - name: Build the Clerk notebook (verify it renders; no key → live cells degrade gracefully)
         run: clojure -X:build docs
 
-  # Live integration tests (real FRED + CurrencyFreaks). Master-push only: PRs never spend API quota (the
-  # ^:live tests self-skip without keys). Part of the release gate — release.yml requires CI success, and
-  # CI isn't green on master until this passes.
+  # Live integration tests (real FRED + CurrencyFreaks). Runs on master whether reached by push OR manual
+  # dispatch — only PRs skip it, so PRs never spend API quota (the ^:live tests also self-skip without
+  # keys). Part of the release gate: release.yml requires CI success, and CI isn't green on master until
+  # this passes. (PR events have ref refs/pull/N/merge, so this correctly excludes them.)
   live:
     name: live
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
