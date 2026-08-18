@@ -74,4 +74,10 @@
     (is (= [1 3] (ends (m/min (iv/interval 1 4) (iv/interval 2 3)))))
     (is (= [2 4] (ends (m/max (iv/interval 1 4) (iv/interval 2 3))))))
   (testing "an interval fractional power needs a non-negative base"
-    (is (thrown? clojure.lang.ExceptionInfo (m/sqrt (iv/interval -1 4))))))
+    (is (thrown? clojure.lang.ExceptionInfo (m/sqrt (iv/interval -1 4)))))
+  (testing "mod/rem reject intervals — modular reduction can't be soundly lifted"
+    (let [i (iv/interval (u/hour 23) (u/hour 25))]
+      (is (thrown-with-msg? clojure.lang.ExceptionInfo #"not defined on intervals"
+                            (m/mod i (u/hour 24))))
+      (is (thrown-with-msg? clojure.lang.ExceptionInfo #"not defined on intervals"
+                            (m/rem (u/hour 25) i))))))
