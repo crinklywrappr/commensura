@@ -58,18 +58,20 @@
   (-> (str s) str/lower-case (str/replace "_" "")))
 
 (defn nearest
-  "Up to `limit` (default 3) of `candidates` closest to `s`, nearest first, within a
-  conservative length-relative cutoff (roughly one edit per three characters). Case-
-  and underscore-insensitive. Returns `[]` when nothing is close, so a caller can stay
-  silent on a wild miss. Ties break by shorter, then lexicographic, name — stable and
-  deterministic."
+  "Up to `limit` (default 3) `candidates` closest to `s`, nearest first, within an
+  edit-distance `cutoff`. `candidates` is a seq of names — e.g. `(keys (registry/all-units))`.
+  Case- and underscore-insensitive. Returns `[]` when nothing is close, so a caller can
+  stay silent on a wild miss. Ties break by shorter, then lexicographic, name — stable and
+  deterministic. `cutoff` defaults to a conservative length-relative bound (~one edit per
+  three characters); pass an explicit `long` to widen or tighten recall."
   ([s candidates] (nearest s candidates 3))
-  ([s candidates limit]
+  ([s candidates limit] (nearest s candidates limit nil))
+  ([s candidates limit cutoff]
    (let [target (normalize s)]
      (if (str/blank? target)
        []
        (let [tlen   (count target)
-             cutoff (max 1 (quot tlen 3))]
+             cutoff (long (or cutoff (max 1 (quot tlen 3))))]
          (->> candidates
               (keep (fn [c]
                       (let [cn (normalize c)]
@@ -77,6 +79,9 @@
                         (when (<= (Math/abs (- tlen (count cn))) cutoff)
                           (let [d (osa-distance target cn)]
                             (when (<= d cutoff) [c d]))))))
+              ;; keyfn is a same-length [distance length name] vector; Clojure's `compare`
+              ;; orders equal-length vectors element-wise, so this sorts by distance, then
+              ;; shorter name, then lexicographically — no explicit comparator needed.
               (sort-by (fn [[c d]] [d (count c) c]))
               (take limit)
               (mapv first)))))))

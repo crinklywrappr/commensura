@@ -28,6 +28,11 @@
 (deftest respects-the-limit
   (is (<= (count (suggest/nearest "meterx" ["meter" "meters" "metre" "meten" "meser"] 2)) 2)))
 
+(deftest cutoff-is-tunable
+  (testing "an explicit cutoff overrides the length-relative default"
+    (is (= []        (suggest/nearest "meterrr" ["meter"] 3 1)))    ; 2 edits, cutoff 1 → excluded
+    (is (= ["meter"] (suggest/nearest "meterrr" ["meter"] 3 5)))))  ; generous cutoff → included
+
 ;; An exact candidate is always its own nearest match: distance 0 sorts ahead of everything.
 ;; Candidates are lower-cased + distinct so no two collide under normalization (which would tie at 0).
 ;; Names are bounded to realistic (short) lengths — unit names, not paragraphs.
