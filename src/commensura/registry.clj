@@ -83,9 +83,16 @@
 (defonce unit-resolvers (atom []))
 
 (defn register-unit-resolver!
-  "Install a resolver for a *family* of units whose members are derivable from their name rather
-  than registered one-by-one (e.g. the historical `dollar_1960`). `pred` is `name -> boolean`;
-  `dispatch` is `name -> unit`, invoked when a name isn't in the unit table and `pred` matches.
+  "Install a resolver — a `pred`/`dispatch` pair that builds units *on demand*, for names not worth
+  registering one-by-one. `pred` is `name -> boolean`; `dispatch` is `name -> unit`, invoked when a
+  name isn't in the unit table and `pred` matches. Two complementary uses:
+
+    * a name-derived *family* — `pred` matches a whole shape and `dispatch` parses the name into a
+      unit (e.g. the historical `dollar_1960`, or any `<unit>_<year>` scheme).
+    * a single *live/moving* unit — `pred` matches one name and `dispatch` recomputes its value on
+      each resolution, so the unit tracks a changing rate (e.g. a currency code at today's exchange
+      rate, or a `satoshi` at the live BTC price). `defunit`, by contrast, snapshots a value once.
+
   Resolvers are tried in registration order; the first whose `pred` matches wins, and its `dispatch`
   result — or exception — is the answer (so a matched-but-unbuildable name surfaces its own error,
   not a generic \"unknown unit\"). Complements `register-unit!`/`defunit` (a single fixed unit)."
