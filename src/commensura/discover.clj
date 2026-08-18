@@ -40,7 +40,7 @@
   [d]
   (cond
     ;; a unit/quantity first — records also satisfy `map?`, so this must precede the dims-map branch
-    (satisfies? q/Displayable d) (q/dims d)
+    (q/displayable? d) (q/dims d)
     (and (map? d) (not (instance? clojure.lang.IRecord d))) (canonical d)
     (string? d) (or (name->dims d)
                     (let [near (suggest/nearest d (vals (registry/all-dimensions)))]
@@ -97,7 +97,7 @@
                   (throw (ex-info (cond-> (str "no registered unit named " (pr-str x))
                                     (seq near) (str " — did you mean " (str/join ", " near) "?"))
                                   (cond-> {:unit x} (seq near) (assoc :suggestions near))))))
-            (satisfies? q/Displayable x) x
+            (q/displayable? x) x
             :else (throw (ex-info "describe expects a commensura unit/quantity or a unit name"
                                   {:got x})))
         dims (q/dims u)]

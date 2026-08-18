@@ -202,6 +202,13 @@
   (or (instance? ApproxUnit x)
       (instance? ApproxQuantity x)))
 
+(defn displayable?
+  "Is `x` a commensura value the display/reader machinery understands — a unit, a quantity,
+  or a bare number (a dimensionless scalar)? The umbrella predicate: unlike `quantity?`
+  (false for units), this is true for *any* commensura value."
+  [x]
+  (satisfies? Displayable x))
+
 ;; ---- exact integer power (keeps the exact tower) ----
 (defn- expt [base n]
   (cond

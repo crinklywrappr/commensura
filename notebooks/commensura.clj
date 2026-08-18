@@ -33,7 +33,7 @@
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (clerk/add-viewers!
  [{:name :commensura/display
-   :pred #(satisfies? q/Displayable %)
+   :pred q/displayable?
    :transform-fn (comp clerk/mark-presented (clerk/update-val str))
    :render-fn '(fn [s] [:span {:style {:color "#047857" :font-family "monospace" :font-weight 500}} s])}
   {:name :commensura/interval
