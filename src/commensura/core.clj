@@ -233,15 +233,19 @@
   ([sym expr] `(defunit ~sym nil ~expr))
   ([sym a b]
    (if (number? a)                                    ; (defunit sym magnitude dims)
-     `(def ~sym (registry/register-unit! ~(str sym) (q/unit ~(str sym) ~a ~b)))
+     `(def ~sym (registry/register-unit! ~(str sym)
+                  (vary-meta (q/unit ~(str sym) ~a ~b) assoc :ns (ns-name *ns*))))
      (let [doc (when (string? a) a)                   ; (defunit sym [doc] expr)
            vn  (gensym "val")
            un  (gensym "unit")]
        `(def ~sym ~@(when doc [doc])
           (let [~vn (q/scalar ~b)
                 ~un (q/unit ~(str sym) (q/magnitude ~vn) (q/dims ~vn))]
-            ;; carry the docstring as unit metadata so discovery can surface it (see commensura.discover)
-            (registry/register-unit! ~(str sym) ~(if doc `(vary-meta ~un assoc :doc ~doc) un)))))))
+            ;; carry the defining ns (and docstring, if any) as unit metadata — for discovery
+            (registry/register-unit! ~(str sym)
+              ~(if doc
+                 `(vary-meta ~un assoc :ns (ns-name *ns*) :doc ~doc)
+                 `(vary-meta ~un assoc :ns (ns-name *ns*)))))))))
   ([sym doc mag dims]                                 ; (defunit sym doc magnitude dims)
    `(def ~sym ~doc (registry/register-unit! ~(str sym)
-                     (vary-meta (q/unit ~(str sym) ~mag ~dims) assoc :doc ~doc)))))
+                     (vary-meta (q/unit ~(str sym) ~mag ~dims) assoc :ns (ns-name *ns*) :doc ~doc)))))

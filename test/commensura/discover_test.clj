@@ -62,6 +62,10 @@
     (is (= "a documented test unit" (:doc (d/describe docunit))))     ; …and by value
     (is (some? (:doc (d/describe u/meter))))                          ; a builtin that has one
     (is (not (contains? (d/describe "zorptron") :doc))))             ; none → key omitted
+  (testing "reports the defining namespace of a defunit unit; omitted otherwise"
+    (is (= 'commensura.units         (:namespace (d/describe u/meter))))       ; builtin
+    (is (= 'commensura.discover-test (:namespace (d/describe "docunit"))))     ; this test ns
+    (is (not (contains? (d/describe (c/per u/mile u/hour)) :namespace))))      ; a quantity, not a defunit
   (testing "an unknown name throws with a suggestion"
     (let [ex (try (d/describe "zorptrn") (catch clojure.lang.ExceptionInfo e e))]
       (is (some? ex))

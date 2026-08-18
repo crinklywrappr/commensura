@@ -87,9 +87,10 @@
   unit is resolved; an unknown name throws (with a `did you mean?`).
 
   Returns a map with `:value` (display string), `:dimensions` (canonical dims), `:dimension-name`
-  (the human name — matching `units-of-dimension`'s input), and `:doc` (the unit's docstring). Keys
-  whose value would be nil are omitted, so the map stays tight — an unnamed base dimension (bare
-  `{:length 1}`) drops `:dimension-name`, and a doc-less unit drops `:doc`."
+  (the human name — matching `units-of-dimension`'s input), `:namespace` (where a `defunit` unit was
+  defined), and `:doc` (its docstring). Keys whose value would be nil are omitted, so the map stays
+  tight — an unnamed base dimension drops `:dimension-name`; a unit not made with `defunit` (a currency
+  fn, a resolver-minted unit, or a bare quantity) drops `:namespace`; a doc-less unit drops `:doc`."
   [x]
   (let [u (cond
             (string? x)
@@ -102,8 +103,9 @@
             :else (throw (ex-info "describe expects a commensura unit/quantity or a unit name"
                                   {:got x})))
         dims (q/dims u)]
-    (into {} (remove (comp nil? val))                 ; drop nil keys (unnamed dim / doc-less unit)
+    (into {} (remove (comp nil? val))                 ; drop nil keys (unnamed dim / non-defunit / doc-less)
           {:value          (str u)
            :dimensions     dims
            :dimension-name (registry/lookup-dimension dims)
+           :namespace      (:ns  (meta u))            ; where a `defunit` unit was defined
            :doc            (:doc (meta u))})))
