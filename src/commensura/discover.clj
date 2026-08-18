@@ -17,7 +17,7 @@
     (require '[commensura.discover :as d] '[commensura.units :as u])
     (d/search-units \"volt\")            ;=> [\"volt\" \"abvolt\" \"intvolt\" \"statvolt\" \"thermalvolt\" \"electronvolt\"]
     (d/units-of-dimension u/foot)       ;=> [\"actus\" \"angstrom\" … \"foot\" … \"meter\" … \"mile\" …]  (all lengths)
-    (d/describe (c/per u/mile u/hour))  ;=> {:value \"1 mile/hour [velocity]\" :dimensions {:length 1 :time -1} :dimension \"velocity\"}"
+    (d/describe (c/per u/mile u/hour))  ;=> {:value \"1 mile/hour [velocity]\" :dimensions {:length 1 :time -1} :dimension-name \"velocity\"}"
   (:require [clojure.string :as str]
             [commensura.quantity :as q]
             [commensura.registry :as registry]
@@ -86,9 +86,10 @@
   (string), so `(map describe (search-units \"volt\"))` just works. For a string, the exact
   unit is resolved; an unknown name throws (with a `did you mean?`).
 
-  Returns `{:value :dimensions :dimension :doc}`: the display string, canonical dimensions,
-  the human dimension name (`nil` for the unnamed base dimensions like bare `{:length 1}`),
-  and the unit's docstring if it has one (`nil` otherwise)."
+  Returns a map with `:value` (display string), `:dimensions` (canonical dims), `:dimension-name`
+  (the human name — matching `units-of-dimension`'s input), and `:doc` (the unit's docstring). Keys
+  whose value would be nil are omitted, so the map stays tight — an unnamed base dimension (bare
+  `{:length 1}`) drops `:dimension-name`, and a doc-less unit drops `:doc`."
   [x]
   (let [u (cond
             (string? x)
@@ -101,10 +102,11 @@
             :else (throw (ex-info "describe expects a commensura unit/quantity or a unit name"
                                   {:got x})))
         dims (q/dims u)]
-    {:value      (str u)
-     :dimensions dims
-     :dimension  (registry/lookup-dimension dims)
-     :doc        (:doc (meta u))}))
+    (into {} (remove (comp nil? val))                 ; drop nil keys (unnamed dim / doc-less unit)
+          {:value          (str u)
+           :dimensions     dims
+           :dimension-name (registry/lookup-dimension dims)
+           :doc            (:doc (meta u))})))
 
 (defn dimensions
   "All registered dimension → human-name entries as `[dims-map name]` pairs, sorted by name.

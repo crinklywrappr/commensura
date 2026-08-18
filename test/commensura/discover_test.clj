@@ -46,22 +46,22 @@
 
 (deftest describe-reports-dimension
   (testing "a named (compound) dimension"
-    (is (= "velocity" (:dimension (d/describe (c/per u/mile u/hour))))))
-  (testing "a base dimension is honestly unnamed"
+    (is (= "velocity" (:dimension-name (d/describe (c/per u/mile u/hour))))))
+  (testing "an unnamed base dimension omits :dimension-name entirely"
     (let [m (d/describe u/meter)]
       (is (= {:length 1} (:dimensions m)))
-      (is (nil? (:dimension m)))
+      (is (not (contains? m :dimension-name)))
       (is (string? (:value m)))))
   (testing "a bare number is a dimensionless scalar"
     (is (= {}              (:dimensions (d/describe 5))))
-    (is (= "dimensionless" (:dimension  (d/describe 5)))))
+    (is (= "dimensionless" (:dimension-name (d/describe 5)))))
   (testing "accepts a unit-name string"
-    (is (= "velocity" (:dimension (d/describe "mph")))))
-  (testing "surfaces the unit's docstring (user + builtin), nil when absent"
+    (is (= "velocity" (:dimension-name (d/describe "mph")))))
+  (testing "surfaces the unit's docstring (user + builtin); a doc-less unit omits :doc"
     (is (= "a documented test unit" (:doc (d/describe "docunit"))))   ; user unit, by name
     (is (= "a documented test unit" (:doc (d/describe docunit))))     ; …and by value
     (is (some? (:doc (d/describe u/meter))))                          ; a builtin that has one
-    (is (nil?  (:doc (d/describe "zorptron")))))                      ; none
+    (is (not (contains? (d/describe "zorptron") :doc))))             ; none → key omitted
   (testing "an unknown name throws with a suggestion"
     (let [ex (try (d/describe "zorptrn") (catch clojure.lang.ExceptionInfo e e))]
       (is (some? ex))
