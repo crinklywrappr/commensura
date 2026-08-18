@@ -80,6 +80,15 @@
 ;; Those tagged literals round-trip through the reader. For readability, the rest of this page shows
 ;; commensura values in their cleaner **display form** — the same text, without the wrapping tag.
 
+;; One flourish: applying a unit to **several** arguments elides the `by` — each argument scales the
+;; unit and the results multiply, so *n* arguments raise the dimension to the *n*th power:
+
+(eq? (u/foot 3 5 7) (by (u/foot 3) (u/foot 5) (u/foot 7)))
+
+;; So `(u/foot 3 5 7)` is a volume — `105 foot³`:
+
+(u/foot 3 5 7)
+
 ;; ## Exact, where floating point falls short
 ;;
 ;; How fast is light, in **furlongs per fortnight**? commensura knows both units and answers with a
