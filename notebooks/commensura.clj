@@ -19,6 +19,7 @@
             [commensura.currency :as cur]
             [commensura.currency.rates :as rates]
             [commensura.registry :as registry]
+            [commensura.discover :as discover]
             [commensura.reader]
             [clojure.edn :as edn]
             [clojure.java.io :as io]))
@@ -258,6 +259,35 @@ fuel-cost
 ;; (4 yards is exactly one 12-foot plank):
 
 (to (u/yards 4) (registry/resolve-unit "plank_12"))
+
+;; ## Discovering what's available
+;;
+;; With thousands of units in scope, `commensura.discover` helps you find your way around — and it hands
+;; back plain **data**, never a printout, so results compose and test. **`search-units`** matches a name
+;; by case-insensitive substring (or a regex), ranked so the exact hit leads:
+
+(discover/search-units "volt")
+
+;; **`describe`** is the inspector: display string, canonical dimensions, the human dimension name, the
+;; defining namespace, and the docstring — each key dropped when it doesn't apply. It accepts a unit, a
+;; quantity, or a bare name:
+
+(discover/describe "Ah")
+
+;; It reads the *live* registry, so the `banana` you defined earlier is already discoverable — and
+;; `describe` even reports that it was minted right here in this notebook:
+
+(discover/describe "banana")
+
+;; **`units-of-dimension`** is the reverse lookup — every unit of a dimension, given a dims-map, a human
+;; name, or a sample unit. All the ways to say *how fast*:
+
+(discover/units-of-dimension "velocity")
+
+;; And because `describe` accepts names, a search flows straight into full descriptions — data in, data
+;; out:
+
+(map discover/describe (discover/search-units "volt"))
 
 ;; ## Under the hood — everything reduces to base dimensions
 ;;
