@@ -82,16 +82,29 @@
            vec))))
 
 (defn describe
-  "A plain-data description of a commensura unit or quantity `x`: its display string, its
-  canonical dimensions, and the human dimension name if one is registered — `nil` for the
-  base dimensions (e.g. bare `{:length 1}`), which the table doesn't name."
+  "A plain-data description of a commensura unit or quantity — or a registered unit *name*
+  (string), so `(map describe (search-units \"volt\"))` just works. For a string, the exact
+  unit is resolved; an unknown name throws (with a `did you mean?`).
+
+  Returns `{:value :dimensions :dimension :doc}`: the display string, canonical dimensions,
+  the human dimension name (`nil` for the unnamed base dimensions like bare `{:length 1}`),
+  and the unit's docstring if it has one (`nil` otherwise)."
   [x]
-  (when-not (satisfies? q/Displayable x)
-    (throw (ex-info "describe expects a commensura unit or quantity" {:got x})))
-  (let [dims (q/dims x)]
-    {:value      (str x)
+  (let [u (cond
+            (string? x)
+            (or (registry/resolve-unit x)
+                (let [near (suggest/nearest x (keys (registry/all-units)))]
+                  (throw (ex-info (cond-> (str "no registered unit named " (pr-str x))
+                                    (seq near) (str " — did you mean " (str/join ", " near) "?"))
+                                  (cond-> {:unit x} (seq near) (assoc :suggestions near))))))
+            (satisfies? q/Displayable x) x
+            :else (throw (ex-info "describe expects a commensura unit/quantity or a unit name"
+                                  {:got x})))
+        dims (q/dims u)]
+    {:value      (str u)
      :dimensions dims
-     :dimension  (registry/lookup-dimension dims)}))
+     :dimension  (registry/lookup-dimension dims)
+     :doc        (:doc (meta u))}))
 
 (defn dimensions
   "All registered dimension → human-name entries as `[dims-map name]` pairs, sorted by name.

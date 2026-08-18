@@ -6,8 +6,9 @@
             [commensura.registry :as registry]
             [commensura.discover :as d]))
 
-;; a user-defined length unit (registers itself via defunit) — for the live-view tests
-(c/defunit zorptron (u/meter 7))
+;; user-defined length units (register themselves via defunit) — for the live-view + doc tests
+(c/defunit zorptron (u/meter 7))                         ; no docstring
+(c/defunit docunit  "a documented test unit" (u/meter 2)) ; carries a docstring
 
 (deftest search-units-substring-and-regex
   (testing "case-insensitive substring, ranked by closeness — the exact match leads"
@@ -54,6 +55,19 @@
   (testing "a bare number is a dimensionless scalar"
     (is (= {}              (:dimensions (d/describe 5))))
     (is (= "dimensionless" (:dimension  (d/describe 5)))))
+  (testing "accepts a unit-name string"
+    (is (= "velocity" (:dimension (d/describe "mph")))))
+  (testing "surfaces the unit's docstring (user + builtin), nil when absent"
+    (is (= "a documented test unit" (:doc (d/describe "docunit"))))   ; user unit, by name
+    (is (= "a documented test unit" (:doc (d/describe docunit))))     ; …and by value
+    (is (some? (:doc (d/describe u/meter))))                          ; a builtin that has one
+    (is (nil?  (:doc (d/describe "zorptron")))))                      ; none
+  (testing "an unknown name throws with a suggestion"
+    (let [ex (try (d/describe "zorptrn") (catch clojure.lang.ExceptionInfo e e))]
+      (is (some? ex))
+      (is (contains? (set (:suggestions (ex-data ex))) "zorptron"))))
+  (testing "map describe over search results just works"
+    (is (every? map? (map d/describe (d/search-units "volt")))))
   (testing "a non-value (e.g. a keyword) is rejected"
     (is (thrown? clojure.lang.ExceptionInfo (d/describe :foo)))))
 
