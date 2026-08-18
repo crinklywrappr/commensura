@@ -1,12 +1,16 @@
 name: CI
 
-# Gates every PR must pass (the ruleset requires `test` / `oracle` / `docs`). Also runs on master so the
-# badge reflects the default branch and the *merged* result is verified — not just the pre-merge PR. On a
-# master push (or dispatch), once the suite is green, `release` publishes to Clojars + cuts the tag and
-# `deploy-docs` publishes the notebook to Pages — CD in the same run, so both are visible on the commit.
+# Gates run on EVERY pull request, into any branch (the ruleset requires `test` / `oracle` / `docs`).
+# For `pull_request`, GitHub runs the workflow file from the PR's own branch and matches any `branches:`
+# filter against the *base* (target) branch — so leaving `pull_request` unfiltered covers PRs into feature
+# / integration branches too, not just master. `push` stays master-only: it runs there so the badge
+# reflects the default branch and the *merged* result is verified — not just the pre-merge PR. On a master
+# push (or dispatch), once the suite is green, `release` publishes to Clojars + cuts the tag and
+# `deploy-docs` publishes the notebook to Pages — CD in the same run, visible on the commit. live /
+# release / deploy-docs are gated on `github.ref == 'refs/heads/master'` (a PR's ref is refs/pull/N/merge),
+# so a PR run executes only the test / oracle / docs gates.
 on:
   pull_request:
-    branches: [master]
   push:
     branches: [master]
   workflow_dispatch:
