@@ -19,6 +19,7 @@
             [commensura.currency :as cur]
             [commensura.currency.rates :as rates]
             [commensura.registry :as registry]
+            [commensura.discover :as discover]
             [commensura.reader]
             [clojure.edn :as edn]
             [clojure.java.io :as io]))
@@ -33,7 +34,7 @@
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (clerk/add-viewers!
  [{:name :commensura/display
-   :pred #(satisfies? q/Displayable %)
+   :pred q/displayable?
    :transform-fn (comp clerk/mark-presented (clerk/update-val str))
    :render-fn '(fn [s] [:span {:style {:color "#047857" :font-family "monospace" :font-weight 500}} s])}
   {:name :commensura/interval
@@ -258,6 +259,63 @@ fuel-cost
 ;; (4 yards is exactly one 12-foot plank):
 
 (to (u/yards 4) (registry/resolve-unit "plank_12"))
+
+;; ## Discovering what's available — right in the middle of a calculation
+;;
+;; `discover` earns its keep less as a catalog than as something you reach for *mid-calculation*: you're
+;; partway through, holding a value — what units could it wear? what would conform if you kept going?
+;; **`units-of-dimension`** takes the value *itself*, so you needn't even name the dimension. Say you've
+;; worked out a cruising speed:
+
+(def cruising (per (u/miles 70) u/hour))
+
+(discover/units-of-dimension cruising)
+
+;; There's the whole vocabulary of *how fast* — so pick one and finish the thought:
+
+(to cruising u/mach)
+
+;; It reads **intervals** too — which is exactly what you tend to be holding mid-calculation. The road
+;; trip's fuzzy `fuel-cost` is a currency, so ask what money conforms with it; it checks that every
+;; endpoint agrees on the dimension (a constructor-built interval always does):
+
+(discover/units-of-dimension fuel-cost)
+
+;; The other two tools *find* and *inspect*. **`search-units`** matches a name — case-insensitive
+;; substring or regex, ranked so the exact hit leads:
+
+(discover/search-units "volt")
+
+;; **`describe`** is the inspector: display string, dimensions, the human dimension name, the defining
+;; namespace, and the docstring — each dropped when it doesn't apply. It reads the *live* registry, so
+;; the `banana` you defined above is already discoverable, and `describe` reports it was minted right
+;; here in this notebook:
+
+(discover/describe "banana")
+
+;; And because everything is plain **data**, a search flows straight into full descriptions — data in,
+;; data out:
+
+(map discover/describe (discover/search-units "volt"))
+
+;; **One caveat — on-demand units.** `search-units` and `units-of-dimension` see only the *registered*
+;; table: the builtins and your own `defunit`s. Units that exist only through a **resolver** are minted
+;; the instant you name them and have no list to enumerate, so they never surface in a search or a
+;; dimension roundup — the `dollar_YYYY` inflation units, every live currency code (`EUR`, `AAVE`, …),
+;; and any `register-unit-resolver!` family (the `satoshi` and `plank_<n>` above). That's why the money
+;; roundup listed a handful of slang units, not thousands of codes — and why searching for one is empty:
+
+(discover/search-units "dollar_1960")
+
+;; `describe` is the exception: it resolves by *exact* name, so it does reach a resolver-minted unit —
+;; you just get `:value` and `:dimensions` and nothing more, since it wasn't made with `defunit` (no
+;; `:namespace`, no `:doc`). And a *misspelled* resolver name gets no "did you mean?", because the
+;; suggester only knows the registered names:
+
+(discover/describe "dollar_1960")
+
+;; So: reach for `search-units` / `units-of-dimension` to explore the registered world, and exact naming
+;; (or the defining `defn` / resolver) to summon the on-demand one.
 
 ;; ## Under the hood — everything reduces to base dimensions
 ;;

@@ -28,6 +28,12 @@
 (deftest respects-the-limit
   (is (<= (count (suggest/nearest "meterx" ["meter" "meters" "metre" "meten" "meser"] 2)) 2)))
 
+(deftest distance-is-normalized-osa
+  (is (= 0 (suggest/distance "meter" "METER")))         ; case-insensitive
+  (is (= 0 (suggest/distance "kilo_gram" "kilogram")))  ; underscore-insensitive
+  (is (= 1 (suggest/distance "metre" "meter")))         ; adjacent transposition = one edit
+  (is (= 2 (suggest/distance "volt" "abvolt"))))        ; two insertions
+
 (deftest cutoff-is-tunable
   (testing "an explicit cutoff overrides the length-relative default"
     (is (= []        (suggest/nearest "meterrr" ["meter"] 3 1)))    ; 2 edits, cutoff 1 → excluded

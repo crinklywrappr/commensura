@@ -57,6 +57,14 @@
   [s]
   (-> (str s) str/lower-case (str/replace "_" "")))
 
+(defn distance
+  "Normalized restricted Damerau-Levenshtein (optimal string alignment) edit distance between
+  `a` and `b`, case- and underscore-insensitive (adjacent transpositions cost 1). The public
+  counterpart to `nearest` — handy for *ranking* an already-chosen set of matches by closeness
+  (e.g. `commensura.discover/search-units`)."
+  ^long [a b]
+  (osa-distance (normalize a) (normalize b)))
+
 (defn nearest
   "Up to `limit` (default 3) `candidates` closest to `s`, nearest first, within an
   edit-distance `cutoff`. `candidates` is a seq of names — e.g. `(keys (registry/all-units))`.
