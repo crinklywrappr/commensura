@@ -21,9 +21,12 @@
   dimensioned → dimensionless). Transcendentals (`exp`/`ln`/`sin`/…) are intentionally absent:
   they only ever map dimensionless → dimensionless, so they belong to plain numeric code.
 
-  The monotone functions are interval-aware (mapped over the endpoints, with `abs` special-cased
-  when the interval spans zero); `mod`/`rem` are scalar-only. Names shadow `clojure.core`, so use
-  this namespace qualified (`m/abs`), never `:refer`. Comparisons come from `commensura.core`."
+  Over intervals, the monotone functions lift by mapping the endpoints — `sign`/`floor`/`ceil`/`round`
+  directly, `abs` with a special case when the interval spans zero — and `sqrt`/`root`/`pow` scale
+  through. `mod`/`rem` are the exception: **scalar-only, and they reject an interval argument**, because
+  modular reduction is discontinuous and cannot be soundly lifted (`[23,25] mod 24` is `{23} ∪ [0,1]`,
+  not a single interval). Names shadow `clojure.core`, so use this namespace qualified (`m/abs`), never
+  `:refer`. Comparisons come from `commensura.core`."
   (:refer-clojure :exclude [abs min max mod rem])
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
@@ -131,20 +134,32 @@
   [x]
   (lift-monotone #(round-with round-int %) x))
 
-;; ---- mod / rem (conforming, dimension-preserving; scalar-only) ----
+;; ---- mod / rem (conforming, dimension-preserving; scalar-only — intervals rejected) ----
 (defn- conform! [op x y]
   (when-not (q/conforms? x y)
     (throw (ex-info (str op ": non-conforming dimensions") {:a (q/dims x) :b (q/dims y)}))))
 
+(defn- scalar-only! [op x y]
+  ;; Modular reduction is discontinuous, so it can't be soundly lifted over an interval (mapping the
+  ;; endpoints would silently return a bracketing interval that lies). Reject it explicitly instead.
+  (when (or (iv/interval? x) (iv/interval? y))
+    (throw (ex-info (str op " is not defined on intervals: modular reduction is discontinuous, so it "
+                         "cannot be soundly lifted — apply it to a point value")
+                    {:op op :x x :y y}))))
+
 (defn mod
-  "x modulo y — conforming, dimension-preserving (keeps x's unit)."
+  "x modulo y — conforming, dimension-preserving (keeps x's unit). Scalar-only: an interval argument
+  is rejected (modular reduction is discontinuous, so it cannot be soundly lifted)."
   [x y]
+  (scalar-only! "mod" x y)
   (conform! "mod" x y)
   (q/quantity (clojure.core/mod (q/magnitude x) (q/magnitude y)) (q/formula x)))
 
 (defn rem
-  "Remainder of x by y — conforming, dimension-preserving."
+  "Remainder of x by y — conforming, dimension-preserving. Scalar-only: an interval argument is
+  rejected (see `mod`)."
   [x y]
+  (scalar-only! "rem" x y)
   (conform! "rem" x y)
   (q/quantity (clojure.core/rem (q/magnitude x) (q/magnitude y)) (q/formula x)))
 
