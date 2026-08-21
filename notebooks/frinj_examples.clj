@@ -436,13 +436,10 @@
 ;; a density no higher than 0.85 kg/liter (if it were watered down, it would be higher.)
 
 (-> ($= (fj 18 :tons) / (fj :hour) / (fj 28 :knot) / (fj 0.85 :kg :per :liter))
-    (to :gallons :per :foot))
+    (to :feet :per :gallon))
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
-(note "frinj gets 33.5 straight from (to … :feet :per :gallon): the expression is fuel *per distance* — gallons ÷ foot, an area — and feet/gallon is its reciprocal (1/area). frinj deliberately auto-reverses such \"mirrored\" units (its convert reverses when the target is the reciprocal dimension), so it flips for you. commensura makes the opposite, equally deliberate choice — a conversion must conform, no guessing — so it reads the honest gallons/foot below and leaves you to reciprocate for the economy:")
-
-(-> ($= 1 / ($= (fj 18 :tons) / (fj :hour) / (fj 28 :knot) / (fj 0.85 :kg :per :liter)))
-    (to :feet :per :gallon))
+(note "Look closely: the expression is fuel *per distance* — gallons ÷ foot, which is an area — yet we asked for feet/gallon, its reciprocal (1/area). Like frinj, the infix `to` reverses such \"mirrored\" units for you, so you get the fuel economy straight away (33.5, with the dimension kept). That reversal lives only in this frinj-flavoured layer; `commensura.core/to` stays strict and would reject area→per-area outright.")
 
 ;; They're very, very wrong. It actually travels about 33.5 feet per gallon, or 157 gallons/mile.
 ;; They're only off by a factor of 67. Still not great gas mileage, though.

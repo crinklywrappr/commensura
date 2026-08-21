@@ -26,12 +26,15 @@
     (`(fj 5 12 :floz)` ⇒ 60 floz); `:per` divides the next factor; `:to` converts everything after it to
     a target built the same way. Unit keywords resolve through `commensura.registry` — with a plural
     fallback (`:gallons` → `gallon`), since commensura registers singular names.
-  * **`$=`** — *infix math* over `+ - * / **` with the usual precedence (`**` > `* /` > `+ -`), mapping
-    to `by`/`per`/`plus`/`minus`/`pow`. Operands are `fj` forms, numbers, or nested `$=`.
+  * **`$=`** — *infix math* over `** * / + -` (→ `pow`/`by`/`per`/`plus`/`minus`) and the comparisons
+    `== != < > <= >=` (→ `eq?`/`ne?`/`lt?`/`gt?`/`le?`/`ge?`), with precedence `**` > `* /` > `+ -` >
+    comparisons. Add your own with **`defop`**. Operands are `fj` forms, numbers, or nested `$=`.
 
-  `to` (a plain fn) converts an already-built quantity: `(to q :dollars :per :day)`. When the target is
-  *unit-led* it re-expresses in that unit (keeps the dimension); when it is *number-led* — `(to keg 12
-  :floz)` — it returns the dimensionless **count**, matching frinj.
+  `to` (a plain fn) converts an already-built quantity: `(to q :dollars :per :day)`. A *unit-led* target
+  re-expresses in that unit (keeps the dimension); a *number-led* target — `(to keg 12 :floz)` — returns
+  the dimensionless **count**; a *mirrored* target whose dimension is the reciprocal of the source's is
+  flipped for you (frinj's \"reverse mirrored units\"), so `(to fuel-per-distance :feet :per :gallon)`
+  yields the economy. (This reversal is the frinj-flavoured layer's; `commensura.core/to` stays strict.)
 
   Define your own units the ordinary commensura way — `(defunit beer (fj 12 :floz 3.2 :percent :water
   :per :alcohol))` — and later soups resolve them by name (`(fj :magnum 13.5 :percent :to :beer)`); this
@@ -80,9 +83,16 @@
 
 (defn- convert
   "Convert `source` to a soup target. A unit-led target re-expresses `source` in it (dimension kept); a
-  number-led target (a specific quantity, e.g. `12 floz`) yields the dimensionless count."
+  number-led target (a specific quantity, e.g. `12 floz`) yields the dimensionless count. Like frinj, a
+  *mirrored* target — one whose dimension is the reciprocal of the source's — flips the source first, so
+  `(to (…gallons/foot…) :feet :per :gallon)` reads the fuel economy instead of throwing. This lives in
+  the frinj-flavoured layer only; `commensura.core/to` itself stays strict and rejects the mismatch."
   [source target-tokens]
-  (let [target (soup->quantity target-tokens)]
+  (let [target (soup->quantity target-tokens)
+        source (cond
+                 (q/conforms? source target)           source
+                 (q/conforms? (c/per 1 source) target) (c/per 1 source)  ; frinj: reverse mirrored units
+                 :else                                 source)]          ; non-conforming: let core throw
     (if (number? (first target-tokens))
       (c/ratio source target)
       (c/to source target))))
@@ -105,34 +115,65 @@
   (convert source target-tokens))
 
 ;; ---- $=: infix math --------------------------------------------------------------------------------
-(def ^:private op->fn {'* `c/by, '/ `c/per, '+ `c/plus, '- `c/minus, '** `c/pow})
-(def ^:private op->prec {'** 3, '* 2, '/ 2, '+ 1, '- 1})
+;; Operators live in a table so `defop` can extend it, exactly like frinj. Each maps to a precedence
+;; (higher binds tighter) and a resolvable fn symbol that `$=` emits in prefix position.
+(defonce ^:private ops (atom {}))
+
+(defn register-op!
+  "Install an infix operator for `$=`: `op` symbol → precedence + a binary fn (a resolvable symbol).
+  Prefer the `defop` macro."
+  [op prec fn-sym]
+  (swap! ops assoc op {:prec prec :fn fn-sym})
+  op)
+
+(defmacro defop
+  "Define an infix operator usable inside `$=`: `(defop <sym> <precedence> <fn>)`, higher precedence
+  binding tighter, `<fn>` a binary function named by a resolvable symbol. Mirrors frinj's `defop` — the
+  builtins below register themselves this way, and user operators join them at load time."
+  [op prec f]
+  `(register-op! '~op ~prec '~f))
+
+;; builtins — precedence order matches frinj: ** > * / > + - > comparisons
+(defop **  5 commensura.core/pow)
+(defop *   4 commensura.core/by)
+(defop /   4 commensura.core/per)
+(defop +   3 commensura.core/plus)
+(defop -   3 commensura.core/minus)
+(defop <   2 commensura.core/lt?)
+(defop >   2 commensura.core/gt?)
+(defop <=  2 commensura.core/le?)
+(defop >=  2 commensura.core/ge?)
+(defop ==  1 commensura.core/eq?)
+(defop !=  1 commensura.core/ne?)
 
 (defn- emit
   "Pop one operator, combining the top two output operands into a prefix call."
   [op out]
-  (cons (list (op->fn op) (second out) (first out)) (drop 2 out)))
+  (cons (list (:fn (@ops op)) (second out) (first out)) (drop 2 out)))
 
 (defn- infix->prefix
-  "Shunting-yard: turn an infix token seq (operands + `+ - * / **`) into one nested prefix form,
-  left-associative, honouring `op->prec`."
+  "Shunting-yard: turn an infix token seq (operands + registered operators) into one nested prefix
+  form, left-associative, honouring each operator's precedence."
   [tokens]
-  (loop [tokens tokens, out nil, ops nil]
-    (if-let [t (first tokens)]
-      (if-let [p (op->prec t)]
-        (let [[out ops] (loop [out out, ops ops]                ; pop all ops of >= precedence (left-assoc)
-                          (if (and (seq ops) (>= (op->prec (first ops)) p))
-                            (recur (emit (first ops) out) (rest ops))
-                            [out ops]))]
-          (recur (rest tokens) out (cons t ops)))
-        (recur (rest tokens) (cons t out) ops))               ; operand
-      (loop [out out, ops ops]                                 ; drain remaining operators
-        (if (seq ops) (recur (emit (first ops) out) (rest ops))
+  (loop [tokens tokens, out nil, opstack nil]
+    (if (seq tokens)
+      (let [t  (first tokens)
+            op (@ops t)]
+        (if op
+          (let [[out opstack] (loop [out out, opstack opstack]  ; pop ops of >= precedence (left-assoc)
+                                (if (and (seq opstack) (>= (:prec (@ops (first opstack))) (:prec op)))
+                                  (recur (emit (first opstack) out) (rest opstack))
+                                  [out opstack]))]
+            (recur (rest tokens) out (cons t opstack)))
+          (recur (rest tokens) (cons t out) opstack)))          ; operand
+      (loop [out out, opstack opstack]                          ; drain remaining operators
+        (if (seq opstack) (recur (emit (first opstack) out) (rest opstack))
             (first out))))))
 
 (defmacro $=
-  "Infix arithmetic over quantities: `($= (fj 4/3 :pi) * (fj 250 :km) ** 3)`. Operators `+ - * / **`
-  map to `plus`/`minus`/`by`/`per`/`pow` with `**` > `* /` > `+ -` precedence; operands are `fj` forms,
-  numbers, or nested `$=`."
+  "Infix over quantities: `($= (fj 4/3 :pi) * (fj 250 :km) ** 3)`. Operators come from the `defop` table
+  — arithmetic `** * / + -` (→ pow/by/per/plus/minus) and comparisons `== != < > <= >=` (→
+  eq?/ne?/lt?/gt?/le?/ge?) — with precedence `**` > `* /` > `+ -` > comparisons, all left-associative.
+  Operands are `fj` forms, numbers, or nested `$=` (which also groups a sub-expression)."
   [& tokens]
   (infix->prefix tokens))

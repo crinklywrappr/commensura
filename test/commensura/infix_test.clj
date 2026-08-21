@@ -54,6 +54,31 @@
     (testing "* / bind tighter than + - (scalar keeps the sum conforming)"
       (is (c/eq? ($= a + b * 2) (c/plus a (c/by b 2)))))))
 
+(deftest comparison-operators-in-$=
+  (testing "== != < > <= >= map to the core comparison verbs"
+    (is (true?  ($= (fj 1 :foot) == (fj 12 :inch))))
+    (is (false? ($= (fj 1 :foot) != (fj 12 :inch))))
+    (is (true?  ($= (fj 3 :meter) < (fj 4 :meter))))
+    (is (true?  ($= (fj 5 :meter) >= (fj 5 :meter))))
+    (is (false? ($= (fj 5 :meter) > (fj 5 :meter)))))
+  (testing "comparisons bind looser than + -"
+    (is (true? ($= (fj 2 :meter) + (fj 1 :meter) == (fj 3 :meter))))))
+
+;; a user-defined operator, registered at load time — as `defop` must be, since `$=` reads the operator
+;; table when it macroexpands (below), before this ns's tests run.
+(fx/defop oplus 3 commensura.core/plus)
+
+(deftest defop-adds-an-operator
+  (is (c/eq? ($= (fj 2 :meter) oplus (fj 3 :meter))
+             (c/plus (fj 2 :meter) (fj 3 :meter)))))
+
+(deftest to-reverses-mirrored-units
+  (testing "a target whose dimension is the reciprocal of the source flips the source (frinj-style)"
+    (is (= 1/2 (q/display-value (to (fj 2 :meter) :per :meter))))            ; length → per-length
+    (is (= 888659513/26508645                                               ; QE2: gallons/foot → feet/gallon
+           (q/display-value (-> ($= (fj 18 :tons) / (fj :hour) / (fj 28 :knot) / (fj 0.85 :kg :per :liter))
+                                (to :feet :per :gallon)))))))
+
 ;; ---- generative: fj keyword soup == the explicit left-to-right product ----
 (def ^:private unit-kws {:meter u/meter, :second u/second, :gram u/gram, :foot u/foot, :hour u/hour})
 
