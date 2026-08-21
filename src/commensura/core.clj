@@ -28,7 +28,9 @@
   bare quantity/number as a degenerate interval, so no scalar promotion is needed."
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
-            [commensura.registry :as registry]))
+            [commensura.registry :as registry])
+  (:import [org.joda.money CurrencyUnit Money IllegalCurrencyException]
+           [java.math RoundingMode]))
 
 (defn by
   "Product of quantities/numbers/intervals (dimensions add). Variadic."
@@ -59,7 +61,9 @@
   [x n] (if (iv/interval? x) (iv/ipow x n) (q/qpow x n)))
 
 (defn to
-  "Re-express a quantity/interval in a target unit (dimension-preserving)."
+  "Re-express a quantity/interval in a target unit (dimension-preserving). Uses only the target's unit
+  basis: a *scaled* target's coefficient is ignored (and warns) — `(to (u/mile 5) (u/foot 3))` gives
+  feet, not 3-foot units. For \"how many of a given quantity fit\", use `ratio`. See `q/to`."
   [x target] (if (iv/interval? x) (iv/ito x target) (q/to x target)))
 
 (defn ratio
@@ -233,10 +237,91 @@
   ([sym expr] `(defunit ~sym nil ~expr))
   ([sym a b]
    (if (number? a)                                    ; (defunit sym magnitude dims)
-     `(def ~sym (registry/register-unit! ~(str sym) (q/unit ~(str sym) ~a ~b)))
-     `(def ~sym ~@(when (string? a) [a])              ; (defunit sym [doc] expr)
-        (let [v# (q/scalar ~b)]
-          (registry/register-unit! ~(str sym)
-            (q/unit ~(str sym) (q/magnitude v#) (q/dims v#)))))))
+     `(def ~sym (registry/register-unit! ~(str sym)
+                  (vary-meta (q/unit ~(str sym) ~a ~b) assoc :ns (ns-name *ns*))))
+     (let [doc (when (string? a) a)                   ; (defunit sym [doc] expr)
+           vn  (gensym "val")
+           un  (gensym "unit")]
+       `(def ~sym ~@(when doc [doc])
+          (let [~vn (q/scalar ~b)
+                ~un (q/unit ~(str sym) (q/magnitude ~vn) (q/dims ~vn))]
+            ;; carry the defining ns (and docstring, if any) as unit metadata — for discovery
+            (registry/register-unit! ~(str sym)
+              ~(if doc
+                 `(vary-meta ~un assoc :ns (ns-name *ns*) :doc ~doc)
+                 `(vary-meta ~un assoc :ns (ns-name *ns*)))))))))
   ([sym doc mag dims]                                 ; (defunit sym doc magnitude dims)
-   `(def ~sym ~doc (registry/register-unit! ~(str sym) (q/unit ~(str sym) ~mag ~dims)))))
+   `(def ~sym ~doc (registry/register-unit! ~(str sym)
+                     (vary-meta (q/unit ~(str sym) ~mag ~dims) assoc :ns (ns-name *ns*) :doc ~doc)))))
+
+;; ---- Money bridge (clojurewerkz/money · Joda-Money) ----------------------------------------------
+;; Two verbs across the boundary to the Clojure money ecosystem. `quantity->money` is the one verb that
+;; LEAVES commensura's exact tower: Money is a fixed-scale decimal, so the amount is rounded to the
+;; currency's minor unit (built from integer minor units via of-minor — the scale-robust path across ISO
+;; currencies). `money->quantity` comes back the other way, re-entering the exact tower at full fidelity.
+
+(def ^:private currency-aliases
+  "commensura unit-name → ISO-4217 code, for builtin currency units whose name isn't the ISO code."
+  {"dollar" "USD"})
+
+(defn- currency-code
+  "The ISO code `qty` is denominated in — the name of its currency display term (aliased, e.g. `dollar`
+  → `USD`). Throws unless `qty` carries a currency dimension of exponent 1 (a single amount of money, or
+  a rate like `$/hr` whose currency exponent is still 1)."
+  [qty]
+  (when-not (= 1 (:currency (q/dims qty)))
+    (throw (ex-info "quantity->money expects a currency quantity (dimension :currency 1)"
+                    {:dims (q/dims qty)})))
+  (let [terms (q/formula qty)
+        term  (or (first (filter #(= 1 (:currency (:base-dims %))) terms))  ; the currency term, even in a rate
+                  (first terms))
+        nm    (:unit-name term)]
+    (get currency-aliases nm nm)))
+
+(defn- currency-unit
+  ^CurrencyUnit [^String code]
+  (try (CurrencyUnit/of code)
+       (catch IllegalCurrencyException _
+         (throw (ex-info (str "not an ISO-4217 currency: " (pr-str code)
+                              " — quantity->money needs an ISO currency (convert to one first, e.g. via `to`)")
+                         {:code code})))))
+
+(defn quantity->money
+  "Convert a currency quantity to an `org.joda.money.Money` (via clojurewerkz/money). `qty` must carry a
+  currency dimension of exponent 1; its ISO code is the currency term's name (`dollar` → `USD`). The
+  displayed amount is rounded to the currency's decimal places — `HALF_EVEN` by default, or pass a
+  `java.math.RoundingMode`.
+
+  This deliberately **leaves commensura's exact tower**: Money is a fixed-scale decimal, so an amount
+  finer than the currency's minor unit is rounded. Throws on non-currency dimensions or a non-ISO code.
+  Inverse of `money->quantity` (up to that scale-rounding).
+
+    (quantity->money (cur/USD 19.99))                       ;=> USD 19.99
+    (quantity->money (cur/USD 19.995))                      ;=> USD 20.00   (HALF_EVEN)
+    (quantity->money (cur/USD 19.995) RoundingMode/FLOOR)   ;=> USD 19.99"
+  (^Money [qty] (quantity->money qty RoundingMode/HALF_EVEN))
+  (^Money [qty ^RoundingMode mode]
+   (let [cu     (currency-unit (currency-code qty))
+         dp     (int (.getDecimalPlaces cu))
+         amount (q/display-value qty)                         ; exact Ratio/integer coefficient
+         n      (if (ratio? amount) (numerator amount) amount)
+         d      (if (ratio? amount) (denominator amount) 1)
+         scaled (.divide (bigdec n) (bigdec d) dp mode)       ; exact rational → BigDecimal at scale
+         minor  (parse-long (str (.movePointRight scaled dp)))] ; whole minor units (cents, …)
+     (Money/ofMinor cu (long minor)))))
+
+(defn money->quantity
+  "Convert an `org.joda.money.Money` into an exact commensura currency quantity. The Money's ISO code
+  resolves to a live currency unit (through the currency resolver — `require commensura.currency` first)
+  scaled by the Money's decimal amount, which re-enters the exact tower as a rational. Inverse of
+  `quantity->money` (Money already sits at the currency's scale, so nothing is lost coming back).
+
+    (money->quantity (quantity->money (cur/USD 19.99)))   ;=> 1999/100 USD  ; == (cur/USD 19.99)"
+  [^Money money]
+  (let [code   (.getCode (.getCurrencyUnit money))
+        amount (rationalize (.getAmount money))               ; fixed-scale decimal → exact rational
+        unit   (or (registry/resolve-unit code)
+                   (throw (ex-info (str "no commensura currency unit for ISO code " (pr-str code)
+                                        " — is the currency resolver loaded? (require commensura.currency)")
+                                   {:code code})))]
+    (unit amount)))

@@ -33,7 +33,8 @@
   `Dimensionable`/`Measured`/`Formulaic`."
   (:require [commensura.registry :as registry]
             [clojure.string :as str]
-            [clojure.pprint :as pp])
+            [clojure.pprint :as pp]
+            [taoensso.trove :as trove])
   (:import [ch.obermuhlner.math.big BigDecimalMath]
            [java.math MathContext]))
 
@@ -90,7 +91,25 @@
 (def ^:private default-mc MathContext/DECIMAL128)
 (defn- ctx [] (or *math-context* default-mc))
 
-(declare scale)
+(declare scale apply-scaled)
+
+(defmacro ^:private defscalable
+  "`defrecord` for a callable value: the supplied protocol impls, plus the *complete* `IFn` — an
+  `invoke` for every fixed arity 0..20, the trailing varargs `invoke` (`IFn`'s 22nd, a Java
+  `Object...` method reached for >20 positional args), and `applyTo` — each delegating to
+  `apply-scaled`. So a unit/quantity is a genuine first-class fn at any arity."
+  [rname fields & impls]
+  `(defrecord ~rname ~fields
+     ~@impls
+     clojure.lang.IFn
+     ~@(for [n (range 0 21)]
+         (let [as (repeatedly n gensym)]
+           `(~'invoke [~'this ~@as] (apply-scaled ~'this [~@as]))))
+     ;; IFn's 22nd invoke: 20 fixed args + a Java varargs array — its trailing param is a plain
+     ;; array param (not `& more`), which is how deftype/defrecord binds a Java `Object...`.
+     ~(let [as (repeatedly 20 gensym), rst (gensym)]
+        `(~'invoke [~'this ~@as ~rst] (apply-scaled ~'this (concat [~@as] (seq ~rst)))))
+     (~'applyTo [~'this ~'args] (apply-scaled ~'this (seq ~'args)))))
 
 ;; one term of a display formula, e.g. foot^3 — a Unit raised to a power
 (defrecord UnitTerm [unit-name exp factor base-dims]
@@ -98,7 +117,7 @@
   (dims [_] (scale-dims base-dims exp)))          ; this term's dimensional contribution
 
 ;; a named registered unit: name + base magnitude + stored dimensions
-(defrecord PreciseUnit [name mag dims]
+(defscalable PreciseUnit [name mag dims]
   Dimensionable
   (dims [_] dims)
 
@@ -107,16 +126,12 @@
 
   Formulaic
   (formula [_] [(->UnitTerm name 1 mag dims)])
-
-  clojure.lang.IFn
-  (invoke [this n] (scale this n))
-  (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
 
   Object
   (toString [this] (display-string this)))
 
 ;; an anonymous computed value: exact magnitude + ordered display formula
-(defrecord PreciseQuantity [mag formula]
+(defscalable PreciseQuantity [mag formula]
   Dimensionable
   (dims [_] (formula-dims formula))
 
@@ -126,15 +141,11 @@
   Formulaic
   (formula [_] formula)
 
-  clojure.lang.IFn
-  (invoke [this n] (scale this n))
-  (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
-
   Object
   (toString [this] (display-string this)))
 
 ;; like Unit, but the magnitude is an approximate BigDecimal (irrational value)
-(defrecord ApproxUnit [name mag dims]
+(defscalable ApproxUnit [name mag dims]
   Dimensionable
   (dims [_] dims)
 
@@ -144,15 +155,11 @@
   Formulaic
   (formula [_] [(->UnitTerm name 1 mag dims)])
 
-  clojure.lang.IFn
-  (invoke [this n] (scale this n))
-  (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
-
   Object
   (toString [this] (display-string this)))
 
 ;; like Quantity, but the magnitude is an approximate BigDecimal (irrational value)
-(defrecord ApproxQuantity [mag formula]
+(defscalable ApproxQuantity [mag formula]
   Dimensionable
   (dims [_] (formula-dims formula))
 
@@ -161,10 +168,6 @@
 
   Formulaic
   (formula [_] formula)
-
-  clojure.lang.IFn
-  (invoke [this n] (scale this n))
-  (applyTo [this args] (clojure.lang.AFn/applyToHelper this args))
 
   Object
   (toString [this] (display-string this)))
@@ -201,6 +204,13 @@
 (defn approx? [x]
   (or (instance? ApproxUnit x)
       (instance? ApproxQuantity x)))
+
+(defn displayable?
+  "Is `x` a commensura value the display/reader machinery understands — a unit, a quantity,
+  or a bare number (a dimensionless scalar)? The umbrella predicate: unlike `quantity?`
+  (false for units), this is true for *any* commensura value."
+  [x]
+  (satisfies? Displayable x))
 
 ;; ---- exact integer power (keeps the exact tower) ----
 (defn- expt [base n]
@@ -373,6 +383,19 @@
       (quantity (nmul (magnitude x) (magnitude y)) formula')
       (->PreciseQuantity (* (magnitude x) (magnitude y)) formula'))))
 
+(defn apply-scaled
+  "The callable behavior every unit/quantity shares (see the records' `IFn` impls): `(x)` ⇒ x itself;
+  `(x n)` ⇒ x scaled by n; `(x a b …)` ⇒ the product of x scaled by each arg, so n args raise x's
+  dimension to the nth power — `(u/meter 3 5)` ⇒ 15 m², and the 1-arg `scale` is just the n=1 case.
+  Uniform and total: no dimension is special-cased (`(newton 3 5)` ⇒ 15 N² is defined, if unusual),
+  and the one unsound case — affine temperature — is excluded by construction, since `celsius`/
+  `fahrenheit` are plain `defn`s, not callable records."
+  [this args]
+  (case (count args)
+    0 this
+    1 (scale this (first args))
+    (reduce qmul (map #(scale this %) args))))
+
 (defn qdiv [x y]
   (let [formula' (combine-terms (concat (formula x) (formula-neg (formula y))))]
     (if (or (approx? x) (approx? y))
@@ -428,9 +451,25 @@
 (defn to
   "Re-express q over the target unit basis (dimension-preserving). The physical
   magnitude is unchanged — only the display formula becomes the target's, so the
-  printed value equals magnitude(q)/factor(target)."
+  printed value equals magnitude(q)/factor(target).
+
+  Only the target's *formula* (its unit basis) is used; any scalar coefficient it
+  carries is silently ignored — `(to (mile 5) (foot 3))` re-expresses in feet, not
+  3-foot units (the `3` is dropped). That is exactly right for a unit basis — the
+  normal case — but a *scaled* target is almost always a mistake: for \"how many of
+  this quantity fit\" use `ratio`, which honours the whole magnitude. A scaled
+  target (display-value ≠ 1) therefore logs a warning. (The guard is on
+  display-value, not `unit?`: a compound basis like `dollar/floz`, and any target
+  built by scaling `1` through a unit, is a Quantity rather than a Unit yet carries
+  no coefficient — `unit?` would cry wolf on every one of them.)"
   [q target]
   (assert-conforms "to" q target)
+  (when-not (== 1 (display-value target))
+    (trove/log! {:level :warn
+                 :id   :commensura.quantity/to-scaled-target
+                 :msg  (str "`to` ignores the coefficient of a scaled target (display-value "
+                            (pr-str (display-value target)) "); use `ratio` for a count of a quantity")
+                 :data {:target-display-value (display-value target)}}))
   (if (or (approx? q) (approx? target))
     (quantity (magnitude q) (formula target))
     (->PreciseQuantity (magnitude q) (formula target))))
@@ -515,17 +554,17 @@
   (display-string [u] (str "≈ " (:name u) " " (dim-bracket (dims u))))  ; leading ≈ = approximate
 
   PreciseQuantity
-  (display-value  [q] (let [m (magnitude q), f (formula-factor (:formula q))]
+  (display-value  [q] (let [m (magnitude q) f (formula-factor (:formula q))]
                         (if (zero? f) m (/ m f))))
-  (display-string [q] (let [dv (display-value q), us (format-formula (:formula q))] ; `str`, not `pr-str`:
+  (display-string [q] (let [dv (display-value q) us (format-formula (:formula q))] ; `str`, not `pr-str`:
                         (str dv (when (seq us) (str " " us))            ; no BigInt `N`. A whole number
                              (when-not (integer? dv) (str " ≈ " (double dv)))  ; needs no ≈<double> eyeball
                              " " (dim-bracket (dims q)))))
 
   ApproxQuantity
-  (display-value  [q] (let [m (magnitude q), f (formula-factor (:formula q))]
+  (display-value  [q] (let [m (magnitude q) f (formula-factor (:formula q))]
                         (if (zero? f) m (ndiv m f))))
-  (display-string [q] (let [dv (display-value q), us (format-formula (:formula q))] ; leading ≈,
+  (display-string [q] (let [dv (display-value q) us (format-formula (:formula q))] ; leading ≈,
                         (str "≈ " dv (when (seq us) (str " " us))       ; full BigDecimal (no `M`)
                              " " (dim-bracket (dims q)))))
 

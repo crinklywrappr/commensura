@@ -18,6 +18,8 @@
             [commensura.cpi :as cpi]
             [commensura.currency :as cur]
             [commensura.currency.rates :as rates]
+            [commensura.registry :as registry]
+            [commensura.discover :as discover]
             [commensura.reader]
             [clojure.edn :as edn]
             [clojure.java.io :as io]))
@@ -32,7 +34,7 @@
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (clerk/add-viewers!
  [{:name :commensura/display
-   :pred #(satisfies? q/Displayable %)
+   :pred q/displayable?
    :transform-fn (comp clerk/mark-presented (clerk/update-val str))
    :render-fn '(fn [s] [:span {:style {:color "#047857" :font-family "monospace" :font-weight 500}} s])}
   {:name :commensura/interval
@@ -77,6 +79,15 @@
 
 ;; Those tagged literals round-trip through the reader. For readability, the rest of this page shows
 ;; commensura values in their cleaner **display form** — the same text, without the wrapping tag.
+
+;; One flourish: applying a unit to **several** arguments elides the `by` — each argument scales the
+;; unit and the results multiply, so *n* arguments raise the dimension to the *n*th power:
+
+(eq? (u/foot 3 5 7) (by (u/foot 3) (u/foot 5) (u/foot 7)))
+
+;; So `(u/foot 3 5 7)` is a volume — `105 foot³`:
+
+(u/foot 3 5 7)
 
 ;; ## Exact, where floating point falls short
 ;;
@@ -196,6 +207,19 @@ fuel-cost
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (demo (to (per (cur/XAU) u/troyounce) (per u/dollar u/kg)))
 
+;; Need to hand a value to the wider money ecosystem? **`quantity->money`** bridges a currency quantity
+;; to a **Joda-Money** `Money` (via clojurewerkz/money), rounding to the currency's decimal places — the
+;; one verb that deliberately *leaves* the exact tower. USD is the reference rate, so this needs no key;
+;; note the sub-cent amount rounds (HALF_EVEN by default, or pass a `RoundingMode`):
+
+(quantity->money (cur/USD 19.995))
+
+;; …and **`money->quantity`** comes back the other way, re-entering the exact tower — so a `Money` can be
+;; scaled, converted, and compared with everything else here (the amount is already at the currency's
+;; scale, so nothing is lost):
+
+(money->quantity (quantity->money (cur/USD 19.99)))
+
 ;; ## Extending commensura
 ;;
 ;; **`defunit`** mints your own unit as a callable var — indistinguishable from the built-ins. Define it
@@ -215,10 +239,12 @@ fuel-cost
 
 (per (u/miles 30) u/gallon)
 
-;; `defunit` **snapshots** its relationship at definition time — ideal for a fixed peg like `banana`. To
-;; track a *moving* rate, pair a plain `defn` that returns a freshly-minted **unit** with a
-;; `register-unit-resolver!`, so the name also reifies from a literal. A **satoshi** (1e-8 BTC) is the
-;; ideal demo — defining and registering it are cheap; only *calling* it touches the live BTC price:
+;; `defunit` **snapshots** its relationship at definition time — ideal for a fixed peg like `banana`. A
+;; `register-unit-resolver!` covers the two cases `defunit` can't: a name-derived *family* (one `pred`
+;; matching a whole shape — e.g. the `dollar_YYYY` CPI units), and a single *moving* rate. For the
+;; moving case, pair a plain `defn` that returns a freshly-minted **unit** with the resolver, so the
+;; name also reifies from a literal. A **satoshi** (1e-8 BTC) is the ideal demo — defining and
+;; registering it are cheap; only *calling* it touches the live BTC price:
 
 ^{:nextjournal.clerk/visibility {:result :hide}}
 (defn satoshi                                    ; a freshly-minted unit at the live BTC price
@@ -238,6 +264,80 @@ fuel-cost
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (demo (to (cur/BTC 1) (satoshi)))
+
+;; The other case is a **family**: one resolver mints *many* units by parsing their names — you never
+;; define each member (this is exactly how the `dollar_YYYY` CPI units work). Say a lumber yard sells
+;; planks by length, so `plank_<n>` should be an *n*-foot unit. A single pred/dispatch pair covers every
+;; one of them — the `pred` matches the shape, the `dispatch` parses `n` out of the name:
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(register-unit-resolver!
+ (fn [nm] (re-matches #"plank_\d+" nm))                       ; pred: any plank_<n>
+ (fn [nm] (q/unit nm                                          ; dispatch: build an n-foot unit
+                  (q/magnitude (u/feet (parse-long (re-find #"\d+" nm))))
+                  {:length 1})))
+
+;; `plank_12` was never defined, yet the name resolves to a real unit on demand — and it's exact
+;; (4 yards is exactly one 12-foot plank):
+
+(to (u/yards 4) (registry/resolve-unit "plank_12"))
+
+;; ## Discovering what's available — right in the middle of a calculation
+;;
+;; `discover` earns its keep less as a catalog than as something you reach for *mid-calculation*: you're
+;; partway through, holding a value — what units could it wear? what would conform if you kept going?
+;; **`units-of-dimension`** takes the value *itself*, so you needn't even name the dimension. Say you've
+;; worked out a cruising speed:
+
+(def cruising (per (u/miles 70) u/hour))
+
+(discover/units-of-dimension cruising)
+
+;; There's the whole vocabulary of *how fast* — so pick one and finish the thought:
+
+(to cruising u/mach)
+
+;; It reads **intervals** too — which is exactly what you tend to be holding mid-calculation. The road
+;; trip's fuzzy `fuel-cost` is a currency, so ask what money conforms with it; it checks that every
+;; endpoint agrees on the dimension (a constructor-built interval always does):
+
+(discover/units-of-dimension fuel-cost)
+
+;; The other two tools *find* and *inspect*. **`search-units`** matches a name — case-insensitive
+;; substring or regex, ranked so the exact hit leads:
+
+(discover/search-units "volt")
+
+;; **`describe`** is the inspector: display string, dimensions, the human dimension name, the defining
+;; namespace, and the docstring — each dropped when it doesn't apply. It reads the *live* registry, so
+;; the `banana` you defined above is already discoverable, and `describe` reports it was minted right
+;; here in this notebook:
+
+(discover/describe "banana")
+
+;; And because everything is plain **data**, a search flows straight into full descriptions — data in,
+;; data out:
+
+(map discover/describe (discover/search-units "volt"))
+
+;; **One caveat — on-demand units.** `search-units` and `units-of-dimension` see only the *registered*
+;; table: the builtins and your own `defunit`s. Units that exist only through a **resolver** are minted
+;; the instant you name them and have no list to enumerate, so they never surface in a search or a
+;; dimension roundup — the `dollar_YYYY` inflation units, every live currency code (`EUR`, `AAVE`, …),
+;; and any `register-unit-resolver!` family (the `satoshi` and `plank_<n>` above). That's why the money
+;; roundup listed a handful of slang units, not thousands of codes — and why searching for one is empty:
+
+(discover/search-units "dollar_1960")
+
+;; `describe` is the exception: it resolves by *exact* name, so it does reach a resolver-minted unit —
+;; you just get `:value` and `:dimensions` and nothing more, since it wasn't made with `defunit` (no
+;; `:namespace`, no `:doc`). And a *misspelled* resolver name gets no "did you mean?", because the
+;; suggester only knows the registered names:
+
+(discover/describe "dollar_1960")
+
+;; So: reach for `search-units` / `units-of-dimension` to explore the registered world, and exact naming
+;; (or the defining `defn` / resolver) to summon the on-demand one.
 
 ;; ## Under the hood — everything reduces to base dimensions
 ;;

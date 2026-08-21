@@ -24,6 +24,11 @@
        (is (= 1000/9  (q/display-value (c/to (cur/EUR 100) u/dollar))))   ; 100 EUR -> USD (÷0.9)
        (is (= 150     (q/display-value (c/to (u/dollar 1) (cur/JPY)))))   ; $1 -> 150 JPY
        (is (= 50000/3 (q/display-value (c/to (cur/EUR 100) (cur/JPY)))))) ; 100 EUR -> JPY: (1000/9)·150
+     (testing "(CODE a b …) multiplies — arity raises the exponent, like a unit"
+       (is (= {:currency 2} (q/dims (cur/EUR 3 5))))
+       (is (= {:currency 3} (q/dims (cur/EUR 2 2 2))))
+       (is (= (q/magnitude (c/by (cur/EUR 3) (cur/EUR 5)))     ; same as multiplying the scaled values
+              (q/magnitude (cur/EUR 3 5)))))
      (testing "a precious metal is a currency unit (per troy ounce)"
        (is (= 2000 (q/magnitude (cur/XAU)))))              ; 1 troy oz = $2000
      (testing "an unsupported code errors"

@@ -62,7 +62,8 @@
   "The current currency unit for `code`, or `amount` of it — what the generated `commensura.currency`
   fns delegate to. Also the way to reach a code that has no generated var."
   ([code]        (unit code))
-  ([code amount] ((unit code) amount)))
+  ([code amount] ((unit code) amount))
+  ([code amount & amounts] (apply (unit code) amount amounts)))
 
 (def ^:private codes
   "The shipped set of supported currency codes (drives `supported?`)."

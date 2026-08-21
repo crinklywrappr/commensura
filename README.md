@@ -98,7 +98,8 @@ a hands-on tour with worked examples, charts, and the extensibility patterns. St
 - **Live currency** — every ISO code as a discoverable fn (`(cur/EUR 600)`), plus precious metals; the
   client ships, the rates are fetched live.
 - **Extensible** — `defunit` (a fixed unit), `register-dimension!` (name a dimension), and
-  `register-unit-resolver!` (a whole family of units, e.g. a live-rate `satoshi`).
+  `register-unit-resolver!` (units built on demand — a name-derived *family* like `dollar_1960`, or a
+  single *live-rate* unit like `satoshi`).
 
 ## Scope
 
