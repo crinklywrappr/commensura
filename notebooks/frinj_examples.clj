@@ -22,7 +22,7 @@
 (ns frinj-examples
   (:require [nextjournal.clerk :as clerk]
             [commensura.infix :refer [fj $= to]]
-            [commensura.core :refer [defunit]]
+            [commensura.core :refer [defunit register-dimension!]]
             [commensura.quantity :as q]))
 
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
@@ -118,7 +118,7 @@
 
 ;; How many 12 fluid ounce drinks (i.e. cans o' beer) in a keg?
 
-(to (fj :keg) 12 :floz)
+(-> (fj :keg) (to 12 :floz))
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (note "A number-led `to` target — 12 :floz, a specific quantity rather than a bare unit — asks \"how many of THIS fit\", so it returns the dimensionless count (496/3), matching frinj.")
@@ -127,15 +127,23 @@
 ;; (Remember that 3.2 beer is measured in alcohol/weight, so we correct by the density
 ;; ratio of water/alcohol to get alcohol by volume:
 
-(to ($= (fj 60 :dollars) / (fj :keg 3.2 :percent :water :per :alcohol)) :dollars :per :floz)
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "The next three prices are currency ÷ volume — {:currency 1, :length -3} — which commensura doesn't name out of the box (it does ship \"price per mass\", seen in the Corvette below). register-dimension! names any dims map once, and every value of that shape prints it from then on:")
+
+(register-dimension! {:currency 1 :length -3} "price per volume")
+
+(-> ($= (fj 60 :dollars) / (fj :keg 3.2 :percent :water :per :alcohol))
+    (to :dollars :per :floz))
 
 ;; A bottle of cheap wine? (A "winebottle" is the standard 750 ml size.)
 
-(to ($= (fj 6.99 :dollars) / (fj :winebottle 13 :percent)) :dollars :per :floz)
+(-> ($= (fj 6.99 :dollars) / (fj :winebottle 13 :percent))
+    (to :dollars :per :floz))
 
 ;; A big plastic bottle of really bad vodka?
 
-(to ($= (fj 13.99 :dollars) / (fj 1750 :ml 80 :proof)) :dollars :per :floz)
+(-> ($= (fj 13.99 :dollars) / (fj 1750 :ml 80 :proof))
+    (to :dollars :per :floz))
 
 ;; ## Movie magic
 ;;
@@ -143,7 +151,8 @@
 ;; and have a mass 1/4 that of earth's moon. If the mother ship were a sphere, what would
 ;; its density be? (The volume of a sphere is 4/3 pi radius3)
 
-(to ($= (fj 1/4 :moonmass) / ($= (fj 4/3 :pi) * (fj 500/2 :km) ** 3)) :water)
+(-> ($= (fj 1/4 :moonmass) / ($= (fj 4/3 :pi) * (fj 500/2 :km) ** 3))
+    (to :water))
 
 ;; This makes the ship 280 times denser than water. This is 36 times denser than iron and
 ;; more than 12 times denser than any known element! As the ship is actually more a thin disc
@@ -154,7 +163,8 @@
 ;; Surface gravity is given by G mass / radius2, where G is the gravitational constant
 ;; (which Frinj knows about):
 
-(to ($= (fj :G 1/4 :moonmass) / (fj 500/2 :km) ** 2) :gravity)
+(-> ($= (fj :G 1/4 :moonmass) / (fj 500/2 :km) ** 2)
+    (to :gravity))
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (note "** binds tighter than * and /, exactly as arithmetic expects — (fj 500/2 :km) ** 2 is squared before the division.")
