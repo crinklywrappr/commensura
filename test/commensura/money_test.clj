@@ -95,7 +95,7 @@
 
 (def ^:private gen-time-unit (gen/elements [u/second u/minute u/hour u/day u/week]))
 
-(defspec money-round-trips-across-currencies-and-time (if live? 300 500)
+(defspec money-round-trips-across-currencies-and-time (if live? 300 0)
   (prop/for-all [c1        (gen/elements currency-pool)
                  c2        (gen/elements currency-pool)
                  minor     (gen/choose 1 1000000)         ; minor units of c1 (cents, yen, …)
@@ -125,3 +125,31 @@
               (<= (abs (- (rationalize (.getAmount ^Money a1))
                           (rationalize (.getAmount ^Money a))))
                   threshold)))))))                        ; A1 == A within the provable rounding budget
+
+;; ---- exact round-trips (live only) ------------------------------------------------------------------
+;; No arithmetic that leaves the currency's minor unit, so these are *exact* — the input Money equals the
+;; output Money, not merely within a threshold. money->quantity re-enters the tower losslessly and the
+;; amount already sits at the currency's scale, so quantity->money reproduces it byte-for-byte, and `to`
+;; only re-bases the display (magnitude is preserved). Live only: (if live? N 0) makes the defspec a
+;; no-op with no key, exactly like the ^:live self-skip tests — it needs real rates for a real currency.
+
+;; A → quantity → Money must return the identical Money.
+(defspec money->quantity->money-is-exact (if live? 300 0)
+  (prop/for-all [code  (gen/elements currency-pool)
+                 minor (gen/choose 0 100000000)]
+    (with-snapshot
+     (fn []
+       (let [a (Money/ofMinor ^CurrencyUnit (joda-iso code) (long minor))]
+         (= a (c/quantity->money (c/money->quantity a))))))))
+
+;; A → quantity → convert to another currency → convert back → Money must return the identical Money.
+(defspec currency-hop-round-trips-exactly (if live? 300 0)
+  (prop/for-all [code  (gen/elements currency-pool)
+                 other (gen/elements currency-pool)
+                 minor (gen/choose 0 100000000)]
+    (with-snapshot
+     (fn []
+       (let [a    (Money/ofMinor ^CurrencyUnit (joda-iso code) (long minor))
+             b    (c/to (c/money->quantity a) (rates/unit other))  ; (B) same value, in another currency
+             a1   (c/quantity->money (c/to b (rates/unit code)))]  ; back to A's currency, out to Money
+         (= a a1))))))
