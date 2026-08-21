@@ -426,6 +426,27 @@
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (note "Eliasen's page says \"about 7 billion years\" here — but that's 7 billion *days*. frinj flattens everything to a bare magnitude, so dividing a daily energy by :day and converting to :years quietly lost the day↔year step. commensura tracks the dimensions the whole way and lands on the physically correct ~19 million years. A rare case where keeping the unit stack doesn't just prettify the answer — it corrects it.")
 
+;; ## QE2
+;;
+;; "The cruise liner, Queen Elizabeth II, moves only six inches for each gallon of diesel
+;; that it burns."
+;;
+;; From a page of facts about the QE2, we find that the ship consumes 18 tons of fuel per
+;; hour at a service speed of 28 knots. By legislation in many areas, diesel fuel must have
+;; a density no higher than 0.85 kg/liter (if it were watered down, it would be higher.)
+
+(-> ($= (fj 18 :tons) / (fj :hour) / (fj 28 :knot) / (fj 0.85 :kg :per :liter))
+    (to :gallons :per :foot))
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "frinj writes this as (to … :feet :per :gallon) and gets 33.5 straight away — but the expression is fuel *per distance*: gallons ÷ foot, which reduces to an area. feet/gallon is its reciprocal (1/area), a genuinely different dimension, so commensura refuses to silently flip one into the other. Read it honestly as gallons/foot, or take the reciprocal for the fuel economy:")
+
+(-> ($= 1 / ($= (fj 18 :tons) / (fj :hour) / (fj 28 :knot) / (fj 0.85 :kg :per :liter)))
+    (to :feet :per :gallon))
+
+;; They're very, very wrong. It actually travels about 33.5 feet per gallon, or 157 gallons/mile.
+;; They're only off by a factor of 67. Still not great gas mileage, though.
+
 ;; ## Hamburgers and Cars
 ;;
 ;; "pound for pound, hamburgers cost more than new cars."
