@@ -59,9 +59,14 @@
 ;; then unwind the whole thing — multiply the time span back in, convert to the original currency, and
 ;; exit to Money (A1). A1 must equal A up to a threshold we can compute exactly from the two exchange
 ;; rates and the divisor: each Money hop rounds to the currency's minor unit, and that ε propagates
-;; through the ×(rate·n) unwind. Rates are pinned to a snapshot — a live CurrencyFreaks fetch when
-;; CURRENCYFREAKS_API_KEY is set (sweeping every ISO code it prices), else a deterministic stub so CI
-;; sweeps hundreds of currencies with no key. The round-trip is rate-agnostic; only *consistency* matters.
+;; through the ×(rate·n) unwind.
+;;
+;; Live only. This (and the two exact round-trips below) needs real exchange rates, so it runs a live
+;; CurrencyFreaks fetch when CURRENCYFREAKS_API_KEY is set — sweeping every ISO code it prices — and 0
+;; iterations otherwise (like the ^:live self-skip tests). `currency-pool` must still be non-empty
+;; offline, though: `(gen/elements currency-pool)` is evaluated when the defspec is defined and throws on
+;; an empty collection. So offline we seed the pool with the resolvable codes at a placeholder rate that
+;; no running property ever reads.
 
 (def ^:private live? (boolean (System/getenv "CURRENCYFREAKS_API_KEY")))
 
@@ -71,18 +76,13 @@
                  :when (>= (.getDecimalPlaces cu) 0)]
              [(.getCode cu) cu])))
 
-(defn- stub-rate                                          ; deterministic positive rational, units per USD
-  [code]
-  (if (= code "USD")
-    1
-    (/ (+ 100 (mod (hash code) 90000)) 100)))             ; between 1.00 and ~900.99 (mod ≥ 0)
-
 ;; Codes usable in the sweep: Joda knows them (with a minor unit), commensura ships a resolver, and a
-;; rate exists in the pinned snapshot.
+;; rate exists in the pinned snapshot. Live: real rates. Offline: placeholder 1s just to keep the pool
+;; non-empty for `gen/elements` — the properties run 0 times, so the values are never consulted.
 (def ^:private rate-snapshot
   (if live?
     (rates/rates)
-    (into {} (for [code (keys joda-iso) :when (rates/supported? code)] [code (stub-rate code)]))))
+    (into {} (for [code (keys joda-iso) :when (rates/supported? code)] [code 1]))))
 
 (def ^:private currency-pool
   (vec (for [code (keys joda-iso)
