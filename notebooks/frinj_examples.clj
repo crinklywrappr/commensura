@@ -229,9 +229,19 @@
 ;; energy is in a mass of TNT, specified by the unit "TNT". How many feet in the air could 51
 ;; grams of TNT throw me, assuming perfect efficiency, and knowing energy = mass * gravity * height?
 
-(to (fj 51 :grams :TNT) 185 :pounds :gravity :feet)
+(-> (fj 51 :grams :TNT) (to 185 :pounds :gravity :feet))
 
-;; Yikes. 937 feet.
+;; Yikes. 937 feet. But the only difference between explosives and other combustible fuels
+;; is the rapidity of combustion, not in the quantity of energy. How much gasoline contains
+;; the same amount of energy?
+
+(-> (fj 51 :grams :TNT) (to :teaspoons :gasoline))
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "commensura reports ~1.49, not frinj's 1.29 — the one place the numbers noticeably part ways. It's the `gasoline` unit: its energy content is an empirical figure Frink has revised, and commensura's units.txt (~3.20e10 J/m³) is a later snapshot than frinj's (~3.70e10). Same divergence, ~15%, shows up in E=mc² below. Everything upstream — TNT, the arithmetic — agrees exactly.")
+
+;; 1.29 teaspoons? That's not much at all. You're buying a huge amount of energy when you fill
+;; up your car.
 
 ;; ## Junkyard Wars
 ;;
@@ -239,13 +249,13 @@
 ;; my side. This week the team has to float a submerged half-ton Cooper Mini... how many oil
 ;; barrels will they need to use as floats?
 
-(to (fj :half :ton) :barrels :water)
+(-> (fj :half :ton) (to :barrels :water))
 
 ;; They're trying to hand-pump air down to the barrels, submerged "2 fathoms" below the water.
 ;; If the guy can sustain 40 watts of pumping power, how many minutes will it take to fill
 ;; the barrel?
 
-(to (fj 2 :fathoms :water :gravity :barrel) 40 :watts :minutes)
+(-> (fj 2 :fathoms :water :gravity :barrel) (to 40 :watts :minutes))
 
 ;; And how many food Calories (a food Calorie (with a capital 'C') equals 1000 calories with
 ;; a small 'c') will he burn to fill a barrel?
