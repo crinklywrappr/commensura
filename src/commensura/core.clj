@@ -28,9 +28,7 @@
   bare quantity/number as a degenerate interval, so no scalar promotion is needed."
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
-            [commensura.registry :as registry]
-            [clojurewerkz.money.amounts :as ma]
-            [clojurewerkz.money.currencies :as mc])
+            [commensura.registry :as registry])
   (:import [org.joda.money CurrencyUnit Money IllegalCurrencyException]
            [java.math RoundingMode]))
 
@@ -279,8 +277,8 @@
     (get currency-aliases nm nm)))
 
 (defn- currency-unit
-  ^CurrencyUnit [code]
-  (try (mc/for-code code)
+  ^CurrencyUnit [^String code]
+  (try (CurrencyUnit/of code)
        (catch IllegalCurrencyException _
          (throw (ex-info (str "not an ISO-4217 currency: " (pr-str code)
                               " — quantity->money needs an ISO currency (convert to one first, e.g. via `to`)")
@@ -308,7 +306,7 @@
          d      (if (ratio? amount) (denominator amount) 1)
          scaled (.divide (bigdec n) (bigdec d) dp mode)       ; exact rational → BigDecimal at scale
          minor  (parse-long (str (.movePointRight scaled dp)))] ; whole minor units (cents, …)
-     (ma/of-minor cu minor))))
+     (Money/ofMinor cu (long minor)))))
 
 (defn money->quantity
   "Convert an `org.joda.money.Money` into an exact commensura currency quantity. The Money's ISO code

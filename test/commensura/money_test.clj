@@ -3,7 +3,6 @@
             [clojure.test.check.clojure-test :refer [defspec]]
             [clojure.test.check.generators :as gen]
             [clojure.test.check.properties :as prop]
-            [clojurewerkz.money.amounts :as ma]
             [commensura.core :as c]
             [commensura.currency :as cur]
             [commensura.currency.rates :as rates]
@@ -76,7 +75,7 @@
   [code]
   (if (= code "USD")
     1
-    (/ (+ 100 (mod (Math/abs (hash code)) 90000)) 100)))  ; between 1.00 and ~900.99
+    (/ (+ 100 (mod (hash code) 90000)) 100)))             ; between 1.00 and ~900.99 (mod ≥ 0)
 
 ;; Codes usable in the sweep: Joda knows them (with a minor unit), commensura ships a resolver, and a
 ;; rate exists in the pinned snapshot.
@@ -110,7 +109,7 @@
              u1      (rates/usd-value c1)                 ; USD value of one c1
              u2      (rates/usd-value c2)
              divisor (time-unit n)                        ; the same time span used to divide and multiply
-             a       (ma/of-minor cu1 minor)              ; (A)
+             a       (Money/ofMinor ^CurrencyUnit cu1 (long minor))  ; (A)
              q1      (c/money->quantity a)                ; back into the exact tower
              rate    (c/per q1 divisor)                   ; a c1/time rate
              rate2   (c/to rate (c/per (rates/unit c2) divisor))  ; same rate, expressed in c2
