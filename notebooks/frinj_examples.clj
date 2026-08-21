@@ -277,6 +277,25 @@
 ;; Many days I could be replaced entirely with a 100-watt bulb and have no discernible effect
 ;; on the universe.
 
+;; ## Microwave Cookery
+;;
+;; I'm heating up yummy mustard greens in my microwave, but I don't want to overheat them.
+;; I just want to warm them up. If I run my 1100 watt microwave for 30 seconds, how much will
+;; their temperature increase? I have a big 27 ounce (mass) can, and I'll assume that their
+;; specific heat is about the same as that of water (1 calorie/gram/degC):
+
+(-> ($= (fj 1100 :W 30 :sec) / (fj 27 :oz 1 :calorie :per :gram :per :degC))
+    (to :degF))
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "This is a temperature *change* — and commensura keeps it that way: :degF here is the interval unit (1 degF = 5/9 K), a plain multiplicative unit distinct from the affine Fahrenheit *scale*. commensura models the two separately, so a difference of degrees composes dimensionally as [temperature] while an absolute reading stays affine — no risk of adding two thermometer readings by accident.")
+
+;; 30 seconds should raise the temperature by no more than 18 degrees Fahrenheit, assuming
+;; perfect transfer of microwave energy to heat.
+;; Knowing this, I could see how efficiently my microwave actually heats food. I could heat a
+;; quantity of water and measure the temperature change in the water. I'll do that sometime if
+;; I can find my good thermometer.
+
 ;; ## Why is Superman so Lazy?
 ;;
 ;; Superman is always rescuing school buses that are falling off of cliffs, flying to the moon,
