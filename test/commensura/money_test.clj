@@ -61,12 +61,17 @@
 ;; rates and the divisor: each Money hop rounds to the currency's minor unit, and that ε propagates
 ;; through the ×(rate·n) unwind.
 ;;
-;; Live only. This (and the two exact round-trips below) needs real exchange rates, so it runs a live
-;; CurrencyFreaks fetch when CURRENCYFREAKS_API_KEY is set — sweeping every ISO code it prices — and 0
-;; iterations otherwise (like the ^:live self-skip tests). `currency-pool` must still be non-empty
-;; offline, though: `(gen/elements currency-pool)` is evaluated when the defspec is defined and throws on
-;; an empty collection. So offline we seed the pool with the resolvable codes at a placeholder rate that
-;; no running property ever reads.
+;; Live only. This (and the two exact round-trips below) needs real exchange rates. Each is tagged
+;; ^:live, so `clojure -X:build test` excludes the whole slice (`-e live`) and `test-live` runs it
+;; (`-i live`, with CURRENCYFREAKS_API_KEY set) — the tag is what keeps CI from re-loading and re-running
+;; these across every action. The property *also* guards on `live?` with `(or (not live?) …)` — the same
+;; self-skip the oracle defspecs use (commensura.oracle-test): a fail-safe if the ns is run directly
+;; without `-e live` and no key, since tag exclusion is applied only after the ns has fully loaded.
+;;
+;; That load-is-before-filter fact is also why `currency-pool` must be non-empty regardless of tags:
+;; `(gen/elements currency-pool)` is evaluated when the defspec is *defined*, and throws on an empty
+;; collection. So offline we seed the pool with the resolvable codes at a placeholder rate of 1 that no
+;; running property ever reads (the `(or (not live?) …)` guard short-circuits before it would).
 
 (def ^:private live? (boolean (System/getenv "CURRENCYFREAKS_API_KEY")))
 
@@ -95,61 +100,64 @@
 
 (def ^:private gen-time-unit (gen/elements [u/second u/minute u/hour u/day u/week]))
 
-(defspec money-round-trips-across-currencies-and-time (if live? 300 0)
+(defspec ^:live money-round-trips-across-currencies-and-time 300
   (prop/for-all [c1        (gen/elements currency-pool)
                  c2        (gen/elements currency-pool)
                  minor     (gen/choose 1 1000000)         ; minor units of c1 (cents, yen, …)
                  time-unit gen-time-unit
                  n         (gen/choose 1 1000)]           ; integer time span
-    (with-snapshot
-     (fn []
-       (let [cu1     (joda-iso c1)
-             dp1     (int (.getDecimalPlaces ^CurrencyUnit cu1))
-             dp2     (int (.getDecimalPlaces ^CurrencyUnit (joda-iso c2)))
-             u1      (rates/usd-value c1)                 ; USD value of one c1
-             u2      (rates/usd-value c2)
-             divisor (time-unit n)                        ; the same time span used to divide and multiply
-             a       (Money/ofMinor ^CurrencyUnit cu1 (long minor))  ; (A)
-             q1      (c/money->quantity a)                ; back into the exact tower
-             rate    (c/per q1 divisor)                   ; a c1/time rate
-             rate2   (c/to rate (c/per (rates/unit c2) divisor))  ; same rate, expressed in c2
-             b       (c/quantity->money rate2)            ; (B) — currency c2, rounded to its minor unit
-             q2      (c/money->quantity b)
-             back    (c/by q2 divisor)                    ; multiply the time span back in
-             back1   (c/to back (c/by (rates/unit c1) divisor)) ; expressed in c1 again
-             a1      (c/quantity->money back1)            ; (A1)
-             ;; ε from the c2 hop is ½·10^-dp2; the unwind scales it by (u2·n/u1); a1 adds ½·10^-dp1
-             threshold (+ (* (/ u2 u1) n (/ 1 (* 2 (pow10 dp2))))
-                          (/ 1 (* 2 (pow10 dp1))))]
-         (and (= cu1 (.getCurrencyUnit ^Money a1))        ; came back to the original currency
-              (<= (abs (- (rationalize (.getAmount ^Money a1))
-                          (rationalize (.getAmount ^Money a))))
-                  threshold)))))))                        ; A1 == A within the provable rounding budget
+    (or (not live?)                                       ; no key → vacuous pass (fail-safe; normally -e live)
+        (with-snapshot
+         (fn []
+           (let [cu1     (joda-iso c1)
+                 dp1     (int (.getDecimalPlaces ^CurrencyUnit cu1))
+                 dp2     (int (.getDecimalPlaces ^CurrencyUnit (joda-iso c2)))
+                 u1      (rates/usd-value c1)             ; USD value of one c1
+                 u2      (rates/usd-value c2)
+                 divisor (time-unit n)                    ; the same time span used to divide and multiply
+                 a       (Money/ofMinor ^CurrencyUnit cu1 (long minor))  ; (A)
+                 q1      (c/money->quantity a)            ; back into the exact tower
+                 rate    (c/per q1 divisor)               ; a c1/time rate
+                 rate2   (c/to rate (c/per (rates/unit c2) divisor))  ; same rate, expressed in c2
+                 b       (c/quantity->money rate2)        ; (B) — currency c2, rounded to its minor unit
+                 q2      (c/money->quantity b)
+                 back    (c/by q2 divisor)                ; multiply the time span back in
+                 back1   (c/to back (c/by (rates/unit c1) divisor)) ; expressed in c1 again
+                 a1      (c/quantity->money back1)        ; (A1)
+                 ;; ε from the c2 hop is ½·10^-dp2; the unwind scales it by (u2·n/u1); a1 adds ½·10^-dp1
+                 threshold (+ (* (/ u2 u1) n (/ 1 (* 2 (pow10 dp2))))
+                              (/ 1 (* 2 (pow10 dp1))))]
+             (and (= cu1 (.getCurrencyUnit ^Money a1))    ; came back to the original currency
+                  (<= (abs (- (rationalize (.getAmount ^Money a1))
+                              (rationalize (.getAmount ^Money a))))
+                      threshold))))))))                    ; A1 == A within the provable rounding budget
 
 ;; ---- exact round-trips (live only) ------------------------------------------------------------------
 ;; No arithmetic that leaves the currency's minor unit, so these are *exact* — the input Money equals the
 ;; output Money, not merely within a threshold. money->quantity re-enters the tower losslessly and the
 ;; amount already sits at the currency's scale, so quantity->money reproduces it byte-for-byte, and `to`
-;; only re-bases the display (magnitude is preserved). Live only: (if live? N 0) makes the defspec a
-;; no-op with no key, exactly like the ^:live self-skip tests — it needs real rates for a real currency.
+;; only re-bases the display (magnitude is preserved). Live only, same ^:live tag + `(or (not live?) …)`
+;; guard as the threshold spec above.
 
 ;; A → quantity → Money must return the identical Money.
-(defspec money->quantity->money-is-exact (if live? 300 0)
+(defspec ^:live money->quantity->money-is-exact 300
   (prop/for-all [code  (gen/elements currency-pool)
                  minor (gen/choose 0 100000000)]
-    (with-snapshot
-     (fn []
-       (let [a (Money/ofMinor ^CurrencyUnit (joda-iso code) (long minor))]
-         (= a (c/quantity->money (c/money->quantity a))))))))
+    (or (not live?)
+        (with-snapshot
+         (fn []
+           (let [a (Money/ofMinor ^CurrencyUnit (joda-iso code) (long minor))]
+             (= a (c/quantity->money (c/money->quantity a)))))))))
 
 ;; A → quantity → convert to another currency → convert back → Money must return the identical Money.
-(defspec currency-hop-round-trips-exactly (if live? 300 0)
+(defspec ^:live currency-hop-round-trips-exactly 300
   (prop/for-all [code  (gen/elements currency-pool)
                  other (gen/elements currency-pool)
                  minor (gen/choose 0 100000000)]
-    (with-snapshot
-     (fn []
-       (let [a    (Money/ofMinor ^CurrencyUnit (joda-iso code) (long minor))
-             b    (c/to (c/money->quantity a) (rates/unit other))  ; (B) same value, in another currency
-             a1   (c/quantity->money (c/to b (rates/unit code)))]  ; back to A's currency, out to Money
-         (= a a1))))))
+    (or (not live?)
+        (with-snapshot
+         (fn []
+           (let [a    (Money/ofMinor ^CurrencyUnit (joda-iso code) (long minor))
+                 b    (c/to (c/money->quantity a) (rates/unit other))  ; (B) same value, in another currency
+                 a1   (c/quantity->money (c/to b (rates/unit code)))]  ; back to A's currency, out to Money
+             (= a a1)))))))

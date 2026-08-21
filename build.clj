@@ -56,24 +56,41 @@
   (cur-gen/generate!)
   opts)
 
-(defn- run-tests [aliases]
-  (let [basis (b/create-basis {:aliases aliases})
-        cmds  (b/java-command
-               {:basis     basis
-                :main      'clojure.main
-                :main-args ["-m" "cognitect.test-runner"]})
-        {:keys [exit]} (b/process cmds)]
-    (when-not (zero? exit) (throw (ex-info "Tests failed" {})))))
+;; The suite is partitioned by metadata into three disjoint slices, so each action runs its slice once
+;; instead of re-loading and re-running the whole suite: the CORE tests (untagged), the ^:oracle slice
+;; (needs frink.jar), and the ^:live slice (hits real network sources). cognitect test-runner filters
+;; test vars by metadata — `-e KW` excludes, `-i KW` includes-only (see `test`/`test-oracle`/`test-live`).
+(defn- run-tests
+  ([aliases] (run-tests aliases []))
+  ([aliases test-args]
+   (let [basis (b/create-basis {:aliases aliases})
+         cmds  (b/java-command
+                {:basis     basis
+                 :main      'clojure.main
+                 :main-args (into ["-m" "cognitect.test-runner"] test-args)})
+         {:keys [exit]} (b/process cmds)]
+     (when-not (zero? exit) (throw (ex-info "Tests failed" {}))))))
 
-(defn test "Run all the tests (offline; the oracle/live tests self-skip)." [opts]
-  (run-tests [:test])
+(defn test
+  "Run the CORE suite (offline). Excludes the ^:oracle and ^:live slices — run those via test-oracle /
+  test-live. Run: clojure -X:build test"
+  [opts]
+  (run-tests [:test] ["-e" "oracle" "-e" "live"])
   opts)
 
 (defn test-oracle
-  "Run the full suite WITH the opt-in Frink oracle (needs frink.jar via the :frink alias — Frink is
-  proprietary and not redistributed). Run: clojure -X:build test-oracle"
+  "Run ONLY the ^:oracle slice against the real Frink engine (needs frink.jar via the :frink alias —
+  Frink is proprietary and not redistributed). The core suite runs under `test`, so this doesn't re-run
+  it. Run: clojure -X:build test-oracle"
   [opts]
-  (run-tests [:test :frink])
+  (run-tests [:test :frink] ["-i" "oracle"])
+  opts)
+
+(defn test-live
+  "Run ONLY the ^:live slice — hits real network sources (CurrencyFreaks). Needs CURRENCYFREAKS_API_KEY
+  in the environment; the tests self-skip (vacuous pass) without it. Run: clojure -X:build test-live"
+  [opts]
+  (run-tests [:test] ["-i" "live"])
   opts)
 
 (defn docs

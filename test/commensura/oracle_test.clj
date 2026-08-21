@@ -1,6 +1,8 @@
 (ns commensura.oracle-test
-  "Oracle tests against the REAL Frink engine (opt-in `:frink` alias; see deps.edn). Every test
-  self-skips when Frink is absent, so the default `clojure -X:test` is unaffected. The strong claim:
+  "Oracle tests against the REAL Frink engine (opt-in `:frink` alias; see deps.edn). Every test is
+  tagged ^:oracle — `clojure -X:build test` excludes the slice (`-e oracle`) and `test-oracle` runs
+  only it (`-i oracle`, with frink.jar); each also self-skips when Frink is absent, so a direct run
+  without the tag filter is still a no-op. The strong claim:
   for the exact (rational) subset, commensura's base-SI magnitude is *bit-identical* to Frink's.
 
   commensura's `q/magnitude` is the value reduced to base SI; Frink reduces a bare expression to base
@@ -41,7 +43,7 @@
 (defn- rel-diff [a b] (/ (Math/abs (- a b)) (max 1.0 (Math/abs b))))
 
 ;; ---- fixed oracle cases (archived worked examples; commensura computed, compared to Frink) ----
-(deftest fixed-oracle-cases
+(deftest ^:oracle fixed-oracle-cases
   (when (o/available?)
     (doseq [[label c-val frink]
             [["bedroom gallons"  (q/display-value (c/to (c/by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons))
@@ -61,7 +63,7 @@
             (str "commensura " c-val " vs frink " (:raw (o/frink-eval frink))))))))
 
 ;; ---- generative: products / quotients / integer powers (by, per, pow) ----
-(defspec product-magnitude-matches-frink 200
+(defspec ^:oracle product-magnitude-matches-frink 200
   (prop/for-all [scalar gen-scalar
                  terms  (gen/vector gen-term 1 4)]
     (or (not (o/available?))
@@ -71,7 +73,7 @@
           (= c-mag (:rational (o/frink-eval fstr)))))))
 
 ;; ---- generative: sums / differences of conforming quantities (plus, minus) ----
-(defspec sum-magnitude-matches-frink 150
+(defspec ^:oracle sum-magnitude-matches-frink 150
   (prop/for-all [group (gen/elements @pool-by-dim)
                  a gen-scalar b gen-scalar
                  op (gen/elements [:+ :-])
@@ -86,7 +88,7 @@
           (= (q/magnitude q) (:rational (o/frink-eval fstr)))))))
 
 ;; ---- irrational spot-checks: no exact rational, so compare within the reader's 1e-9 tolerance ----
-(deftest irrational-spot-checks
+(deftest ^:oracle irrational-spot-checks
   (when (o/available?)
     (doseq [[label c-val frink]
             [["pi metre"        (double (q/magnitude (c/by u/pi u/meter)))                 "pi meter"]
