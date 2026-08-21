@@ -104,8 +104,8 @@
                {:basis     basis
                 :main      'clojure.main
                 :main-args ["-e" (pr-str '(do (require '[nextjournal.clerk :as clerk])
-                                              (clerk/build! {:paths ["notebooks/commensura.clj"]
-                                                             :package :single-file
+                                              (clerk/build! {:paths ["notebooks/commensura.clj"
+                                                                     "notebooks/frinj_examples.clj"]
                                                              :out-path "target/doc"})
                                               (shutdown-agents)))]})
         {:keys [exit]} (b/process cmds)]
