@@ -48,3 +48,19 @@
   (prop/for-all [raw (gen/vector gen-name 1 8)]
     (let [names (->> raw (map str/lower-case) (remove str/blank?) distinct vec)]
       (every? (fn [c] (= c (first (suggest/nearest c names)))) names))))
+
+;; `nearest` runs the cutoff-aware banded/early-exit DP; this pins it to a brute-force reference
+;; built from the *unbounded* public `distance`. They must agree exactly — the band only ever
+;; skips work that can't beat the cutoff, and within the cutoff the banded distance is the true one.
+(defspec banded-nearest-matches-unbounded-reference 300
+  (prop/for-all [s          gen-name
+                 candidates (gen/vector gen-name 0 12)
+                 cutoff     (gen/choose 0 6)
+                 limit      (gen/choose 1 12)]
+    (let [reference (->> candidates
+                         (map (fn [c] [c (suggest/distance s c)]))
+                         (filter (fn [[_ d]] (<= d cutoff)))
+                         (sort-by (fn [[c d]] [d (count c) c]))
+                         (take limit)
+                         (mapv first))]
+      (= reference (suggest/nearest s candidates limit cutoff)))))
