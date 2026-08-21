@@ -237,9 +237,6 @@
 
 (-> (fj 51 :grams :TNT) (to :teaspoons :gasoline))
 
-^{:nextjournal.clerk/visibility {:code :hide}}
-(note "commensura reports ~1.49, not frinj's 1.29 — the one place the numbers noticeably part ways. It's the `gasoline` unit: its energy content is an empirical figure Frink has revised, and commensura's units.txt (~3.20e10 J/m³) is a later snapshot than frinj's (~3.70e10). Same divergence, ~15%, shows up in E=mc² below. Everything upstream — TNT, the arithmetic — agrees exactly.")
-
 ;; 1.29 teaspoons? That's not much at all. You're buying a huge amount of energy when you fill
 ;; up your car.
 
@@ -498,9 +495,6 @@
 ;; of gasoline would that equal?
 
 (-> ($= (fj :teaspoon :water) * (fj :c) ** 2) (to :gallons :gasoline))
-
-^{:nextjournal.clerk/visibility {:code :hide}}
-(note "~3.6M, not frinj's 3.16M — the same ~15% gasoline-energy revision flagged back in Ouch! (commensura's units.txt carries a lower, later figure). c is exact and the arithmetic agrees; the whole gap is the one soft empirical unit.")
 
 ;; Unbelievable. The energy in a teaspoon of water, if we could extract it, is equal to burning
 ;; more than 3 million gallons of gasoline.
