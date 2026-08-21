@@ -3,8 +3,8 @@
             [clojure.test.check.clojure-test :refer [defspec]]
             [clojure.test.check.generators :as gen]
             [clojure.test.check.properties :as prop]
-            [commensura.infix :as fx :refer [fj $= to add-unit!]]
-            [commensura.core :as c]
+            [commensura.infix :as fx :refer [fj $= to]]
+            [commensura.core :as c :refer [defunit]]
             [commensura.quantity :as q]
             [commensura.units :as u]))
 
@@ -27,9 +27,9 @@
     (is (= 5669904625/10618817472                                                     ; 2-ton pool depth
            (q/display-value (to ($= (fj 2 :tons) / (fj 10 :feet 12 :feet :water)) :feet))))))
 
-(deftest add-unit-registers-a-usable-unit
-  (testing "a unit defined from a soup is resolvable by later soups"
-    (add-unit! :beer (fj 12 :floz 3.2 :percent :water :per :alcohol))
+(deftest defunit-soup-is-resolvable-in-later-soups
+  (testing "a unit defined from a soup via core/defunit resolves by name in later soups"
+    (defunit beer (fj 12 :floz 3.2 :percent :water :per :alcohol))
     (let [beers (fj :magnum 13.5 :percent :to :beer)]                                  ; how many beers in a magnum
       (is (= {:length 3} (q/dims beers)))                                              ; beer is a volume; unit kept
       (is (< 14.0 (double (q/display-value beers)) 14.1)))))                           ; ≈ 14.07 beers

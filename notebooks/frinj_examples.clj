@@ -18,7 +18,8 @@
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (ns frinj-examples
   (:require [nextjournal.clerk :as clerk]
-            [commensura.infix :refer [fj $= to add-unit!]]
+            [commensura.infix :refer [fj $= to]]
+            [commensura.core :refer [defunit]]
             [commensura.quantity :as q]))
 
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
@@ -56,9 +57,11 @@
 (fj :water :to :alcohol)
 
 ;; 3.2 beer is measured by weight, so a beer's worth of alcohol-by-volume is 12 floz × 3.2% ×
-;; water/alcohol. `add-unit!` registers it under a keyword for later soups to name:
+;; water/alcohol. `defunit` (from `commensura.core`) registers it like any commensura unit, so later
+;; soups name it by keyword — no separate registration path:
 
-(add-unit! :beer (fj 12 :floz 3.2 :percent :water :per :alcohol))
+^{:nextjournal.clerk/visibility {:result :hide}}
+(defunit beer (fj 12 :floz 3.2 :percent :water :per :alcohol))
 
 ;; How many beers is a champagne magnum (at 13.5%)?
 
@@ -67,7 +70,8 @@
 ;; Now some jungle juice: a 1.75 L bottle of 190-proof Everclear in a 5-gallon bucket. What proof is the
 ;; result, and how many beers is a 5-cup (12 floz each) serving?
 
-(add-unit! :junglejuice ($= (fj 1.75 :liter 190 :proof) / (fj 5 :gallon)))
+^{:nextjournal.clerk/visibility {:result :hide}}
+(defunit junglejuice ($= (fj 1.75 :liter 190 :proof) / (fj 5 :gallon)))
 
 (fj :junglejuice :to :percent)
 
@@ -134,13 +138,15 @@
 ;;
 ;; Superman charges on sunlight. The sun's power reaching earth's distance is `sunpower / (4 π sundist²)`:
 
-(add-unit! :earthpower ($= (fj :sunpower) / ($= 4 * (fj :pi) * (fj :sundist) ** 2)))
+^{:nextjournal.clerk/visibility {:result :hide}}
+(defunit earthpower ($= (fj :sunpower) / ($= 4 * (fj :pi) * (fj :sundist) ** 2)))
 
 (fj :earthpower)
 
 ;; Presenting ~12 ft² to the sun, his charge rate in watts:
 
-(add-unit! :chargerate (fj :earthpower 12 :ft :ft))
+^{:nextjournal.clerk/visibility {:result :hide}}
+(defunit chargerate (fj :earthpower 12 :ft :ft))
 
 (fj :chargerate :to :watts)
 

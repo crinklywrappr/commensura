@@ -14,7 +14,7 @@
   printing all carry through — a conversion keeps its unit and dimension rather than flattening to a bare
   number the way frinj does.
 
-    (require '[commensura.infix :refer [fj $= to add-unit!]])
+    (require '[commensura.infix :refer [fj $= to]])
 
     (fj 10 :feet 12 :feet 8 :feet :to :gallons)   ;=> 552960/77 gallon ≈ 7181.30 [volume]
     ($= (fj 2 :tons) / (fj 10 :feet 12 :feet :water))
@@ -32,6 +32,10 @@
   `to` (a plain fn) converts an already-built quantity: `(to q :dollars :per :day)`. When the target is
   *unit-led* it re-expresses in that unit (keeps the dimension); when it is *number-led* — `(to keg 12
   :floz)` — it returns the dimensionless **count**, matching frinj.
+
+  Define your own units the ordinary commensura way — `(defunit beer (fj 12 :floz 3.2 :percent :water
+  :per :alcohol))` — and later soups resolve them by name (`(fj :magnum 13.5 :percent :to :beer)`); this
+  layer adds no separate registration path (frinj's `add-unit!` is just `commensura.core/defunit`).
 
   Credit: the notation and the worked examples are Alan Eliasen's Frink and Martin Trojer's frinj; this
   namespace just re-points them at commensura's exact engine."
@@ -99,14 +103,6 @@
   :day)`. Number-led targets give the dimensionless count (`(to (fj :keg) 12 :floz)` ⇒ 496/3)."
   [source & target-tokens]
   (convert source target-tokens))
-
-(defn add-unit!
-  "Register `quantity` as a new named unit (frinj `add-unit!`), so later soups can name it:
-  `(add-unit! :beer (fj 12 :floz 3.2 :percent :water :per :alcohol))` then `(fj :magnum 13.5 :percent
-  :to :beer)`. Returns the registered unit."
-  [kw quantity]
-  (registry/register-unit! (name kw)
-    (q/unit (name kw) (q/magnitude quantity) (q/dims quantity))))
 
 ;; ---- $=: infix math --------------------------------------------------------------------------------
 (def ^:private op->fn {'* `c/by, '/ `c/per, '+ `c/plus, '- `c/minus, '** `c/pow})
