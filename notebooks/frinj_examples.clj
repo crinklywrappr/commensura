@@ -15,6 +15,9 @@
 ;; commensura's twist: it never leaves the exact numeric tower and it *keeps the unit stack*, so a
 ;; conversion stays a dimensioned quantity (`552960/77 gallon ≈ 7181.30 [volume]`) instead of collapsing
 ;; to a bare number. No `str` calls, no `frinj-init!` — just values that render themselves.
+;;
+;; The prose below is Eliasen's own, verbatim from the Sample Calculations page; commensura's own asides
+;; are set off in 💡 callouts.
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (ns frinj-examples
   (:require [nextjournal.clerk :as clerk]
@@ -29,150 +32,257 @@
    :transform-fn (comp clerk/mark-presented (clerk/update-val str))
    :render-fn '(fn [s] [:span {:style {:color "#047857" :font-family "monospace" :font-weight 500}} s])}])
 
+;; a commensura aside — set off from Eliasen's prose in an amber light-bulb callout
+^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
+(defn note [text]
+  (clerk/html
+   [:div {:style {:background "#fffbeb" :border-left "4px solid #f59e0b" :border-radius "4px"
+                  :padding "0.55rem 0.85rem" :margin "0.6rem 0" :color "#78350f" :font-style "italic"}}
+    [:span {:style {:font-style "normal"}} "💡 "] text]))
+
 ;; ## Mass and Volume
 ;;
-;; You want to fill your bedroom — 10 ft × 12 ft × 8 ft — with water. How much water is that? Numbers and
-;; `:unit` keywords just sit next to each other; `:to` converts the running product. commensura keeps the
-;; `[volume]` dimension and the exact fraction that frinj prints as an approximation:
+;; Let's say you wanted to fill your bedroom up with water. How much water would it take?
+;; Let's say your room measures 10 feet by 12 feet wide by 8 feet high.
 
 (fj 10 :feet 12 :feet 8 :feet :to :gallons)
 
-;; What would that weigh? `:water` is the density of water, so multiplying it in turns volume into mass:
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "Where frinj reports 552960/77 [dimensionless], commensura keeps the [volume] dimension and the exact fraction — the approximation is shown, never substituted.")
+
+;; It would take approximately 7181 gallons to fill it. Note that you get both an exact
+;; fraction and an approximation. How much would that weigh, if you filled it with water?
+;; Frinj has the unit "water" which stands for the density of water.
 
 (fj 10 :feet 12 :feet 8 :feet :water :to :pounds)
 
-;; Almost 60,000 lb. If the floor holds only 2 tons, how deep a pool can you risk? `$=` is infix math
-;; over the values — here a division — and `to` re-expresses the result in feet:
+;; So it would weigh almost 60,000 pounds. What if you knew that your floor could only
+;; support 2 tons? How deep could you fill the room with water?
 
 (-> ($= (fj 2 :tons) / (fj 10 :feet 12 :feet :water))
     (to :feet))
 
-;; About half a foot. A sad pool party.
+;; So you could only fill it about 0.53 feet deep. It'll be a pretty sad pool party.
 
 ;; ## Liquor
 ;;
-;; How much denser is water than alcohol? In frinj `(fj :water :per :alcohol)` collapses to `1.2669`;
-;; commensura keeps the stack, so the *density ratio* is clearest as a conversion — one water is 1.2669
-;; alcohols, exactly 10000/7893:
+;; Let's say you want to define a new unit representing the amount of alcohol in a can
+;; of (quality) 3.2 beer. Keep in mind that 3.2 beer is measured by alcohol/weight,
+;; while almost all other liquors (and many beers) are usually measured in alcohol/volume.
+;; The density ratio between water and alcohol is given by:
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "frinj's (fj :water :per :alcohol) collapses to 1.2669. commensura keeps the water/alcohol stack (its display value is 1), so the density ratio reads most naturally as a conversion — one water is exactly 10000/7893 alcohols:")
 
 (fj :water :to :alcohol)
 
-;; 3.2 beer is measured by weight, so a beer's worth of alcohol-by-volume is 12 floz × 3.2% ×
-;; water/alcohol. `defunit` (from `commensura.core`) registers it like any commensura unit, so later
-;; soups name it by keyword — no separate registration path:
+;; Water is thus 1.267 times denser than alcohol. 3.2 beer (measured by weight) is thus
+;; actually 4.0 percent alcohol as measured by volume. Now let's set that variable in terms
+;; of a beer's density of alcohol per volume so we can compare:
 
 ^{:nextjournal.clerk/visibility {:result :hide}}
 (defunit beer (fj 12 :floz 3.2 :percent :water :per :alcohol))
 
-;; How many beers is a champagne magnum (at 13.5%)?
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "frinj uses add-unit!; commensura defines it with the ordinary defunit, so beer is a first-class unit like any other — and later soups resolve :beer by name.")
+
+;; Then, you wanted to find out how many beers a big bottle of champagne is equal to:
 
 (fj :magnum 13.5 :percent :to :beer)
 
-;; Now some jungle juice: a 1.75 L bottle of 190-proof Everclear in a 5-gallon bucket. What proof is the
-;; result, and how many beers is a 5-cup (12 floz each) serving?
+;; You probably don't want to drink that whole bottle. Now let's say you're mixing Jungle
+;; Juice (using a 1.75 liter bottle of Everclear (190 proof!)) and Kool-Aid to fill a
+;; 5-gallon bucket (any resemblance to my college parties is completely intentional.)
+;; What percent alcohol is that stuff?
 
 ^{:nextjournal.clerk/visibility {:result :hide}}
 (defunit junglejuice ($= (fj 1.75 :liter 190 :proof) / (fj 5 :gallon)))
 
 (fj :junglejuice :to :percent)
 
+;; It's really not that strong. About 8.8%. But if you drink 5 cups of that,
+;; at 12 fluid ounces each, how many beers have you had?
+
 (fj 5 12 :floz :junglejuice :to :beer)
+
+;; Maybe that's why people were getting punched in the head. QED.
 
 ;; ## More Liquor
 ;;
-;; How many cases in a keg (a half beer-barrel)? And how many 12-floz cans? A **number-led** `to` target
-;; — `(to (fj :keg) 12 :floz)` — asks "how many of *this* quantity", so it returns the bare count:
+;; How many cases in a keg? (A keg is a normal-sized keg, what those in the beer
+;; industry would call a "half barrel," or 1/2 beerbarrel in Frinj notation.
+;; I don't think they sell full barrels. I've never seen one. It would weigh 258 pounds.
+;; A "pony keg" is a "quarter barrel" or, in Frinj notation, ponykeg or 1/4 beerbarrel)
 
 (fj :keg :to :case)
 
+;; How many 12 fluid ounce drinks (i.e. cans o' beer) in a keg?
+
 (to (fj :keg) 12 :floz)
 
-;; Price of alcohol by the fluid ounce, buying a $60 keg of 3.2 beer (corrected weight→volume):
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "A number-led `to` target — 12 :floz, a specific quantity rather than a bare unit — asks \"how many of THIS fit\", so it returns the dimensionless count (496/3), matching frinj.")
+
+;; What is the price in dollars per fluid ounce of alcohol when buying a keg of 3.2 beer?
+;; (Remember that 3.2 beer is measured in alcohol/weight, so we correct by the density
+;; ratio of water/alcohol to get alcohol by volume:
 
 (to ($= (fj 60 :dollars) / (fj :keg 3.2 :percent :water :per :alcohol)) :dollars :per :floz)
 
-;; A cheap bottle of wine, and a big plastic bottle of bad vodka:
+;; A bottle of cheap wine? (A "winebottle" is the standard 750 ml size.)
 
 (to ($= (fj 6.99 :dollars) / (fj :winebottle 13 :percent)) :dollars :per :floz)
+
+;; A big plastic bottle of really bad vodka?
 
 (to ($= (fj 13.99 :dollars) / (fj 1750 :ml 80 :proof)) :dollars :per :floz)
 
 ;; ## Movie magic
 ;;
-;; In *Independence Day*, the alien mother ship is 500 km across with a mass ¼ that of the Moon. As a
-;; sphere (volume `4/3 π r³`), how dense is it, in multiples of water? `**` is exponent, binding tighter
-;; than `*` and `/`:
+;; In the movie Independence Day, the alien mother ship is said to be 500 km in diameter
+;; and have a mass 1/4 that of earth's moon. If the mother ship were a sphere, what would
+;; its density be? (The volume of a sphere is 4/3 pi radius3)
 
 (to ($= (fj 1/4 :moonmass) / ($= (fj 4/3 :pi) * (fj 500/2 :km) ** 3)) :water)
 
-;; 280× denser than water — denser than any known element. And its surface gravity (`G · mass / r²`,
-;; with Frink's gravitational constant `:G`), in earth gravities:
+;; This makes the ship 280 times denser than water. This is 36 times denser than iron and
+;; more than 12 times denser than any known element! As the ship is actually more a thin disc
+;; than a sphere, it would actually be even denser. Since it contains lots of empty space,
+;; parts of it would have to be much, much denser.
+;;
+;; If the object is this dense and has such a large mass, what is its surface gravity?
+;; Surface gravity is given by G mass / radius2, where G is the gravitational constant
+;; (which Frinj knows about):
 
 (to ($= (fj :G 1/4 :moonmass) / (fj 500/2 :km) ** 2) :gravity)
 
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "** binds tighter than * and /, exactly as arithmetic expects — (fj 500/2 :km) ** 2 is squared before the division.")
+
+;; The surface gravity of the spaceship is thus at least twice earth's gravity-- and that's
+;; on the rim where gravity is weakest. It would actually be much higher since it's much,
+;; much flatter than a sphere. I hope you're not the alien that has to go outside and paint it.
+
 ;; ## Ouch!
 ;;
-;; A land-mine holds "51 grams of TNT". Assuming perfect efficiency (`energy = mass · gravity · height`),
-;; how high could it throw a 185-pound person? The target is number-led, so we get feet as a count:
+;; At the moment, I'm watching CNN which is discussing some land-mines used in Afghanistan.
+;; They showed a very small mine (about the size of a bran muffin) containing "51 grams of TNT"
+;; and they asked how much destructive force that carries. Frinj's data file includes how much
+;; energy is in a mass of TNT, specified by the unit "TNT". How many feet in the air could 51
+;; grams of TNT throw me, assuming perfect efficiency, and knowing energy = mass * gravity * height?
 
 (to (fj 51 :grams :TNT) 185 :pounds :gravity :feet)
 
+;; Yikes. 937 feet.
+
 ;; ## Junkyard Wars
 ;;
-;; Floating a submerged half-ton Mini: how many oil barrels' worth of buoyancy is that?
+;; I can't watch Junkyard Wars (or lots of other television shows) without having Frinj at
+;; my side. This week the team has to float a submerged half-ton Cooper Mini... how many oil
+;; barrels will they need to use as floats?
 
 (to (fj :half :ton) :barrels :water)
 
-;; Hand-pumping air 2 fathoms down at 40 watts — minutes to fill a barrel, and food Calories burned:
+;; They're trying to hand-pump air down to the barrels, submerged "2 fathoms" below the water.
+;; If the guy can sustain 40 watts of pumping power, how many minutes will it take to fill
+;; the barrel?
 
 (to (fj 2 :fathoms :water :gravity :barrel) 40 :watts :minutes)
 
+;; And how many food Calories (a food Calorie (with a capital 'C') equals 1000 calories with
+;; a small 'c') will he burn to fill a barrel?
+
 (fj 2 :fathoms :water :gravity :barrel :to :Calories)
+
+;; Better eat a Tic-Tac first.
 
 ;; ## Body Heat
 ;;
-;; Eat 2000 Calories a day; what's your average power output? Slightly less than a 100-watt bulb:
+;; I've seen lots of figures about how much heat the human body produces. You can easily
+;; calculate the upper limit based on how much food you eat a day. Say, you eat 2000 Calories
+;; a day (again, food Calories with a capital "C" are equal to 1000 calories with a little "c".)
 
 (fj 2000 :Calories :per :day :to :watts)
 
-;; ## Why is Superman so lazy?
+;; So, your average power and/or heat output is slightly less than a 100-watt bulb.
+;; (Note that your heat is radiated over a much larger area so the temperature is much lower.)
+;; Many days I could be replaced entirely with a 100-watt bulb and have no discernible effect
+;; on the universe.
+
+;; ## Why is Superman so Lazy?
 ;;
-;; Superman charges on sunlight. The sun's power reaching earth's distance is `sunpower / (4 π sundist²)`:
+;; Superman is always rescuing school buses that are falling off of cliffs, flying to the moon,
+;; lifting cars over his head, and generally showing off. So why does he still allow so many
+;; accidents to happen? Shouldn't he be able to rescue everybody who has a Volkswagen parked
+;; on their chest?
+;; While searching for answers, I found out three interesting things about Superman:
+;;
+;; 1. He's 6 feet 3 inches tall.
+;; 2. He weighs 225 pounds.
+;; 3. He gets his strength from being charged up with solar energy.
+;;
+;; This is enough information to find some answers. Frinj has units called sunpower
+;; (the total power radiated by the sun) and sundist (the distance between the earth and the sun.)
+;; Thus, we can find the sun's power that strikes an area at the distance of the earth
+;; (knowing the surface area of a sphere is 4 pi radius2):
 
 ^{:nextjournal.clerk/visibility {:result :hide}}
 (defunit earthpower ($= (fj :sunpower) / ($= 4 * (fj :pi) * (fj :sundist) ** 2)))
 
 (fj :earthpower)
 
-;; Presenting ~12 ft² to the sun, his charge rate in watts:
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "commensura recognises this compound as a named dimension — [heat flux density] — rather than leaving it as bare kg s^-3.")
+
+;; This is about 1372 watts per square meter. Superman is a pretty big guy--let's say the
+;; surface area he can present to the sun is 12 square feet. (This is probably a bit high--
+;; it makes him an average of 23 inches wide over his entire height.)
+;; This allows Superman to charge up at a power of:
 
 ^{:nextjournal.clerk/visibility {:result :hide}}
 (defunit chargerate (fj :earthpower 12 :ft :ft))
 
 (fj :chargerate :to :watts)
 
-;; So how long must he charge to lift a 2-ton truck 7 feet (`energy = mass · height · gravity`)?
+;; Superman thus charges up at the rate of 1530 joules/sec or 1530 watts. At this rate,
+;; how long does he have to charge up before he can lift a 2 ton truck over his head?
+;; (Knowing energy = mass * height * gravity)
 
 (to (fj 2 :ton 7 :feet :gravity :per :chargerate) :sec)
 
-;; 25 seconds per rescue. He could be saving a lot more people.
+;; So, charging up for 25 seconds allows him to save one dumb kid who is acting as a speed bump.
+;; So his power is huge but not infinite. He couldn't sustain a higher rate (unless he showed
+;; off less by lifting the car only a foot or two.) Lifting a truck every 30 seconds or so
+;; isn't bad, though. He could be saving a lot more people. So why doesn't he?
 
-;; ## Hamburgers and cars
+;; ## Hamburgers and Cars
 ;;
-;; "Pound for pound, hamburgers cost more than new cars." A 2001 Corvette Z06: 3,115 lb, $48,055. Note
-;; commensura even *names* the compound dimension:
+;; "pound for pound, hamburgers cost more than new cars."
+;;
+;; Let's see... let's try with a medium-expensive, light car. A 2001 Corvette Z06 weighs
+;; 3,115 pounds and costs $48,055.
 
 (to ($= (fj 48055 :dollars) / (fj 3115 :lb)) :dollars :per :lb)
 
-;; $15/lb — and nobody pays that for hamburger.
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "commensura even names the compound dimension of the result: [price per mass].")
 
-;; ## E = mc²
+;; I know I don't pay $15/lb for hamburger.
+
+;; ## E=mc2
 ;;
-;; The energy in a teaspoon of water, as gallons of gasoline (`:c` is the speed of light):
+;; Everyone knows Einstein's E=mc2 equation, but to apply it is often very difficult because
+;; the units come out so strange. Let's see, I have mass in pounds, and the speed of light is
+;; 186,282 miles/second... ummm... what does that come out to? In Frinj the calculation becomes
+;; transparently simple.
+;;
+;; If you took the matter in a teaspoon of water, and converted that to energy, how many gallons
+;; of gasoline would that equal?
 
 (to ($= (fj :teaspoon :water) * (fj :c) ** 2) :gallons :gasoline)
 
-;; Millions of gallons — you buy an astonishing amount of energy every time you fill your tank.
+;; Unbelievable. The energy in a teaspoon of water, if we could extract it, is equal to burning
+;; more than 3 million gallons of gasoline.
 ;;
 ;; ---
 ;; Many more await on Frink's [Sample Calculations](http://futureboy.us/frinkdocs/#SampleCalculations).
