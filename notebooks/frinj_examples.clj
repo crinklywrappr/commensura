@@ -341,6 +341,90 @@
 ;; So his power is huge but not infinite. He couldn't sustain a higher rate (unless he showed
 ;; off less by lifting the car only a foot or two.) Lifting a truck every 30 seconds or so
 ;; isn't bad, though. He could be saving a lot more people. So why doesn't he?
+;;
+;; Well, we've all seen the movie. He's using his super-powers to pick up chicks. Literally.
+;; Superman decides to take a break from saving lives and takes Lois Lane up in the sky for a
+;; joyride. So how long does he have to charge up with solar energy to fly himself and Lois Lane
+;; (let's say she weighs 135 pounds) up to 15,000 feet?
+
+(-> (fj (+ 225 135) :pounds 15000 :feet :gravity :per :chargerate)
+    (to :minutes))
+
+;; So, Superman has to charge up with solar energy for an hour to cart Lois up there. With the
+;; same energy, he could have saved over 120 trapped kids.
+
+;; ## Fart Jokes
+;;
+;; "If you fart continuously for 6 years and 9 months, you'll have enough gas to create the
+;; equivalent of an atomic bomb." Hee hee. Cute.
+;; The Hiroshima bomb had a yield of 12.5 kilotons of TNT, which is a very small bomb by today's
+;; standards. How many horsepower would that be?
+
+(-> ($= (fj 12.5 :kilotons :TNT) / ($= (fj 6 :years) + (fj 9 :months)))
+    (to :horsepower))
+
+;; Can you produce a 329-horsepower blowtorch of a fart? I doubt it. That's the power produced by
+;; a Corvette engine running just at its melting point. To produce that kind of energy, how much
+;; food would you have to eat a day?
+
+(-> ($= (fj 12.5 :kilotons :TNT) / ($= (fj 6 :years) + (fj 9 :months)))
+    (to :Calories :per :day))
+
+;; Ummm... can you eat over 5 million Calories a day? If you were a perfect fart factory,
+;; converting food energy into farts with 100% efficiency, and ate a normal 2000 Calories/day,
+;; how many years would it really take?
+
+(-> ($= (fj 12.5 :kilotons :TNT) / (fj 2000 :Calories :per :day))
+    (to :years))
+
+;; 17,000 years is still a huge underestimate. To continue: guess your butthole has a diameter of
+;; 1 inch, and that the gas you actually produce is only 1/10 as combustible as pure natural gas.
+;; What would be the velocity of the gas coming out?
+
+(-> ($= (fj 12.5 :kilotons :TNT)
+        / ($= (fj :natural_gas) * ($= (fj 6 :years) + (fj 9 :months)) * (fj :pi) * (fj 0.5 :in) ** 2)
+        * 10)
+    (to :mph))
+
+;; Nobody likes sitting next to a 280-mile-per-hour fart-machine.
+
+;; ## Advanced Farting
+;;
+;; Most people think a fart's flammable gas is methane, but medical studies disagree — most people
+;; hardly have any. The typical composition, by volume, is roughly:
+;;
+;; | Gas            | % by volume |
+;; |----------------|------------:|
+;; | Nitrogen       |         64% |
+;; | Carbon Dioxide |         14% |
+;; | Hydrogen       |         19% |
+;; | Methane        |        3.2% |
+;; | Oxygen         |        0.7% |
+;;
+;; The average person expels ~2000 ml of gas daily, and a mole of any gas at standard temperature
+;; and pressure occupies the same volume (Frink knows this as `molarvolume`). Only hydrogen and
+;; methane readily combust — energies of combustion 285.8 and 890.8 kJ/mol. So the daily energy in
+;; each (hydrogen at 19% of the 2000 ml, methane at 3.2%):
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(defunit h2energy (fj 2000 :ml :per :molarvolume 19 :percent 285.8 :kJ :per :mol))
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(defunit methanenergy (fj 2000 :ml :per :molarvolume 3.2 :percent 890.8 :kJ :per :mol))
+
+;; The grand total of combustible-fart energy a gassy person produces in a day, in food Calories:
+
+(-> ($= (fj :methanenergy) + (fj :h2energy))
+    (to :Calories))
+
+;; About 1.76 Calories out of the 2000 you eat. So, saving your farts for an atomic bomb's worth
+;; of energy would take:
+
+(-> ($= (fj 12.5 :kilotons :TNT) / ($= ($= (fj :methanenergy) + (fj :h2energy)) / (fj :day)))
+    (to :years))
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "Eliasen's page says \"about 7 billion years\" here — but that's 7 billion *days*. frinj flattens everything to a bare magnitude, so dividing a daily energy by :day and converting to :years quietly lost the day↔year step. commensura tracks the dimensions the whole way and lands on the physically correct ~19 million years. A rare case where keeping the unit stack doesn't just prettify the answer — it corrects it.")
 
 ;; ## Hamburgers and Cars
 ;;
