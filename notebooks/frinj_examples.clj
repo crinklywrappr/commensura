@@ -23,7 +23,8 @@
   (:require [nextjournal.clerk :as clerk]
             [commensura.infix :refer [fj $= to]]
             [commensura.core :refer [defunit register-dimension!]]
-            [commensura.quantity :as q]))
+            [commensura.quantity :as q]
+            [tick.core :as t]))
 
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (clerk/add-viewers!
@@ -172,6 +173,53 @@
 ;; The surface gravity of the spaceship is thus at least twice earth's gravity-- and that's
 ;; on the rim where gravity is weakest. It would actually be much higher since it's much,
 ;; much flatter than a sphere. I hope you're not the alien that has to go outside and paint it.
+
+;; ## Fiscal Calculations
+;;
+;; You can calculate the day that your company will run out of cash, based on their financial
+;; statements. The following is an example for a real company, based on SEC filings, which
+;; read as the following:
+;;
+;; Cash and Cash Equivalents (in thousands)
+;;
+;; | December 31, 2000 | June 30, 2001 |
+;; |------------------:|--------------:|
+;; |           $86,481 |       $41,601 |
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "commensura has no calendar of its own — and doesn't need one. Here tick (juxt/tick, a maintained java.time wrapper) measures the span between the two filing dates; commensura takes it from there as a plain quantity of days. The two libraries compose cleanly, neither knowing about the other.")
+
+;; The two SEC statement dates. `tick` counts the exact days between them — no DST fudge —
+;; and commensura wears that span as a quantity of `:days`:
+
+(def statements
+  {:end-2000 (t/instant "2000-12-31T00:00:00Z")
+   :mid-2001 (t/instant "2001-06-30T00:00:00Z")})
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(defunit burnrate
+  ($= (fj (- 86481 41601) :thousand :dollars)
+      / (fj (t/days (t/between (:end-2000 statements) (:mid-2001 statements))) :days)))
+
+;; dollars-per-time is a dimension commensura doesn't name by default; call it what it is:
+^{:nextjournal.clerk/visibility {:result :hide}}
+(register-dimension! {:currency 1 :time -1} "burn rate")
+
+(to (fj :burnrate) :dollars :per :day)
+
+;; You can calculate the number of days until the money runs out at this rate:
+
+(to ($= (fj 41601 :thousand :dollars) / (fj :burnrate)) :days)
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "commensura does the exact rational arithmetic (2509927/14960 days); when we need a calendar date back, we hand tick the magnitude in seconds and let it do the date math.")
+
+;; Using date/time math, starting from the last report date (June 30, 2001) you can
+;; find out the exact date this corresponds to:
+
+(let [runs-out ($= (fj 41601 :thousand :dollars) / (fj :burnrate))]
+  (t/>> (:mid-2001 statements)
+        (t/new-duration (long (q/magnitude runs-out)) :seconds)))
 
 ;; ## Ouch!
 ;;
