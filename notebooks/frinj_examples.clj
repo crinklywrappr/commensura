@@ -360,29 +360,32 @@
 ;; The Hiroshima bomb had a yield of 12.5 kilotons of TNT, which is a very small bomb by today's
 ;; standards. How many horsepower would that be?
 
-(-> ($= (fj 12.5 :kilotons :TNT) / ($= (fj 6 :years) + (fj 9 :months)))
+(-> ($= (fj 12.5 :kilotons :TNT) /
+        ($= (fj 6 :years) + (fj 9 :months)))
     (to :horsepower))
 
 ;; Can you produce a 329-horsepower blowtorch of a fart? I doubt it. That's the power produced by
 ;; a Corvette engine running just at its melting point. To produce that kind of energy, how much
 ;; food would you have to eat a day?
 
-(-> ($= (fj 12.5 :kilotons :TNT) / ($= (fj 6 :years) + (fj 9 :months)))
+(-> ($= (fj 12.5 :kilotons :TNT) /
+        ($= (fj 6 :years) + (fj 9 :months)))
     (to :Calories :per :day))
 
 ;; Ummm... can you eat over 5 million Calories a day? If you were a perfect fart factory,
 ;; converting food energy into farts with 100% efficiency, and ate a normal 2000 Calories/day,
 ;; how many years would it really take?
 
-(-> ($= (fj 12.5 :kilotons :TNT) / (fj 2000 :Calories :per :day))
+(-> ($= (fj 12.5 :kilotons :TNT) /
+        (fj 2000 :Calories :per :day))
     (to :years))
 
 ;; 17,000 years is still a huge underestimate. To continue: guess your butthole has a diameter of
 ;; 1 inch, and that the gas you actually produce is only 1/10 as combustible as pure natural gas.
 ;; What would be the velocity of the gas coming out?
 
-(-> ($= (fj 12.5 :kilotons :TNT)
-        / ($= (fj :natural_gas) * ($= (fj 6 :years) + (fj 9 :months)) * (fj :pi) * (fj 0.5 :in) ** 2)
+(-> ($= (fj 12.5 :kilotons :TNT) /
+        ($= (fj :natural_gas) * ($= (fj 6 :years) + (fj 9 :months)) * (fj :pi) * (fj 0.5 :in) ** 2)
         * 10)
     (to :mph))
 
@@ -414,13 +417,13 @@
 
 ;; The grand total of combustible-fart energy a gassy person produces in a day, in food Calories:
 
-(-> ($= (fj :methanenergy) + (fj :h2energy))
-    (to :Calories))
+(-> ($= (fj :methanenergy) + (fj :h2energy)) (to :Calories))
 
 ;; About 1.76 Calories out of the 2000 you eat. So, saving your farts for an atomic bomb's worth
 ;; of energy would take:
 
-(-> ($= (fj 12.5 :kilotons :TNT) / ($= ($= (fj :methanenergy) + (fj :h2energy)) / (fj :day)))
+(-> ($= (fj 12.5 :kilotons :TNT) /
+        ($= ($= (fj :methanenergy) + (fj :h2energy)) / (fj :day)))
     (to :years))
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
@@ -461,6 +464,29 @@
 
 ;; I know I don't pay $15/lb for hamburger.
 
+;; ## Biblical References
+;;
+;; So you want to build an ark, do you? And not an Ark of the Covenant, but the boat. How bad was
+;; that flood? The Bible is quite precise: Genesis 7:19–20 has the waters covering the highest
+;; mountains, plus an extra fifteen cubits (~27 feet) for good measure. The highest mountain today
+;; is Mt. Everest at 29030.8 feet (per the utterly non-trustable 2002 Guinness Book), and Everest
+;; grows about 2.4 inches/year, so we discount for that over ~4000 years:
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(defunit depth ($= (fj 29030 :feet) + (fj 15 :biblicalcubits) + (fj -2.4 :inches :per :year 4000 :years)))
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "A soup takes negative numbers in stride — the last term, -2.4 inches/year over 4000 years, subtracts Everest's growth. commensura sums the three lengths exactly.")
+
+;; About 28,257 feet of water. This was deposited over 40 days. The rainfall was thus:
+
+(-> ($= (fj :depth) / (fj 40 :days))
+    (to :inches :per :hour))
+
+;; About 29 feet/hour — and note commensura reads inches/hour for what it is, a [velocity]. A good
+;; rain around here is about an inch an hour; the very rainiest places on earth, like Cherrapunji,
+;; get about this much in a year.
+
 ;; ## E=mc2
 ;;
 ;; Everyone knows Einstein's E=mc2 equation, but to apply it is often very difficult because
@@ -471,7 +497,10 @@
 ;; If you took the matter in a teaspoon of water, and converted that to energy, how many gallons
 ;; of gasoline would that equal?
 
-(to ($= (fj :teaspoon :water) * (fj :c) ** 2) :gallons :gasoline)
+(-> ($= (fj :teaspoon :water) * (fj :c) ** 2) (to :gallons :gasoline))
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(note "~3.6M, not frinj's 3.16M — the same ~15% gasoline-energy revision flagged back in Ouch! (commensura's units.txt carries a lower, later figure). c is exact and the arithmetic agrees; the whole gap is the one soft empirical unit.")
 
 ;; Unbelievable. The energy in a teaspoon of water, if we could extract it, is equal to burning
 ;; more than 3 million gallons of gasoline.
