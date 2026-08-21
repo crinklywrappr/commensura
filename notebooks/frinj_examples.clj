@@ -439,7 +439,7 @@
     (to :gallons :per :foot))
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
-(note "frinj writes this as (to … :feet :per :gallon) and gets 33.5 straight away — but the expression is fuel *per distance*: gallons ÷ foot, which reduces to an area. feet/gallon is its reciprocal (1/area), a genuinely different dimension, so commensura refuses to silently flip one into the other. Read it honestly as gallons/foot, or take the reciprocal for the fuel economy:")
+(note "frinj gets 33.5 straight from (to … :feet :per :gallon): the expression is fuel *per distance* — gallons ÷ foot, an area — and feet/gallon is its reciprocal (1/area). frinj deliberately auto-reverses such \"mirrored\" units (its convert reverses when the target is the reciprocal dimension), so it flips for you. commensura makes the opposite, equally deliberate choice — a conversion must conform, no guessing — so it reads the honest gallons/foot below and leaves you to reciprocate for the economy:")
 
 (-> ($= 1 / ($= (fj 18 :tons) / (fj :hour) / (fj 28 :knot) / (fj 0.85 :kg :per :liter)))
     (to :feet :per :gallon))
