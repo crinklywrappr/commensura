@@ -44,7 +44,8 @@
 ;; Almost 60,000 lb. If the floor holds only 2 tons, how deep a pool can you risk? `$=` is infix math
 ;; over the values — here a division — and `to` re-expresses the result in feet:
 
-(to ($= (fj 2 :tons) / (fj 10 :feet 12 :feet :water)) :feet)
+(-> ($= (fj 2 :tons) / (fj 10 :feet 12 :feet :water))
+    (to :feet))
 
 ;; About half a foot. A sad pool party.
 

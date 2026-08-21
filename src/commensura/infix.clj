@@ -49,12 +49,12 @@
   {"half" 1/2})
 
 (defn- resolve-unit-name
-  "Resolve a soup unit name to a commensura unit: the name, else a plural stripped to singular
-  (`gallons`→`gallon`, `inches`→`inch`), else a known bare-scalar word (`half`), else throw."
+  "Resolve a soup unit name to a commensura unit: the name, else a trailing-`s` plural stripped to the
+  singular commensura registers (`gallons`→`gallon`), else a known bare-scalar word (`half`), else throw.
+  (commensura ships a few explicit plurals like `feet`/`inches`; the strip covers the rest.)"
   [nm]
   (or (registry/resolve-unit nm)
-      (when (.endsWith nm "s")  (registry/resolve-unit (subs nm 0 (dec (count nm)))))   ; gallons→gallon, miles→mile
-      (when (.endsWith nm "es") (registry/resolve-unit (subs nm 0 (- (count nm) 2))))   ; inches→inch, boxes→box
+      (when (.endsWith nm "s") (registry/resolve-unit (subs nm 0 (dec (count nm)))))    ; gallons→gallon, miles→mile
       (word-scalars nm)
       (throw (ex-info (str "infix: unknown unit " (pr-str nm)
                            " — no commensura unit for that name (or its singular)")
