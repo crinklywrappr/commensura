@@ -33,7 +33,8 @@
   `Dimensionable`/`Measured`/`Formulaic`."
   (:require [commensura.registry :as registry]
             [clojure.string :as str]
-            [clojure.pprint :as pp])
+            [clojure.pprint :as pp]
+            [taoensso.trove :as trove])
   (:import [ch.obermuhlner.math.big BigDecimalMath]
            [java.math MathContext]))
 
@@ -450,9 +451,25 @@
 (defn to
   "Re-express q over the target unit basis (dimension-preserving). The physical
   magnitude is unchanged — only the display formula becomes the target's, so the
-  printed value equals magnitude(q)/factor(target)."
+  printed value equals magnitude(q)/factor(target).
+
+  Only the target's *formula* (its unit basis) is used; any scalar coefficient it
+  carries is silently ignored — `(to (mile 5) (foot 3))` re-expresses in feet, not
+  3-foot units (the `3` is dropped). That is exactly right for a unit basis — the
+  normal case — but a *scaled* target is almost always a mistake: for \"how many of
+  this quantity fit\" use `ratio`, which honours the whole magnitude. A scaled
+  target (display-value ≠ 1) therefore logs a warning. (The guard is on
+  display-value, not `unit?`: a compound basis like `dollar/floz`, and any target
+  built by scaling `1` through a unit, is a Quantity rather than a Unit yet carries
+  no coefficient — `unit?` would cry wolf on every one of them.)"
   [q target]
   (assert-conforms "to" q target)
+  (when-not (== 1 (display-value target))
+    (trove/log! {:level :warn
+                 :id   :commensura.quantity/to-scaled-target
+                 :msg  (str "`to` ignores the coefficient of a scaled target (display-value "
+                            (pr-str (display-value target)) "); use `ratio` for a count of a quantity")
+                 :data {:target-display-value (display-value target)}}))
   (if (or (approx? q) (approx? target))
     (quantity (magnitude q) (formula target))
     (->PreciseQuantity (magnitude q) (formula target))))

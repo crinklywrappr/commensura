@@ -61,7 +61,9 @@
   [x n] (if (iv/interval? x) (iv/ipow x n) (q/qpow x n)))
 
 (defn to
-  "Re-express a quantity/interval in a target unit (dimension-preserving)."
+  "Re-express a quantity/interval in a target unit (dimension-preserving). Uses only the target's unit
+  basis: a *scaled* target's coefficient is ignored (and warns) — `(to (u/mile 5) (u/foot 3))` gives
+  feet, not 3-foot units. For \"how many of a given quantity fit\", use `ratio`. See `q/to`."
   [x target] (if (iv/interval? x) (iv/ito x target) (q/to x target)))
 
 (defn ratio
