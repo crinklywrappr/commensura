@@ -87,6 +87,74 @@
               fstr (str "(" a ") " u1 " " (if (= op :+) "+" "-") " (" b ") " u2)]
           (= (q/magnitude q) (:rational (o/frink-eval fstr)))))))
 
+;; ---- generative conversions: `to` display-value and `ratio` count ----
+;; The magnitude specs above are invariant under `to`/`ratio` (magnitude is base-SI), so they cannot
+;; touch the conversion math — the whole point of a unit library. A Frink `->` returns the value IN THE
+;; TARGET unit, which is exactly commensura's display-value; `ratio` is that same number as a bare count.
+;; One eval oracles both. (u1 and u2 are drawn from a single dimension group, so they conform.)
+(defspec ^:oracle conversion-and-ratio-match-frink 200
+  (prop/for-all [group (gen/elements @pool-by-dim)
+                 s     gen-scalar
+                 idx   (gen/tuple gen/nat gen/nat)]
+    (or (not (o/available?))
+        (let [names (second group)
+              u1 (nth names (mod (first idx) (count names)))
+              u2 (nth names (mod (second idx) (count names)))
+              q  (c/by s (lookup u1))
+              fr (:rational (o/frink-eval (str "(" s ") " u1 " -> " u2)))]
+          (and (= fr (q/display-value (c/to q (lookup u2))))        ; (s u1) expressed in u2
+               (= fr (q/magnitude    (c/ratio q (lookup u2)))))))))  ; …how many u2 fit — the same number
+
+;; ---- generative dimension-carrying math: abs / min / max / mod (base magnitude) ----
+;; These preserve dimension and agree with Frink on the base-SI magnitude. (floor/ceil/round are
+;; dimensionless-only in Frink — oracled on scalars below; sqrt/root have the exact-root spec.)
+(defspec ^:oracle dimensioned-math-matches-frink 200
+  (prop/for-all [group (gen/elements @pool-by-dim)
+                 a  gen-scalar
+                 b  gen-scalar
+                 idx (gen/tuple gen/nat gen/nat)
+                 op (gen/elements [:abs :min :max :mod])]
+    (or (not (o/available?))
+        (let [names (second group)
+              u1 (nth names (mod (first idx) (count names)))
+              u2 (nth names (mod (second idx) (count names)))
+              q1 (c/by a (lookup u1))
+              q2 (c/by b (lookup u2))
+              [c-mag fstr]
+              (case op
+                :abs [(q/magnitude (m/abs (c/by (- a) (lookup u1)))) (str "abs[(" (- a) ") " u1 "]")]
+                :min [(q/magnitude (m/min q1 q2)) (str "min[(" a ") " u1 ", (" b ") " u2 "]")]
+                :max [(q/magnitude (m/max q1 q2)) (str "max[(" a ") " u1 ", (" b ") " u2 "]")]
+                :mod [(q/magnitude (m/mod q1 q2)) (str "(" a " " u1 ") mod (" b " " u2 ")")])]
+          (= c-mag (:rational (o/frink-eval fstr)))))))
+
+;; ---- generative exact roots: sqrt / root of a perfect power (dims halve/divide, value exact) ----
+;; k^n · unit^n has an exact n-th root, k·unit, which Frink reproduces — exercising the rational-exponent
+;; (fractional-dimension) path the integer-power product spec never reaches.
+(defspec ^:oracle exact-roots-match-frink 150
+  (prop/for-all [nm (gen/elements @aligned-pool)
+                 k  (gen/choose 1 12)
+                 n  (gen/elements [2 3 4])]
+    (or (not (o/available?))
+        (let [u    (lookup nm)
+              kn   (reduce * 1 (repeat n k))              ; k^n, exact
+              q    (c/by kn (c/pow u n))
+              rt   (if (= n 2) (m/sqrt q) (m/root q n))
+              fstr (str "((" kn ") " nm "^" n ")^(1/" n ")")]
+          (= (q/magnitude rt) (:rational (o/frink-eval fstr)))))))
+
+;; ---- generative scalar rounding: floor / ceil / round (dimensionless — Frink floor is scalar-only) ----
+(defspec ^:oracle scalar-rounding-matches-frink 200
+  (prop/for-all [s  gen-scalar
+                 op (gen/elements [:floor :ceil :round])]
+    (or (not (o/available?))
+        (let [x (q/scalar s)
+              [c-val fstr] (case op
+                             :floor [(m/floor x) (str "floor[" s "]")]
+                             :ceil  [(m/ceil  x) (str "ceil["  s "]")]
+                             :round [(m/round x) (str "round[" s "]")])]
+          (= (q/display-value c-val) (:rational (o/frink-eval fstr)))))))
+
 ;; ---- irrational spot-checks: no exact rational, so compare within the reader's 1e-9 tolerance ----
 (deftest ^:oracle irrational-spot-checks
   (when (o/available?)
