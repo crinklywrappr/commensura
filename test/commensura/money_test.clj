@@ -1,36 +1,128 @@
 (ns commensura.money-test
   (:require [clojure.test :refer [deftest is testing]]
+            [clojure.test.check.clojure-test :refer [defspec]]
+            [clojure.test.check.generators :as gen]
+            [clojure.test.check.properties :as prop]
+            [clojurewerkz.money.amounts :as ma]
             [commensura.core :as c]
             [commensura.currency :as cur]
             [commensura.currency.rates :as rates]
+            [commensura.quantity :as q]
             [commensura.units :as u])
-  (:import [java.math RoundingMode]))
+  (:import [java.math RoundingMode]
+           [org.joda.money CurrencyUnit Money]))
 
 ;; a fixed rate snapshot so currency units resolve offline (USD is identity, no fetch)
 (def ^:private stub {"USD" 1, "EUR" 9/10, "JPY" 150, "ETH" 1/3000})
 (defn- with-rates [f] (with-redefs [rates/rates (constantly stub)] (f)))
 
-(deftest converts-currency-quantities
+(deftest quantity->money-converts
   (with-rates
    (fn []
      (testing "an amount → Money at the currency's decimal places"
-       (is (= "USD 19.99" (str (c/->money (cur/USD 1999/100)))))     ; 2 dp
-       (is (= "JPY 1235"  (str (c/->money (cur/JPY 6173/5))))))      ; 0 dp: 1234.6 → 1235
+       (is (= "USD 19.99" (str (c/quantity->money (cur/USD 1999/100)))))     ; 2 dp
+       (is (= "JPY 1235"  (str (c/quantity->money (cur/JPY 6173/5))))))      ; 0 dp: 1234.6 → 1235
      (testing "sub-minor-unit amounts round — HALF_EVEN by default, mode overridable"
-       (is (= "USD 20.00" (str (c/->money (cur/USD 3999/200)))))                     ; 19.995 → 20.00
-       (is (= "USD 19.99" (str (c/->money (cur/USD 3999/200) RoundingMode/FLOOR))))) ; → 19.99
+       (is (= "USD 20.00" (str (c/quantity->money (cur/USD 3999/200)))))                     ; 19.995 → 20.00
+       (is (= "USD 19.99" (str (c/quantity->money (cur/USD 3999/200) RoundingMode/FLOOR))))) ; → 19.99
      (testing "the builtin `dollar` unit aliases to USD"
-       (is (= "USD 100.00" (str (c/->money (u/dollar 100)))))))))
+       (is (= "USD 100.00" (str (c/quantity->money (u/dollar 100)))))))))
 
-(deftest rejects-bad-inputs
+(deftest quantity->money-rejects-bad-inputs
   (with-rates
    (fn []
      (testing "a non-currency quantity throws"
        (is (thrown-with-msg? clojure.lang.ExceptionInfo #"currency quantity"
-                             (c/->money (u/meter 5)))))
+                             (c/quantity->money (u/meter 5)))))
      (testing "a compound currency (EUR²) is not a plain amount"
        (is (thrown-with-msg? clojure.lang.ExceptionInfo #"currency quantity"
-                             (c/->money (cur/EUR 3 5)))))
+                             (c/quantity->money (cur/EUR 3 5)))))
      (testing "a code Joda-Money doesn't know (crypto ETH) throws a clear error"
        (is (thrown-with-msg? clojure.lang.ExceptionInfo #"not an ISO-4217 currency"
-                             (c/->money (cur/ETH 1))))))))
+                             (c/quantity->money (cur/ETH 1))))))))
+
+(deftest money->quantity-reenters-the-tower
+  (with-rates
+   (fn []
+     (testing "a Money re-enters the exact tower at its ISO code and amount"
+       (let [q (c/money->quantity (c/quantity->money (cur/USD 1999/100)))]
+         (is (= {:currency 1} (q/dims q)))
+         (is (= 1999/100 (q/display-value (c/to q u/dollar))))     ; exact, no double
+         (is (= "USD" (:unit-name (first (q/formula q)))))))
+     (testing "round-trips a currency with 0 decimal places (JPY)"
+       (is (= 1235 (q/display-value (c/to (c/money->quantity (c/quantity->money (cur/JPY 1235)))
+                                          (cur/JPY)))))))))
+
+;; ---- round-trip property (item 7) -------------------------------------------------------------------
+;; The strong claim: money->quantity and quantity->money are inverses across arbitrary currency
+;; arithmetic. We take a Money (A) in one currency, re-enter the tower, turn it into a *rate* by
+;; dividing through a random time span, convert the rate to a second currency, exit to Money (B), and
+;; then unwind the whole thing — multiply the time span back in, convert to the original currency, and
+;; exit to Money (A1). A1 must equal A up to a threshold we can compute exactly from the two exchange
+;; rates and the divisor: each Money hop rounds to the currency's minor unit, and that ε propagates
+;; through the ×(rate·n) unwind. Rates are pinned to a snapshot — a live CurrencyFreaks fetch when
+;; CURRENCYFREAKS_API_KEY is set (sweeping every ISO code it prices), else a deterministic stub so CI
+;; sweeps hundreds of currencies with no key. The round-trip is rate-agnostic; only *consistency* matters.
+
+(def ^:private live? (boolean (System/getenv "CURRENCYFREAKS_API_KEY")))
+
+;; Joda's ISO currencies that have a real minor unit (drop pseudo-currencies with getDecimalPlaces < 0).
+(def ^:private joda-iso
+  (into {} (for [^CurrencyUnit cu (CurrencyUnit/registeredCurrencies)
+                 :when (>= (.getDecimalPlaces cu) 0)]
+             [(.getCode cu) cu])))
+
+(defn- stub-rate                                          ; deterministic positive rational, units per USD
+  [code]
+  (if (= code "USD")
+    1
+    (/ (+ 100 (mod (Math/abs (hash code)) 90000)) 100)))  ; between 1.00 and ~900.99
+
+;; Codes usable in the sweep: Joda knows them (with a minor unit), commensura ships a resolver, and a
+;; rate exists in the pinned snapshot.
+(def ^:private rate-snapshot
+  (if live?
+    (rates/rates)
+    (into {} (for [code (keys joda-iso) :when (rates/supported? code)] [code (stub-rate code)]))))
+
+(def ^:private currency-pool
+  (vec (for [code (keys joda-iso)
+             :when (and (rates/supported? code) (contains? rate-snapshot code))]
+         code)))
+
+(defn- with-snapshot [f] (with-redefs [rates/rates (constantly rate-snapshot)] (f)))
+
+(defn- pow10 [k] (reduce * 1N (repeat k 10)))             ; exact 10^k
+
+(def ^:private gen-time-unit (gen/elements [u/second u/minute u/hour u/day u/week]))
+
+(defspec money-round-trips-across-currencies-and-time (if live? 300 500)
+  (prop/for-all [c1        (gen/elements currency-pool)
+                 c2        (gen/elements currency-pool)
+                 minor     (gen/choose 1 1000000)         ; minor units of c1 (cents, yen, …)
+                 time-unit gen-time-unit
+                 n         (gen/choose 1 1000)]           ; integer time span
+    (with-snapshot
+     (fn []
+       (let [cu1     (joda-iso c1)
+             dp1     (int (.getDecimalPlaces ^CurrencyUnit cu1))
+             dp2     (int (.getDecimalPlaces ^CurrencyUnit (joda-iso c2)))
+             u1      (rates/usd-value c1)                 ; USD value of one c1
+             u2      (rates/usd-value c2)
+             divisor (time-unit n)                        ; the same time span used to divide and multiply
+             a       (ma/of-minor cu1 minor)              ; (A)
+             q1      (c/money->quantity a)                ; back into the exact tower
+             rate    (c/per q1 divisor)                   ; a c1/time rate
+             rate2   (c/to rate (c/per (rates/unit c2) divisor))  ; same rate, expressed in c2
+             b       (c/quantity->money rate2)            ; (B) — currency c2, rounded to its minor unit
+             q2      (c/money->quantity b)
+             back    (c/by q2 divisor)                    ; multiply the time span back in
+             back1   (c/to back (c/by (rates/unit c1) divisor)) ; expressed in c1 again
+             a1      (c/quantity->money back1)            ; (A1)
+             ;; ε from the c2 hop is ½·10^-dp2; the unwind scales it by (u2·n/u1); a1 adds ½·10^-dp1
+             threshold (+ (* (/ u2 u1) n (/ 1 (* 2 (pow10 dp2))))
+                          (/ 1 (* 2 (pow10 dp1))))]
+         (and (= cu1 (.getCurrencyUnit ^Money a1))        ; came back to the original currency
+              (<= (abs (- (rationalize (.getAmount ^Money a1))
+                          (rationalize (.getAmount ^Money a))))
+                  threshold)))))))                        ; A1 == A within the provable rounding budget

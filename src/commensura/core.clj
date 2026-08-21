@@ -31,7 +31,7 @@
             [commensura.registry :as registry]
             [clojurewerkz.money.amounts :as ma]
             [clojurewerkz.money.currencies :as mc])
-  (:import [org.joda.money CurrencyUnit IllegalCurrencyException]
+  (:import [org.joda.money CurrencyUnit Money IllegalCurrencyException]
            [java.math RoundingMode]))
 
 (defn by
@@ -255,22 +255,27 @@
                      (vary-meta (q/unit ~(str sym) ~mag ~dims) assoc :ns (ns-name *ns*) :doc ~doc)))))
 
 ;; ---- Money bridge (clojurewerkz/money · Joda-Money) ----------------------------------------------
-;; Convert a currency quantity to a Money. This is the one verb that LEAVES commensura's exact tower:
-;; Money is a fixed-scale decimal, so the amount is rounded to the currency's minor unit. We build the
-;; Money from integer *minor units* (of-minor) — the scale-robust path across ISO currencies.
+;; Two verbs across the boundary to the Clojure money ecosystem. `quantity->money` is the one verb that
+;; LEAVES commensura's exact tower: Money is a fixed-scale decimal, so the amount is rounded to the
+;; currency's minor unit (built from integer minor units via of-minor — the scale-robust path across ISO
+;; currencies). `money->quantity` comes back the other way, re-entering the exact tower at full fidelity.
 
 (def ^:private currency-aliases
   "commensura unit-name → ISO-4217 code, for builtin currency units whose name isn't the ISO code."
   {"dollar" "USD"})
 
 (defn- currency-code
-  "The ISO code `qty` is denominated in — its display unit's name (aliased, e.g. `dollar` → `USD`).
-  Throws unless `qty` carries a currency dimension of exponent 1 (a single amount of money)."
+  "The ISO code `qty` is denominated in — the name of its currency display term (aliased, e.g. `dollar`
+  → `USD`). Throws unless `qty` carries a currency dimension of exponent 1 (a single amount of money, or
+  a rate like `$/hr` whose currency exponent is still 1)."
   [qty]
   (when-not (= 1 (:currency (q/dims qty)))
-    (throw (ex-info "->money expects a currency quantity (dimension :currency 1)"
+    (throw (ex-info "quantity->money expects a currency quantity (dimension :currency 1)"
                     {:dims (q/dims qty)})))
-  (let [nm (:unit-name (first (q/formula qty)))]
+  (let [terms (q/formula qty)
+        term  (or (first (filter #(= 1 (:currency (:base-dims %))) terms))  ; the currency term, even in a rate
+                  (first terms))
+        nm    (:unit-name term)]
     (get currency-aliases nm nm)))
 
 (defn- currency-unit
@@ -278,22 +283,24 @@
   (try (mc/for-code code)
        (catch IllegalCurrencyException _
          (throw (ex-info (str "not an ISO-4217 currency: " (pr-str code)
-                              " — ->money needs an ISO currency (convert to one first, e.g. via `to`)")
+                              " — quantity->money needs an ISO currency (convert to one first, e.g. via `to`)")
                          {:code code})))))
 
-(defn ->money
-  "Convert a currency quantity to an `org.joda.money.Money` (via clojurewerkz/money). `qty` must have
-  dimensions `{:currency 1}`; its ISO code is the display unit's name (`dollar` → `USD`). The amount is
-  rounded to the currency's decimal places — `HALF_EVEN` by default, or pass a `java.math.RoundingMode`.
+(defn quantity->money
+  "Convert a currency quantity to an `org.joda.money.Money` (via clojurewerkz/money). `qty` must carry a
+  currency dimension of exponent 1; its ISO code is the currency term's name (`dollar` → `USD`). The
+  displayed amount is rounded to the currency's decimal places — `HALF_EVEN` by default, or pass a
+  `java.math.RoundingMode`.
 
   This deliberately **leaves commensura's exact tower**: Money is a fixed-scale decimal, so an amount
   finer than the currency's minor unit is rounded. Throws on non-currency dimensions or a non-ISO code.
+  Inverse of `money->quantity` (up to that scale-rounding).
 
-    (->money (cur/USD 19.99))                       ;=> USD 19.99
-    (->money (cur/USD 19.995))                      ;=> USD 20.00   (HALF_EVEN)
-    (->money (cur/USD 19.995) RoundingMode/FLOOR)   ;=> USD 19.99"
-  (^org.joda.money.Money [qty] (->money qty RoundingMode/HALF_EVEN))
-  (^org.joda.money.Money [qty ^RoundingMode mode]
+    (quantity->money (cur/USD 19.99))                       ;=> USD 19.99
+    (quantity->money (cur/USD 19.995))                      ;=> USD 20.00   (HALF_EVEN)
+    (quantity->money (cur/USD 19.995) RoundingMode/FLOOR)   ;=> USD 19.99"
+  (^Money [qty] (quantity->money qty RoundingMode/HALF_EVEN))
+  (^Money [qty ^RoundingMode mode]
    (let [cu     (currency-unit (currency-code qty))
          dp     (int (.getDecimalPlaces cu))
          amount (q/display-value qty)                         ; exact Ratio/integer coefficient
@@ -302,3 +309,19 @@
          scaled (.divide (bigdec n) (bigdec d) dp mode)       ; exact rational → BigDecimal at scale
          minor  (parse-long (str (.movePointRight scaled dp)))] ; whole minor units (cents, …)
      (ma/of-minor cu minor))))
+
+(defn money->quantity
+  "Convert an `org.joda.money.Money` into an exact commensura currency quantity. The Money's ISO code
+  resolves to a live currency unit (through the currency resolver — `require commensura.currency` first)
+  scaled by the Money's decimal amount, which re-enters the exact tower as a rational. Inverse of
+  `quantity->money` (Money already sits at the currency's scale, so nothing is lost coming back).
+
+    (money->quantity (quantity->money (cur/USD 19.99)))   ;=> 1999/100 USD  ; == (cur/USD 19.99)"
+  [^Money money]
+  (let [code   (.getCode (.getCurrencyUnit money))
+        amount (rationalize (.getAmount money))               ; fixed-scale decimal → exact rational
+        unit   (or (registry/resolve-unit code)
+                   (throw (ex-info (str "no commensura currency unit for ISO code " (pr-str code)
+                                        " — is the currency resolver loaded? (require commensura.currency)")
+                                   {:code code})))]
+    (unit amount)))

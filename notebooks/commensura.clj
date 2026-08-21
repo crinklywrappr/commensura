@@ -207,6 +207,19 @@ fuel-cost
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (demo (to (per (cur/XAU) u/troyounce) (per u/dollar u/kg)))
 
+;; Need to hand a value to the wider money ecosystem? **`quantity->money`** bridges a currency quantity
+;; to a **Joda-Money** `Money` (via clojurewerkz/money), rounding to the currency's decimal places — the
+;; one verb that deliberately *leaves* the exact tower. USD is the reference rate, so this needs no key;
+;; note the sub-cent amount rounds (HALF_EVEN by default, or pass a `RoundingMode`):
+
+(quantity->money (cur/USD 19.995))
+
+;; …and **`money->quantity`** comes back the other way, re-entering the exact tower — so a `Money` can be
+;; scaled, converted, and compared with everything else here (the amount is already at the currency's
+;; scale, so nothing is lost):
+
+(money->quantity (quantity->money (cur/USD 19.99)))
+
 ;; ## Extending commensura
 ;;
 ;; **`defunit`** mints your own unit as a callable var — indistinguishable from the built-ins. Define it
