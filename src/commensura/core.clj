@@ -28,47 +28,70 @@
   bare quantity/number as a degenerate interval, so no scalar promotion is needed."
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
+            [commensura.uncertain :as un]
             [commensura.registry :as registry])
   (:import [org.joda.money CurrencyUnit Money IllegalCurrencyException]
            [java.math RoundingMode]))
 
+;; Every binary verb dispatches three ways: an Uncertain operand routes to the quadrature layer, an
+;; Interval operand to the interval layer, and the common case to the plain quantity tower. Uncertain
+;; and Interval are different notions of spread (epistemic σ vs. a denoted range), so mixing them in
+;; one operation is a mistake and throws — a plain operand, by contrast, promotes cleanly on either
+;; side (σ=0 / a degenerate point).
+(defn- dispatch2 [x y un-fn iv-fn q-fn]
+  (cond
+    (or (un/uncertain? x) (un/uncertain? y))
+    (if (or (iv/interval? x) (iv/interval? y))
+      (throw (ex-info "commensura: cannot mix an Uncertain and an Interval in one operation"
+                      {:x x :y y}))
+      (un-fn x y))
+    (or (iv/interval? x) (iv/interval? y)) (iv-fn x y)
+    :else (q-fn x y)))
+
 (defn by
-  "Product of quantities/numbers/intervals (dimensions add). Variadic."
+  "Product of quantities/numbers/intervals/uncertains (dimensions add). Variadic."
   ([x] x)
-  ([x y] (if (or (iv/interval? x) (iv/interval? y)) (iv/iby x y) (q/qmul x y)))
+  ([x y] (dispatch2 x y un/uby iv/iby q/qmul))
   ([x y & more] (reduce by (by x y) more)))
 
 (defn per
   "Quotient, left-associative: (per a b c) = a/b/c (dimensions subtract)."
   ([x] x)
-  ([x y] (if (or (iv/interval? x) (iv/interval? y)) (iv/iper x y) (q/qdiv x y)))
+  ([x y] (dispatch2 x y un/uper iv/iper q/qdiv))
   ([x y & more] (reduce per (per x y) more)))
 
 (defn plus
-  "Sum of same-dimension quantities/intervals. Variadic."
+  "Sum of same-dimension quantities/intervals/uncertains. Variadic."
   ([x] x)
-  ([x y] (if (or (iv/interval? x) (iv/interval? y)) (iv/iplus x y) (q/qadd x y)))
+  ([x y] (dispatch2 x y un/uplus iv/iplus q/qadd))
   ([x y & more] (reduce plus (plus x y) more)))
 
 (defn minus
-  "Difference of same-dimension quantities/intervals; unary form negates."
-  ([x] (if (iv/interval? x) (iv/inegate x) (q/qmul (q/scalar -1) x)))
-  ([x y] (if (or (iv/interval? x) (iv/interval? y)) (iv/iminus x y) (q/qsub x y)))
+  "Difference of same-dimension quantities/intervals/uncertains; unary form negates."
+  ([x] (cond (un/uncertain? x) (un/unegate x)
+             (iv/interval? x)  (iv/inegate x)
+             :else             (q/qmul (q/scalar -1) x)))
+  ([x y] (dispatch2 x y un/uminus iv/iminus q/qsub))
   ([x y & more] (reduce minus (minus x y) more)))
 
 (defn pow
-  "Raise a quantity/interval to an integer power."
-  [x n] (if (iv/interval? x) (iv/ipow x n) (q/qpow x n)))
+  "Raise a quantity/interval/uncertain to an integer or rational power."
+  [x n] (cond (un/uncertain? x) (un/upow x n)
+              (iv/interval? x)  (iv/ipow x n)
+              :else             (q/qpow x n)))
 
 (defn to
-  "Re-express a quantity/interval in a target unit (dimension-preserving). Uses only the target's unit
-  basis: a *scaled* target's coefficient is ignored (and warns) — `(to (u/mile 5) (u/foot 3))` gives
-  feet, not 3-foot units. For \"how many of a given quantity fit\", use `ratio`. See `q/to`."
-  [x target] (if (iv/interval? x) (iv/ito x target) (q/to x target)))
+  "Re-express a quantity/interval/uncertain in a target unit (dimension-preserving). Uses only the
+  target's unit basis: a *scaled* target's coefficient is ignored (and warns) — `(to (u/mile 5)
+  (u/foot 3))` gives feet, not 3-foot units. For \"how many of a given quantity fit\", use `ratio`.
+  See `q/to`."
+  [x target] (cond (un/uncertain? x) (un/uto x target)
+                   (iv/interval? x)  (iv/ito x target)
+                   :else             (q/to x target)))
 
 (defn ratio
-  "Dimensionless count: how many of target fit in x (quantity or interval)."
-  [x target] (if (iv/interval? x) (iv/iratio x target) (q/ratio x target)))
+  "Dimensionless count: how many of target fit in x (quantity/interval/uncertain)."
+  [x target] (dispatch2 x target un/uratio iv/iratio q/ratio))
 
 ;; ---- comparison ----
 ;; A comparison orders values by the *range* each one spans. An interval spans [lo, hi]; a plain
@@ -78,39 +101,46 @@
 ;; `q/qcompare` does the ordering (conformance-checked, by base magnitude, approx-aware), so
 ;; every operator works on quantities, plain numbers, and intervals uniformly.
 
+;; An Uncertain compares on its *central value* (the spread is ignored here — for a σ-aware test use
+;; `commensura.uncertain/within?` / `consistent?`). `central` collapses an uncertain to that value;
+;; `clo`/`chi` then read the comparison range (an interval's bound, or the point itself).
+(defn- central [x] (if (un/uncertain? x) (un/value x) x))
+(defn- clo [x] (iv/lo-or-identity (central x)))
+(defn- chi [x] (iv/hi-or-identity (central x)))
+
 ;; Certainly-* : the relation holds for *every* pair of values, one from x and one from y.
 (defn certainly-lt?
   "x's high bound is below y's low bound: every value of x < every value of y."
   [x y]
-  (neg? (q/qcompare (iv/hi-or-identity x) (iv/lo-or-identity y))))
+  (neg? (q/qcompare (chi x) (clo y))))
 
 (defn certainly-le?
   "x's high bound <= y's low bound: every value of x <= every value of y."
   [x y]
-  (<= (q/qcompare (iv/hi-or-identity x) (iv/lo-or-identity y)) 0))
+  (<= (q/qcompare (chi x) (clo y)) 0))
 
 (defn certainly-gt?
   "x's low bound is above y's high bound: every value of x > every value of y."
   [x y]
-  (pos? (q/qcompare (iv/lo-or-identity x) (iv/hi-or-identity y))))
+  (pos? (q/qcompare (clo x) (chi y))))
 
 (defn certainly-ge?
   "x's low bound >= y's high bound: every value of x >= every value of y."
   [x y]
-  (>= (q/qcompare (iv/lo-or-identity x) (iv/hi-or-identity y)) 0))
+  (>= (q/qcompare (clo x) (chi y)) 0))
 
 (defn certainly-eq?
   "x and y are the same single point (both collapse to one shared value)."
   [x y]
-  (and (zero? (q/qcompare (iv/lo-or-identity x) (iv/lo-or-identity y)))  ; cross-compare: enforces conformance
-       (zero? (q/qcompare (iv/hi-or-identity x) (iv/hi-or-identity y)))
-       (zero? (q/qcompare (iv/lo-or-identity x) (iv/hi-or-identity x))))) ; …and x is a point (so, with the above, is y)
+  (and (zero? (q/qcompare (clo x) (clo y)))  ; cross-compare: enforces conformance
+       (zero? (q/qcompare (chi x) (chi y)))
+       (zero? (q/qcompare (clo x) (chi x))))) ; …and x is a point (so, with the above, is y)
 
 (defn certainly-ne?
   "x and y are disjoint: their ranges share no value."
   [x y]
-  (or (neg? (q/qcompare (iv/hi-or-identity x) (iv/lo-or-identity y)))
-      (neg? (q/qcompare (iv/hi-or-identity y) (iv/lo-or-identity x)))))
+  (or (neg? (q/qcompare (chi x) (clo y)))
+      (neg? (q/qcompare (chi y) (clo x)))))
 
 ;; Possibly-* : the relation holds for *some* pair. Frink's property — the possibly operator is
 ;; the negation of the opposite certainly operator — so each is correct by construction.
