@@ -113,17 +113,19 @@
   (to (minus (range-hi x) (range-lo x)) unit))
 
 (defn steps
-  "Enumerate a range (Interval or Uncertain) unit-by-unit: quantities from the low bound up to and
-  including the high bound, in increments of one `unit`, each expressed in `unit`. Marks start at the
-  low bound (so the first may be fractional in `unit`) and step while ≤ hi. Returns an **eduction**, so
-  it reduces without an intermediate seq and composes with transducers and `into`:
+  "Enumerate a range (Interval or Uncertain) unit-by-unit: quantities from the low bound toward the
+  high bound in increments of one `unit`, each expressed in `unit`. **Half-open `[lo, hi)`, like
+  `range`** — a mark landing exactly on `hi` is excluded, so each mark owns the cell `[mark,
+  mark+unit)` and the cells tile the range without double-counting. Marks start at the low bound (so
+  the first may be fractional in `unit`). Returns an **eduction**, so it reduces without an
+  intermediate seq and composes with transducers and `into`:
 
     (into [] (steps (iv/interval (u/meter 6) (u/meter 11)) u/foot))
     (into [] (map m/round) (steps some-interval u/foot))"
   [x unit]
   (let [hi (range-hi x)]
     (eduction
-     (take-while #(not (pos? (q/qcompare % hi))))       ; while ≤ hi
+     (take-while #(neg? (q/qcompare % hi)))             ; while < hi (half-open [lo, hi))
      (map #(to % unit))
      (iterate #(plus % unit) (range-lo x)))))
 

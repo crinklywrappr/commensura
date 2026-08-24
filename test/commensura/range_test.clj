@@ -30,8 +30,15 @@
     (testing "starts at the low bound and steps by exactly one unit"
       (is (= 2500/127 (q/display-value (first xs))))   ; 6 m in feet
       (is (c/certainly-eq? (c/minus (second xs) (first xs)) (u/foot 1))))
-    (testing "count = floor(span-in-unit) + 1 (hi is included)"
+    (testing "half-open: every mark is strictly below hi"
+      (is (every? #(c/certainly-lt? % (u/meter 11)) xs))
       (is (= 17 (count xs))))))
+
+(deftest steps-is-half-open-at-an-aligned-boundary
+  (testing "a mark landing exactly on hi is excluded (like range)"
+    ;; [1 m, 4 m] by the metre lands exactly on 4 m, which is dropped: {1, 2, 3}, not {1,2,3,4}.
+    (is (= [1 2 3]
+           (mapv q/display-value (into [] (c/steps (iv/interval (u/meter 1) (u/meter 4)) u/meter)))))))
 
 (deftest steps-is-an-eduction-that-composes
   (let [i (iv/interval (u/meter 6) (u/meter 11))]
@@ -43,11 +50,12 @@
                    (into [] (comp (map m/round) (take 4)) (c/steps i u/foot))))))))
 
 (deftest steps-over-an-uncertain
-  (testing "range is [value−σ, value+σ]"
-    (is (= [498 499 500 501 502]                        ; [4.98, 5.02] m, marked in cm
+  (testing "range is [value−σ, value+σ], half-open so the top bound (502 cm) is excluded"
+    (is (= [498 499 500 501]                            ; [4.98, 5.02) m, marked in cm
            (mapv q/display-value (into [] (c/steps (plus-minus (u/meter 5) (u/cm 2)) u/cm)))))))
 
-;; The two verbs agree: stepping fills the span, so there is one mark per whole unit plus the start.
+;; The two verbs agree: half-open steps count = ⌈span/unit⌉ (= floor(span/unit)+1 for the non-aligned
+;; spans generated here — a whole number of metres is never a whole number of feet for w in 1..30).
 (defn- floor-ratio [r] (if (ratio? r) (quot (numerator r) (denominator r)) (long r)))
 
 (defspec steps-count-matches-span 200
