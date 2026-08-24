@@ -14,6 +14,7 @@
             [commensura.units :as u]
             [commensura.quantity :as q]
             [commensura.interval :as iv]
+            [commensura.uncertain :as un]
             [commensura.math :as m]
             [commensura.cpi :as cpi]
             [commensura.currency :as cur]
@@ -42,6 +43,10 @@
    :transform-fn (comp clerk/mark-presented
                        (clerk/update-val
                         (fn [x] (str "[" (str (iv/lo x)) "  …  " (str (iv/hi x)) "]"))))
+   :render-fn '(fn [s] [:span {:style {:color "#7c3aed" :font-family "monospace"}} s])}
+  {:name :commensura/uncertain
+   :pred un/uncertain?
+   :transform-fn (comp clerk/mark-presented (clerk/update-val str))   ; "value ± sigma [dimension]"
    :render-fn '(fn [s] [:span {:style {:color "#7c3aed" :font-family "monospace"}} s])}])
 
 ;; `demo` runs a *live* example (currency, satoshi) but shows the reader only the bare form and its
@@ -111,7 +116,19 @@
 
 (m/sqrt (u/meter 2))
 
-;; ## Intervals — honest answers when the inputs are fuzzy
+;; ## Range types — when a number isn't a single point
+;;
+;; Sometimes a measurement isn't one number. commensura has two *range* values, and both ride the same
+;; verbs (`by`/`per`/`plus`/`minus`/`pow`/`to`) as an ordinary quantity:
+;;
+;; * an **interval** — a guaranteed span `[lo, hi]`; *every* value in between is possible, and
+;;   arithmetic returns the tightest range containing every outcome (Frink's interval arithmetic);
+;; * an **uncertain** — a best estimate with a **± 1σ** spread that propagates in quadrature.
+;;
+;; They answer different questions — a hard range vs. a statistical error bar — but you compute with
+;; them the same way. (Mixing the two in one operation is, deliberately, an error.)
+;;
+;; ### Intervals — the honest span
 ;;
 ;; Real-world numbers have slop, and interval arithmetic propagates it **rigorously**: the true result
 ;; is guaranteed to lie inside the computed range. Because commensura's bounds are exact rationals, that
@@ -134,14 +151,67 @@
 fuel-cost
 
 ;; Somewhere between **\$297⁵⁰ and \$390** — the honest span, not one misleading point estimate. So: is
-;; **\$400 certainly enough** to cover gas? Interval comparisons (next section) make that a real question:
+;; **\$400 certainly enough** to cover gas?
 
 (certainly-lt? fuel-cost (u/dollars 400))
+
+;; ### Uncertainties — a best estimate ± error
+;;
+;; A tape measure gives a value with a **1σ** spread, not a hard range. `plus-minus` pairs the two; the
+;; spread then propagates through the arithmetic — in **quadrature** for `×`/`÷`, so it's the *relative*
+;; errors that combine. The centre stays exact; only σ goes approximate (a √ is irrational).
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(def len (un/plus-minus (u/meter 120/100) (u/cm 2)))    ; 1.20 m ± 2 cm
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(def wid (un/plus-minus (u/meter 80/100) (u/cm 1)))     ; 0.80 m ± 1 cm
+
+;; The tabletop's area comes back carrying its own error bar, computed for you:
+
+(def top (by len wid))
+
+;; …and its *relative* uncertainty is one call away:
+
+(un/relative top)
+
+;; Two independent measurements of the **same** board — do they agree? `consistent?` asks "within 2σ?"
+;; and `within?` takes any threshold — the statistical cousins of the interval `certainly?`/`possibly?`.
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(def board-a (un/plus-minus (u/meter 120/100) (u/cm 2)))
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(def board-b (un/plus-minus (u/meter 121/100) (u/cm 1)))
+
+[(un/consistent? board-a board-b) (un/within? board-a board-b 1)]
+
+;; ### How much, and how many? — `span` and `steps`
+;;
+;; Two verbs read a range — an interval's `[lo, hi]`, or an uncertain's `[value−σ, value+σ]` — and
+;; answer in terms of a unit. `span` collapses it to a single **dimensioned width**; `steps` walks it
+;; **unit-by-unit** (half-open `[lo, hi)`, like `range`) and returns an *eduction*, so it drops straight
+;; into `into` and transducers.
+
+;; How wide was that fuel estimate, in dollars?
+
+(span fuel-cost u/dollar)
+
+;; The full ±2σ band of a measurement, as one length:
+
+(span board-a u/cm)
+
+;; A 6–11 m doorway clearance — how many whole feet is that, marked off one at a time?
+
+(span (iv/interval (u/meter 6) (u/meter 11)) u/foot)
+
+(into [] (map m/round) (steps (iv/interval (u/meter 6) (u/meter 11)) u/foot))
 
 ;; ## Comparisons
 ;;
 ;; Quantities compare **physically** (unit-agnostic), and intervals get Frink's *certainly* / *possibly*
-;; operators plus plain relationals that throw on a genuine overlap.
+;; operators plus plain relationals that throw on a genuine overlap. (An uncertain compares on its
+;; central value; for a σ-aware test use `within?` / `consistent?` above.)
 
 (eq? (u/foot 1) (u/inch 12))                            ; 1 ft = 12 in
 
