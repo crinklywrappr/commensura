@@ -155,57 +155,86 @@ fuel-cost
 
 (certainly-lt? fuel-cost (u/dollars 400))
 
-;; ### Uncertainties — a best estimate ± error
+;; ### Uncertainties — when the error bar *is* the answer
 ;;
-;; A tape measure gives a value with a **1σ** spread, not a hard range. `plus-minus` pairs the two; the
-;; spread then propagates through the arithmetic — in **quadrature** for `×`/`÷`, so it's the *relative*
-;; errors that combine. The centre stays exact; only σ goes approximate (a √ is irrational).
+;; A scale or a caliper gives a best reading with a **1σ** error bar, not a hard range. `plus-minus`
+;; pairs the two, and the spread then rides the arithmetic — combined in **quadrature**, so for `×`/`÷`
+;; it's the *relative* errors that add. The centre stays exact; only σ goes approximate (a √ is
+;; irrational). Here is where that bookkeeping earns its keep.
+;;
+;; Someone hands you a small gold-coloured bar. **Is it real?** Gold's tell is its density —
+;; 19.30 g/cm³ — so weigh it, measure its volume by water displacement, and divide. Each instrument
+;; brings its own precision:
 
 ^{:nextjournal.clerk/visibility {:result :hide}}
-(def len (un/plus-minus (u/meter 120/100) (u/cm 2)))    ; 1.20 m ± 2 cm
+(def mass   (un/plus-minus (u/gram 965/10) (u/gram 1/10)))    ; 96.5 g ± 0.1 g  (jeweler's scale)
 
 ^{:nextjournal.clerk/visibility {:result :hide}}
-(def wid (un/plus-minus (u/meter 80/100) (u/cm 1)))     ; 0.80 m ± 1 cm
+(def volume (un/plus-minus (u/cm 5 1 1) (u/cm 1/20 1 1)))     ; 5.00 cm³ ± 0.05 cm³  (graduated cylinder)
 
-;; The tabletop's area comes back carrying its own error bar, computed for you:
+;; Divide, and the density comes back with its error bar already propagated:
 
-(def top (by len wid))
+(def density (per mass volume))
 
-;; …and its *relative* uncertainty is one call away:
-
-(un/relative top)
-
-;; Two independent measurements of the **same** board — do they agree? `consistent?` asks "within 2σ?"
-;; and `within?` takes any threshold — the statistical cousins of the interval `certainly?`/`possibly?`.
+;; Dead on 19.3 g/cm³ — so it's **consistent with gold** at any threshold (`consistent?` = "agree
+;; within 2σ?"; `within?` takes any threshold — the statistical cousins of the interval
+;; `certainly?`/`possibly?`):
 
 ^{:nextjournal.clerk/visibility {:result :hide}}
-(def board-a (un/plus-minus (u/meter 120/100) (u/cm 2)))
+(def gold     (per (u/gram 193/10)   (u/cm 1 1 1)))           ; 19.30 g/cm³
 
 ^{:nextjournal.clerk/visibility {:result :hide}}
-(def board-b (un/plus-minus (u/meter 121/100) (u/cm 1)))
+(def tungsten (per (u/gram 1925/100) (u/cm 1 1 1)))          ; 19.25 g/cm³
+^{:nextjournal.clerk/visibility {:result :hide}}
+(def lead     (per (u/gram 1134/100) (u/cm 1 1 1)))          ; 11.34 g/cm³
 
-[(un/consistent? board-a board-b) (un/within? board-a board-b 1)]
+(un/consistent? density gold)
 
+;; But here's the catch: the *same* reading is also consistent with **tungsten** (19.25 g/cm³) — the
+;; classic gilded-bar counterfeit. Your error bar is simply too wide to tell them apart:
+
+(un/consistent? density tungsten)
+
+;; **Lead**, though, is ruled out cold — dozens of σ away:
+
+(un/consistent? density lead)
+
+;; The verdict hinges entirely on that error bar — about 1%, and dominated by the crude volume reading:
+
+(un/relative density)
+
+;; To separate gold from tungsten you'd need σ small enough that their 0.05 g/cm³ gap is *many* sigma —
+;; i.e. a far better volume measurement. Uncertainty here isn't decoration; it's the whole conclusion.
+;;
 ;; ### How much, and how many? — `span` and `steps`
 ;;
 ;; Two verbs read a range — an interval's `[lo, hi]`, or an uncertain's `[value−σ, value+σ]` — and
-;; answer in terms of a unit. `span` collapses it to a single **dimensioned width**; `steps` walks it
-;; **unit-by-unit** (half-open `[lo, hi)`, like `range`) and returns an *eduction*, so it drops straight
-;; into `into` and transducers.
-
-;; How wide was that fuel estimate, in dollars?
+;; answer it in terms of a unit. `span` collapses the range to a single **dimensioned width**; `steps`
+;; walks it **unit-by-unit** (half-open `[lo, hi)`, like `range`) and returns an *eduction*, so it drops
+;; straight into `into` and transducers.
+;;
+;; `span` is *the width of what you don't know*. How much was that road-trip estimate really pinning
+;; down — in plain dollars?
 
 (span fuel-cost u/dollar)
 
-;; The full ±2σ band of a measurement, as one length:
+;; \$92.50 of daylight between best and worst case: the literal price of the uncertainty. It reads an
+;; uncertain's band just as happily — here, the 0.2 g the scale left open on the bar above:
 
-(span board-a u/cm)
+(span mass u/gram)
 
-;; A 6–11 m doorway clearance — how many whole feet is that, marked off one at a time?
+;; `steps` enumerates instead. You build custom tables; a client wants one **between 1.5 m and 2.5 m**
+;; long, and you sell them in **whole-foot** sizes. Which sizes fall in their range?
 
-(span (iv/interval (u/meter 6) (u/meter 11)) u/foot)
+^{:nextjournal.clerk/visibility {:result :hide}}
+(def wanted (iv/interval (u/meter 3/2) (u/meter 5/2)))
 
-(into [] (map m/round) (steps (iv/interval (u/meter 6) (u/meter 11)) u/foot))
+(span wanted u/foot)                                          ; a ~3.3-foot spread of options
+
+(into [] (map m/round) (steps wanted u/foot))                ; the whole-foot sizes on offer
+
+;; That `(into [] (map m/round) …)` piped the eduction straight through a transducer — no intermediate
+;; seq — and, being half-open like `range`, `steps` stops shy of the top bound.
 
 ;; ## Comparisons
 ;;
