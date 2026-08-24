@@ -97,7 +97,7 @@
 ;; These read a *range* — an Interval's [lo, hi], or an Uncertain's [value−σ, value+σ] — and answer in
 ;; terms of a `unit`. A plain quantity is a degenerate point-range (lo=hi), consistent with the rest of
 ;; commensura (a scalar is its own bound), so both verbs are total. `span` gives the extent as a single
-;; dimensioned quantity; `steps` enumerates the range unit-by-unit. (For a bare dimensionless *count*,
+;; dimensioned quantity; `ticks` marks the range off unit-by-unit. (For a bare dimensionless *count*,
 ;; use `ratio`.)
 (defn- range-lo [x]
   (if (un/uncertain? x) (minus (un/value x) (un/sigma x)) (iv/lo-or-identity x)))
@@ -108,20 +108,20 @@
   "The extent of a range (Interval or Uncertain) as a single dimensioned quantity in `unit`: `hi − lo`
   re-expressed in `unit`. `(span (iv/interval (u/meter 6) (u/meter 11)) u/foot)` ⇒ ≈ 16.40 foot
   [length]; for an Uncertain it is the full 2σ width. A plain quantity is a point, so its span is 0.
-  See `ratio` for the bare count and `steps` for the individual marks."
+  See `ratio` for the bare count and `ticks` for the individual marks along the span."
   [x unit]
   (to (minus (range-hi x) (range-lo x)) unit))
 
-(defn steps
-  "Enumerate a range (Interval or Uncertain) unit-by-unit: quantities from the low bound toward the
-  high bound in increments of one `unit`, each expressed in `unit`. **Half-open `[lo, hi)`, like
-  `range`** — a mark landing exactly on `hi` is excluded, so each mark owns the cell `[mark,
-  mark+unit)` and the cells tile the range without double-counting. Marks start at the low bound (so
-  the first may be fractional in `unit`). Returns an **eduction**, so it reduces without an
-  intermediate seq and composes with transducers and `into`:
+(defn ticks
+  "Mark a range (Interval or Uncertain) off unit-by-unit — a unit ruler laid along the span: quantities
+  from the low bound toward the high bound in increments of one `unit`, each expressed in `unit`.
+  **Half-open `[lo, hi)`, like `range`** — a mark landing exactly on `hi` is excluded, so each mark owns
+  the cell `[mark, mark+unit)` and the cells tile the range without double-counting. Marks start at the
+  low bound (so the first may be fractional in `unit`). Returns an **eduction**, so it reduces without
+  an intermediate seq and composes with transducers and `into`:
 
-    (into [] (steps (iv/interval (u/meter 6) (u/meter 11)) u/foot))
-    (into [] (map m/round) (steps some-interval u/foot))"
+    (into [] (ticks (iv/interval (u/meter 6) (u/meter 11)) u/foot))
+    (into [] (map m/round) (ticks some-interval u/foot))"
   [x unit]
   (let [hi (range-hi x)]
     (eduction

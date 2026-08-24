@@ -206,12 +206,12 @@ fuel-cost
 ;; To separate gold from tungsten you'd need σ small enough that their 0.05 g/cm³ gap is *many* sigma —
 ;; i.e. a far better volume measurement. Uncertainty here isn't decoration; it's the whole conclusion.
 ;;
-;; ### How much, and how many? — `span` and `steps`
+;; ### How much, and how many? — `span` and `ticks`
 ;;
 ;; Two verbs read a range — an interval's `[lo, hi]`, or an uncertain's `[value−σ, value+σ]` — and
-;; answer it in terms of a unit. `span` collapses the range to a single **dimensioned width**; `steps`
-;; walks it **unit-by-unit** (half-open `[lo, hi)`, like `range`) and returns an *eduction*, so it drops
-;; straight into `into` and transducers.
+;; answer it in terms of a unit. `span` collapses the range to a single **dimensioned width**; `ticks`
+;; marks it off **unit-by-unit** (a unit ruler laid along the span — half-open `[lo, hi)`, like `range`)
+;; and returns an *eduction*, so it drops straight into `into` and transducers.
 ;;
 ;; `span` is *the width of what you don't know*. How much was that road-trip estimate really pinning
 ;; down — in plain dollars?
@@ -223,7 +223,7 @@ fuel-cost
 
 (span mass u/gram)
 
-;; `steps` enumerates instead. You build custom tables; a client wants one **between 1.5 m and 2.5 m**
+;; `ticks` enumerates instead. You build custom tables; a client wants one **between 1.5 m and 2.5 m**
 ;; long, and you sell them in **whole-foot** sizes. Which sizes fall in their range?
 
 ^{:nextjournal.clerk/visibility {:result :hide}}
@@ -231,10 +231,10 @@ fuel-cost
 
 (span wanted u/foot)                                          ; a ~3.3-foot spread of options
 
-(into [] (map m/round) (steps wanted u/foot))                ; the whole-foot sizes on offer
+(into [] (map m/round) (ticks wanted u/foot))                ; the whole-foot sizes on offer
 
 ;; That `(into [] (map m/round) …)` piped the eduction straight through a transducer — no intermediate
-;; seq — and, being half-open like `range`, `steps` stops shy of the top bound.
+;; seq — and, being half-open like `range`, `ticks` stops shy of the top bound.
 
 ;; ## Comparisons
 ;;

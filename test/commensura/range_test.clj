@@ -21,45 +21,45 @@
   (testing "a plain quantity is a point → zero span"
     (is (= 0 (q/display-value (c/span (u/meter 5) u/foot))))))
 
-(deftest steps-enumerates-the-range-unit-by-unit
+(deftest ticks-enumerates-the-range-unit-by-unit
   (let [i  (iv/interval (u/meter 6) (u/meter 11))
-        xs (into [] (c/steps i u/foot))]
+        xs (into [] (c/ticks i u/foot))]
     (testing "each mark is a quantity in the unit, within [lo, hi]"
       (is (every? #(= {:length 1} (q/dims %)) xs))
       (is (every? #(and (c/certainly-ge? % (u/meter 6)) (c/certainly-le? % (u/meter 11))) xs)))
-    (testing "starts at the low bound and steps by exactly one unit"
+    (testing "starts at the low bound and advances by exactly one unit"
       (is (= 2500/127 (q/display-value (first xs))))   ; 6 m in feet
       (is (c/certainly-eq? (c/minus (second xs) (first xs)) (u/foot 1))))
     (testing "half-open: every mark is strictly below hi"
       (is (every? #(c/certainly-lt? % (u/meter 11)) xs))
       (is (= 17 (count xs))))))
 
-(deftest steps-is-half-open-at-an-aligned-boundary
+(deftest ticks-is-half-open-at-an-aligned-boundary
   (testing "a mark landing exactly on hi is excluded (like range)"
     ;; [1 m, 4 m] by the metre lands exactly on 4 m, which is dropped: {1, 2, 3}, not {1,2,3,4}.
     (is (= [1 2 3]
-           (mapv q/display-value (into [] (c/steps (iv/interval (u/meter 1) (u/meter 4)) u/meter)))))))
+           (mapv q/display-value (into [] (c/ticks (iv/interval (u/meter 1) (u/meter 4)) u/meter)))))))
 
-(deftest steps-is-an-eduction-that-composes
+(deftest ticks-is-an-eduction-that-composes
   (let [i (iv/interval (u/meter 6) (u/meter 11))]
-    (is (instance? clojure.core.Eduction (c/steps i u/foot)))
+    (is (instance? clojure.core.Eduction (c/ticks i u/foot)))
     (testing "composes with into + transducers, reducing without an intermediate seq"
-      (is (= 17 (count (into [] (c/steps i u/foot)))))
+      (is (= 17 (count (into [] (c/ticks i u/foot)))))
       (is (= [20 21 22 23]                              ; whole-foot marks after rounding, first four
              (mapv q/display-value
-                   (into [] (comp (map m/round) (take 4)) (c/steps i u/foot))))))))
+                   (into [] (comp (map m/round) (take 4)) (c/ticks i u/foot))))))))
 
-(deftest steps-over-an-uncertain
+(deftest ticks-over-an-uncertain
   (testing "range is [value−σ, value+σ], half-open so the top bound (502 cm) is excluded"
     (is (= [498 499 500 501]                            ; [4.98, 5.02) m, marked in cm
-           (mapv q/display-value (into [] (c/steps (plus-minus (u/meter 5) (u/cm 2)) u/cm)))))))
+           (mapv q/display-value (into [] (c/ticks (plus-minus (u/meter 5) (u/cm 2)) u/cm)))))))
 
-;; The two verbs agree: half-open steps count = ⌈span/unit⌉ (= floor(span/unit)+1 for the non-aligned
+;; The two verbs agree: half-open ticks count = ⌈span/unit⌉ (= floor(span/unit)+1 for the non-aligned
 ;; spans generated here — a whole number of metres is never a whole number of feet for w in 1..30).
 (defn- floor-ratio [r] (if (ratio? r) (quot (numerator r) (denominator r)) (long r)))
 
-(defspec steps-count-matches-span 200
+(defspec ticks-count-matches-span 200
   (prop/for-all [lo (gen/choose 1 20), w (gen/choose 1 30)]
     (let [i (iv/interval (u/meter lo) (u/meter (+ lo w)))]
-      (= (count (into [] (c/steps i u/foot)))
+      (= (count (into [] (c/ticks i u/foot)))
          (inc (floor-ratio (q/display-value (c/span i u/foot))))))))

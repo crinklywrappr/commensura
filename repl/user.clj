@@ -1,6 +1,6 @@
 (ns user
   "REPL convenience namespace: all of commensura, ready to poke at. `commensura.core` is
-  `:refer :all`-ed (so `by`/`per`/`to`/`ratio`/`span`/`steps`/the comparison verbs/… are bare);
+  `:refer :all`-ed (so `by`/`per`/`to`/`ratio`/`span`/`ticks`/the comparison verbs/… are bare);
   every other namespace gets a short alias.
 
   Auto-loaded when a REPL starts with the `:repl` alias on the classpath:
