@@ -8,12 +8,11 @@
 ;;;; Public License <https://www.gnu.org/licenses/> for details.
 
 (ns commensura.uncertain
-  "Measurement uncertainty over conforming Quantities — a value paired with a 1σ *spread* that
+  "Measurement uncertainty over conforming Quantities — a value paired with a 1σ (sigma) *spread* that
   propagates through the arithmetic. An `Uncertain` is the **epistemic** sibling of `Interval`
-  (commensura.interval): an interval denotes every value between two endpoints; an uncertain is
-  one best estimate with a standard deviation. It is NOT an `ApproxQuantity` (that is a
-  *representational* choice — a magnitude that happens to be irrational); uncertainty is about
-  how well the value is *known*, and rides the core verbs the way intervals do.
+  (commensura.interval): an interval denotes every value between two endpoints; an uncertain is one
+  best estimate with a standard deviation. It is about how well the value is *known*, and rides the
+  core verbs the way intervals do.
 
     (require '[commensura.uncertain :as un :refer [plus-minus]]
              '[commensura.units :as u]

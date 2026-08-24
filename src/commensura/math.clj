@@ -30,6 +30,7 @@
   (:refer-clojure :exclude [abs min max mod rem])
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
+            [commensura.uncertain :as un]
             [commensura.core :as c])
   (:import [java.math RoundingMode]))
 
@@ -51,8 +52,10 @@
   (c/pow x (/ 1 q)))
 
 ;; ---- shared helpers ----
-(defn- pick-lo [x y] (if (pos? (q/qcompare x y)) y x))   ; the smaller of two conforming values
-(defn- pick-hi [x y] (if (neg? (q/qcompare x y)) y x))   ; the larger
+;; Compared by *central* value, so an Uncertain is ordered by its estimate and returned whole (its σ
+;; kept); a plain quantity/interval-bound passes through `value-or-identity` unchanged.
+(defn- pick-lo [x y] (if (pos? (q/qcompare (un/value-or-identity x) (un/value-or-identity y))) y x))
+(defn- pick-hi [x y] (if (neg? (q/qcompare (un/value-or-identity x) (un/value-or-identity y))) y x))
 
 (defn- lift-monotone
   "Apply a monotone scalar function `f` to a value, or (for an interval) to each endpoint and the
@@ -64,16 +67,29 @@
       (iv/interval (f (iv/lo x)) (f (iv/hi x))))
     (f x)))
 
+(defn- lift-uncertain
+  "Apply a dimension-preserving scalar fn `f` to an uncertain's central value, keeping its spread."
+  [f x]
+  (un/plus-minus (f (un/value x)) (un/sigma x)))
+
+(defn- lift
+  "Like `lift-monotone`, but an Uncertain keeps its spread while `f` maps its central value."
+  [f x]
+  (if (un/uncertain? x) (lift-uncertain f x) (lift-monotone f x)))
+
 ;; ---- abs (dimension-preserving; zero-spanning intervals reach 0) ----
 (defn- abs-scalar [x]
   (let [m (q/magnitude x)]
     (q/quantity (if (neg? m) (- m) m) (q/formula x))))
 
 (defn abs
-  "Absolute value; dimension-preserving. Over a zero-spanning interval the lower bound is 0."
+  "Absolute value; dimension-preserving. Over a zero-spanning interval the lower bound is 0; on an
+  Uncertain, |value| carries the spread unchanged."
   [x]
-  (if-not (iv/interval? x)
-    (abs-scalar x)
+  (cond
+    (un/uncertain? x) (lift-uncertain abs-scalar x)
+    (not (iv/interval? x)) (abs-scalar x)
+    :else
     (let [lo (iv/lo x), hi (iv/hi x)
           alo (abs-scalar lo), ahi (abs-scalar hi)
           spans? (and (not (pos? (q/magnitude lo))) (not (neg? (q/magnitude hi))))
@@ -89,9 +105,12 @@
     (cond (neg? m) -1 (pos? m) 1 :else 0)))
 
 (defn sign
-  "Sign of a value: a plain -1, 0, or 1, for a value of any dimension."
+  "Sign of a value: a plain -1, 0, or 1, for a value of any dimension. On an Uncertain, the sign of
+  the central value (the spread does not carry — this is a classification, not a measurement)."
   [x]
-  (lift-monotone sign-scalar x))
+  (if (un/uncertain? x)
+    (sign-scalar (un/value x))
+    (lift-monotone sign-scalar x)))
 
 ;; ---- floor / ceil / round (dimension-preserving; operate on the display value) ----
 (defn- floor-int
@@ -120,19 +139,19 @@
     (q/quantity (* (to-int dv) (q/formula-factor (q/formula x))) (q/formula x))))
 
 (defn floor
-  "Largest integer ≤ x, in x's unit."
+  "Largest integer ≤ x, in x's unit. On an Uncertain, rounds the central value and keeps the spread."
   [x]
-  (lift-monotone #(round-with floor-int %) x))
+  (lift #(round-with floor-int %) x))
 
 (defn ceil
-  "Smallest integer ≥ x, in x's unit."
+  "Smallest integer ≥ x, in x's unit. On an Uncertain, rounds the central value and keeps the spread."
   [x]
-  (lift-monotone #(round-with ceil-int %) x))
+  (lift #(round-with ceil-int %) x))
 
 (defn round
-  "Nearest integer (half → +∞), in x's unit."
+  "Nearest integer (half → +∞), in x's unit. On an Uncertain, rounds the central value, keeping σ."
   [x]
-  (lift-monotone #(round-with round-int %) x))
+  (lift #(round-with round-int %) x))
 
 ;; ---- mod / rem (conforming, dimension-preserving; scalar-only — intervals rejected) ----
 (defn- conform! [op x y]
@@ -141,23 +160,24 @@
 
 (defn- scalar-only! [op x y]
   ;; Modular reduction is discontinuous, so it can't be soundly lifted over an interval (mapping the
-  ;; endpoints would silently return a bracketing interval that lies). Reject it explicitly instead.
-  (when (or (iv/interval? x) (iv/interval? y))
-    (throw (ex-info (str op " is not defined on intervals: modular reduction is discontinuous, so it "
-                         "cannot be soundly lifted — apply it to a point value")
+  ;; endpoints would silently return a bracketing interval that lies) nor propagated over an
+  ;; Uncertain's spread. Reject both explicitly instead.
+  (when (or (iv/interval? x) (iv/interval? y) (un/uncertain? x) (un/uncertain? y))
+    (throw (ex-info (str op " is not defined on intervals or uncertains: modular reduction is "
+                         "discontinuous, so it cannot be soundly lifted — apply it to a point value")
                     {:op op :x x :y y}))))
 
 (defn mod
-  "x modulo y — conforming, dimension-preserving (keeps x's unit). Scalar-only: an interval argument
-  is rejected (modular reduction is discontinuous, so it cannot be soundly lifted)."
+  "x modulo y — conforming, dimension-preserving (keeps x's unit). Scalar-only: an interval or
+  uncertain argument is rejected (modular reduction is discontinuous, so it cannot be soundly lifted)."
   [x y]
   (scalar-only! "mod" x y)
   (conform! "mod" x y)
   (q/quantity (clojure.core/mod (q/magnitude x) (q/magnitude y)) (q/formula x)))
 
 (defn rem
-  "Remainder of x by y — conforming, dimension-preserving. Scalar-only: an interval argument is
-  rejected (see `mod`)."
+  "Remainder of x by y — conforming, dimension-preserving. Scalar-only: an interval or uncertain
+  argument is rejected (see `mod`)."
   [x y]
   (scalar-only! "rem" x y)
   (conform! "rem" x y)
@@ -165,19 +185,28 @@
 
 ;; ---- min / max (conforming, dimension-preserving; interval versions are componentwise) ----
 (defn- extreme [pick x y]
-  (if (or (iv/interval? x) (iv/interval? y))
+  (cond
+    ;; An Uncertain is compared by central value and returned whole (its σ kept); mixing it with an
+    ;; Interval is rejected, matching the core verbs (two different notions of spread).
+    (or (un/uncertain? x) (un/uncertain? y))
+    (if (or (iv/interval? x) (iv/interval? y))
+      (throw (ex-info "commensura: cannot mix an Uncertain and an Interval in min/max" {:x x :y y}))
+      (pick x y))
+    (or (iv/interval? x) (iv/interval? y))
     (iv/interval (pick (iv/lo-or-identity x) (iv/lo-or-identity y))
                  (pick (iv/hi-or-identity x) (iv/hi-or-identity y)))
-    (pick x y)))
+    :else (pick x y)))
 
 (defn min
-  "The physically smaller value (variadic); keeps the winner's unit. Conforming."
+  "The physically smaller value (variadic); keeps the winner's unit (and, for an Uncertain, its σ).
+  Conforming."
   ([x] x)
   ([x y] (extreme pick-lo x y))
   ([x y & more] (reduce min (min x y) more)))
 
 (defn max
-  "The physically larger value (variadic); keeps the winner's unit. Conforming."
+  "The physically larger value (variadic); keeps the winner's unit (and, for an Uncertain, its σ).
+  Conforming."
   ([x] x)
   ([x y] (extreme pick-hi x y))
   ([x y & more] (reduce max (max x y) more)))

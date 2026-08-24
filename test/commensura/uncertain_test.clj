@@ -7,6 +7,7 @@
             [commensura.quantity :as q]
             [commensura.interval :as iv]
             [commensura.uncertain :as un :refer [plus-minus]]
+            [commensura.math :as m]
             [commensura.units :as u]
             [commensura.reader]))                       ; load so #commensura/quantity round-trips
 
@@ -118,3 +119,36 @@
     (is (thrown-with-msg? clojure.lang.ExceptionInfo #"mix.*Uncertain.*Interval"
                           (c/by (plus-minus (u/meter 5) (u/cm 2))
                                 (iv/interval (u/meter 2) (u/meter 3)))))))
+
+;; ---- commensura.math over uncertains -------------------------------------------------------------
+(deftest math-functions-on-uncertains
+  (let [a (plus-minus (u/meter 5) (u/cm 2))]
+    (testing "sqrt/root/pow ride c/pow, so σ propagates"
+      (is (= "5 meter ± 2 cm [length]" (str (m/sqrt (c/pow a 2)))))
+      (is (= "5 meter ± 2 cm [length]" (str (m/root (c/pow a 3) 3)))))
+    (testing "abs propagates σ around |value|"
+      (let [r (m/abs (plus-minus (u/meter -5) (u/cm 2)))]
+        (is (= 5 (q/display-value (un/value r))))
+        (is (= 2 (q/display-value (un/sigma r))))))
+    (testing "floor/ceil/round round the central value, keeping σ"
+      (is (= "5 meter ± 2 cm [length]" (str (m/floor (plus-minus (u/meter 59/10) (u/cm 2))))))
+      (is (= "6 meter ± 2 cm [length]" (str (m/ceil  (plus-minus (u/meter 51/10) (u/cm 2))))))
+      (is (= "5 meter ± 2 cm [length]" (str (m/round (plus-minus (u/meter 54/10) (u/cm 2)))))))
+    (testing "min/max compare central values and keep the winner's σ"
+      (let [b (plus-minus (u/meter 3) (u/cm 1))]
+        (is (un/uncertain? (m/min a b)))
+        (is (= 3 (q/display-value (un/value (m/min a b)))))
+        (is (= 1 (q/display-value (un/sigma (m/min a b)))))
+        (is (= 5 (q/display-value (un/value (m/max a b)))))
+        (is (not (un/uncertain? (m/min a (u/meter 3)))))))   ; exact operand wins → plain result
+    (testing "sign reduces to the central value's sign (a plain number)"
+      (is (= -1 (m/sign (plus-minus (u/meter -5) (u/cm 2)))))
+      (is (=  1 (m/sign a))))
+    (testing "mod/rem are guarded, like they are for intervals"
+      (is (thrown-with-msg? clojure.lang.ExceptionInfo #"not defined on intervals or uncertains"
+                            (m/mod a (u/meter 2))))
+      (is (thrown-with-msg? clojure.lang.ExceptionInfo #"not defined on intervals or uncertains"
+                            (m/rem a (u/meter 2)))))
+    (testing "min/max reject mixing an Uncertain with an Interval"
+      (is (thrown-with-msg? clojure.lang.ExceptionInfo #"mix.*Uncertain.*Interval"
+                            (m/min a (iv/interval (u/meter 2) (u/meter 3))))))))
