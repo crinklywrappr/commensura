@@ -93,6 +93,40 @@
   "Dimensionless count: how many of target fit in x (quantity/interval/uncertain)."
   [x target] (dispatch2 x target un/uratio iv/iratio q/ratio))
 
+;; ---- range enumeration: "how many `unit`s are in a range?" -----------------------------------------
+;; These read a *range* — an Interval's [lo, hi], or an Uncertain's [value−σ, value+σ] — and answer in
+;; terms of a `unit`. A plain quantity is a degenerate point-range (lo=hi), consistent with the rest of
+;; commensura (a scalar is its own bound), so both verbs are total. `span` gives the extent as a single
+;; dimensioned quantity; `steps` enumerates the range unit-by-unit. (For a bare dimensionless *count*,
+;; use `ratio`.)
+(defn- range-lo [x]
+  (if (un/uncertain? x) (minus (un/value x) (un/sigma x)) (iv/lo-or-identity x)))
+(defn- range-hi [x]
+  (if (un/uncertain? x) (plus (un/value x) (un/sigma x)) (iv/hi-or-identity x)))
+
+(defn span
+  "The extent of a range (Interval or Uncertain) as a single dimensioned quantity in `unit`: `hi − lo`
+  re-expressed in `unit`. `(span (iv/interval (u/meter 6) (u/meter 11)) u/foot)` ⇒ ≈ 16.40 foot
+  [length]; for an Uncertain it is the full 2σ width. A plain quantity is a point, so its span is 0.
+  See `ratio` for the bare count and `steps` for the individual marks."
+  [x unit]
+  (to (minus (range-hi x) (range-lo x)) unit))
+
+(defn steps
+  "Enumerate a range (Interval or Uncertain) unit-by-unit: quantities from the low bound up to and
+  including the high bound, in increments of one `unit`, each expressed in `unit`. Marks start at the
+  low bound (so the first may be fractional in `unit`) and step while ≤ hi. Returns an **eduction**, so
+  it reduces without an intermediate seq and composes with transducers and `into`:
+
+    (into [] (steps (iv/interval (u/meter 6) (u/meter 11)) u/foot))
+    (into [] (map m/round) (steps some-interval u/foot))"
+  [x unit]
+  (let [hi (range-hi x)]
+    (eduction
+     (take-while #(not (pos? (q/qcompare % hi))))       ; while ≤ hi
+     (map #(to % unit))
+     (iterate #(plus % unit) (range-lo x)))))
+
 ;; ---- comparison ----
 ;; A comparison orders values by the *range* each one spans. An interval spans [lo, hi]; a plain
 ;; quantity or number is a single point — its own low and high bound. `iv/lo-or-identity` /
