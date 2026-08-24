@@ -14,6 +14,7 @@
             [commensura.units :as u]
             [commensura.quantity :as q]
             [commensura.interval :as iv]
+            [commensura.uncertain :as un]
             [commensura.math :as m]
             [commensura.cpi :as cpi]
             [commensura.currency :as cur]
@@ -42,6 +43,10 @@
    :transform-fn (comp clerk/mark-presented
                        (clerk/update-val
                         (fn [x] (str "[" (str (iv/lo x)) "  …  " (str (iv/hi x)) "]"))))
+   :render-fn '(fn [s] [:span {:style {:color "#7c3aed" :font-family "monospace"}} s])}
+  {:name :commensura/uncertain
+   :pred un/uncertain?
+   :transform-fn (comp clerk/mark-presented (clerk/update-val str))   ; "value ± sigma [dimension]"
    :render-fn '(fn [s] [:span {:style {:color "#7c3aed" :font-family "monospace"}} s])}])
 
 ;; `demo` runs a *live* example (currency, satoshi) but shows the reader only the bare form and its
@@ -111,7 +116,19 @@
 
 (m/sqrt (u/meter 2))
 
-;; ## Intervals — honest answers when the inputs are fuzzy
+;; ## Range types — when a number isn't a single point
+;;
+;; Sometimes a measurement isn't one number. commensura has two *range* values, and both ride the same
+;; verbs (`by`/`per`/`plus`/`minus`/`pow`/`to`) as an ordinary quantity:
+;;
+;; * an **interval** — a guaranteed span `[lo, hi]`; *every* value in between is possible, and
+;;   arithmetic returns the tightest range containing every outcome (Frink's interval arithmetic);
+;; * an **uncertain** — a best estimate with a **± 1σ** spread that propagates in quadrature.
+;;
+;; They answer different questions — a hard range vs. a statistical error bar — but you compute with
+;; them the same way. (Mixing the two in one operation is, deliberately, an error.)
+;;
+;; ### Intervals — the honest span
 ;;
 ;; Real-world numbers have slop, and interval arithmetic propagates it **rigorously**: the true result
 ;; is guaranteed to lie inside the computed range. Because commensura's bounds are exact rationals, that
@@ -134,14 +151,96 @@
 fuel-cost
 
 ;; Somewhere between **\$297⁵⁰ and \$390** — the honest span, not one misleading point estimate. So: is
-;; **\$400 certainly enough** to cover gas? Interval comparisons (next section) make that a real question:
+;; **\$400 certainly enough** to cover gas?
 
 (certainly-lt? fuel-cost (u/dollars 400))
+
+;; ### Uncertainties — when the error bar *is* the answer
+;;
+;; A scale or a caliper gives a best reading with a **1σ** error bar, not a hard range. `plus-minus`
+;; pairs the two, and the spread then rides the arithmetic — combined in **quadrature**, so for `×`/`÷`
+;; it's the *relative* errors that add. The centre stays exact; only σ goes approximate (a √ is
+;; irrational). Here is where that bookkeeping earns its keep.
+;;
+;; Someone hands you a small gold-coloured bar. **Is it real?** Gold's tell is its density —
+;; 19.30 g/cm³ — so weigh it, measure its volume by water displacement, and divide. Each instrument
+;; brings its own precision:
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(def mass   (un/plus-minus (u/gram 965/10) (u/gram 1/10)))    ; 96.5 g ± 0.1 g  (jeweler's scale)
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(def volume (un/plus-minus (u/cm 5 1 1) (u/cm 1/20 1 1)))     ; 5.00 cm³ ± 0.05 cm³  (graduated cylinder)
+
+;; Divide, and the density comes back with its error bar already propagated:
+
+(def density (per mass volume))
+
+;; Dead on 19.3 g/cm³ — so it's **consistent with gold** at any threshold (`consistent?` = "agree
+;; within 2σ?"; `within?` takes any threshold — the statistical cousins of the interval
+;; `certainly?`/`possibly?`):
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(def gold     (per (u/gram 193/10)   (u/cm 1 1 1)))           ; 19.30 g/cm³
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(def tungsten (per (u/gram 1925/100) (u/cm 1 1 1)))          ; 19.25 g/cm³
+^{:nextjournal.clerk/visibility {:result :hide}}
+(def lead     (per (u/gram 1134/100) (u/cm 1 1 1)))          ; 11.34 g/cm³
+
+(un/consistent? density gold)
+
+;; But here's the catch: the *same* reading is also consistent with **tungsten** (19.25 g/cm³) — the
+;; classic gilded-bar counterfeit. Your error bar is simply too wide to tell them apart:
+
+(un/consistent? density tungsten)
+
+;; **Lead**, though, is ruled out cold — dozens of σ away:
+
+(un/consistent? density lead)
+
+;; The verdict hinges entirely on that error bar — about 1%, and dominated by the crude volume reading:
+
+(un/relative density)
+
+;; To separate gold from tungsten you'd need σ small enough that their 0.05 g/cm³ gap is *many* sigma —
+;; i.e. a far better volume measurement. Uncertainty here isn't decoration; it's the whole conclusion.
+;;
+;; ### How much, and how many? — `span` and `ticks`
+;;
+;; Two verbs read a range — an interval's `[lo, hi]`, or an uncertain's `[value−σ, value+σ]` — and
+;; answer it in terms of a unit. `span` collapses the range to a single **dimensioned width**; `ticks`
+;; marks it off **unit-by-unit** (a unit ruler laid along the span — half-open `[lo, hi)`, like `range`)
+;; and returns an *eduction*, so it drops straight into `into` and transducers.
+;;
+;; `span` is *the width of what you don't know*. How much was that road-trip estimate really pinning
+;; down — in plain dollars?
+
+(span fuel-cost u/dollar)
+
+;; \$92.50 of daylight between best and worst case: the literal price of the uncertainty. It reads an
+;; uncertain's band just as happily — here, the 0.2 g the scale left open on the bar above:
+
+(span mass u/gram)
+
+;; `ticks` enumerates instead. You build custom tables; a client wants one **between 1.5 m and 2.5 m**
+;; long, and you sell them in **whole-foot** sizes. Which sizes fall in their range?
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(def wanted (iv/interval (u/meter 3/2) (u/meter 5/2)))
+
+(span wanted u/foot)                                          ; a ~3.3-foot spread of options
+
+(into [] (map m/round) (ticks wanted u/foot))                ; the whole-foot sizes on offer
+
+;; That `(into [] (map m/round) …)` piped the eduction straight through a transducer — no intermediate
+;; seq — and, being half-open like `range`, `ticks` stops shy of the top bound.
 
 ;; ## Comparisons
 ;;
 ;; Quantities compare **physically** (unit-agnostic), and intervals get Frink's *certainly* / *possibly*
-;; operators plus plain relationals that throw on a genuine overlap.
+;; operators plus plain relationals that throw on a genuine overlap. (An uncertain compares on its
+;; central value; for a σ-aware test use `within?` / `consistent?` above.)
 
 (eq? (u/foot 1) (u/inch 12))                            ; 1 ft = 12 in
 
