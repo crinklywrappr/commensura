@@ -17,5 +17,8 @@ runs:
           ~/.m2/repository
           ~/.gitlibs
           ~/.deps.clj
-        key: ${{ runner.os }}-clj-${{ hashFiles('deps.edn') }}
-        restore-keys: ${{ runner.os }}-clj-
+        # `-v2-` abandons pre-`setup`-job caches, which a non-Clerk job may have saved *without* the
+        # :clerk deps (a cache entry is immutable, so that partial could never gain them). With the CI
+        # `setup` job now seeding the cache first, every entry from here on is complete.
+        key: ${{ runner.os }}-clj-v2-${{ hashFiles('deps.edn') }}
+        restore-keys: ${{ runner.os }}-clj-v2-
