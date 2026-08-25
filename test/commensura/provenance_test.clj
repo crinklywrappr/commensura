@@ -127,9 +127,7 @@
       (is (= #'m/abs   (prov/op (m/abs (u/meter -5)))))
       (is (= #'m/floor (prov/op (m/floor (u/meter 59/10)))))
       (is (= #'m/min   (prov/op (m/min (u/meter 3) (u/meter 4)))))
-      (is (= #'m/mod   (prov/op (m/mod (u/hour 25) (u/hour 24))))))
-    (testing "pow stays a pass-through, recording as core/pow"
-      (is (= #'c/pow (prov/op (m/pow (u/meter 2) 3)))))))
+      (is (= #'m/mod   (prov/op (m/mod (u/hour 25) (u/hour 24))))))))
 
 ;; multi-arity + variadic defstep: every arity records under the fn's var, with that arity's operands
 (defstep combine

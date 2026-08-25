@@ -17,13 +17,13 @@
     (m/mod  (u/hour 25) (u/hour 24));=> 1 hour
 
   Only functions that touch dimensions live here — preserving them (`abs`/`mod`/`min`/`max`/
-  `floor`/`ceil`/`round`), scaling them (`sqrt`/`root`/`pow`), or crossing the boundary (`sign`:
-  dimensioned → dimensionless). Transcendentals (`exp`/`ln`/`sin`/…) are intentionally absent:
-  they only ever map dimensionless → dimensionless, so they belong to plain numeric code.
+  `floor`/`ceil`/`round`), scaling them (`sqrt`/`root`), or crossing the boundary (`sign`:
+  dimensioned → dimensionless). Raising to a power is a core verb (`commensura.core/pow`), which
+  `sqrt`/`root` are built on. Transcendentals (`exp`/`ln`/`sin`/…) are intentionally absent: they only
+  ever map dimensionless → dimensionless, so they belong to plain numeric code.
 
   Over intervals, the monotone functions lift by mapping the endpoints — `sign`/`floor`/`ceil`/`round`
-  directly, `abs` with a special case when the interval spans zero — and `sqrt`/`root`/`pow` scale
-  through. `mod`/`rem` are the exception: **scalar-only, and they reject an interval argument**, because
+  directly, `abs` with a special case when the interval spans zero — and `sqrt`/`root` scale through. `mod`/`rem` are the exception: **scalar-only, and they reject an interval argument**, because
   modular reduction is discontinuous and cannot be soundly lifted (`[23,25] mod 24` is `{23} ∪ [0,1]`,
   not a single interval). Names shadow `clojure.core`, so use this namespace qualified (`m/abs`), never
   `:refer`. Comparisons come from `commensura.core`."
@@ -37,13 +37,8 @@
 ;; ---- roots & rational powers (dimensions scale; exact when a perfect root, else approx) ----
 ;; With provenance recording on, the value-producing fns here are `defstep`s (via
 ;; `commensura.core/defstep`), so each records as one node under its own `#'var` — `sqrt` shows as
-;; `sqrt`, not the `pow` it calls underneath. `pow` stays a thin pass-through to `c/pow` (itself a step),
-;; so it records as `core/pow`; `sign` isn't stepped (it returns a bare number, which can't carry a node).
-(defn pow
-  "Raise to an integer or rational exponent."
-  [x n]
-  (c/pow x n))
-
+;; `sqrt`, not the `c/pow` it calls underneath. (`sign` isn't stepped: it returns a bare number, which
+;; can't carry a node. There's no `pow` here — raising to a power is a core verb, `commensura.core/pow`.)
 (c/defstep sqrt
   "Square root."
   [x]
