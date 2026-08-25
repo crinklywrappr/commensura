@@ -127,9 +127,10 @@
 (defn op
   "The verb that produced `x` (nil for a leaf)."
   [x]
-  (:op    (node x)))
+  (:op (node x)))
 
-(defn value  "The result value stored on `x`'s node (nil for a leaf)."
+(defn value
+  "The result value stored on `x`'s node (nil for a leaf)."
   [x]
   (:value (node x)))
 
@@ -148,7 +149,7 @@
   object each time — `distinct` collapses them; `explain` shows it once with a back-reference)."
   [x]
   (when-let [n (node x)]
-    (tree-seq node-map? #(filterv node-map? (:inputs %)) n)))
+    (tree-seq node-map? child-nodes n)))
 
 ;; ---- zipper (replay) ---------------------------------------------------------------------------
 (defn replay
@@ -157,7 +158,7 @@
   `/next`/`/prev` for a depth-first stroll — and read the node under the cursor with `clojure.zip/node`
   (then `op`/`value`/`inputs` on it). A branch's children are its recorded operands; leaves have none."
   [x]
-  (zip/zipper node-map? #(filterv node-map? (:inputs %)) (fn [n _children] n) (node x)))
+  (zip/zipper node-map? child-nodes (fn [n _children] n) (node x)))
 
 ;; ---- explain (readable outline) ----------------------------------------------------------------
 (defn- show
@@ -167,17 +168,15 @@
     (str "[" (str (iv/lo x)) " … " (str (iv/hi x)) "]")
     (str x)))                                            ; quantity/unit/number/uncertain toString
 
-(defn- explain* [nd depth ^java.util.IdentityHashMap seen ^StringBuilder sb]
+(defn- explain* [x depth ^java.util.IdentityHashMap seen ^StringBuilder sb]
   (let [pad (apply str (repeat depth "    "))]
-    (if-let [prior (.get seen nd)]
-      (.append sb (str pad "↑ [" prior "] " (show (:value nd)) "\n"))        ; shared node — back-ref
-      (let [id (inc (.size seen))]
-        (.put seen nd id)
-        (.append sb (str pad "[" id "] " (show (:value nd)) "  ←  " (:op nd) "\n"))
-        (doseq [in (:inputs nd)]
-          (if (node-map? in)
-            (explain* in (inc depth) seen sb)
-            (.append sb (str pad "    " (show in) "\n"))))))                  ; inline operand (leaf)
+    (cond
+      (not (node-map? x)) (.append sb (str pad (show x) "\n"))               ; inline operand (leaf)
+      (.get seen x)       (.append sb (str pad "↑ [" (.get seen x) "] " (show (:value x)) "\n"))  ; back-ref
+      :else               (let [id (inc (.size seen))]
+                            (.put seen x id)
+                            (.append sb (str pad "[" id "] " (show (:value x)) "  ←  " (:op x) "\n"))
+                            (doseq [in (:inputs x)] (explain* in (inc depth) seen sb))))
     sb))
 
 (defn explain-str
