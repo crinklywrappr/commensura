@@ -17,13 +17,13 @@
     (m/mod  (u/hour 25) (u/hour 24));=> 1 hour
 
   Only functions that touch dimensions live here — preserving them (`abs`/`mod`/`min`/`max`/
-  `floor`/`ceil`/`round`), scaling them (`sqrt`/`root`/`pow`), or crossing the boundary (`sign`:
-  dimensioned → dimensionless). Transcendentals (`exp`/`ln`/`sin`/…) are intentionally absent:
-  they only ever map dimensionless → dimensionless, so they belong to plain numeric code.
+  `floor`/`ceil`/`round`), scaling them (`sqrt`/`root`), or crossing the boundary (`sign`:
+  dimensioned → dimensionless). Raising to a power is a core verb (`commensura.core/pow`), which
+  `sqrt`/`root` are built on. Transcendentals (`exp`/`ln`/`sin`/…) are intentionally absent: they only
+  ever map dimensionless → dimensionless, so they belong to plain numeric code.
 
   Over intervals, the monotone functions lift by mapping the endpoints — `sign`/`floor`/`ceil`/`round`
-  directly, `abs` with a special case when the interval spans zero — and `sqrt`/`root`/`pow` scale
-  through. `mod`/`rem` are the exception: **scalar-only, and they reject an interval argument**, because
+  directly, `abs` with a special case when the interval spans zero — and `sqrt`/`root` scale through. `mod`/`rem` are the exception: **scalar-only, and they reject an interval argument**, because
   modular reduction is discontinuous and cannot be soundly lifted (`[23,25] mod 24` is `{23} ∪ [0,1]`,
   not a single interval). Names shadow `clojure.core`, so use this namespace qualified (`m/abs`), never
   `:refer`. Comparisons come from `commensura.core`."
@@ -31,22 +31,20 @@
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
             [commensura.uncertain :as un]
-            [commensura.core :as c])
+            [commensura.core :as c :refer [defstep]])
   (:import [java.math RoundingMode]))
 
 ;; ---- roots & rational powers (dimensions scale; exact when a perfect root, else approx) ----
-;; `c/pow` dispatches quantity vs interval and now takes rational exponents (generalized qpow/ipow).
-(defn pow
-  "Raise to an integer or rational exponent."
-  [x n]
-  (c/pow x n))
-
-(defn sqrt
+;; With provenance recording on, the value-producing fns here are `defstep`s (via
+;; `commensura.core/defstep`), so each records as one node under its own `#'var` — `sqrt` shows as
+;; `sqrt`, not the `c/pow` it calls underneath. (`sign` isn't stepped: it returns a bare number, which
+;; can't carry a node. There's no `pow` here — raising to a power is a core verb, `commensura.core/pow`.)
+(defstep sqrt
   "Square root."
   [x]
   (c/pow x 1/2))
 
-(defn root
+(defstep root
   "The q-th root."
   [x q]
   (c/pow x (/ 1 q)))
@@ -82,7 +80,7 @@
   (let [m (q/magnitude x)]
     (q/quantity (if (neg? m) (- m) m) (q/formula x))))
 
-(defn abs
+(defstep abs
   "Absolute value; dimension-preserving. Over a zero-spanning interval the lower bound is 0; on an
   Uncertain, |value| carries the spread unchanged."
   [x]
@@ -138,17 +136,17 @@
         dv (if (or (integer? dv) (ratio? dv) (decimal? dv)) dv (rationalize dv))]  ; exact-ify a bare Double
     (q/quantity (* (to-int dv) (q/formula-factor (q/formula x))) (q/formula x))))
 
-(defn floor
+(defstep floor
   "Largest integer ≤ x, in x's unit. On an Uncertain, rounds the central value and keeps the spread."
   [x]
   (lift #(round-with floor-int %) x))
 
-(defn ceil
+(defstep ceil
   "Smallest integer ≥ x, in x's unit. On an Uncertain, rounds the central value and keeps the spread."
   [x]
   (lift #(round-with ceil-int %) x))
 
-(defn round
+(defstep round
   "Nearest integer (half → +∞), in x's unit. On an Uncertain, rounds the central value, keeping σ."
   [x]
   (lift #(round-with round-int %) x))
@@ -167,7 +165,7 @@
                          "discontinuous, so it cannot be soundly lifted — apply it to a point value")
                     {:op op :x x :y y}))))
 
-(defn mod
+(defstep mod
   "x modulo y — conforming, dimension-preserving (keeps x's unit). Scalar-only: an interval or
   uncertain argument is rejected (modular reduction is discontinuous, so it cannot be soundly lifted)."
   [x y]
@@ -175,7 +173,7 @@
   (conform! "mod" x y)
   (q/quantity (clojure.core/mod (q/magnitude x) (q/magnitude y)) (q/formula x)))
 
-(defn rem
+(defstep rem
   "Remainder of x by y — conforming, dimension-preserving. Scalar-only: an interval or uncertain
   argument is rejected (see `mod`)."
   [x y]
@@ -197,14 +195,14 @@
                  (pick (iv/hi-or-identity x) (iv/hi-or-identity y)))
     :else (pick x y)))
 
-(defn min
+(defstep min
   "The physically smaller value (variadic); keeps the winner's unit (and, for an Uncertain, its σ).
   Conforming."
   ([x] x)
   ([x y] (extreme pick-lo x y))
   ([x y & more] (reduce min (min x y) more)))
 
-(defn max
+(defstep max
   "The physically larger value (variadic); keeps the winner's unit (and, for an Uncertain, its σ).
   Conforming."
   ([x] x)

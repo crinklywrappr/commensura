@@ -29,9 +29,42 @@
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
             [commensura.uncertain :as un]
+            [commensura.provenance :as prov]
             [commensura.registry :as registry])
   (:import [org.joda.money CurrencyUnit Money IllegalCurrencyException]
            [java.math RoundingMode]))
+
+;; ---- provenance entry points ----
+;; The ergonomic front door to `commensura.provenance`: `with-provenance` turns recording on for a
+;; body, and `defstep` defines a fn that records as one named node. The mechanism they drive (the
+;; `*record-provenance-on-step*` var, `step`/`record-node`, and all the inspection fns) lives in
+;; `commensura.provenance`; these two macros live here so the verbs below can be defined with `defstep`
+;; and users get recording without a second require.
+(defmacro with-provenance
+  "Evaluate `body` with provenance recording on, returning its value (now carrying history)."
+  [& body]
+  `(binding [prov/*record-provenance-on-step* true] ~@body))
+
+(defmacro defstep
+  "Define a function whose call records as one provenance node (its internals forgotten). Like `defn`
+  — a docstring and multiple arities are supported — each arity's body is wrapped in `step` with that
+  arity's parameters as inputs (a variadic arity folds its rest args in), and the node's op is the new
+  `#'fully-qualified` var:
+
+    (defstep sqrt [x] (c/pow x 1/2))       ; records `#'…/sqrt` over [x]; the inner `pow` leaves no trace
+    (defstep root
+      ([x]   (c/pow x 1/2))
+      ([x n] (c/pow x (/ 1 n))))"
+  [name & fdecl]
+  (let [[doc fdecl] (if (string? (first fdecl)) [(first fdecl) (rest fdecl)] [nil fdecl])
+        arities     (if (vector? (first fdecl)) (list fdecl) fdecl)   ; single-arity vs. several
+        wrap        (fn [[params & body]]
+                      (let [[fixed [_amp restsym]] (split-with #(not= '& %) params)
+                            inputs (if restsym `(into ~(vec fixed) ~restsym) (vec fixed))]
+                        `(~params (prov/step (var ~name) ~inputs ~@body))))]
+    `(defn ~name ~@(when doc [doc]) ~@(map wrap arities))))
+
+;; ---- verbs ----
 
 ;; Every binary verb dispatches three ways: an Uncertain operand routes to the quadrature layer, an
 ;; Interval operand to the interval layer, and the common case to the plain quantity tower. Uncertain
@@ -48,25 +81,31 @@
     (or (iv/interval? x) (iv/interval? y)) (iv-fn x y)
     :else (q-fn x y)))
 
-(defn by
+;; Each value-producing verb is a `defstep`, so with recording on (see `with-provenance` above) the
+;; result carries a provenance node naming the op (the verb's own `#'var`) and its operands. A
+;; `defstep` records every arity — including the 1-arity
+;; identity forms of `by`/`per`/`plus` (rarely called on a lone value) — and a variadic call records one
+;; node over *all* its operands, since `step` runs the body (the pairwise reduce) with recording
+;; suppressed.
+(defstep by
   "Product of quantities/numbers/intervals/uncertains (dimensions add). Variadic."
   ([x] x)
   ([x y] (dispatch2 x y un/uby iv/iby q/qmul))
   ([x y & more] (reduce by (by x y) more)))
 
-(defn per
+(defstep per
   "Quotient, left-associative: (per a b c) = a/b/c (dimensions subtract)."
   ([x] x)
   ([x y] (dispatch2 x y un/uper iv/iper q/qdiv))
   ([x y & more] (reduce per (per x y) more)))
 
-(defn plus
+(defstep plus
   "Sum of same-dimension quantities/intervals/uncertains. Variadic."
   ([x] x)
   ([x y] (dispatch2 x y un/uplus iv/iplus q/qadd))
   ([x y & more] (reduce plus (plus x y) more)))
 
-(defn minus
+(defstep minus
   "Difference of same-dimension quantities/intervals/uncertains; unary form negates."
   ([x] (cond (un/uncertain? x) (un/unegate x)
              (iv/interval? x)  (iv/inegate x)
@@ -74,13 +113,13 @@
   ([x y] (dispatch2 x y un/uminus iv/iminus q/qsub))
   ([x y & more] (reduce minus (minus x y) more)))
 
-(defn pow
+(defstep pow
   "Raise a quantity/interval/uncertain to an integer or rational power."
   [x n] (cond (un/uncertain? x) (un/upow x n)
               (iv/interval? x)  (iv/ipow x n)
               :else             (q/qpow x n)))
 
-(defn to
+(defstep to
   "Re-express a quantity/interval/uncertain in a target unit (dimension-preserving). Uses only the
   target's unit basis: a *scaled* target's coefficient is ignored (and warns) — `(to (u/mile 5)
   (u/foot 3))` gives feet, not 3-foot units. For \"how many of a given quantity fit\", use `ratio`.
@@ -89,7 +128,7 @@
                    (iv/interval? x)  (iv/ito x target)
                    :else             (q/to x target)))
 
-(defn ratio
+(defstep ratio
   "Dimensionless count: how many of target fit in x (quantity/interval/uncertain)."
   [x target] (dispatch2 x target un/uratio iv/iratio q/ratio))
 
@@ -104,7 +143,7 @@
 (defn- range-hi [x]
   (if (un/uncertain? x) (plus (un/value x) (un/sigma x)) (iv/hi-or-identity x)))
 
-(defn span
+(defstep span
   "The extent of a range (Interval or Uncertain) as a single dimensioned quantity in `unit`: `hi − lo`
   re-expressed in `unit`. `(span (iv/interval (u/meter 6) (u/meter 11)) u/foot)` ⇒ ≈ 16.40 foot
   [length]; for an Uncertain it is the full 2σ width. A plain quantity is a point, so its span is 0.
