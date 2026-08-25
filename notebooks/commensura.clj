@@ -16,6 +16,7 @@
             [commensura.interval :as iv]
             [commensura.uncertain :as un]
             [commensura.math :as m]
+            [commensura.provenance :as prov]
             [commensura.cpi :as cpi]
             [commensura.currency :as cur]
             [commensura.currency.rates :as rates]
@@ -246,6 +247,52 @@ fuel-cost
 
 [(possibly-lt? (iv/interval 1 3) (iv/interval 2 4))     ; overlapping ⇒ possibly, but not certainly
  (certainly-lt? (iv/interval 1 3) (iv/interval 2 4))]
+
+;; ## Provenance — "how did I get here?"
+;;
+;; A value can carry its own build history. It's **opt-in and off by default** — ordinary use touches no
+;; metadata and pays nothing. Wrap a computation in `with-provenance` and the result remembers every
+;; step (in its metadata); `explain` reads it back as an outline. Fill a pool with water — how many
+;; gallons, and how did we get there?
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(def pool
+  (with-provenance
+    (to (by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons)))
+
+;; `(explain pool)` renders the derivation — each recorded step numbered, tagged with the verb that
+;; produced it; the raw operands sit beneath their verb:
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(clerk/code (prov/explain-str pool))
+
+;; The recorded value is **indistinguishable** from the plain one — the history rides in metadata only,
+;; which `pr`/read ignore, so it's `=`, prints identically, and never leaks into a result:
+
+(= pool (to (by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons))
+
+;; Wrap your own multi-step function with `defstep` and each call collapses to **one named node**, its
+;; internals forgotten — so history reads at the level you think in. (commensura's own `math` fns do
+;; this: `sqrt` shows as `sqrt`, not the `pow` underneath.)
+
+^{:nextjournal.clerk/visibility {:result :hide}}
+(defstep hypotenuse [a b]
+  (m/sqrt (plus (pow a 2) (pow b 2))))
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(clerk/code (with-provenance
+              (prov/explain-str (hypotenuse (u/meter 3) (u/meter 4)))))
+
+;; History is a **DAG**, not a tree: a value reused in two places is *one* node. `explain` shows it once
+;; and back-references the repeat (`↑`) — here a square used as both operands of a sum:
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(clerk/code (with-provenance
+              (let [side (by (u/meter 5) (u/meter 5))]
+                (prov/explain-str (plus side side)))))
+
+;; The outline is just the readable view. The same history is also plain data — the self-contained
+;; nested `node` map (walk or serialize it), the `history` seq (for queries), or a `history-zip` cursor.
 
 ;; ## Historical purchasing power (US CPI)
 ;;
