@@ -22,4 +22,5 @@
             [commensura.richter :as richter]
             [commensura.cpi :as cpi]
             [commensura.currency :as cur]
+            [commensura.provenance :as p]
             [commensura.reader]))                        ; load so #commensura/unit + /quantity round-trip

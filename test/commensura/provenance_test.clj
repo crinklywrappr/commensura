@@ -50,8 +50,8 @@
     (let [x (c/by (u/meter 2) (u/meter 3))       ; a recorded child
           r (c/pow x 2)]
       (is (= 'pow (prov/op r)))
-      (is (= [x 2] (prov/inputs r)))
-      (is (= [x] (prov/child-nodes r))))))        ; the exponent 2 is an inline leaf, not a node
+      (is (= [(prov/node x) 2] (prov/inputs r)))  ; x is folded in as its node; the exponent 2 is a leaf
+      (is (= [(prov/node x)] (prov/child-nodes r))))))
 
 (deftest dag-shares-a-reused-node
   (testing "a let-bound value used twice is one shared node (identity preserved), shown once + back-ref"
