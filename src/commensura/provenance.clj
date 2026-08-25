@@ -15,16 +15,21 @@
   inline. So `(meta result)` holds the entire history as one `::node` map — you can read the whole tree
   by eye, no walker required.
 
-    (require '[commensura.provenance :as prov :refer [with-provenance explain]]
-             '[commensura.units :as u]
-             '[commensura.core :refer [by to]])
+    (require '[commensura.core :refer [with-provenance by to]]
+             '[commensura.provenance :refer [explain]]
+             '[commensura.units :as u])
 
     (with-provenance
       (explain (to (by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons)))
 
+  The two entry points for *making* history — `with-provenance` (turn recording on) and `defstep`
+  (define a fn that records as one node) — live in `commensura.core`, alongside the verbs they drive.
+  This namespace holds the mechanism (`step`/`record-node`, the `*record-provenance-on-step*` var) and
+  everything for *reading* history back.
+
   **Off by default, zero-cost when off.** Recording is gated by the dynamic var
-  `*record-provenance-on-step*` (default `false`); `with-provenance` binds it true for its body. When
-  it's off the verbs do no `vary-meta` at all — they don't even build the operand vector.
+  `*record-provenance-on-step*` (default `false`); `commensura.core/with-provenance` binds it true for
+  its body. When it's off the verbs do no `vary-meta` at all — they don't even build the operand vector.
 
   **Each step forgets its internals.** A `step` evaluates its body with recording *suppressed*, then
   records exactly one node for itself. So a verb records a single node over its operands, and a
@@ -49,15 +54,12 @@
             [clojure.zip :as zip]))
 
 ;; ---- the switch --------------------------------------------------------------------------------
+
 (def ^:dynamic *record-provenance-on-step*
   "When true, the public verbs record a provenance node on each result. Default false — bind it with
-  `with-provenance` (or directly) to record. Kept off by default so ordinary use pays nothing."
+  `commensura.core/with-provenance` (or directly) to record. Kept off by default so ordinary use pays
+  nothing."
   false)
-
-(defmacro with-provenance
-  "Evaluate `body` with provenance recording on, returning its value (now carrying history)."
-  [& body]
-  `(binding [*record-provenance-on-step* true] ~@body))
 
 ;; ---- the node ----------------------------------------------------------------------------------
 ;; A node is a plain map — `{:op <verb> :value <result> :inputs [<child> ...]}` — stored in the result
@@ -100,25 +102,6 @@
   `(if *record-provenance-on-step*
      (record-node ~op ~inputs (binding [*record-provenance-on-step* false] ~@body))
      (do ~@body)))
-
-(defmacro defstep
-  "Define a function whose call records as one provenance node (its internals forgotten). Like `defn`
-  — a docstring and multiple arities are supported — each arity's body is wrapped in `step` with that
-  arity's parameters as inputs (a variadic arity folds its rest args in), and the node's op is the new
-  `#'fully-qualified` var:
-
-    (defstep sqrt [x] (c/pow x 1/2))       ; records `#'…/sqrt` over [x]; the inner `pow` leaves no trace
-    (defstep root
-      ([x]   (c/pow x 1/2))
-      ([x n] (c/pow x (/ 1 n))))"
-  [name & fdecl]
-  (let [[doc fdecl] (if (string? (first fdecl)) [(first fdecl) (rest fdecl)] [nil fdecl])
-        arities     (if (vector? (first fdecl)) (list fdecl) fdecl)   ; single-arity vs. several
-        wrap        (fn [[params & body]]
-                      (let [[fixed [_amp restsym]] (split-with #(not= '& %) params)
-                            inputs (if restsym `(into ~(vec fixed) ~restsym) (vec fixed))]
-                        `(~params (step (var ~name) ~inputs ~@body))))]
-    `(defn ~name ~@(when doc [doc]) ~@(map wrap arities))))
 
 ;; ---- reading a node ----------------------------------------------------------------------------
 (defn recorded?

@@ -29,10 +29,42 @@
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
             [commensura.uncertain :as un]
-            [commensura.provenance :as prov :refer [defstep]]
+            [commensura.provenance :as prov]
             [commensura.registry :as registry])
   (:import [org.joda.money CurrencyUnit Money IllegalCurrencyException]
            [java.math RoundingMode]))
+
+;; ---- provenance entry points ----
+;; The ergonomic front door to `commensura.provenance`: `with-provenance` turns recording on for a
+;; body, and `defstep` defines a fn that records as one named node. The mechanism they drive (the
+;; `*record-provenance-on-step*` var, `step`/`record-node`, and all the inspection fns) lives in
+;; `commensura.provenance`; these two macros live here so the verbs below can be defined with `defstep`
+;; and users get recording without a second require.
+(defmacro with-provenance
+  "Evaluate `body` with provenance recording on, returning its value (now carrying history)."
+  [& body]
+  `(binding [prov/*record-provenance-on-step* true] ~@body))
+
+(defmacro defstep
+  "Define a function whose call records as one provenance node (its internals forgotten). Like `defn`
+  — a docstring and multiple arities are supported — each arity's body is wrapped in `step` with that
+  arity's parameters as inputs (a variadic arity folds its rest args in), and the node's op is the new
+  `#'fully-qualified` var:
+
+    (defstep sqrt [x] (c/pow x 1/2))       ; records `#'…/sqrt` over [x]; the inner `pow` leaves no trace
+    (defstep root
+      ([x]   (c/pow x 1/2))
+      ([x n] (c/pow x (/ 1 n))))"
+  [name & fdecl]
+  (let [[doc fdecl] (if (string? (first fdecl)) [(first fdecl) (rest fdecl)] [nil fdecl])
+        arities     (if (vector? (first fdecl)) (list fdecl) fdecl)   ; single-arity vs. several
+        wrap        (fn [[params & body]]
+                      (let [[fixed [_amp restsym]] (split-with #(not= '& %) params)
+                            inputs (if restsym `(into ~(vec fixed) ~restsym) (vec fixed))]
+                        `(~params (prov/step (var ~name) ~inputs ~@body))))]
+    `(defn ~name ~@(when doc [doc]) ~@(map wrap arities))))
+
+;; ---- verbs ----
 
 ;; Every binary verb dispatches three ways: an Uncertain operand routes to the quadrature layer, an
 ;; Interval operand to the interval layer, and the common case to the plain quantity tower. Uncertain
@@ -49,9 +81,9 @@
     (or (iv/interval? x) (iv/interval? y)) (iv-fn x y)
     :else (q-fn x y)))
 
-;; Each value-producing verb is a `defstep`, so with recording on (see
-;; `commensura.provenance/with-provenance`) the result carries a provenance node naming the op (the
-;; verb's own `#'var`) and its operands. A `defstep` records every arity — including the 1-arity
+;; Each value-producing verb is a `defstep`, so with recording on (see `with-provenance` above) the
+;; result carries a provenance node naming the op (the verb's own `#'var`) and its operands. A
+;; `defstep` records every arity — including the 1-arity
 ;; identity forms of `by`/`per`/`plus` (rarely called on a lone value) — and a variadic call records one
 ;; node over *all* its operands, since `step` runs the body (the pairwise reduce) with recording
 ;; suppressed.

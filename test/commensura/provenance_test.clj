@@ -2,10 +2,10 @@
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.string :as str]
             [clojure.zip :as zip]
-            [commensura.core :as c]
+            [commensura.core :as c :refer [with-provenance defstep]]  ; recording entry points live in core
             [commensura.quantity :as q]
             [commensura.interval :as iv]
-            [commensura.provenance :as prov :refer [with-provenance]]
+            [commensura.provenance :as prov]                          ; the mechanism + inspection
             [commensura.units :as u]
             [commensura.reader]))
 
@@ -87,7 +87,7 @@
       (is (= #'c/by (prov/op (zip/node (zip/down z)))))            ; down into the recorded child
       (is (= #'c/to (prov/op (zip/node (zip/up (zip/down z))))))))) ; …and back up
 
-(prov/defstep double-it [q] (c/by q 2))
+(defstep double-it [q] (c/by q 2))
 
 (deftest defstep-defines-a-recording-fn
   (with-provenance
@@ -96,7 +96,7 @@
       (is (= [(u/meter 5)] (prov/inputs r))))))
 
 ;; multi-arity + variadic defstep: every arity records under the fn's var, with that arity's operands
-(prov/defstep combine
+(defstep combine
   ([x]        x)
   ([x y]      (c/by x y))
   ([x y & zs] (apply c/by x y zs)))
