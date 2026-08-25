@@ -38,6 +38,9 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}   # so `git push` authenticates as the App
       - uses: ./.github/actions/clojure
+        with:
+          cache-suffix: "-monthly"   # own cache namespace: monthly never fetches :clerk, so it must not
+                                     # seed CI's shared (Clerk-complete) key with a Clerk-less entry
       - name: Refresh CPI from FRED
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
@@ -73,6 +76,9 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}
       - uses: ./.github/actions/clojure
+        with:
+          cache-suffix: "-monthly"   # own cache namespace: monthly never fetches :clerk, so it must not
+                                     # seed CI's shared (Clerk-complete) key with a Clerk-less entry
       - name: Detect upstream drift (frinklang.org units.txt · futureboy frink.jar)
         id: sync
         env:
