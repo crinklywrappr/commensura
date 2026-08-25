@@ -40,8 +40,9 @@
   `pr`/read ignore metadata, a recorded value is still `=` to, and prints identically to, its
   unrecorded self — history lives only in memory.
 
-  Inspect with `node` (the nested map), `history` (its nodes as a seq), `explain` (a readable outline),
-  and `replay` (a `clojure.zip` cursor you can step through)."
+  Inspect with `node` (the nested map), `history` (its nodes as a seq), `explain`/`explain-str`/
+  `explain-lines` (a readable outline — printed, as one string, or as a seq of line-strings), and
+  `replay` (a `clojure.zip` cursor you can step through)."
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
             [clojure.string :as str]
@@ -169,7 +170,7 @@
     (str "[" (str (iv/lo x)) " … " (str (iv/hi x)) "]")
     (str x)))                                            ; quantity/unit/number/uncertain toString
 
-(defn- explain-lines
+(defn- explain-lines*
   "The outline lines for node/leaf `x` at `depth`, as a vector of strings. `seen` (an IdentityHashMap)
   numbers nodes on first sight so a repeat renders as a back-reference. Built eagerly (the `mapcat`
   transducer, not a lazy seq) so the numbering side-effects stay in traversal order."
@@ -181,19 +182,19 @@
       :else               (let [id (inc (.size seen))]
                             (.put seen x id)
                             (into [(str pad "[" id "] " (show (:value x)) "  ←  " (:op x))]
-                                  (mapcat #(explain-lines % (inc depth) seen))
+                                  (mapcat #(explain-lines* % (inc depth) seen))
                                   (:inputs x))))))
 
-(defn explain-str
-  "Render `x`'s build history as a readable, indented outline and return it as a string. Each node
-  gets a bracketed number, its result value, and its producing verb (`←  by`); inline operands sit
-  unnumbered beneath their verb; a value reused elsewhere is shown once and later cited as `↑ [n]`."
+(defn explain-lines
+  "`x`'s build history as a seq of outline line-strings — the data `explain-str` joins and `explain`
+  prints. A node line reads `[n] <value>  ←  <verb>`; inline operands sit unnumbered beneath their
+  verb; a value reused elsewhere appears once, then is cited as `↑ [n]`. Returned as data so you can
+  count/filter/re-indent it or feed it to a viewer."
   [x]
   (if-let [nd (node x)]
-    (str/join "\n" (explain-lines nd 0 (java.util.IdentityHashMap.)))
-    (str (show x) "  (no recorded history)")))
+    (explain-lines* nd 0 (java.util.IdentityHashMap.))
+    [(str (show x) "  (no recorded history)")]))
 
-(defn explain
-  "Print `x`'s build history as a readable outline (see `explain-str`); returns nil."
-  [x]
-  (println (explain-str x)))
+(defn explain-str [x] (str/join "\n" (explain-lines x)))
+
+(defn explain [x] (println (explain-str x)))

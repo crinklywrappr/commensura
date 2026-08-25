@@ -71,6 +71,14 @@
       (is (str/includes? s "commensura.core/to"))  ; op shown as the fully-qualified var
       (is (str/includes? s "commensura.core/by")))))
 
+(deftest explain-lines-exposes-the-outline-as-data
+  (with-provenance
+    (let [lines (prov/explain-lines (c/to (c/by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons))]
+      (is (vector? lines))
+      (is (every? string? lines))
+      (is (= 6 (count lines)))                          ; to, by, 3 feet leaves, gallon target
+      (is (= (str/join "\n" lines) (prov/explain-str (c/to (c/by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons)))))))
+
 (deftest replay-is-a-zipper-cursor
   (with-provenance
     (let [r (c/to (c/by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons)
