@@ -571,6 +571,13 @@
   Number
   (display-value  [n] n))                                 ; a plain number is itself
 
+(defn without-dimension
+  "A value's `display-string` with its trailing ` [dimension]` bracket stripped — for embedding one
+  value's rendering inside another's (e.g. an Uncertain's `value ± sigma [dimension]`, showing the
+  dimension once). Reuses `display-string`, so the value/unit/`≈` formatting stays identical."
+  [x]
+  (str/replace (display-string x) #" \[[^\]]*\]\z" ""))
+
 ;; `pr`/`prn`/the REPL emit a tagged literal whose payload is `display-string`. Two tags
 ;; only: `#commensura/unit` (named — reifies via the registry) and
 ;; `#commensura/quantity` (anonymous). Precise vs approx is NOT in the tag — it shows

@@ -28,47 +28,145 @@
   bare quantity/number as a degenerate interval, so no scalar promotion is needed."
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
+            [commensura.uncertain :as un]
+            [commensura.provenance :as prov]
             [commensura.registry :as registry])
   (:import [org.joda.money CurrencyUnit Money IllegalCurrencyException]
            [java.math RoundingMode]))
 
-(defn by
-  "Product of quantities/numbers/intervals (dimensions add). Variadic."
+;; ---- provenance entry points ----
+;; The ergonomic front door to `commensura.provenance`: `with-provenance` turns recording on for a
+;; body, and `defstep` defines a fn that records as one named node. The mechanism they drive (the
+;; `*record-provenance-on-step*` var, `step`/`record-node`, and all the inspection fns) lives in
+;; `commensura.provenance`; these two macros live here so the verbs below can be defined with `defstep`
+;; and users get recording without a second require.
+(defmacro with-provenance
+  "Evaluate `body` with provenance recording on, returning its value (now carrying history)."
+  [& body]
+  `(binding [prov/*record-provenance-on-step* true] ~@body))
+
+(defmacro defstep
+  "Define a function whose call records as one provenance node (its internals forgotten). Like `defn`
+  — a docstring and multiple arities are supported — each arity's body is wrapped in `step` with that
+  arity's parameters as inputs (a variadic arity folds its rest args in), and the node's op is the new
+  `#'fully-qualified` var:
+
+    (defstep sqrt [x] (c/pow x 1/2))       ; records `#'…/sqrt` over [x]; the inner `pow` leaves no trace
+    (defstep root
+      ([x]   (c/pow x 1/2))
+      ([x n] (c/pow x (/ 1 n))))"
+  [name & fdecl]
+  (let [[doc fdecl] (if (string? (first fdecl)) [(first fdecl) (rest fdecl)] [nil fdecl])
+        arities     (if (vector? (first fdecl)) (list fdecl) fdecl)   ; single-arity vs. several
+        wrap        (fn [[params & body]]
+                      (let [[fixed [_amp restsym]] (split-with #(not= '& %) params)
+                            inputs (if restsym `(into ~(vec fixed) ~restsym) (vec fixed))]
+                        `(~params (prov/step (var ~name) ~inputs ~@body))))]
+    `(defn ~name ~@(when doc [doc]) ~@(map wrap arities))))
+
+;; ---- verbs ----
+
+;; Every binary verb dispatches three ways: an Uncertain operand routes to the quadrature layer, an
+;; Interval operand to the interval layer, and the common case to the plain quantity tower. Uncertain
+;; and Interval are different notions of spread (epistemic σ vs. a denoted range), so mixing them in
+;; one operation is a mistake and throws — a plain operand, by contrast, promotes cleanly on either
+;; side (σ=0 / a degenerate point).
+(defn- dispatch2 [x y un-fn iv-fn q-fn]
+  (cond
+    (or (un/uncertain? x) (un/uncertain? y))
+    (if (or (iv/interval? x) (iv/interval? y))
+      (throw (ex-info "commensura: cannot mix an Uncertain and an Interval in one operation"
+                      {:x x :y y}))
+      (un-fn x y))
+    (or (iv/interval? x) (iv/interval? y)) (iv-fn x y)
+    :else (q-fn x y)))
+
+;; Each value-producing verb is a `defstep`, so with recording on (see `with-provenance` above) the
+;; result carries a provenance node naming the op (the verb's own `#'var`) and its operands. A
+;; `defstep` records every arity — including the 1-arity
+;; identity forms of `by`/`per`/`plus` (rarely called on a lone value) — and a variadic call records one
+;; node over *all* its operands, since `step` runs the body (the pairwise reduce) with recording
+;; suppressed.
+(defstep by
+  "Product of quantities/numbers/intervals/uncertains (dimensions add). Variadic."
   ([x] x)
-  ([x y] (if (or (iv/interval? x) (iv/interval? y)) (iv/iby x y) (q/qmul x y)))
+  ([x y] (dispatch2 x y un/uby iv/iby q/qmul))
   ([x y & more] (reduce by (by x y) more)))
 
-(defn per
+(defstep per
   "Quotient, left-associative: (per a b c) = a/b/c (dimensions subtract)."
   ([x] x)
-  ([x y] (if (or (iv/interval? x) (iv/interval? y)) (iv/iper x y) (q/qdiv x y)))
+  ([x y] (dispatch2 x y un/uper iv/iper q/qdiv))
   ([x y & more] (reduce per (per x y) more)))
 
-(defn plus
-  "Sum of same-dimension quantities/intervals. Variadic."
+(defstep plus
+  "Sum of same-dimension quantities/intervals/uncertains. Variadic."
   ([x] x)
-  ([x y] (if (or (iv/interval? x) (iv/interval? y)) (iv/iplus x y) (q/qadd x y)))
+  ([x y] (dispatch2 x y un/uplus iv/iplus q/qadd))
   ([x y & more] (reduce plus (plus x y) more)))
 
-(defn minus
-  "Difference of same-dimension quantities/intervals; unary form negates."
-  ([x] (if (iv/interval? x) (iv/inegate x) (q/qmul (q/scalar -1) x)))
-  ([x y] (if (or (iv/interval? x) (iv/interval? y)) (iv/iminus x y) (q/qsub x y)))
+(defstep minus
+  "Difference of same-dimension quantities/intervals/uncertains; unary form negates."
+  ([x] (cond (un/uncertain? x) (un/unegate x)
+             (iv/interval? x)  (iv/inegate x)
+             :else             (q/qmul (q/scalar -1) x)))
+  ([x y] (dispatch2 x y un/uminus iv/iminus q/qsub))
   ([x y & more] (reduce minus (minus x y) more)))
 
-(defn pow
-  "Raise a quantity/interval to an integer power."
-  [x n] (if (iv/interval? x) (iv/ipow x n) (q/qpow x n)))
+(defstep pow
+  "Raise a quantity/interval/uncertain to an integer or rational power."
+  [x n] (cond (un/uncertain? x) (un/upow x n)
+              (iv/interval? x)  (iv/ipow x n)
+              :else             (q/qpow x n)))
 
-(defn to
-  "Re-express a quantity/interval in a target unit (dimension-preserving). Uses only the target's unit
-  basis: a *scaled* target's coefficient is ignored (and warns) — `(to (u/mile 5) (u/foot 3))` gives
-  feet, not 3-foot units. For \"how many of a given quantity fit\", use `ratio`. See `q/to`."
-  [x target] (if (iv/interval? x) (iv/ito x target) (q/to x target)))
+(defstep to
+  "Re-express a quantity/interval/uncertain in a target unit (dimension-preserving). Uses only the
+  target's unit basis: a *scaled* target's coefficient is ignored (and warns) — `(to (u/mile 5)
+  (u/foot 3))` gives feet, not 3-foot units. For \"how many of a given quantity fit\", use `ratio`.
+  See `q/to`."
+  [x target] (cond (un/uncertain? x) (un/uto x target)
+                   (iv/interval? x)  (iv/ito x target)
+                   :else             (q/to x target)))
 
-(defn ratio
-  "Dimensionless count: how many of target fit in x (quantity or interval)."
-  [x target] (if (iv/interval? x) (iv/iratio x target) (q/ratio x target)))
+(defstep ratio
+  "Dimensionless count: how many of target fit in x (quantity/interval/uncertain)."
+  [x target] (dispatch2 x target un/uratio iv/iratio q/ratio))
+
+;; ---- range enumeration: "how many `unit`s are in a range?" -----------------------------------------
+;; These read a *range* — an Interval's [lo, hi], or an Uncertain's [value−σ, value+σ] — and answer in
+;; terms of a `unit`. A plain quantity is a degenerate point-range (lo=hi), consistent with the rest of
+;; commensura (a scalar is its own bound), so both verbs are total. `span` gives the extent as a single
+;; dimensioned quantity; `ticks` marks the range off unit-by-unit. (For a bare dimensionless *count*,
+;; use `ratio`.)
+(defn- range-lo [x]
+  (if (un/uncertain? x) (minus (un/value x) (un/sigma x)) (iv/lo-or-identity x)))
+(defn- range-hi [x]
+  (if (un/uncertain? x) (plus (un/value x) (un/sigma x)) (iv/hi-or-identity x)))
+
+(defstep span
+  "The extent of a range (Interval or Uncertain) as a single dimensioned quantity in `unit`: `hi − lo`
+  re-expressed in `unit`. `(span (iv/interval (u/meter 6) (u/meter 11)) u/foot)` ⇒ ≈ 16.40 foot
+  [length]; for an Uncertain it is the full 2σ width. A plain quantity is a point, so its span is 0.
+  See `ratio` for the bare count and `ticks` for the individual marks along the span."
+  [x unit]
+  (to (minus (range-hi x) (range-lo x)) unit))
+
+(defn ticks
+  "Mark a range (Interval or Uncertain) off unit-by-unit — a unit ruler laid along the span: quantities
+  from the low bound toward the high bound in increments of one `unit`, each expressed in `unit`.
+  **Half-open `[lo, hi)`, like `range`** — a mark landing exactly on `hi` is excluded, so each mark owns
+  the cell `[mark, mark+unit)` and the cells tile the range without double-counting. Marks start at the
+  low bound (so the first may be fractional in `unit`). Returns an **eduction**, so it reduces without
+  an intermediate seq and composes with transducers and `into`:
+
+    (into [] (ticks (iv/interval (u/meter 6) (u/meter 11)) u/foot))
+    (into [] (map m/round) (ticks some-interval u/foot))"
+  [x unit]
+  (let [hi (range-hi x)]
+    (eduction
+     (take-while #(neg? (q/qcompare % hi)))             ; while < hi (half-open [lo, hi))
+     (map #(to % unit))
+     (iterate #(plus % unit) (range-lo x)))))
 
 ;; ---- comparison ----
 ;; A comparison orders values by the *range* each one spans. An interval spans [lo, hi]; a plain
@@ -78,39 +176,46 @@
 ;; `q/qcompare` does the ordering (conformance-checked, by base magnitude, approx-aware), so
 ;; every operator works on quantities, plain numbers, and intervals uniformly.
 
+;; An Uncertain compares on its *central value* (the spread is ignored here — for a σ-aware test use
+;; `commensura.uncertain/within?` / `consistent?`). `central` collapses an uncertain to that value;
+;; `clo`/`chi` then read the comparison range (an interval's bound, or the point itself).
+(defn- central [x] (if (un/uncertain? x) (un/value x) x))
+(defn- clo [x] (iv/lo-or-identity (central x)))
+(defn- chi [x] (iv/hi-or-identity (central x)))
+
 ;; Certainly-* : the relation holds for *every* pair of values, one from x and one from y.
 (defn certainly-lt?
   "x's high bound is below y's low bound: every value of x < every value of y."
   [x y]
-  (neg? (q/qcompare (iv/hi-or-identity x) (iv/lo-or-identity y))))
+  (neg? (q/qcompare (chi x) (clo y))))
 
 (defn certainly-le?
   "x's high bound <= y's low bound: every value of x <= every value of y."
   [x y]
-  (<= (q/qcompare (iv/hi-or-identity x) (iv/lo-or-identity y)) 0))
+  (<= (q/qcompare (chi x) (clo y)) 0))
 
 (defn certainly-gt?
   "x's low bound is above y's high bound: every value of x > every value of y."
   [x y]
-  (pos? (q/qcompare (iv/lo-or-identity x) (iv/hi-or-identity y))))
+  (pos? (q/qcompare (clo x) (chi y))))
 
 (defn certainly-ge?
   "x's low bound >= y's high bound: every value of x >= every value of y."
   [x y]
-  (>= (q/qcompare (iv/lo-or-identity x) (iv/hi-or-identity y)) 0))
+  (>= (q/qcompare (clo x) (chi y)) 0))
 
 (defn certainly-eq?
   "x and y are the same single point (both collapse to one shared value)."
   [x y]
-  (and (zero? (q/qcompare (iv/lo-or-identity x) (iv/lo-or-identity y)))  ; cross-compare: enforces conformance
-       (zero? (q/qcompare (iv/hi-or-identity x) (iv/hi-or-identity y)))
-       (zero? (q/qcompare (iv/lo-or-identity x) (iv/hi-or-identity x))))) ; …and x is a point (so, with the above, is y)
+  (and (zero? (q/qcompare (clo x) (clo y)))  ; cross-compare: enforces conformance
+       (zero? (q/qcompare (chi x) (chi y)))
+       (zero? (q/qcompare (clo x) (chi x))))) ; …and x is a point (so, with the above, is y)
 
 (defn certainly-ne?
   "x and y are disjoint: their ranges share no value."
   [x y]
-  (or (neg? (q/qcompare (iv/hi-or-identity x) (iv/lo-or-identity y)))
-      (neg? (q/qcompare (iv/hi-or-identity y) (iv/lo-or-identity x)))))
+  (or (neg? (q/qcompare (chi x) (clo y)))
+      (neg? (q/qcompare (chi y) (clo x)))))
 
 ;; Possibly-* : the relation holds for *some* pair. Frink's property — the possibly operator is
 ;; the negation of the opposite certainly operator — so each is correct by construction.

@@ -52,6 +52,54 @@
             (recur (inc i))))
         (aget d (+ (* m w) n))))))
 
+(defn- osa-distance-within
+  "Cutoff-aware OSA distance: like `osa-distance`, but only fills the diagonal band
+  `|i−j| ≤ cutoff` (so O(m·cutoff) work instead of O(m·n)) and bails the moment a whole
+  row's minimum exceeds `cutoff`. Returns the true distance when it is ≤ `cutoff`, else a
+  sentinel `> cutoff` (specifically `cutoff+1`) meaning \"farther than we care about\".
+  Two facts make the shortcuts exact: an optimal alignment of cost ≤ cutoff never leaves
+  the band (leaving costs one indel per step), and row minima are non-decreasing (each
+  cell ≥ its up-left diagonal), so a row entirely past cutoff can only lead to more."
+  ^long [^String s ^String t ^long cutoff]
+  (let [m   (int (count s))
+        n   (int (count t))
+        big (inc cutoff)]
+    (cond
+      (> (Math/abs (- m n)) cutoff) big
+      (zero? m) (if (<= n cutoff) n big)
+      (zero? n) (if (<= m cutoff) m big)
+      :else
+      ;; Same flat (m+1)×(n+1) DP array as `osa-distance`, but cells outside the band are
+      ;; left at `big` (an INF that any real path beats) and never visited.
+      (let [w        (inc n)
+            ^longs d (long-array (* (inc m) w) big)]
+        (dotimes [i (inc (min m cutoff))] (aset d (* i w) (long i)))   ; first column, band only
+        (dotimes [j (inc (min n cutoff))] (aset d j (long j)))         ; first row, band only
+        (loop [i 1]
+          (if (> i m)
+            (aget d (+ (* m w) n))
+            (let [ci     (.charAt s (dec i))
+                  jlo    (max 1 (- i cutoff))
+                  jhi    (min n (+ i cutoff))
+                  rowmin (loop [j jlo, rowmin big]
+                           (if (> j jhi)
+                             rowmin
+                             (let [cj   (.charAt t (dec j))
+                                   cost (if (= ci cj) 0 1)
+                                   base (min (inc (aget d (+ (* (dec i) w) j)))            ; delete s[i]
+                                             (inc (aget d (+ (* i w) (dec j))))            ; insert t[j]
+                                             (+ (aget d (+ (* (dec i) w) (dec j))) cost))  ; substitute
+                                   v    (if (and (> i 1) (> j 1)
+                                                 (= ci (.charAt t (- j 2)))
+                                                 (= (.charAt s (- i 2)) cj))
+                                          (min base (+ (aget d (+ (* (- i 2) w) (- j 2))) cost)) ; transpose
+                                          base)]
+                               (aset d (+ (* i w) j) (long v))
+                               (recur (inc j) (min rowmin v)))))]
+              (if (> rowmin cutoff)
+                big                                    ; whole row past cutoff ⇒ so is the result
+                (recur (inc i))))))))))
+
 (defn- normalize
   "Fold case and drop underscores, so `Kilo_gram` and `kilogram` compare as equal."
   [s]
@@ -83,9 +131,10 @@
          (->> candidates
               (keep (fn [c]
                       (let [cn (normalize c)]
-                        ;; |Δlength| is a lower bound on edit distance — skip the far ones cheaply.
+                        ;; |Δlength| is a lower bound on edit distance — skip the far ones cheaply,
+                        ;; then let the cutoff-aware banded DP reject the rest without a full matrix.
                         (when (<= (Math/abs (- tlen (count cn))) cutoff)
-                          (let [d (osa-distance target cn)]
+                          (let [d (osa-distance-within target cn cutoff)]
                             (when (<= d cutoff) [c d]))))))
               ;; keyfn is a same-length [distance length name] vector; Clojure's `compare`
               ;; orders equal-length vectors element-wise, so this sorts by distance, then
