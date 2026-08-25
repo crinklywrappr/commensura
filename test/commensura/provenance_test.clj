@@ -89,6 +89,14 @@
       (is (= 10 (q/display-value (zip/node (-> z zip/down zip/down))))) ; …down again reaches a leaf (10 feet)
       (is (= #'c/to (prov/op (zip/node (prov/history-zip (prov/node r))))))))) ; also accepts a node map
 
+(deftest explain-dedups-by-value
+  (testing "two independent but structurally-equal subtrees coalesce into one node + a back-reference"
+    (with-provenance
+      (let [lines (prov/explain-lines (c/plus (c/by (u/meter 3) (u/meter 4))    ; two *separate* by's,
+                                              (c/by (u/meter 3) (u/meter 4))))] ; distinct objects but =
+        (is (= 1 (count (filter #(str/includes? % "←  #'commensura.core/by") lines))))
+        (is (= 1 (count (filter #(str/includes? % "↑") lines))))))))
+
 ;; explain is written on history-zip; this pins the outline it produces (dogfooding the cursor)
 (deftest explain-matches-a-known-outline
   (with-provenance

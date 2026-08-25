@@ -154,41 +154,39 @@
     (str "[" (str (iv/lo x)) " … " (str (iv/hi x)) "]")
     (str x)))                                            ; quantity/unit/number/uncertain toString
 
-(defn- skip-subtree
-  "The next loc after `loc`'s whole subtree — its right sibling, else the nearest ancestor's right
-  sibling, else nil at the end. (clojure.zip has no built-in subtree skip; used to prune an
-  already-shown shared node without re-descending it.)"
-  [loc]
-  (or (zip/right loc)
-      (loop [l (zip/up loc)]
-        (when l (or (zip/right l) (recur (zip/up l)))))))
-
 (defn explain-lines
   "`x`'s build history as a seq of outline line-strings — the data `explain-str` joins and `explain`
   prints. A node line reads `[n] <value>  ←  <verb>`; inline operands sit unnumbered beneath their
-  verb; a value reused elsewhere appears once, then is cited as `↑ [n]`. Returned as data so you can
-  count/filter/re-indent it or feed it to a viewer. Walks `history-zip` (indentation from `zip/path`;
-  an `IdentityHashMap` numbers nodes so a repeat renders as a back-reference, its subtree then pruned)."
+  verb; a value that recurs is shown once, then cited as `↑ [n]` (and its operands omitted). Returned
+  as data so you can count/filter/re-indent it or feed it to a viewer.
+
+  Walks `history-zip`, dogfooding the cursor: `zip/path` gives the indentation depth; `seen` (a plain
+  map threaded through the loop) numbers nodes and de-duplicates them *by value*; and once a repeat is
+  cited, `hide` (the depth it sat at) omits every deeper loc until the walk climbs back out — so no
+  manual subtree-skipping is needed."
   [x]
   (if (node x)
-    (loop [loc (history-zip x), seen (java.util.IdentityHashMap.), lines []]
-      (if (or (nil? loc) (zip/end? loc))
+    (loop [loc (history-zip x), seen {}, hide nil, lines []]
+      (if (zip/end? loc)
         lines
-        (let [nd  (zip/node loc)
-              pad (apply str (repeat (count (zip/path loc)) "    "))]
+        (let [nd    (zip/node loc)
+              depth (count (zip/path loc))
+              pad   (apply str (repeat depth "    "))]
           (cond
-            (not (node-map? nd))                                                ; inline operand (leaf)
-            (recur (zip/next loc) seen (conj lines (str pad (show nd))))
+            (and hide (> depth hide))                    ; beneath an already-shown node — omit
+            (recur (zip/next loc) seen hide lines)
 
-            (.get seen nd)                                                      ; shared node — back-ref
-            (recur (skip-subtree loc) seen
-                   (conj lines (str pad "↑ [" (.get seen nd) "] " (show (:value nd)))))
+            (not (node-map? nd))                         ; inline operand (leaf)
+            (recur (zip/next loc) seen nil (conj lines (str pad (show nd))))
+
+            (seen nd)                                    ; a repeat — back-reference, then hide its subtree
+            (recur (zip/next loc) seen depth
+                   (conj lines (str pad "↑ [" (seen nd) "] " (show (:value nd)))))
 
             :else
-            (let [id (inc (.size seen))]
-              (.put seen nd id)
-              (recur (zip/next loc) seen
-                     (conj lines (str pad "[" id "] " (show (:value nd)) "  ←  " (:op nd)))))))))
+            (let [n (inc (count seen))]
+              (recur (zip/next loc) (assoc seen nd n) nil
+                     (conj lines (str pad "[" n "] " (show (:value nd)) "  ←  " (:op nd)))))))))
     [(str (show x) "  (no recorded history)")]))
 
 (defn explain-str [x] (str/join "\n" (explain-lines x)))
