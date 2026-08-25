@@ -44,6 +44,7 @@
   and `replay` (a `clojure.zip` cursor you can step through)."
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
+            [clojure.string :as str]
             [clojure.zip :as zip]))
 
 ;; ---- the switch --------------------------------------------------------------------------------
@@ -168,16 +169,20 @@
     (str "[" (str (iv/lo x)) " … " (str (iv/hi x)) "]")
     (str x)))                                            ; quantity/unit/number/uncertain toString
 
-(defn- explain* [x depth ^java.util.IdentityHashMap seen ^StringBuilder sb]
+(defn- explain-lines
+  "The outline lines for node/leaf `x` at `depth`, as a vector of strings. `seen` (an IdentityHashMap)
+  numbers nodes on first sight so a repeat renders as a back-reference. Built eagerly (the `mapcat`
+  transducer, not a lazy seq) so the numbering side-effects stay in traversal order."
+  [x depth ^java.util.IdentityHashMap seen]
   (let [pad (apply str (repeat depth "    "))]
     (cond
-      (not (node-map? x)) (.append sb (str pad (show x) "\n"))               ; inline operand (leaf)
-      (.get seen x)       (.append sb (str pad "↑ [" (.get seen x) "] " (show (:value x)) "\n"))  ; back-ref
+      (not (node-map? x)) [(str pad (show x))]                                       ; inline operand (leaf)
+      (.get seen x)       [(str pad "↑ [" (.get seen x) "] " (show (:value x)))]     ; shared node — back-ref
       :else               (let [id (inc (.size seen))]
                             (.put seen x id)
-                            (.append sb (str pad "[" id "] " (show (:value x)) "  ←  " (:op x) "\n"))
-                            (doseq [in (:inputs x)] (explain* in (inc depth) seen sb))))
-    sb))
+                            (into [(str pad "[" id "] " (show (:value x)) "  ←  " (:op x))]
+                                  (mapcat #(explain-lines % (inc depth) seen))
+                                  (:inputs x))))))
 
 (defn explain-str
   "Render `x`'s build history as a readable, indented outline and return it as a string. Each node
@@ -185,11 +190,10 @@
   unnumbered beneath their verb; a value reused elsewhere is shown once and later cited as `↑ [n]`."
   [x]
   (if-let [nd (node x)]
-    (str (explain* nd 0 (java.util.IdentityHashMap.) (StringBuilder.)))
-    (str (show x) "  (no recorded history)\n")))
+    (str/join "\n" (explain-lines nd 0 (java.util.IdentityHashMap.)))
+    (str (show x) "  (no recorded history)")))
 
 (defn explain
   "Print `x`'s build history as a readable outline (see `explain-str`); returns nil."
   [x]
-  (print (explain-str x))
-  (flush))
+  (println (explain-str x)))
