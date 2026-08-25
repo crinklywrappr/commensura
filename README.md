@@ -22,8 +22,9 @@ a hands-on tour with worked examples, charts, and the extensibility patterns. St
 
 ## Design in one breath
 
-- **Units are callable vars.** `(u/feet 10)` is ten feet; bare `u/feet` is one foot. Everything is a
-  real var (no macros, no keyword soup), so your editor autocompletes.
+- **Units are callable vars.** `(u/feet 10)` is ten feet; bare `u/feet` is one foot; several args raise
+  the dimension — `(u/feet 3 5 7)` is `105 foot³`. Everything is a real var (no macros, no keyword soup
+  required), so your editor autocompletes.
 - **Verbs are plain functions**, deliberately named so they never shadow `clojure.core` — `:refer :all`
   is safe: `by` (×), `per` (÷), `plus`, `minus`, `pow`, `to` (convert), `ratio` (dimensionless count),
   plus comparisons (`lt?`, `certainly-lt?`, …) and `defunit`. Plain numbers are dimensionless scalars.
@@ -73,6 +74,34 @@ a hands-on tour with worked examples, charts, and the extensibility patterns. St
 ;=> [595/2 dollar ≈ 297.50 [currency], 390 dollar]   ; the guaranteed cost range
 ```
 
+**Measurement uncertainty** is the statistical companion — a value with a ±1σ spread that propagates in
+quadrature. Is that gold-coloured bar real gold?
+
+```clojure
+(require '[commensura.uncertain :as un])
+
+(def rho (per (un/plus-minus (u/gram 965/10) (u/gram 1/10))     ; 96.5 g ± 0.1 g  (scale)
+              (un/plus-minus (u/cm 5 1 1)   (u/cm 1/20 1 1))))   ; 5.00 cm³ ± 0.05 cm³  (displacement)
+rho
+;=> 193/10 gram/cm^3 ≈ 19.3 ± ≈0.194 gram/cm^3 [mass density]   ; error bars, computed for you
+(un/consistent? rho (per (u/gram 193/10) (u/cm 1 1 1)))
+;=> true   ; consistent with gold (19.30 g/cm³) at 2σ
+```
+
+**Provenance** — ask any value how it was built. Opt-in and off by default (zero cost otherwise):
+
+```clojure
+(require '[commensura.provenance :as prov])         ; `with-provenance` is in commensura.core
+
+(prov/explain (with-provenance (to (by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons)))
+;; [1] 552960/77 gallon ≈ 7181.30 [volume]  ←  #'commensura.core/to
+;;     [2] 960 feet^3 [volume]  ←  #'commensura.core/by
+;;         10 feet [length]
+;;         12 feet [length]
+;;         8 feet [length]
+;;     gallon [volume]
+```
+
 **Historical purchasing power** and **live currency** are built in:
 
 ```clojure
@@ -85,11 +114,19 @@ a hands-on tour with worked examples, charts, and the extensibility patterns. St
 ## Features
 
 - **Units + dimensional arithmetic** — 2,000+ units, all reduced to nine base dimensions; exact.
-- **Interval arithmetic** — rigorous uncertainty propagation with Frink's `mainValue`; exact bounds.
+- **Interval arithmetic** — rigorous propagation of a *guaranteed* range, with Frink's `mainValue`;
+  exact bounds. `span` gives a range's extent as one quantity; `ticks` walks it unit-by-unit (an
+  eduction, so it composes with `into`/transducers).
+- **Measurement uncertainty** — the statistical sibling of intervals: `plus-minus` pairs a value with a
+  ±1σ spread that propagates in **quadrature** through the verbs; `consistent?` / `within?` test
+  agreement. (`commensura.uncertain`.)
+- **Provenance** — opt-in build-history: `with-provenance` records how each value was made; `explain` /
+  `history` read it back as an outline or as data. Off by default, zero-cost, and never leaks into a
+  result (rides metadata). (`commensura.provenance`.)
 - **Comparisons** — physical (unit-agnostic) ordering, plus Frink's *certainly* / *possibly* operators
   over intervals.
-- **Math** — `sqrt`/`root`/rational `pow`, `abs`/`sign`/`floor`/`ceil`/`round`/`mod`/`min`/`max`, and
-  fractional dimensions (`sqrt(Hz)` → `Hz^(1/2)`).
+- **Math** — `sqrt`/`root`/rational `pow`, `abs`/`sign`/`floor`/`ceil`/`round`/`mod`/`min`/`max` (all
+  interval- and uncertainty-aware), and fractional dimensions (`sqrt(Hz)` → `Hz^(1/2)`).
 - **Approximate quantities** — irrational results carry an arbitrary-precision value, marked `≈`.
 - **Tagged literals** — values print as `#commensura/quantity "…"` / `#commensura/unit "…"` and read
   back through the data reader.
@@ -97,6 +134,13 @@ a hands-on tour with worked examples, charts, and the extensibility patterns. St
   1913→present, shipped.
 - **Live currency** — every ISO code as a discoverable fn (`(cur/EUR 600)`), plus precious metals; the
   client ships, the rates are fetched live.
+- **Money bridge** — `quantity->money` / `money->quantity` convert a currency quantity to and from
+  Joda-Money (`org.joda.money`), for interop with the JVM money ecosystem.
+- **Discovery** — `commensura.discover` searches and describes units and dimensions at the REPL, and an
+  unknown unit (or a reader miss) suggests close matches — a dependency-free "did you mean?".
+- **frinj-style infix** — an optional familiar entry point for people coming from Frink/frinj:
+  `commensura.infix`'s `fj` keyword-soup and `$=` infix math, built straight on the exact engine (see
+  the guide's frinj notebook).
 - **Extensible** — `defunit` (a fixed unit), `register-dimension!` (name a dimension), and
   `register-unit-resolver!` (units built on demand — a name-derived *family* like `dollar_1960`, or a
   single *live-rate* unit like `satoshi`).

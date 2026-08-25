@@ -25,7 +25,10 @@
   * **`fj`** — *keyword soup*. A left-to-right product of alternating numbers and `:unit` keywords
     (`(fj 5 12 :floz)` ⇒ 60 floz); `:per` divides the next factor; `:to` converts everything after it to
     a target built the same way. Unit keywords resolve through `commensura.registry` — with a plural
-    fallback (`:gallons` → `gallon`), since commensura registers singular names.
+    fallback (`:gallons` → `gallon`), since commensura registers singular names. A unit **var** works
+    interchangeably with its keyword — `(fj 3 u/meter)` is `(fj 3 :meter)` — so you can lean on editor
+    autocomplete and get a *compile-time* error for a name that doesn't exist, instead of a runtime
+    \"unknown unit\". (Any non-keyword — a var, a number, a quantity — is used as-is.)
   * **`$=`** — *infix math* over `** * / + -` (→ `pow`/`by`/`per`/`plus`/`minus`) and the comparisons
     `== != < > <= >=` (→ `eq?`/`ne?`/`lt?`/`gt?`/`le?`/`ge?`), with precedence `**` > `* /` > `+ -` >
     comparisons. Add your own with **`defop`**. Operands are `fj` forms, numbers, or nested `$=`.

@@ -22,7 +22,8 @@
 (ns frinj-examples
   (:require [nextjournal.clerk :as clerk]
             [commensura.infix :refer [fj $= to]]
-            [commensura.core :refer [defunit register-dimension!]]
+            [commensura.core :as c :refer [defunit register-dimension!]]
+            [commensura.units :as u]
             [commensura.quantity :as q]
             [tick.core :as t]))
 
@@ -41,6 +42,21 @@
                   :padding "0.55rem 0.85rem" :margin "0.6rem 0" :color "#78350f" :font-style "italic"}}
     [:span {:style {:font-style "normal"}} "💡 "] text]))
 
+;; a blue aside pointing out the *same* calculation written in plain commensura — the sugar desugared
+^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
+(defn native [text]
+  (clerk/html
+   [:div {:style {:background "#eff6ff" :border-left "4px solid #3b82f6" :border-radius "4px"
+                  :padding "0.55rem 0.85rem" :margin "0.6rem 0" :color "#1e3a8a"}}
+    "🟰 " text]))
+
+;; `fj` / `$=` are only sugar. Every soup token that isn't a keyword is used as-is, so a unit **var**
+;; stands in for its keyword — `(fj 3 u/meter)` is `(fj 3 :meter)`. Reaching for the var buys you
+;; editor autocomplete and a *compile-time* error for a misspelling, rather than a runtime "unknown
+;; unit"; and it makes the desugaring obvious (below, each example is shown both ways).
+
+(c/eq? (fj 3 u/meter) (fj 3 :meter))
+
 ;; ## Mass and Volume
 ;;
 ;; Let's say you wanted to fill your bedroom up with water. How much water would it take?
@@ -50,6 +66,11 @@
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (note "Where frinj reports 552960/77 [dimensionless], commensura keeps the [volume] dimension and the exact fraction — the approximation is shown, never substituted.")
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(native "the same product-then-convert without the sugar — `fj` builds a `by` product, `:to` is `to`:")
+
+(c/to (c/by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallon)
 
 ;; It would take approximately 7181 gallons to fill it. Note that you get both an exact
 ;; fraction and an approximation. How much would that weigh, if you filled it with water?
@@ -62,6 +83,11 @@
 
 (-> ($= (fj 2 :tons) / (fj 10 :feet 12 :feet :water))
     (to :feet))
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(native "`$=`'s `/` is `per`, and the soup is a `by` product:")
+
+(c/to (c/per (u/ton 2) (c/by (u/feet 10) (u/feet 12) u/water)) u/foot)
 
 ;; So you could only fill it about 0.53 feet deep. It'll be a pretty sad pool party.
 
@@ -76,6 +102,11 @@
 (note "frinj's (fj :water :per :alcohol) collapses to 1.2669. commensura keeps the water/alcohol stack (its display value is 1), so the density ratio reads most naturally as a conversion — one water is exactly 10000/7893 alcohols:")
 
 (fj :water :to :alcohol)
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(native "a plain conversion — `:to` is `to`, over two unit vars:")
+
+(c/to u/water u/alcohol)
 
 ;; Water is thus 1.267 times denser than alcohol. 3.2 beer (measured by weight) is thus
 ;; actually 4.0 percent alcohol as measured by volume. Now let's set that variable in terms
@@ -116,6 +147,11 @@
 ;; A "pony keg" is a "quarter barrel" or, in Frinj notation, ponykeg or 1/4 beerbarrel)
 
 (fj :keg :to :case)
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(native "one unit expressed in another — just `to` over two unit vars:")
+
+(c/to u/keg u/case)
 
 ;; How many 12 fluid ounce drinks (i.e. cans o' beer) in a keg?
 
