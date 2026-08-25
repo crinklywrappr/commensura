@@ -123,11 +123,16 @@
       (let [r (m/sqrt (u/meter 9))]                        ; sqrt internally calls pow x 1/2
         (is (= #'m/sqrt (prov/op r)))
         (is (= [(u/meter 9)] (prov/inputs r)))))           ; input is the plain 9 m leaf; no inner pow node
-    (testing "abs / floor / min / mod likewise"
+    (testing "every value-producing math fn records under its own var"
       (is (= #'m/abs   (prov/op (m/abs (u/meter -5)))))
+      (is (= #'m/root  (prov/op (m/root (u/meter 8 1 1) 3))))   ; cube root of 8 m³
       (is (= #'m/floor (prov/op (m/floor (u/meter 59/10)))))
+      (is (= #'m/ceil  (prov/op (m/ceil (u/meter 31/10)))))
+      (is (= #'m/round (prov/op (m/round (u/meter 37/10)))))
       (is (= #'m/min   (prov/op (m/min (u/meter 3) (u/meter 4)))))
-      (is (= #'m/mod   (prov/op (m/mod (u/hour 25) (u/hour 24))))))))
+      (is (= #'m/max   (prov/op (m/max (u/meter 3) (u/meter 4)))))
+      (is (= #'m/mod   (prov/op (m/mod (u/hour 25) (u/hour 24)))))
+      (is (= #'m/rem   (prov/op (m/rem (u/hour 25) (u/hour 24))))))))
 
 ;; multi-arity + variadic defstep: every arity records under the fn's var, with that arity's operands
 (defstep combine

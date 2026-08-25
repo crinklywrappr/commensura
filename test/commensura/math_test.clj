@@ -70,6 +70,15 @@
   (testing "floor/sign over an interval"
     (is (= [1 3]   (ends (m/floor (iv/interval 1.2 3.8)))))
     (is (= [-1 1]  (ends (m/sign (iv/interval -2 3))))))
+  (testing "a monotone lift carries an interval's main value (Interval3)"
+    (let [f (m/floor (iv/interval 1.2 2.7 3.8))]
+      (is (= [1 3] (ends f)))
+      (is (= 2 (dv (iv/main-value f)))))                       ; floor 2.7 → 2
+    (is (= 4 (dv (iv/main-value (m/round (iv/interval 3.1 3.7 4.2))))))  ; round 3.7 → 4
+    (is (= 0 (dv (iv/main-value (m/sign (iv/interval -2 0 3)))))))       ; sign 0 → 0
+  (testing "round on an approximate value (BigDecimal display) rounds cleanly"
+    (is (= 1 (dv (m/round (m/sqrt (c/by (u/meter 2) (u/meter 1)))))))    ; round √2 m ≈ 1.414 → 1 m
+    (is (= 2 (dv (m/ceil  (m/sqrt (c/by (u/meter 2) (u/meter 1))))))))   ; ceil  √2 m → 2 m
   (testing "min/max are componentwise on the bounds"
     (is (= [1 3] (ends (m/min (iv/interval 1 4) (iv/interval 2 3)))))
     (is (= [2 4] (ends (m/max (iv/interval 1 4) (iv/interval 2 3))))))
