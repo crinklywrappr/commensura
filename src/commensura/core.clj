@@ -56,47 +56,47 @@
 (defn by
   "Product of quantities/numbers/intervals/uncertains (dimensions add). Variadic."
   ([x] x)
-  ([x y] (step 'by [x y] (dispatch2 x y un/uby iv/iby q/qmul)))
-  ([x y & more] (step 'by (into [x y] more) (reduce by (by x y) more))))
+  ([x y] (step #'by [x y] (dispatch2 x y un/uby iv/iby q/qmul)))
+  ([x y & more] (step #'by (into [x y] more) (reduce by (by x y) more))))
 
 (defn per
   "Quotient, left-associative: (per a b c) = a/b/c (dimensions subtract)."
   ([x] x)
-  ([x y] (step 'per [x y] (dispatch2 x y un/uper iv/iper q/qdiv)))
-  ([x y & more] (step 'per (into [x y] more) (reduce per (per x y) more))))
+  ([x y] (step #'per [x y] (dispatch2 x y un/uper iv/iper q/qdiv)))
+  ([x y & more] (step #'per (into [x y] more) (reduce per (per x y) more))))
 
 (defn plus
   "Sum of same-dimension quantities/intervals/uncertains. Variadic."
   ([x] x)
-  ([x y] (step 'plus [x y] (dispatch2 x y un/uplus iv/iplus q/qadd)))
-  ([x y & more] (step 'plus (into [x y] more) (reduce plus (plus x y) more))))
+  ([x y] (step #'plus [x y] (dispatch2 x y un/uplus iv/iplus q/qadd)))
+  ([x y & more] (step #'plus (into [x y] more) (reduce plus (plus x y) more))))
 
 (defn minus
   "Difference of same-dimension quantities/intervals/uncertains; unary form negates."
-  ([x] (step 'minus [x] (cond (un/uncertain? x) (un/unegate x)
-                              (iv/interval? x)  (iv/inegate x)
-                              :else             (q/qmul (q/scalar -1) x))))
-  ([x y] (step 'minus [x y] (dispatch2 x y un/uminus iv/iminus q/qsub)))
-  ([x y & more] (step 'minus (into [x y] more) (reduce minus (minus x y) more))))
+  ([x] (step #'minus [x] (cond (un/uncertain? x) (un/unegate x)
+                               (iv/interval? x)  (iv/inegate x)
+                               :else             (q/qmul (q/scalar -1) x))))
+  ([x y] (step #'minus [x y] (dispatch2 x y un/uminus iv/iminus q/qsub)))
+  ([x y & more] (step #'minus (into [x y] more) (reduce minus (minus x y) more))))
 
 (defn pow
   "Raise a quantity/interval/uncertain to an integer or rational power."
-  [x n] (step 'pow [x n] (cond (un/uncertain? x) (un/upow x n)
-                               (iv/interval? x)  (iv/ipow x n)
-                               :else             (q/qpow x n))))
+  [x n] (step #'pow [x n] (cond (un/uncertain? x) (un/upow x n)
+                                (iv/interval? x)  (iv/ipow x n)
+                                :else             (q/qpow x n))))
 
 (defn to
   "Re-express a quantity/interval/uncertain in a target unit (dimension-preserving). Uses only the
   target's unit basis: a *scaled* target's coefficient is ignored (and warns) — `(to (u/mile 5)
   (u/foot 3))` gives feet, not 3-foot units. For \"how many of a given quantity fit\", use `ratio`.
   See `q/to`."
-  [x target] (step 'to [x target] (cond (un/uncertain? x) (un/uto x target)
-                                        (iv/interval? x)  (iv/ito x target)
-                                        :else             (q/to x target))))
+  [x target] (step #'to [x target] (cond (un/uncertain? x) (un/uto x target)
+                                         (iv/interval? x)  (iv/ito x target)
+                                         :else             (q/to x target))))
 
 (defn ratio
   "Dimensionless count: how many of target fit in x (quantity/interval/uncertain)."
-  [x target] (step 'ratio [x target] (dispatch2 x target un/uratio iv/iratio q/ratio)))
+  [x target] (step #'ratio [x target] (dispatch2 x target un/uratio iv/iratio q/ratio)))
 
 ;; ---- range enumeration: "how many `unit`s are in a range?" -----------------------------------------
 ;; These read a *range* — an Interval's [lo, hi], or an Uncertain's [value−σ, value+σ] — and answer in
@@ -115,7 +115,7 @@
   [length]; for an Uncertain it is the full 2σ width. A plain quantity is a point, so its span is 0.
   See `ratio` for the bare count and `ticks` for the individual marks along the span."
   [x unit]
-  (step 'span [x unit] (to (minus (range-hi x) (range-lo x)) unit)))
+  (step #'span [x unit] (to (minus (range-hi x) (range-lo x)) unit)))
 
 (defn ticks
   "Mark a range (Interval or Uncertain) off unit-by-unit — a unit ruler laid along the span: quantities

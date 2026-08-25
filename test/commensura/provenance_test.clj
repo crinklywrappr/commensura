@@ -28,7 +28,7 @@
   (with-provenance
     (let [a (u/meter 3), b (u/meter 4)
           r (c/by a b)]
-      (is (= 'by (prov/op r)))
+      (is (= #'c/by (prov/op r)))                 ; the op is the fully-qualified var, not a bare symbol
       (is (= [a b] (prov/inputs r)))
       (is (= [] (prov/child-nodes r)))          ; a, b are freshly constructed leaves (no provenance)
       (is (not (prov/recorded? a))))))
@@ -36,20 +36,20 @@
 (deftest variadic-records-one-node-over-all-operands
   (with-provenance
     (let [r (c/by (u/meter 2) (u/meter 3) (u/meter 4))]
-      (is (= 'by (prov/op r)))
+      (is (= #'c/by (prov/op r)))
       (is (= 3 (count (prov/inputs r))))        ; one node over all three, not nested pairwise
       (is (= {:length 3} (q/dims r))))))
 
 (deftest step-collapses-internals-under-one-name
   (testing "span reads as `span`, not its internal to/minus"
     (with-provenance
-      (is (= 'span (prov/op (c/span (iv/interval (u/meter 6) (u/meter 11)) u/foot)))))))
+      (is (= #'c/span (prov/op (c/span (iv/interval (u/meter 6) (u/meter 11)) u/foot)))))))
 
 (deftest inline-operands-are-not-child-nodes
   (with-provenance
     (let [x (c/by (u/meter 2) (u/meter 3))       ; a recorded child
           r (c/pow x 2)]
-      (is (= 'pow (prov/op r)))
+      (is (= #'c/pow (prov/op r)))
       (is (= [(prov/node x) 2] (prov/inputs r)))  ; x is folded in as its node; the exponent 2 is a leaf
       (is (= [(prov/node x)] (prov/child-nodes r))))))
 
@@ -66,23 +66,38 @@
   (with-provenance
     (let [r (c/to (c/by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons)
           s (prov/explain-str r)]
-      (is (= 'to (prov/op r)))
+      (is (= #'c/to (prov/op r)))
       (is (= 2 (count (prov/history r))))        ; the `to` node and the `by` node (leaves aren't nodes)
-      (is (str/includes? s "←  to"))
-      (is (str/includes? s "←  by")))))
+      (is (str/includes? s "commensura.core/to"))  ; op shown as the fully-qualified var
+      (is (str/includes? s "commensura.core/by")))))
 
 (deftest replay-is-a-zipper-cursor
   (with-provenance
     (let [r (c/to (c/by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons)
           z (prov/replay r)]
-      (is (= 'to (prov/op (zip/node z))))
-      (is (= 'by (prov/op (zip/node (zip/down z)))))            ; down into the recorded child
-      (is (= 'to (prov/op (zip/node (zip/up (zip/down z))))))))) ; …and back up
+      (is (= #'c/to (prov/op (zip/node z))))
+      (is (= #'c/by (prov/op (zip/node (zip/down z)))))            ; down into the recorded child
+      (is (= #'c/to (prov/op (zip/node (zip/up (zip/down z))))))))) ; …and back up
 
 (prov/defstep double-it [q] (c/by q 2))
 
 (deftest defstep-defines-a-recording-fn
   (with-provenance
     (let [r (double-it (u/meter 5))]
-      (is (= 'double-it (prov/op r)))            ; the inner `by` is collapsed under the step's name
+      (is (= #'double-it (prov/op r)))           ; the inner `by` is collapsed under the step's own var
       (is (= [(u/meter 5)] (prov/inputs r))))))
+
+;; multi-arity + variadic defstep: every arity records under the fn's var, with that arity's operands
+(prov/defstep combine
+  ([x]        x)
+  ([x y]      (c/by x y))
+  ([x y & zs] (apply c/by x y zs)))
+
+(deftest defstep-supports-multiple-arities
+  (with-provenance
+    (is (= #'combine (prov/op (combine (u/meter 2) (u/meter 5)))))
+    (is (= {:length 2} (q/dims (combine (u/meter 2) (u/meter 5)))))
+    (let [r (combine (u/meter 2) (u/meter 3) (u/meter 4))]   ; variadic arity folds the rest args in
+      (is (= #'combine (prov/op r)))
+      (is (= 3 (count (prov/inputs r))))
+      (is (= {:length 3} (q/dims r))))))

@@ -91,29 +91,52 @@
 (defmacro step
   "Record `body`'s result as one provenance node labelled `op` over `inputs` (its operand values).
   A no-op — and zero allocation — unless `*record-provenance-on-step*` is on. The body runs with
-  recording *suppressed*, so a step keeps no trace of the ops it calls internally: `(step 'sqrt [x] …)`
-  records a lone `sqrt` node, and the operands' own histories (built before the step) nest in."
+  recording *suppressed*, so a step keeps no trace of the ops it calls internally: `(step #'sqrt [x] …)`
+  records a lone `sqrt` node, and the operands' own histories (built before the step) nest in. `op` is
+  conventionally the fn's `#'var` (a fully-qualified reference), so a node names exactly what made it."
   [op inputs & body]
   `(if *record-provenance-on-step*
      (record-node ~op ~inputs (binding [*record-provenance-on-step* false] ~@body))
      (do ~@body)))
 
 (defmacro defstep
-  "Define a function whose call records as one provenance node (its internals forgotten). Sugar for a
-  `defn` whose body is wrapped in `step` with the parameters as inputs:
+  "Define a function whose call records as one provenance node (its internals forgotten). Like `defn`
+  — a docstring and multiple arities are supported — each arity's body is wrapped in `step` with that
+  arity's parameters as inputs (a variadic arity folds its rest args in), and the node's op is the new
+  `#'fully-qualified` var:
 
-    (defstep sqrt [x] (c/pow x 1/2))   ; records `sqrt` over [x]; the inner `pow` records nothing
-
-  For a verb with several arities or its own dispatch, use `step` inline."
-  [name params & body]
-  `(defn ~name ~params
-     (step '~name ~(vec params) ~@body)))
+    (defstep sqrt [x] (c/pow x 1/2))       ; records `#'…/sqrt` over [x]; the inner `pow` leaves no trace
+    (defstep root
+      ([x]   (c/pow x 1/2))
+      ([x n] (c/pow x (/ 1 n))))"
+  [name & fdecl]
+  (let [[doc fdecl] (if (string? (first fdecl)) [(first fdecl) (rest fdecl)] [nil fdecl])
+        arities     (if (vector? (first fdecl)) (list fdecl) fdecl)   ; single-arity vs. several
+        wrap        (fn [[params & body]]
+                      (let [[fixed [_amp restsym]] (split-with #(not= '& %) params)
+                            inputs (if restsym `(into ~(vec fixed) ~restsym) (vec fixed))]
+                        `(~params (step (var ~name) ~inputs ~@body))))]
+    `(defn ~name ~@(when doc [doc]) ~@(map wrap arities))))
 
 ;; ---- reading a node ----------------------------------------------------------------------------
-(defn recorded? "Does `x` carry a provenance node?" [x] (some? (node x)))
-(defn op     "The verb that produced `x` (nil for a leaf)."                 [x] (:op    (node x)))
-(defn value  "The result value stored on `x`'s node (nil for a leaf)."      [x] (:value (node x)))
-(defn inputs "The operand sub-nodes/leaves of `x`, in order (nil: a leaf)." [x] (:inputs (node x)))
+(defn recorded?
+  "Does `x` carry a provenance node?"
+  [x]
+  (some? (node x)))
+
+(defn op
+  "The verb that produced `x` (nil for a leaf)."
+  [x]
+  (:op    (node x)))
+
+(defn value  "The result value stored on `x`'s node (nil for a leaf)."
+  [x]
+  (:value (node x)))
+
+(defn inputs
+  "The operand sub-nodes/leaves of `x`, in order (nil: a leaf)."
+  [x]
+  (:inputs (node x)))
 
 (defn child-nodes
   "The inputs of `x` that are themselves nodes — the DAG children (inline leaves dropped)."
