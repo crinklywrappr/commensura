@@ -6,6 +6,7 @@
             [commensura.quantity :as q]
             [commensura.interval :as iv]
             [commensura.provenance :as prov]                          ; the mechanism + inspection
+            [commensura.math :as m]
             [commensura.units :as u]
             [commensura.reader]))
 
@@ -115,6 +116,20 @@
     (let [r (double-it (u/meter 5))]
       (is (= #'double-it (prov/op r)))           ; the inner `by` is collapsed under the step's own var
       (is (= [(u/meter 5)] (prov/inputs r))))))
+
+(deftest math-fns-record-as-named-nodes
+  (with-provenance
+    (testing "a defstep'd math fn shows as its own name, forgetting the ops it calls (e.g. sqrt's pow)"
+      (let [r (m/sqrt (u/meter 9))]                        ; sqrt internally calls pow x 1/2
+        (is (= #'m/sqrt (prov/op r)))
+        (is (= [(u/meter 9)] (prov/inputs r)))))           ; input is the plain 9 m leaf; no inner pow node
+    (testing "abs / floor / min / mod likewise"
+      (is (= #'m/abs   (prov/op (m/abs (u/meter -5)))))
+      (is (= #'m/floor (prov/op (m/floor (u/meter 59/10)))))
+      (is (= #'m/min   (prov/op (m/min (u/meter 3) (u/meter 4)))))
+      (is (= #'m/mod   (prov/op (m/mod (u/hour 25) (u/hour 24))))))
+    (testing "pow stays a pass-through, recording as core/pow"
+      (is (= #'c/pow (prov/op (m/pow (u/meter 2) 3)))))))
 
 ;; multi-arity + variadic defstep: every arity records under the fn's var, with that arity's operands
 (defstep combine
