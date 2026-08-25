@@ -29,7 +29,7 @@
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
             [commensura.uncertain :as un]
-            [commensura.provenance :as prov :refer [step]]
+            [commensura.provenance :as prov :refer [defstep]]
             [commensura.registry :as registry])
   (:import [org.joda.money CurrencyUnit Money IllegalCurrencyException]
            [java.math RoundingMode]))
@@ -49,54 +49,56 @@
     (or (iv/interval? x) (iv/interval? y)) (iv-fn x y)
     :else (q-fn x y)))
 
-;; Each value-producing verb wraps its body in `prov/step`, so with recording on (see
-;; `commensura.provenance/with-provenance`) the result carries a provenance node naming the op and its
-;; operands. The 1-arity identity forms aren't wrapped (they invent no operation); a variadic call
-;; records one node over *all* its operands, its pairwise internals collapsed beneath it.
-(defn by
+;; Each value-producing verb is a `defstep`, so with recording on (see
+;; `commensura.provenance/with-provenance`) the result carries a provenance node naming the op (the
+;; verb's own `#'var`) and its operands. A `defstep` records every arity — including the 1-arity
+;; identity forms of `by`/`per`/`plus` (rarely called on a lone value) — and a variadic call records one
+;; node over *all* its operands, since `step` runs the body (the pairwise reduce) with recording
+;; suppressed.
+(defstep by
   "Product of quantities/numbers/intervals/uncertains (dimensions add). Variadic."
   ([x] x)
-  ([x y] (step #'by [x y] (dispatch2 x y un/uby iv/iby q/qmul)))
-  ([x y & more] (step #'by (into [x y] more) (reduce by (by x y) more))))
+  ([x y] (dispatch2 x y un/uby iv/iby q/qmul))
+  ([x y & more] (reduce by (by x y) more)))
 
-(defn per
+(defstep per
   "Quotient, left-associative: (per a b c) = a/b/c (dimensions subtract)."
   ([x] x)
-  ([x y] (step #'per [x y] (dispatch2 x y un/uper iv/iper q/qdiv)))
-  ([x y & more] (step #'per (into [x y] more) (reduce per (per x y) more))))
+  ([x y] (dispatch2 x y un/uper iv/iper q/qdiv))
+  ([x y & more] (reduce per (per x y) more)))
 
-(defn plus
+(defstep plus
   "Sum of same-dimension quantities/intervals/uncertains. Variadic."
   ([x] x)
-  ([x y] (step #'plus [x y] (dispatch2 x y un/uplus iv/iplus q/qadd)))
-  ([x y & more] (step #'plus (into [x y] more) (reduce plus (plus x y) more))))
+  ([x y] (dispatch2 x y un/uplus iv/iplus q/qadd))
+  ([x y & more] (reduce plus (plus x y) more)))
 
-(defn minus
+(defstep minus
   "Difference of same-dimension quantities/intervals/uncertains; unary form negates."
-  ([x] (step #'minus [x] (cond (un/uncertain? x) (un/unegate x)
-                               (iv/interval? x)  (iv/inegate x)
-                               :else             (q/qmul (q/scalar -1) x))))
-  ([x y] (step #'minus [x y] (dispatch2 x y un/uminus iv/iminus q/qsub)))
-  ([x y & more] (step #'minus (into [x y] more) (reduce minus (minus x y) more))))
+  ([x] (cond (un/uncertain? x) (un/unegate x)
+             (iv/interval? x)  (iv/inegate x)
+             :else             (q/qmul (q/scalar -1) x)))
+  ([x y] (dispatch2 x y un/uminus iv/iminus q/qsub))
+  ([x y & more] (reduce minus (minus x y) more)))
 
-(defn pow
+(defstep pow
   "Raise a quantity/interval/uncertain to an integer or rational power."
-  [x n] (step #'pow [x n] (cond (un/uncertain? x) (un/upow x n)
-                                (iv/interval? x)  (iv/ipow x n)
-                                :else             (q/qpow x n))))
+  [x n] (cond (un/uncertain? x) (un/upow x n)
+              (iv/interval? x)  (iv/ipow x n)
+              :else             (q/qpow x n)))
 
-(defn to
+(defstep to
   "Re-express a quantity/interval/uncertain in a target unit (dimension-preserving). Uses only the
   target's unit basis: a *scaled* target's coefficient is ignored (and warns) — `(to (u/mile 5)
   (u/foot 3))` gives feet, not 3-foot units. For \"how many of a given quantity fit\", use `ratio`.
   See `q/to`."
-  [x target] (step #'to [x target] (cond (un/uncertain? x) (un/uto x target)
-                                         (iv/interval? x)  (iv/ito x target)
-                                         :else             (q/to x target))))
+  [x target] (cond (un/uncertain? x) (un/uto x target)
+                   (iv/interval? x)  (iv/ito x target)
+                   :else             (q/to x target)))
 
-(defn ratio
+(defstep ratio
   "Dimensionless count: how many of target fit in x (quantity/interval/uncertain)."
-  [x target] (step #'ratio [x target] (dispatch2 x target un/uratio iv/iratio q/ratio)))
+  [x target] (dispatch2 x target un/uratio iv/iratio q/ratio))
 
 ;; ---- range enumeration: "how many `unit`s are in a range?" -----------------------------------------
 ;; These read a *range* — an Interval's [lo, hi], or an Uncertain's [value−σ, value+σ] — and answer in
@@ -109,13 +111,13 @@
 (defn- range-hi [x]
   (if (un/uncertain? x) (plus (un/value x) (un/sigma x)) (iv/hi-or-identity x)))
 
-(defn span
+(defstep span
   "The extent of a range (Interval or Uncertain) as a single dimensioned quantity in `unit`: `hi − lo`
   re-expressed in `unit`. `(span (iv/interval (u/meter 6) (u/meter 11)) u/foot)` ⇒ ≈ 16.40 foot
   [length]; for an Uncertain it is the full 2σ width. A plain quantity is a point, so its span is 0.
   See `ratio` for the bare count and `ticks` for the individual marks along the span."
   [x unit]
-  (step #'span [x unit] (to (minus (range-hi x) (range-lo x)) unit)))
+  (to (minus (range-hi x) (range-lo x)) unit))
 
 (defn ticks
   "Mark a range (Interval or Uncertain) off unit-by-unit — a unit ruler laid along the span: quantities
