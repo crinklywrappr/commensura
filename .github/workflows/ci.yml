@@ -19,8 +19,30 @@ permissions:
   contents: read
 
 jobs:
+  # Warm the dependency cache once, so the fan-out below doesn't resolve the whole tree from Maven
+  # Central / Clojars in ~6 parallel jobs on a *cold* cache (a new branch, a deps.edn change, or a
+  # 7-day cache eviction) — that concurrent burst from the shared runner IPs trips their per-IP rate
+  # limit and returns 429. The clojure action restores the cache, or on a miss this job populates and
+  # saves it; every downstream job (`needs: [setup]`) then restores the warm cache and makes no network
+  # requests. On a warm cache this costs ~a minute; on a cold one it replaces six resolves with one.
+  # A `-A` prefetch per CI-used alias mirrors the exact bases the jobs resolve (`:build` for -X:build,
+  # `:test` for the test-runner subprocess, `:clerk` for the docs subprocess; `:frink` is a local jar,
+  # no download). If setup can't resolve deps, the fan-out is skipped — failing fast, once, not six times.
+  setup:
+    name: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/clojure
+      - name: Prefetch dependencies (populate the cache once)
+        run: |
+          clojure -P -A:build
+          clojure -P -A:test
+          clojure -P -A:clerk
+
   test:
     name: test
+    needs: [setup]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,6 +52,7 @@ jobs:
 
   oracle:
     name: oracle
+    needs: [setup]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -50,6 +73,7 @@ jobs:
 
   docs:
     name: docs
+    needs: [setup]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -63,6 +87,7 @@ jobs:
   # refs/pull/N/merge, so this correctly excludes them.)
   live:
     name: live
+    needs: [setup]
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
