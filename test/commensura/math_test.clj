@@ -82,6 +82,9 @@
   (testing "min/max are componentwise on the bounds"
     (is (= [1 3] (ends (m/min (iv/interval 1 4) (iv/interval 2 3)))))
     (is (= [2 4] (ends (m/max (iv/interval 1 4) (iv/interval 2 3))))))
+  (testing "min/max are variadic over intervals too"
+    (is (= [1 4] (ends (m/min (iv/interval 2 5) (iv/interval 1 4) (iv/interval 3 6)))))
+    (is (= [3 6] (ends (m/max (iv/interval 2 5) (iv/interval 1 4) (iv/interval 3 6))))))
   (testing "an interval fractional power needs a non-negative base"
     (is (thrown? clojure.lang.ExceptionInfo (m/sqrt (iv/interval -1 4)))))
   (testing "mod/rem reject intervals — modular reduction can't be soundly lifted"

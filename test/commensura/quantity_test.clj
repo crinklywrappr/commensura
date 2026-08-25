@@ -10,6 +10,40 @@
 
 (defn- dv [x] (q/display-value x))
 
+(deftest unit-predicate-covers-both-unit-records
+  (is (q/unit? u/meter))              ; PreciseUnit
+  (is (q/unit? u/planckmass))         ; ApproxUnit
+  (is (not (q/unit? (u/meter 5))))    ; a quantity is not a unit
+  (is (not (q/unit? 5))))
+
+(deftest nth-root-of-a-bigdecimal-uses-the-decimal-path
+  (testing "a BigDecimal base takes nth-root's `decimal?` branch (big-math root)"
+    (let [r (q/ratpow (bigdec 8) 1/3)]                 ; cube root of 8.0M
+      (is (decimal? r))
+      (is (< (Math/abs (- 2.0 (double r))) 1e-9)))))
+
+;; Every `defscalable` record is a first-class fn. Emit *literal* calls `(base 3 3 …n)` for arities
+;; 0..22 — a literal call is what reaches the compiled fixed-arity `invoke`s (0..20) and, past 20, the
+;; varargs `invoke`; `apply` exercises `applyTo`. n args scale the value n times, so the dimension goes
+;; to the nth power (0 args ⇒ the value itself).
+(defmacro ^:private arity-calls [base]
+  (mapv (fn [n] [n (cons base (repeat n 3))]) (range 0 23)))
+
+(defn- check-arities [pairs dim]
+  (doseq [[n r] pairs]
+    (is (q/displayable? r))
+    (is (= {dim (if (zero? n) 1 n)} (q/dims r)))))
+
+(deftest defscalable-is-callable-at-every-arity
+  (testing "fixed invokes (0..20), the >20 varargs invoke, and applyTo — across all four records"
+    (check-arities (arity-calls u/meter)      :length)                             ; PreciseUnit
+    (check-arities (arity-calls u/planckmass) :mass)                               ; ApproxUnit
+    (check-arities (arity-calls (u/meter 5))  :length)                             ; PreciseQuantity
+    (check-arities (arity-calls (m/sqrt (c/by (u/meter 2) (u/meter 1)))) :length)  ; ApproxQuantity
+    (testing "apply routes through applyTo, same result, for 0..22 args"
+      (doseq [n (range 0 23)]
+        (is (= {:length (if (zero? n) 1 n)} (q/dims (apply u/meter (repeat n 3)))))))))
+
 (deftest dims-of-plain-values
   (testing "a bare number / nil has no dimensions"
     (is (= {} (q/dims nil)))

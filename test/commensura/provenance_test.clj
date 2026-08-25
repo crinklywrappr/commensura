@@ -132,7 +132,13 @@
       (is (= #'m/min   (prov/op (m/min (u/meter 3) (u/meter 4)))))
       (is (= #'m/max   (prov/op (m/max (u/meter 3) (u/meter 4)))))
       (is (= #'m/mod   (prov/op (m/mod (u/hour 25) (u/hour 24)))))
-      (is (= #'m/rem   (prov/op (m/rem (u/hour 25) (u/hour 24))))))))
+      (is (= #'m/rem   (prov/op (m/rem (u/hour 25) (u/hour 24))))))
+    (testing "recording also exercises the interval branches of the lifted fns"
+      (is (= #'m/abs (prov/op (m/abs (iv/interval (u/meter -2) (u/meter 3))))))
+      (is (= #'m/abs (prov/op (m/abs (iv/interval (u/meter -2) (u/meter 1) (u/meter 3)))))) ; Interval3
+      (is (= #'m/floor (prov/op (m/floor (iv/interval 1.2 3.8)))))
+      (is (= #'m/min (prov/op (m/min (iv/interval 1 4) (iv/interval 2 3)))))
+      (is (= #'m/max (prov/op (m/max (iv/interval 1 4) (iv/interval 2 3))))))))
 
 ;; multi-arity + variadic defstep: every arity records under the fn's var, with that arity's operands
 (defstep combine
