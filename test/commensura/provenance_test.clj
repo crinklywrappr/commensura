@@ -79,13 +79,26 @@
       (is (= 6 (count lines)))                          ; to, by, 3 feet leaves, gallon target
       (is (= (str/join "\n" lines) (prov/explain-str (c/to (c/by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons)))))))
 
-(deftest replay-is-a-zipper-cursor
+(deftest history-zip-walks-the-whole-tree
   (with-provenance
     (let [r (c/to (c/by (u/feet 10) (u/feet 12) (u/feet 8)) u/gallons)
-          z (prov/replay r)]
+          z (prov/history-zip r)]
       (is (= #'c/to (prov/op (zip/node z))))
-      (is (= #'c/by (prov/op (zip/node (zip/down z)))))            ; down into the recorded child
-      (is (= #'c/to (prov/op (zip/node (zip/up (zip/down z))))))))) ; …and back up
+      (is (= #'c/by (prov/op (zip/node (zip/down z)))))             ; down into the recorded child
+      (is (= #'c/to (prov/op (zip/node (zip/up (zip/down z))))))    ; …and back up
+      (is (= 10 (q/display-value (zip/node (-> z zip/down zip/down))))) ; …down again reaches a leaf (10 feet)
+      (is (= #'c/to (prov/op (zip/node (prov/history-zip (prov/node r))))))))) ; also accepts a node map
+
+;; explain is written on history-zip; this pins the outline it produces (dogfooding the cursor)
+(deftest explain-matches-a-known-outline
+  (with-provenance
+    (is (= ["[1] 24 meter^2 [area]  ←  #'commensura.core/plus"
+            "    [2] 12 meter^2 [area]  ←  #'commensura.core/by"
+            "        3 meter [length]"
+            "        4 meter [length]"
+            "    ↑ [2] 12 meter^2 [area]"]                          ; shared node, pruned after the back-ref
+           (let [a (c/by (u/meter 3) (u/meter 4))]
+             (prov/explain-lines (c/plus a a)))))))
 
 (defstep double-it [q] (c/by q 2))
 

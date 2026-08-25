@@ -37,17 +37,18 @@
   underneath. The operands' *own* histories, built before the step ran, are nested in unchanged.
 
   **It's a DAG, not a tree.** The nested sub-nodes are shared immutable maps, so a `let`-bound value
-  reused in two operands is the *same* node object in both places (`identical?` holds); `explain` prints
-  the repeat as a back-reference and `replay` navigates it as one node.
+  reused in two operands is the *same* node object in both places (`identical?` holds); `explain` shows
+  the repeat once, citing it thereafter as a back-reference (`↑ [n]`).
 
   **Only real values carry history**, and it's **process-local.** Metadata rides on `IObj` values;
   raw scalars, exponents and keyword targets appear as inline operand leaves, never as nodes. Because
   `pr`/read ignore metadata, a recorded value is still `=` to, and prints identically to, its
   unrecorded self — history lives only in memory.
 
-  Inspect with `node` (the nested map), `history` (its nodes as a seq), `explain`/`explain-str`/
-  `explain-lines` (a readable outline — printed, as one string, or as a seq of line-strings), and
-  `replay` (a `clojure.zip` cursor you can step through)."
+  Inspect with `node` (the nested map), `history` (its nodes as a flat seq), `history-zip` (a
+  `clojure.zip` cursor over the whole tree — nodes and leaves), and `explain`/`explain-str`/
+  `explain-lines` (a readable outline — printed, as one string, or as a seq of line-strings — itself
+  written on `history-zip`)."
   (:require [commensura.quantity :as q]
             [commensura.interval :as iv]
             [clojure.string :as str]
@@ -136,14 +137,14 @@
   (when-let [n (node x)]
     (tree-seq node-map? child-nodes n)))
 
-;; ---- zipper (replay) ---------------------------------------------------------------------------
-(defn replay
-  "A `clojure.zip` cursor over `x`'s history, positioned at its root node. Walk it with the ordinary
-  zipper moves — `clojure.zip/down` into an operand, `/up` back out, `/right`/`/left` between operands,
-  `/next`/`/prev` for a depth-first stroll — and read the node under the cursor with `clojure.zip/node`
-  (then `op`/`value`/`inputs` on it). A branch's children are its recorded operands; leaves have none."
+;; ---- history-zip: a cursor over the whole tree (nodes and leaves) ------------------------------
+(defn history-zip
+  "A `clojure.zip` cursor over `x`'s history — pass a recorded value *or* a node map. Unlike `history`
+  (nodes only), this walks the **whole** tree: a branch's children are all its `:inputs`, so `zip/down`
+  reaches the inline-operand leaves too. Read the node/leaf under the cursor with `clojure.zip/node`,
+  move with `clojure.zip/next`/`down`/`up`/`right`/`left`. `explain` is written on top of it."
   [x]
-  (zip/zipper node-map? child-nodes (fn [n _children] n) (node x)))
+  (zip/zipper node-map? :inputs (fn [n _children] n) (node x)))
 
 ;; ---- explain (readable outline) ----------------------------------------------------------------
 (defn- show
@@ -153,29 +154,41 @@
     (str "[" (str (iv/lo x)) " … " (str (iv/hi x)) "]")
     (str x)))                                            ; quantity/unit/number/uncertain toString
 
-(defn- explain-lines*
-  "The outline lines for node/leaf `x` at `depth`, as a vector of strings. `seen` (an IdentityHashMap)
-  numbers nodes on first sight so a repeat renders as a back-reference. Built eagerly (the `mapcat`
-  transducer, not a lazy seq) so the numbering side-effects stay in traversal order."
-  [x depth ^java.util.IdentityHashMap seen]
-  (let [pad (apply str (repeat depth "    "))]
-    (cond
-      (not (node-map? x)) [(str pad (show x))]                                       ; inline operand (leaf)
-      (.get seen x)       [(str pad "↑ [" (.get seen x) "] " (show (:value x)))]     ; shared node — back-ref
-      :else               (let [id (inc (.size seen))]
-                            (.put seen x id)
-                            (into [(str pad "[" id "] " (show (:value x)) "  ←  " (:op x))]
-                                  (mapcat #(explain-lines* % (inc depth) seen))
-                                  (:inputs x))))))
+(defn- skip-subtree
+  "The next loc after `loc`'s whole subtree — its right sibling, else the nearest ancestor's right
+  sibling, else nil at the end. (clojure.zip has no built-in subtree skip; used to prune an
+  already-shown shared node without re-descending it.)"
+  [loc]
+  (or (zip/right loc)
+      (loop [l (zip/up loc)]
+        (when l (or (zip/right l) (recur (zip/up l)))))))
 
 (defn explain-lines
   "`x`'s build history as a seq of outline line-strings — the data `explain-str` joins and `explain`
   prints. A node line reads `[n] <value>  ←  <verb>`; inline operands sit unnumbered beneath their
   verb; a value reused elsewhere appears once, then is cited as `↑ [n]`. Returned as data so you can
-  count/filter/re-indent it or feed it to a viewer."
+  count/filter/re-indent it or feed it to a viewer. Walks `history-zip` (indentation from `zip/path`;
+  an `IdentityHashMap` numbers nodes so a repeat renders as a back-reference, its subtree then pruned)."
   [x]
-  (if-let [nd (node x)]
-    (explain-lines* nd 0 (java.util.IdentityHashMap.))
+  (if (node x)
+    (loop [loc (history-zip x), seen (java.util.IdentityHashMap.), lines []]
+      (if (or (nil? loc) (zip/end? loc))
+        lines
+        (let [nd  (zip/node loc)
+              pad (apply str (repeat (count (zip/path loc)) "    "))]
+          (cond
+            (not (node-map? nd))                                                ; inline operand (leaf)
+            (recur (zip/next loc) seen (conj lines (str pad (show nd))))
+
+            (.get seen nd)                                                      ; shared node — back-ref
+            (recur (skip-subtree loc) seen
+                   (conj lines (str pad "↑ [" (.get seen nd) "] " (show (:value nd)))))
+
+            :else
+            (let [id (inc (.size seen))]
+              (.put seen nd id)
+              (recur (zip/next loc) seen
+                     (conj lines (str pad "[" id "] " (show (:value nd)) "  ←  " (:op nd)))))))))
     [(str (show x) "  (no recorded history)")]))
 
 (defn explain-str [x] (str/join "\n" (explain-lines x)))
