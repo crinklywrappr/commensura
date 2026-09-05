@@ -1,8 +1,9 @@
 name: monthly
 
 # Monthly maintenance:
-#  - refresh the shipped CPI data from FRED (commit cpi.edn if it changed; the App-authored push runs CI
-#    and, if green, cuts a release carrying the fresh data — so no [skip ci]), and
+#  - refresh the shipped data — CPI from FRED and the currency-code list from CurrencyFreaks (each
+#    committed in its own step if it changed; one App-authored push then runs CI and, if green, cuts a
+#    single release carrying whatever refreshed — so no [skip ci]), and
 #  - track upstream Frink. Two independent sources:
 #      * unit data  — https://frinklang.org/frinkdata/units.txt (the live file; fresher than any jar's
 #        embedded copy). On drift vs commensura's committed dev-resources/frink/units.txt, regenerate the
@@ -23,8 +24,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  cpi-refresh:
-    name: cpi-refresh
+  data-refresh:
+    name: data-refresh
     runs-on: ubuntu-latest
     steps:
       # The commensura-ci App token is in the ruleset bypass list, so its push to protected master is
@@ -45,20 +46,37 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: clojure -X:build cpi-fetch
+      - name: Refresh currency codes from CurrencyFreaks (no key)
+        run: |
+          clojure -X:build currency-codes    # resources/commensura/currency-codes.edn (the code list)
+          clojure -X:build gen-currency      # src/commensura/currency.clj (fns generated from that edn)
       - name: Verify the refreshed data still passes
-        run: clojure -X:build test
+        run: clojure -X:build test           # compiles the regenerated currency.clj + runs the offline suite
+      - name: Configure the App as the commit author
+        run: |
+          slug='${{ steps.app-token.outputs.app-slug }}'
+          git config user.name  "${slug}[bot]"
+          git config user.email "${slug}[bot]@users.noreply.github.com"
       - name: Commit cpi.edn if it changed
         run: |
           if git diff --quiet -- resources/commensura/cpi.edn; then
             echo "cpi.edn unchanged — nothing to commit."
             exit 0
           fi
-          slug='${{ steps.app-token.outputs.app-slug }}'
-          git config user.name  "${slug}[bot]"
-          git config user.email "${slug}[bot]@users.noreply.github.com"
           git add resources/commensura/cpi.edn
-          # No [skip ci]: this App-authored push to master runs CI + release, publishing the fresh data.
           git commit -m "chore: refresh CPI data from FRED"
+      - name: Commit currency codes if they changed
+        run: |
+          if git diff --quiet -- resources/commensura/currency-codes.edn src/commensura/currency.clj; then
+            echo "currency codes unchanged — nothing to commit."
+            exit 0
+          fi
+          git add resources/commensura/currency-codes.edn src/commensura/currency.clj
+          git commit -m "chore: refresh currency codes from CurrencyFreaks"
+      - name: Push (one push → one CI + release carrying whatever refreshed)
+        run: |
+          # No [skip ci]: this App-authored push to master runs CI + release, publishing the fresh data.
+          # A no-op ("Everything up-to-date") if neither refresh changed anything, so nothing was committed.
           git push
 
   frink-sync:
