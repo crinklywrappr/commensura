@@ -4,6 +4,7 @@
             [commensura.units :as u]
             [commensura.quantity :as q]
             [commensura.interval :as iv]
+            [commensura.uncertain :as un]
             [commensura.registry :as registry]
             [commensura.discover :as d]))
 
@@ -34,7 +35,10 @@
     (is (some #{"mph"} (d/units-of-dimension "velocity"))))
   (testing "an interval resolves to its parts' shared dimension"
     (is (= (d/units-of-dimension {:length 1})
-           (d/units-of-dimension (iv/interval (u/miles 1) (u/miles 3)))))))
+           (d/units-of-dimension (iv/interval (u/miles 1) (u/miles 3))))))
+  (testing "an uncertainty resolves to its value's dimension"
+    (is (= (d/units-of-dimension {:length 1})
+           (d/units-of-dimension (un/plus-minus (u/meter 5) (u/cm 2)))))))
 
 (deftest units-of-dimension-really-conform
   (testing "every returned name is a unit of exactly that dimension"
