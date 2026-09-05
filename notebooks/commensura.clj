@@ -443,11 +443,16 @@ fuel-cost
 
 (to cruising u/mach)
 
-;; It reads **intervals** too — which is exactly what you tend to be holding mid-calculation. The road
-;; trip's fuzzy `fuel-cost` is a currency, so ask what money conforms with it; it checks that every
-;; endpoint agrees on the dimension (a constructor-built interval always does):
+;; It reads **intervals & uncertainties** too — the range types are exactly what you tend to be holding
+;; mid-calculation. The road trip's fuzzy `fuel-cost` is a currency, so ask what money conforms with it;
+;; it checks that every endpoint agrees on the dimension (a constructor-built interval always does):
 
 (discover/units-of-dimension fuel-cost)
+
+;; An uncertainty works the same way — its central value and spread share a dimension, so the jeweler's
+;; `mass` reading (`96.5 g ± 0.1 g`) rounds up the whole vocabulary of mass:
+
+(discover/units-of-dimension mass)
 
 ;; The other two tools *find* and *inspect*. **`search-units`** matches a name — case-insensitive
 ;; substring or regex, ranked so the exact hit leads:

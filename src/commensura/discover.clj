@@ -21,6 +21,7 @@
   (:require [clojure.string :as str]
             [commensura.quantity :as q]
             [commensura.interval :as iv]
+            [commensura.uncertain :as un]
             [commensura.registry :as registry]
             [commensura.suggest :as suggest]))
 
@@ -45,12 +46,14 @@
 
 (defn- ->dims
   "Coerce a dimension spec to a canonical dims-map: a dims-map (`{:length 1}`), a commensura
-  unit/quantity/interval (its dimensions), or a human dimension name (`\"velocity\"` — reverse-
-  looked up, with a `did you mean?` on a miss)."
+  unit/quantity/interval/uncertainty (its dimensions), or a human dimension name (`\"velocity\"` —
+  reverse-looked up, with a `did you mean?` on a miss)."
   [d]
   (cond
-    ;; interval first (its parts share one dimension); then unit/quantity — records also satisfy
-    ;; `map?`, so both must precede the dims-map branch
+    ;; range types first (each carries the dimension in its parts); then unit/quantity — records also
+    ;; satisfy `map?`, so all three must precede the dims-map branch. An uncertainty's value & sigma
+    ;; conform by construction, so its value's dims are the whole thing's.
+    (un/uncertain? d) (q/dims (un/value d))
     (iv/interval? d) (interval-dims d)
     (q/displayable? d) (q/dims d)
     (and (map? d) (not (instance? clojure.lang.IRecord d))) (canonical d)
@@ -64,8 +67,9 @@
 
 (defn units-of-dimension
   "Sorted names of registered units whose canonical dimensions equal `d`. `d` may be a dims-map
-  (`{:length 1}`), a commensura unit/quantity/interval (its dimensions are used — an interval's
-  parts share one dimension), or a human dimension name (`\"velocity\"`). Reflects live registrations."
+  (`{:length 1}`), a commensura unit/quantity/interval/uncertainty (its dimensions are used — an
+  interval's parts share one dimension; an uncertainty's value and spread do), or a human dimension
+  name (`\"velocity\"`). Reflects live registrations."
   [d]
   (let [dims (->dims d)]
     (->> (registry/all-units)
