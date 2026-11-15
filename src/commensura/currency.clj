@@ -578,6 +578,13 @@
   ([amount]     (r/of "AWG" amount))
   ([a b & more] (apply r/of "AWG" a b more)))
 
+(defn AXIS
+  "AXIS (live rate): (AXIS) => 1 AXIS; (AXIS amount) => that many AXIS;
+  (AXIS a b …) => a·b·… AXIS^n (arity → exponent, like a unit)."
+  ([]           (r/of "AXIS"))
+  ([amount]     (r/of "AXIS" amount))
+  ([a b & more] (apply r/of "AXIS" a b more)))
+
 (defn AXL
   "AXL (live rate): (AXL) => 1 AXL; (AXL amount) => that many AXL;
   (AXL a b …) => a·b·… AXL^n (arity → exponent, like a unit)."
@@ -1194,6 +1201,13 @@
   ([amount]     (r/of "CAR" amount))
   ([a b & more] (apply r/of "CAR" a b more)))
 
+(defn CARD
+  "CARD (live rate): (CARD) => 1 CARD; (CARD amount) => that many CARD;
+  (CARD a b …) => a·b·… CARD^n (arity → exponent, like a unit)."
+  ([]           (r/of "CARD"))
+  ([amount]     (r/of "CARD" amount))
+  ([a b & more] (apply r/of "CARD" a b more)))
+
 (defn CAT
   "CAT (live rate): (CAT) => 1 CAT; (CAT amount) => that many CAT;
   (CAT a b …) => a·b·… CAT^n (arity → exponent, like a unit)."
@@ -1557,6 +1571,13 @@
   ([]           (r/of "CSPR"))
   ([amount]     (r/of "CSPR" amount))
   ([a b & more] (apply r/of "CSPR" a b more)))
+
+(defn CT
+  "CT (live rate): (CT) => 1 CT; (CT amount) => that many CT;
+  (CT a b …) => a·b·… CT^n (arity → exponent, like a unit)."
+  ([]           (r/of "CT"))
+  ([amount]     (r/of "CT" amount))
+  ([a b & more] (apply r/of "CT" a b more)))
 
 (defn CTB
   "CTB (live rate): (CTB) => 1 CTB; (CTB amount) => that many CTB;
@@ -2363,6 +2384,13 @@
   ([amount]     (r/of "G" amount))
   ([a b & more] (apply r/of "G" a b more)))
 
+(defn GAINS
+  "GAINS (live rate): (GAINS) => 1 GAINS; (GAINS amount) => that many GAINS;
+  (GAINS a b …) => a·b·… GAINS^n (arity → exponent, like a unit)."
+  ([]           (r/of "GAINS"))
+  ([amount]     (r/of "GAINS" amount))
+  ([a b & more] (apply r/of "GAINS" a b more)))
+
 (defn GAJ
   "GAJ (live rate): (GAJ) => 1 GAJ; (GAJ amount) => that many GAJ;
   (GAJ a b …) => a·b·… GAJ^n (arity → exponent, like a unit)."
@@ -2516,13 +2544,6 @@
   ([]           (r/of "GNO"))
   ([amount]     (r/of "GNO" amount))
   ([a b & more] (apply r/of "GNO" a b more)))
-
-(defn GNS
-  "GNS (live rate): (GNS) => 1 GNS; (GNS amount) => that many GNS;
-  (GNS a b …) => a·b·… GNS^n (arity → exponent, like a unit)."
-  ([]           (r/of "GNS"))
-  ([amount]     (r/of "GNS" amount))
-  ([a b & more] (apply r/of "GNS" a b more)))
 
 (defn GNT
   "GNT (live rate): (GNT) => 1 GNT; (GNT amount) => that many GNT;
@@ -4484,6 +4505,13 @@
   ([amount]     (r/of "OSMO" amount))
   ([a b & more] (apply r/of "OSMO" a b more)))
 
+(defn OUSD
+  "OUSD (live rate): (OUSD) => 1 OUSD; (OUSD amount) => that many OUSD;
+  (OUSD a b …) => a·b·… OUSD^n (arity → exponent, like a unit)."
+  ([]           (r/of "OUSD"))
+  ([amount]     (r/of "OUSD" amount))
+  ([a b & more] (apply r/of "OUSD" a b more)))
+
 (defn OUSG
   "OUSG (live rate): (OUSG) => 1 OUSG; (OUSG amount) => that many OUSG;
   (OUSG a b …) => a·b·… OUSG^n (arity → exponent, like a unit)."
@@ -4553,6 +4581,13 @@
   ([]           (r/of "PEAQ"))
   ([amount]     (r/of "PEAQ" amount))
   ([a b & more] (apply r/of "PEAQ" a b more)))
+
+(defn PEARL
+  "PEARL (live rate): (PEARL) => 1 PEARL; (PEARL amount) => that many PEARL;
+  (PEARL a b …) => a·b·… PEARL^n (arity → exponent, like a unit)."
+  ([]           (r/of "PEARL"))
+  ([amount]     (r/of "PEARL" amount))
+  ([a b & more] (apply r/of "PEARL" a b more)))
 
 (defn PEN
   "PEN (live rate): (PEN) => 1 PEN; (PEN amount) => that many PEN;
@@ -4749,6 +4784,13 @@
   ([]           (r/of "PONKE"))
   ([amount]     (r/of "PONKE" amount))
   ([a b & more] (apply r/of "PONKE" a b more)))
+
+(defn PONS
+  "PONS (live rate): (PONS) => 1 PONS; (PONS amount) => that many PONS;
+  (PONS a b …) => a·b·… PONS^n (arity → exponent, like a unit)."
+  ([]           (r/of "PONS"))
+  ([amount]     (r/of "PONS" amount))
+  ([a b & more] (apply r/of "PONS" a b more)))
 
 (defn POPCAT
   "POPCAT (live rate): (POPCAT) => 1 POPCAT; (POPCAT amount) => that many POPCAT;
@@ -5127,6 +5169,13 @@
   ([]           (r/of "RIF"))
   ([amount]     (r/of "RIF" amount))
   ([a b & more] (apply r/of "RIF" a b more)))
+
+(defn RITUAL
+  "RITUAL (live rate): (RITUAL) => 1 RITUAL; (RITUAL amount) => that many RITUAL;
+  (RITUAL a b …) => a·b·… RITUAL^n (arity → exponent, like a unit)."
+  ([]           (r/of "RITUAL"))
+  ([amount]     (r/of "RITUAL" amount))
+  ([a b & more] (apply r/of "RITUAL" a b more)))
 
 (defn RLB
   "RLB (live rate): (RLB) => 1 RLB; (RLB amount) => that many RLB;
@@ -5653,6 +5702,13 @@
   ([amount]     (r/of "SSV" amount))
   ([a b & more] (apply r/of "SSV" a b more)))
 
+(defn STABLE
+  "STABLE (live rate): (STABLE) => 1 STABLE; (STABLE amount) => that many STABLE;
+  (STABLE a b …) => a·b·… STABLE^n (arity → exponent, like a unit)."
+  ([]           (r/of "STABLE"))
+  ([amount]     (r/of "STABLE" amount))
+  ([a b & more] (apply r/of "STABLE" a b more)))
+
 (defn STAU
   "STAU (live rate): (STAU) => 1 STAU; (STAU amount) => that many STAU;
   (STAU a b …) => a·b·… STAU^n (arity → exponent, like a unit)."
@@ -5932,13 +5988,6 @@
   ([]           (r/of "TBTC"))
   ([amount]     (r/of "TBTC" amount))
   ([a b & more] (apply r/of "TBTC" a b more)))
-
-(defn TEL
-  "TEL (live rate): (TEL) => 1 TEL; (TEL amount) => that many TEL;
-  (TEL a b …) => a·b·… TEL^n (arity → exponent, like a unit)."
-  ([]           (r/of "TEL"))
-  ([amount]     (r/of "TEL" amount))
-  ([a b & more] (apply r/of "TEL" a b more)))
 
 (defn TET
   "TET (live rate): (TET) => 1 TET; (TET amount) => that many TET;
@@ -6751,6 +6800,13 @@
   ([]           (r/of "WHITE"))
   ([amount]     (r/of "WHITE" amount))
   ([a b & more] (apply r/of "WHITE" a b more)))
+
+(defn WHUF
+  "WHUF (live rate): (WHUF) => 1 WHUF; (WHUF amount) => that many WHUF;
+  (WHUF a b …) => a·b·… WHUF^n (arity → exponent, like a unit)."
+  ([]           (r/of "WHUF"))
+  ([amount]     (r/of "WHUF" amount))
+  ([a b & more] (apply r/of "WHUF" a b more)))
 
 (defn WIF
   "WIF (live rate): (WIF) => 1 WIF; (WIF amount) => that many WIF;
